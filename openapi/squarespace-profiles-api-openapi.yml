@@ -1,0 +1,301 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Profiles API
+  description: >-
+    The Squarespace Profiles API provides access to Profile resource objects
+    representing customers, mailing list subscribers, and donors associated
+    with a Squarespace site. Each profile includes contact information, an
+    approximate address derived from existing data, and a summary of the
+    user's commerce activity such as orders and donations. This API is useful
+    for CRM integrations, email marketing platforms, and customer analytics
+    tools. Profile data is generated asynchronously from site activity and
+    accessible through the standard Profiles panel.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/profiles-overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Profiles API Documentation
+  url: https://developers.squarespace.com/commerce-apis/profiles-overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Profiles
+    description: Customer, subscriber, and donor profile management
+security:
+  - bearerAuth: []
+paths:
+  /profiles:
+    get:
+      operationId: listProfiles
+      summary: Retrieve all profiles
+      description: >-
+        Returns a paginated list of profiles associated with the merchant site.
+        Profiles represent customers, mailing list subscribers, and donors. By
+        default returns up to 50 profiles per page. Results can be filtered by
+        profile type, account status, or email address. Use the cursor parameter
+        from the previous response's pagination.nextPageCursor to iterate through
+        all profiles.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - name: isCustomer
+          in: query
+          description: When true, filters results to only include customer profiles
+          required: false
+          schema:
+            type: boolean
+        - name: hasAccount
+          in: query
+          description: >-
+            When true, filters to profiles associated with a Squarespace account.
+            When false, filters to anonymous profiles.
+          required: false
+          schema:
+            type: boolean
+        - name: email
+          in: query
+          description: Filter profiles by exact email address match
+          required: false
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: Successful response with paginated list of profiles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /profiles/{profileIds}:
+    get:
+      operationId: getProfiles
+      summary: Retrieve specific profiles
+      description: >-
+        Retrieves profile information for one or more specific profiles by their
+        profile IDs. Profile IDs can be provided as a comma-separated list in
+        the path. The order of profiles in the response is not guaranteed to match
+        the order of IDs provided.
+      tags:
+        - Profiles
+      parameters:
+        - $ref: '#/components/parameters/profileIds'
+      responses:
+        '200':
+          description: Successful response with the requested profiles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profiles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Profile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an API key or OAuth access token. Include the token
+        in the Authorization header as "Bearer YOUR_TOKEN".
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor from a previous response's pagination.nextPageCursor field.
+        Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    profileIds:
+      name: profileIds
+      in: path
+      description: Comma-separated list of profile IDs to retrieve
+      required: true
+      schema:
+        type: string
+  schemas:
+    Profile:
+      type: object
+      description: >-
+        A profile representing a customer, mailing list subscriber, or donor
+        associated with the Squarespace site
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the profile
+        firstName:
+          type: string
+          description: First name of the profile holder
+        lastName:
+          type: string
+          description: Last name of the profile holder
+        email:
+          type: string
+          format: email
+          description: Email address associated with the profile
+        hasAccount:
+          type: boolean
+          description: Whether the profile is linked to a Squarespace account
+        isCustomer:
+          type: boolean
+          description: Whether the profile has placed at least one order
+        address:
+          $ref: '#/components/schemas/ApproximateAddress'
+        commerceStats:
+          $ref: '#/components/schemas/CommerceStats'
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the profile was created
+        modifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the profile was last modified
+    ApproximateAddress:
+      type: object
+      description: >-
+        An approximate address derived from the profile's order history and
+        account information, not necessarily verified
+      properties:
+        city:
+          type: string
+          description: City associated with the profile
+        state:
+          type: string
+          description: State or region associated with the profile
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: '^[A-Z]{2}$'
+        postalCode:
+          type: string
+          description: Postal or ZIP code associated with the profile
+    CommerceStats:
+      type: object
+      description: A summary of the profile holder's commerce activity on the site
+      properties:
+        orderCount:
+          type: integer
+          description: Total number of orders placed by this profile
+          minimum: 0
+        orderTotal:
+          $ref: '#/components/schemas/Money'
+        donationCount:
+          type: integer
+          description: Total number of donations made by this profile
+          minimum: 0
+        donationTotal:
+          $ref: '#/components/schemas/Money'
+        firstOrderOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of the profile's first order
+        lastOrderOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of the profile's most recent order
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: '^-?\d+(\.\d+)?$'
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: '^[A-Z]{3}$'
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error

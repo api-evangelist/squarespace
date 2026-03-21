@@ -1,0 +1,148 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Commerce API
+  description: >-
+    The Squarespace Commerce API provides programmatic access to the commerce features
+    of a Squarespace merchant site. It enables developers to build integrations and
+    applications that manage products, process orders, track inventory, access customer
+    profiles, retrieve financial transactions, and configure webhook subscriptions.
+    All endpoints use HTTPS and follow REST principles with standard verbs and response
+    status codes. Authentication is handled via API keys or OAuth tokens.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Commerce API Documentation
+  url: https://developers.squarespace.com/commerce-apis/overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Site
+    description: Basic site information and metadata
+security:
+  - bearerAuth: []
+paths:
+  /authorization/website:
+    get:
+      operationId: retrieveSiteInfo
+      summary: Retrieve basic site information
+      description: >-
+        Retrieves basic information about the Squarespace website associated with
+        the authenticated API key or OAuth token. Returns site identifier, title,
+        and other metadata useful for verifying authentication context.
+      tags:
+        - Site
+      responses:
+        '200':
+          description: Successful response with site information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an API key or OAuth access token. Include the token
+        in the Authorization header as "Bearer YOUR_TOKEN".
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor value from a previous response's pagination.nextPageCursor
+        field. Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+  schemas:
+    SiteInfo:
+      type: object
+      description: Basic information about a Squarespace website
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Squarespace website
+        websiteTitle:
+          type: string
+          description: The display title of the website
+        websiteUrl:
+          type: string
+          format: uri
+          description: The public URL of the website
+        timeZone:
+          type: string
+          description: The IANA timezone identifier configured for the website
+        language:
+          type: string
+          description: The primary language code of the website
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the website was created
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Error:
+      type: object
+      description: Standard error response object returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error

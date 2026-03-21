@@ -1,0 +1,372 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Webhook Subscriptions API
+  description: >-
+    The Squarespace Webhook Subscriptions API allows developers to subscribe to
+    event notifications from a Squarespace site. Supported event topics include
+    order creation, order updates, and extension uninstalls, enabling real-time
+    integrations with external systems. The API supports creating, updating,
+    retrieving, and deleting webhook subscriptions, as well as sending test
+    notifications and rotating subscription secrets. All webhook subscription
+    requests require OAuth token authentication. Squarespace websites support
+    a maximum of 25 webhook subscriptions.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/webhook-subscriptions-overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Webhook Subscriptions API Documentation
+  url: https://developers.squarespace.com/commerce-apis/webhook-subscriptions-overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Webhook Subscriptions
+    description: Manage webhook subscriptions for real-time event notifications
+security:
+  - bearerAuth: []
+paths:
+  /webhook_subscriptions:
+    get:
+      operationId: listWebhookSubscriptions
+      summary: Retrieve all webhook subscriptions
+      description: >-
+        Returns all webhook subscriptions configured for the authenticated merchant
+        site. Each subscription includes its endpoint URL, subscribed topics, and
+        creation metadata. Squarespace supports up to 25 active webhook subscriptions
+        per website.
+      tags:
+        - Webhook Subscriptions
+      responses:
+        '200':
+          description: Successful response with list of webhook subscriptions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhookSubscriptions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createWebhookSubscription
+      summary: Create a webhook subscription
+      description: >-
+        Creates a new webhook subscription for the authenticated merchant site.
+        The subscription must specify a publicly accessible endpoint URL and at
+        least one event topic to subscribe to. Upon creation, a secret is generated
+        for verifying the authenticity of incoming webhook notifications via HMAC-SHA256
+        signature validation. Requires OAuth token authentication.
+      tags:
+        - Webhook Subscriptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookSubscriptionRequest'
+      responses:
+        '200':
+          description: Webhook subscription created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscriptionWithSecret'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook_subscriptions/{subscriptionId}:
+    get:
+      operationId: getWebhookSubscription
+      summary: Retrieve a specific webhook subscription
+      description: >-
+        Retrieves details for a single webhook subscription by its unique identifier.
+        Returns the subscription configuration including endpoint URL and subscribed
+        topics. The subscription secret is not returned in this response.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/subscriptionId'
+      responses:
+        '200':
+          description: Successful response with webhook subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: updateWebhookSubscription
+      summary: Update a webhook subscription
+      description: >-
+        Updates an existing webhook subscription. The endpoint URL and subscribed
+        topics can be modified. Requires OAuth token authentication.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/subscriptionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookSubscriptionRequest'
+      responses:
+        '200':
+          description: Webhook subscription updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteWebhookSubscription
+      summary: Delete a webhook subscription
+      description: >-
+        Permanently deletes a webhook subscription. After deletion, Squarespace
+        will no longer send event notifications to the subscription's endpoint URL.
+        Requires OAuth token authentication.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/subscriptionId'
+      responses:
+        '204':
+          description: Webhook subscription deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook_subscriptions/{subscriptionId}/actions/sendTestNotification:
+    post:
+      operationId: sendTestNotification
+      summary: Send a test notification
+      description: >-
+        Sends a test notification to the webhook subscription's configured endpoint
+        URL. This is useful for verifying that the endpoint is reachable and
+        correctly processing Squarespace webhook payloads before relying on live
+        events.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/subscriptionId'
+      responses:
+        '200':
+          description: Test notification sent successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /webhook_subscriptions/{subscriptionId}/actions/rotateSecret:
+    post:
+      operationId: rotateWebhookSecret
+      summary: Rotate a webhook subscription secret
+      description: >-
+        Generates a new secret for the specified webhook subscription and invalidates
+        the previous secret. The new secret must be stored securely and used to
+        verify the Squarespace-Signature header on subsequent notifications. Rotating
+        the secret is recommended periodically or when the secret may have been
+        compromised.
+      tags:
+        - Webhook Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/subscriptionId'
+      responses:
+        '200':
+          description: Webhook secret rotated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscriptionWithSecret'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an OAuth access token. API keys are not supported for
+        webhook subscription management. Include the token in the Authorization
+        header as "Bearer YOUR_OAUTH_TOKEN".
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    subscriptionId:
+      name: subscriptionId
+      in: path
+      description: The unique identifier of the webhook subscription
+      required: true
+      schema:
+        type: string
+  schemas:
+    WebhookSubscription:
+      type: object
+      description: A webhook subscription configuration for receiving event notifications
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the webhook subscription
+        endpointUrl:
+          type: string
+          format: uri
+          description: >-
+            The URL to which Squarespace sends event notification payloads.
+            Must be a publicly accessible HTTPS endpoint.
+        topics:
+          type: array
+          description: List of event topics this subscription is configured to receive
+          items:
+            type: string
+            enum:
+              - order.create
+              - order.update
+              - extension.uninstall
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the subscription was created
+        updatedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the subscription was last updated
+    WebhookSubscriptionWithSecret:
+      allOf:
+        - $ref: '#/components/schemas/WebhookSubscription'
+        - type: object
+          properties:
+            secret:
+              type: string
+              description: >-
+                The HMAC-SHA256 signing secret used to verify the Squarespace-Signature
+                header on incoming notifications. Only returned on creation and secret
+                rotation. Store this value securely as it cannot be retrieved again.
+    CreateWebhookSubscriptionRequest:
+      type: object
+      description: Request body for creating a new webhook subscription
+      required:
+        - endpointUrl
+        - topics
+      properties:
+        endpointUrl:
+          type: string
+          format: uri
+          description: >-
+            The publicly accessible HTTPS URL to receive event notification payloads
+        topics:
+          type: array
+          description: >-
+            List of event topics to subscribe to. Must include at least one topic.
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - order.create
+              - order.update
+              - extension.uninstall
+    UpdateWebhookSubscriptionRequest:
+      type: object
+      description: Request body for updating an existing webhook subscription
+      properties:
+        endpointUrl:
+          type: string
+          format: uri
+          description: Updated HTTPS URL to receive event notification payloads
+        topics:
+          type: array
+          description: Updated list of event topics to subscribe to
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - order.create
+              - order.update
+              - extension.uninstall
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error

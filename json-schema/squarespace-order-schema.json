@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developers.squarespace.com/schemas/squarespace/order.json",
+  "title": "Squarespace Order",
+  "description": "Represents an order placed on a Squarespace merchant site, including line items, customer information, shipping and billing addresses, fulfillment records, and financial totals.",
+  "type": "object",
+  "required": ["id", "orderNumber", "createdOn", "customerEmail", "lineItems", "totals"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the order assigned by Squarespace"
+    },
+    "orderNumber": {
+      "type": "integer",
+      "description": "Sequential human-readable order number displayed to the customer",
+      "minimum": 1
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the order was created"
+    },
+    "modifiedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the order was last modified"
+    },
+    "channel": {
+      "type": "string",
+      "description": "Sales channel through which the order was placed, such as SQUARESPACE or an external channel name"
+    },
+    "testmode": {
+      "type": "boolean",
+      "description": "Indicates whether this order was placed in test mode and does not represent a real transaction"
+    },
+    "customerEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the customer who placed the order"
+    },
+    "billingAddress": {
+      "$ref": "#/$defs/Address",
+      "description": "Billing address provided by the customer at checkout"
+    },
+    "shippingAddress": {
+      "$ref": "#/$defs/Address",
+      "description": "Shipping address to which physical items will be delivered"
+    },
+    "fulfillmentStatus": {
+      "type": "string",
+      "description": "Current fulfillment status of the entire order",
+      "enum": ["PENDING", "FULFILLED", "CANCELED"]
+    },
+    "lineItems": {
+      "type": "array",
+      "description": "List of individual products and quantities included in the order",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/LineItem"
+      }
+    },
+    "fulfillments": {
+      "type": "array",
+      "description": "List of fulfillment records indicating shipped portions of the order",
+      "items": {
+        "$ref": "#/$defs/Fulfillment"
+      }
+    },
+    "totals": {
+      "$ref": "#/$defs/OrderTotals",
+      "description": "Monetary totals for the order including subtotal, tax, shipping, and grand total"
+    },
+    "refundedTotal": {
+      "$ref": "#/$defs/Money",
+      "description": "Total amount refunded for this order"
+    },
+    "priceTaxInterpretation": {
+      "type": "string",
+      "description": "Whether product prices are tax-inclusive or tax-exclusive",
+      "enum": ["EXCLUSIVE", "INCLUSIVE"]
+    },
+    "formSubmission": {
+      "type": "array",
+      "description": "Custom form fields submitted by the customer with the order",
+      "items": {
+        "$ref": "#/$defs/FormField"
+      }
+    },
+    "externalOrderReference": {
+      "type": "string",
+      "description": "Reference identifier from an external sales channel if the order was imported"
+    }
+  },
+  "$defs": {
+    "Address": {
+      "type": "object",
+      "description": "A postal address used for billing or shipping",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "First name of the address recipient"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the address recipient"
+        },
+        "address1": {
+          "type": "string",
+          "description": "Primary street address line"
+        },
+        "address2": {
+          "type": "string",
+          "description": "Secondary address line such as apartment, suite, or unit number"
+        },
+        "city": {
+          "type": "string",
+          "description": "City or municipality name"
+        },
+        "state": {
+          "type": "string",
+          "description": "State, province, or region code"
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 two-letter country code",
+          "pattern": "^[A-Z]{2}$",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or ZIP code for the address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number associated with this address"
+        }
+      }
+    },
+    "LineItem": {
+      "type": "object",
+      "description": "A single product line included in an order",
+      "required": ["id", "quantity", "unitPricePaid"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this line item within the order"
+        },
+        "variantId": {
+          "type": "string",
+          "description": "Unique identifier of the product variant ordered"
+        },
+        "sku": {
+          "type": "string",
+          "description": "Stock keeping unit identifier for the product variant"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Unique identifier of the parent product"
+        },
+        "productName": {
+          "type": "string",
+          "description": "Display name of the product at the time the order was placed"
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Number of units of this product included in the order",
+          "minimum": 1
+        },
+        "unitPricePaid": {
+          "$ref": "#/$defs/Money",
+          "description": "Price paid per unit at the time of purchase"
+        },
+        "lineItemType": {
+          "type": "string",
+          "description": "The product type for this line item",
+          "enum": ["PHYSICAL", "DIGITAL", "SERVICE", "GIFT_CARD"]
+        },
+        "customizations": {
+          "type": "array",
+          "description": "Customer-supplied customizations applied to this line item",
+          "items": {
+            "$ref": "#/$defs/Customization"
+          }
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the product image captured at time of purchase"
+        }
+      }
+    },
+    "Fulfillment": {
+      "type": "object",
+      "description": "A record indicating that one or more line items have been shipped",
+      "properties": {
+        "shipDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp when the shipment was dispatched"
+        },
+        "carrierName": {
+          "type": "string",
+          "description": "Name of the shipping carrier handling the shipment"
+        },
+        "service": {
+          "type": "string",
+          "description": "Name of the shipping service level used"
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "Carrier-assigned tracking number for the shipment"
+        },
+        "trackingUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the carrier's tracking page for this shipment"
+        }
+      }
+    },
+    "OrderTotals": {
+      "type": "object",
+      "description": "Monetary totals for the order",
+      "required": ["grandTotal"],
+      "properties": {
+        "subtotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Sum of all line item prices before discounts, shipping, and tax"
+        },
+        "shippingTotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Total shipping charges for the order"
+        },
+        "taxTotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Total tax charges applied to the order"
+        },
+        "discountTotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Total discount amount applied via discount codes or promotions"
+        },
+        "grandTotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Final total amount charged to the customer"
+        },
+        "giftCardRedemptionTotal": {
+          "$ref": "#/$defs/Money",
+          "description": "Total amount paid using gift card redemptions"
+        }
+      }
+    },
+    "Money": {
+      "type": "object",
+      "description": "A monetary value paired with its currency denomination",
+      "required": ["value", "currency"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Decimal string representation of the monetary amount",
+          "pattern": "^-?\\d+(\\.\\d+)?$"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 three-letter currency code",
+          "pattern": "^[A-Z]{3}$",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      }
+    },
+    "FormField": {
+      "type": "object",
+      "description": "A custom form field submitted with an order",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display label of the form field as configured in Squarespace"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value entered or selected by the customer for this field"
+        }
+      }
+    },
+    "Customization": {
+      "type": "object",
+      "description": "A product customization option applied to a line item",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display label for the customization option"
+        },
+        "value": {
+          "type": "string",
+          "description": "Customer-selected value for this customization"
+        }
+      }
+    }
+  }
+}

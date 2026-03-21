@@ -1,0 +1,555 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Orders API
+  description: >-
+    The Squarespace Orders API provides access to order history for a Squarespace
+    merchant site, supporting both one-time purchases and subscription orders.
+    Developers can retrieve, create, and manage orders, as well as import orders
+    from third-party sales channels into Squarespace. The API supports filtering
+    by modification date and pagination via cursor for retrieving large sets of
+    orders. It is commonly used to synchronize order data with external fulfillment
+    systems, ERPs, or custom reporting tools.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/orders-overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Orders API Documentation
+  url: https://developers.squarespace.com/commerce-apis/orders-overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Orders
+    description: Order management for one-time purchases and subscription orders
+security:
+  - bearerAuth: []
+paths:
+  /commerce/orders:
+    get:
+      operationId: listOrders
+      summary: Retrieve all orders
+      description: >-
+        Returns a paginated list of orders for the authenticated merchant site.
+        By default returns up to 50 orders per page. Results can be filtered by
+        modification date using modifiedAfter and modifiedBefore parameters.
+        Use the cursor parameter from the previous response's pagination.nextPageCursor
+        to retrieve subsequent pages.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - name: modifiedAfter
+          in: query
+          description: >-
+            ISO 8601 UTC date-time string. Only returns orders modified after
+            this date and time.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: modifiedBefore
+          in: query
+          description: >-
+            ISO 8601 UTC date-time string. Only returns orders modified before
+            this date and time.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: fulfillmentStatus
+          in: query
+          description: Filter orders by fulfillment status
+          required: false
+          schema:
+            type: string
+            enum:
+              - PENDING
+              - FULFILLED
+              - CANCELED
+      responses:
+        '200':
+          description: Successful response with paginated list of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createOrder
+      summary: Create an order
+      description: >-
+        Creates a new order on the merchant site. This endpoint is primarily used
+        to import orders from third-party sales channels into Squarespace. The
+        order must include line items, customer information, and address details.
+        Creating an order does not process payment; it records the order as
+        already completed.
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '200':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/orders/{orderId}:
+    get:
+      operationId: getOrder
+      summary: Retrieve a specific order
+      description: >-
+        Retrieves detailed information for a specific order by its unique identifier.
+        Returns the full Order resource object including line items, customer data,
+        addresses, fulfillments, and payment details.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200':
+          description: Successful response with order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/orders/{orderId}/fulfillments:
+    post:
+      operationId: fulfillOrder
+      summary: Fulfill an order
+      description: >-
+        Marks one or more line items in an order as fulfilled and optionally
+        records shipment tracking information. This updates the fulfillment
+        status of the specified line items and can trigger order fulfillment
+        notifications to the customer if configured.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FulfillOrderRequest'
+      responses:
+        '200':
+          description: Order fulfillment recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an API key or OAuth access token. Include the token
+        in the Authorization header as "Bearer YOUR_TOKEN".
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor from a previous response's pagination.nextPageCursor field.
+        Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    orderId:
+      name: orderId
+      in: path
+      description: The unique identifier of the order
+      required: true
+      schema:
+        type: string
+  schemas:
+    Order:
+      type: object
+      description: An order placed on a Squarespace merchant site
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the order
+        orderNumber:
+          type: integer
+          description: Human-readable sequential order number displayed to customers
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the order was created
+        modifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the order was last modified
+        channel:
+          type: string
+          description: >-
+            The sales channel through which the order was placed, such as
+            SQUARESPACE or an external channel name
+        testmode:
+          type: boolean
+          description: Indicates whether the order was placed in test mode
+        customerEmail:
+          type: string
+          format: email
+          description: Email address of the customer who placed the order
+        billingAddress:
+          $ref: '#/components/schemas/Address'
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+        fulfillmentStatus:
+          type: string
+          description: Current fulfillment status of the order
+          enum:
+            - PENDING
+            - FULFILLED
+            - CANCELED
+        lineItems:
+          type: array
+          description: List of products and quantities included in the order
+          items:
+            $ref: '#/components/schemas/LineItem'
+        fulfillments:
+          type: array
+          description: List of fulfillment records associated with the order
+          items:
+            $ref: '#/components/schemas/Fulfillment'
+        totals:
+          $ref: '#/components/schemas/OrderTotals'
+        formSubmission:
+          type: array
+          description: Custom form fields submitted with the order
+          items:
+            $ref: '#/components/schemas/FormField'
+        refundedTotal:
+          $ref: '#/components/schemas/Money'
+        priceTaxInterpretation:
+          type: string
+          description: Indicates whether product prices are tax-inclusive or tax-exclusive
+          enum:
+            - EXCLUSIVE
+            - INCLUSIVE
+    CreateOrderRequest:
+      type: object
+      description: Request body for creating a new order
+      required:
+        - lineItems
+        - billingAddress
+        - shippingAddress
+        - customerEmail
+        - totals
+      properties:
+        externalOrderReference:
+          type: string
+          description: External reference identifier from the originating sales channel
+        customerEmail:
+          type: string
+          format: email
+          description: Email address of the customer who placed the order
+        billingAddress:
+          $ref: '#/components/schemas/Address'
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+        lineItems:
+          type: array
+          description: Products and quantities included in the order
+          items:
+            $ref: '#/components/schemas/LineItem'
+        totals:
+          $ref: '#/components/schemas/OrderTotals'
+        fulfillments:
+          type: array
+          description: Initial fulfillment records for the order
+          items:
+            $ref: '#/components/schemas/Fulfillment'
+        channel:
+          type: string
+          description: Name of the external sales channel the order was imported from
+    FulfillOrderRequest:
+      type: object
+      description: Request body for marking order line items as fulfilled
+      required:
+        - shouldSendNotification
+        - shipments
+      properties:
+        shouldSendNotification:
+          type: boolean
+          description: Whether to send a fulfillment notification email to the customer
+        shipments:
+          type: array
+          description: Shipment tracking details for the fulfilled items
+          items:
+            $ref: '#/components/schemas/Shipment'
+    Address:
+      type: object
+      description: A postal address for billing or shipping
+      properties:
+        firstName:
+          type: string
+          description: First name of the recipient
+        lastName:
+          type: string
+          description: Last name of the recipient
+        address1:
+          type: string
+          description: Primary street address line
+        address2:
+          type: string
+          description: Secondary address line such as apartment or suite number
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State, province, or region code
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: '^[A-Z]{2}$'
+        postalCode:
+          type: string
+          description: Postal or ZIP code
+        phone:
+          type: string
+          description: Phone number associated with the address
+    LineItem:
+      type: object
+      description: A single product line in an order
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the line item
+        variantId:
+          type: string
+          description: Unique identifier of the product variant
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the product variant
+        productId:
+          type: string
+          description: Unique identifier of the parent product
+        productName:
+          type: string
+          description: Display name of the product at the time of purchase
+        quantity:
+          type: integer
+          minimum: 1
+          description: Number of units ordered
+        unitPricePaid:
+          $ref: '#/components/schemas/Money'
+        customizations:
+          type: array
+          description: Customer-provided customizations applied to the line item
+          items:
+            $ref: '#/components/schemas/Customization'
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the product image at the time of purchase
+        lineItemType:
+          type: string
+          description: The type of product represented by this line item
+          enum:
+            - PHYSICAL
+            - DIGITAL
+            - SERVICE
+            - GIFT_CARD
+    Fulfillment:
+      type: object
+      description: A fulfillment record indicating that part or all of an order has shipped
+      properties:
+        shipDate:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the shipment was sent
+        carrierName:
+          type: string
+          description: Name of the shipping carrier
+        service:
+          type: string
+          description: Name of the shipping service level used
+        trackingNumber:
+          type: string
+          description: Tracking number assigned by the carrier
+        trackingUrl:
+          type: string
+          format: uri
+          description: URL to track the shipment on the carrier website
+    Shipment:
+      type: object
+      description: Shipment details for a fulfillment record
+      properties:
+        shipDate:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the shipment was dispatched
+        carrierName:
+          type: string
+          description: Name of the shipping carrier
+        service:
+          type: string
+          description: Name of the shipping service used
+        trackingNumber:
+          type: string
+          description: Carrier-assigned tracking number for the shipment
+        trackingUrl:
+          type: string
+          format: uri
+          description: URL to the carrier's tracking page for this shipment
+    OrderTotals:
+      type: object
+      description: Monetary totals for an order
+      properties:
+        subtotal:
+          $ref: '#/components/schemas/Money'
+        shippingTotal:
+          $ref: '#/components/schemas/Money'
+        taxTotal:
+          $ref: '#/components/schemas/Money'
+        discountTotal:
+          $ref: '#/components/schemas/Money'
+        grandTotal:
+          $ref: '#/components/schemas/Money'
+        giftCardRedemptionTotal:
+          $ref: '#/components/schemas/Money'
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: '^-?\d+(\.\d+)?$'
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: '^[A-Z]{3}$'
+    FormField:
+      type: object
+      description: A custom form field submitted with an order
+      properties:
+        label:
+          type: string
+          description: Display label of the form field
+        value:
+          type: string
+          description: Value submitted by the customer for this field
+    Customization:
+      type: object
+      description: A customization option applied to a line item
+      properties:
+        label:
+          type: string
+          description: Display label of the customization option
+        value:
+          type: string
+          description: Customer-selected value for this customization
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error

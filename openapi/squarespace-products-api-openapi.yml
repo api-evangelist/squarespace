@@ -1,0 +1,757 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Products API
+  description: >-
+    The Squarespace Products API allows developers to manage the product catalog
+    of a Squarespace merchant site. It supports physical products, service products,
+    gift cards, and digital downloads, along with their images and variants.
+    Developers can create, update, retrieve, and delete products programmatically,
+    enabling catalog synchronization with external systems. The API is well-suited
+    for building product import tools, headless commerce integrations, or multi-channel
+    retail management applications.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/products-overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Products API Documentation
+  url: https://developers.squarespace.com/commerce-apis/products-overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Products
+    description: Product catalog management including variants and images
+security:
+  - bearerAuth: []
+paths:
+  /commerce/products:
+    get:
+      operationId: listProducts
+      summary: Retrieve all products
+      description: >-
+        Returns a paginated list of products in the merchant's catalog. By default
+        returns up to 50 products per page. Use the cursor parameter from the
+        previous response's pagination.nextPageCursor to retrieve subsequent pages.
+        Each product includes its basic metadata, variant information, and associated
+        images.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+        - name: type
+          in: query
+          description: Filter products by product type
+          required: false
+          schema:
+            type: string
+            enum:
+              - PHYSICAL
+              - DIGITAL
+              - SERVICE
+              - GIFT_CARD
+      responses:
+        '200':
+          description: Successful response with paginated list of products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createProduct
+      summary: Create a product
+      description: >-
+        Creates a new product in the merchant's catalog with appropriate subresources
+        based on product type. Supports creation of physical, service, gift card,
+        and digital download products. The request must include the product type,
+        name, and at least one variant. Images can be added after the product is
+        created using the product image endpoints.
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productIds}:
+    get:
+      operationId: getProducts
+      summary: Retrieve specific products
+      description: >-
+        Retrieves detailed information for up to 50 specific products by their
+        product IDs. Product IDs should be provided as a comma-separated list
+        in the path. Returns full product data including all variants and images.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productIds'
+      responses:
+        '200':
+          description: Successful response with the requested products
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: updateProduct
+      summary: Update a product
+      description: >-
+        Updates information for an existing product. The endpoint supports partial
+        updates so any optional or conditional field may be omitted from the request.
+        Only the fields provided in the request body will be updated. This endpoint
+        accepts a single product ID in the path when updating.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productIds'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductRequest'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteProduct
+      summary: Delete a product
+      description: >-
+        Deletes a physical product and all its associated variants and images from
+        the merchant's catalog. This action is permanent and cannot be undone.
+        Accepts a single product ID in the path.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productIds'
+      responses:
+        '204':
+          description: Product deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productId}/variants:
+    post:
+      operationId: createProductVariant
+      summary: Create a product variant
+      description: >-
+        Adds a new variant to an existing product. A variant represents a specific
+        configuration of a product, such as a particular size and color combination.
+        Each variant has its own SKU, price, and inventory tracking settings.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVariantRequest'
+      responses:
+        '200':
+          description: Product variant created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productId}/variants/{variantId}:
+    post:
+      operationId: updateProductVariant
+      summary: Update a product variant
+      description: >-
+        Updates attributes for an existing product variant such as price, SKU,
+        stock settings, and option values. Supports partial updates.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/variantId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVariantRequest'
+      responses:
+        '200':
+          description: Product variant updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariant'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productId}/images:
+    post:
+      operationId: uploadProductImage
+      summary: Upload a product image
+      description: >-
+        Uploads a new image to a product using a publicly accessible image URL.
+        The image is fetched from the provided URL and stored by Squarespace.
+        An optional alt text can be provided for accessibility.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadImageRequest'
+      responses:
+        '200':
+          description: Product image uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductImage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productId}/images/{imageId}:
+    post:
+      operationId: updateProductImage
+      summary: Update a product image
+      description: >-
+        Updates the alt text of an existing product image. The image itself
+        cannot be replaced; delete and re-upload to change the image file.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/imageId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateImageRequest'
+      responses:
+        '200':
+          description: Product image updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductImage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteProductImage
+      summary: Delete a product image
+      description: >-
+        Permanently removes an image from a product. This action cannot be undone.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/imageId'
+      responses:
+        '204':
+          description: Product image deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/products/{productId}/images/reorder:
+    post:
+      operationId: reorderProductImages
+      summary: Reorder product images
+      description: >-
+        Changes the display order of images for a product by providing an ordered
+        list of image IDs. The order of image IDs in the request determines the
+        display order, with the first image becoming the primary product image.
+      tags:
+        - Products
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - imageIds
+              properties:
+                imageIds:
+                  type: array
+                  description: Ordered list of image IDs defining the new display order
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Product images reordered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an API key or OAuth access token. Include the token
+        in the Authorization header as "Bearer YOUR_TOKEN".
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor from a previous response's pagination.nextPageCursor field.
+        Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    productIds:
+      name: productIds
+      in: path
+      description: >-
+        Comma-separated list of up to 50 product IDs. When used for single-product
+        operations, provide a single product ID.
+      required: true
+      schema:
+        type: string
+    productId:
+      name: productId
+      in: path
+      description: The unique identifier of the product
+      required: true
+      schema:
+        type: string
+    variantId:
+      name: variantId
+      in: path
+      description: The unique identifier of the product variant
+      required: true
+      schema:
+        type: string
+    imageId:
+      name: imageId
+      in: path
+      description: The unique identifier of the product image
+      required: true
+      schema:
+        type: string
+  schemas:
+    Product:
+      type: object
+      description: A product in the Squarespace merchant catalog
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the product
+        type:
+          type: string
+          description: The product type determining available features and behaviors
+          enum:
+            - PHYSICAL
+            - DIGITAL
+            - SERVICE
+            - GIFT_CARD
+        storePageId:
+          type: string
+          description: Identifier of the store page where this product is listed
+        name:
+          type: string
+          description: Display name of the product shown to customers
+        description:
+          type: string
+          description: HTML description of the product
+        url:
+          type: string
+          format: uri
+          description: Relative URL path to the product page on the merchant site
+        urlSlug:
+          type: string
+          description: URL-friendly slug for the product page
+        tags:
+          type: array
+          description: List of tags associated with the product for organization
+          items:
+            type: string
+        isVisible:
+          type: boolean
+          description: Whether the product is visible to customers on the store
+        variants:
+          type: array
+          description: List of product variants with specific options, prices, and stock
+          items:
+            $ref: '#/components/schemas/ProductVariant'
+        images:
+          type: array
+          description: List of images associated with the product
+          items:
+            $ref: '#/components/schemas/ProductImage'
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the product was created
+        modifiedOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the product was last modified
+    CreateProductRequest:
+      type: object
+      description: Request body for creating a new product
+      required:
+        - type
+        - name
+        - variants
+      properties:
+        type:
+          type: string
+          description: The product type
+          enum:
+            - PHYSICAL
+            - DIGITAL
+            - SERVICE
+            - GIFT_CARD
+        name:
+          type: string
+          description: Display name for the product
+        description:
+          type: string
+          description: HTML description of the product
+        urlSlug:
+          type: string
+          description: URL-friendly slug for the product page
+        tags:
+          type: array
+          description: Tags to associate with the product
+          items:
+            type: string
+        isVisible:
+          type: boolean
+          description: Whether to make the product visible immediately
+        variants:
+          type: array
+          description: Initial variants for the product
+          items:
+            $ref: '#/components/schemas/CreateVariantRequest'
+    UpdateProductRequest:
+      type: object
+      description: Request body for updating an existing product (supports partial updates)
+      properties:
+        name:
+          type: string
+          description: Updated display name for the product
+        description:
+          type: string
+          description: Updated HTML description of the product
+        urlSlug:
+          type: string
+          description: Updated URL-friendly slug for the product page
+        tags:
+          type: array
+          description: Updated list of tags to associate with the product
+          items:
+            type: string
+        isVisible:
+          type: boolean
+          description: Updated visibility setting for the product
+    ProductVariant:
+      type: object
+      description: A specific variant of a product with its own price, SKU, and stock
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the variant
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the variant
+        pricing:
+          $ref: '#/components/schemas/VariantPricing'
+        stock:
+          $ref: '#/components/schemas/VariantStock'
+        attributes:
+          type: object
+          description: Key-value pairs of option names to selected values for this variant
+          additionalProperties:
+            type: string
+    CreateVariantRequest:
+      type: object
+      description: Request body for creating a product variant
+      required:
+        - sku
+        - pricing
+      properties:
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the variant
+        pricing:
+          $ref: '#/components/schemas/VariantPricing'
+        stock:
+          $ref: '#/components/schemas/VariantStock'
+        attributes:
+          type: object
+          description: Option name to value mappings for this variant
+          additionalProperties:
+            type: string
+    UpdateVariantRequest:
+      type: object
+      description: Request body for updating a product variant (supports partial updates)
+      properties:
+        sku:
+          type: string
+          description: Updated stock keeping unit identifier
+        pricing:
+          $ref: '#/components/schemas/VariantPricing'
+        stock:
+          $ref: '#/components/schemas/VariantStock'
+        attributes:
+          type: object
+          description: Updated option name to value mappings
+          additionalProperties:
+            type: string
+    VariantPricing:
+      type: object
+      description: Pricing information for a product variant
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/Money'
+        salePrice:
+          $ref: '#/components/schemas/Money'
+        onSale:
+          type: boolean
+          description: Whether the variant is currently on sale at the salePrice
+    VariantStock:
+      type: object
+      description: Stock tracking configuration for a product variant
+      properties:
+        quantity:
+          type: integer
+          description: Current stock quantity for the variant
+          minimum: 0
+        unlimited:
+          type: boolean
+          description: When true, the variant has unlimited stock
+        backordered:
+          type: boolean
+          description: Whether the variant is currently on backorder
+    ProductImage:
+      type: object
+      description: An image associated with a product
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the product image
+        url:
+          type: string
+          format: uri
+          description: URL of the stored product image
+        altText:
+          type: string
+          description: Alternative text description for accessibility
+        width:
+          type: integer
+          description: Width of the image in pixels
+        height:
+          type: integer
+          description: Height of the image in pixels
+    UploadImageRequest:
+      type: object
+      description: Request body for uploading a product image from a URL
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Publicly accessible URL of the image to upload
+        altText:
+          type: string
+          description: Alternative text for the image
+    UpdateImageRequest:
+      type: object
+      description: Request body for updating product image metadata
+      properties:
+        altText:
+          type: string
+          description: Updated alternative text for the image
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: '^-?\d+(\.\d+)?$'
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: '^[A-Z]{3}$'
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error

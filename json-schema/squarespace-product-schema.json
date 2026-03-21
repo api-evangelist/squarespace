@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developers.squarespace.com/schemas/squarespace/product.json",
+  "title": "Squarespace Product",
+  "description": "Represents a product in the Squarespace merchant catalog. Products can be physical goods, digital downloads, services, or gift cards. Each product has one or more variants with individual pricing and stock settings.",
+  "type": "object",
+  "required": ["id", "type", "name", "variants"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the product assigned by Squarespace"
+    },
+    "type": {
+      "type": "string",
+      "description": "The product type determining available behaviors and required fields",
+      "enum": ["PHYSICAL", "DIGITAL", "SERVICE", "GIFT_CARD"]
+    },
+    "storePageId": {
+      "type": "string",
+      "description": "Identifier of the Squarespace store page where this product is listed"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the product shown to customers in the store",
+      "minLength": 1,
+      "maxLength": 250
+    },
+    "description": {
+      "type": "string",
+      "description": "HTML description of the product displayed on the product detail page"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Relative URL path to the product page on the merchant site"
+    },
+    "urlSlug": {
+      "type": "string",
+      "description": "URL-friendly slug used in the product page path"
+    },
+    "tags": {
+      "type": "array",
+      "description": "List of tags for organizing and filtering products in the catalog",
+      "items": {
+        "type": "string"
+      }
+    },
+    "isVisible": {
+      "type": "boolean",
+      "description": "Whether the product is visible to customers browsing the store"
+    },
+    "variants": {
+      "type": "array",
+      "description": "List of product variants, each with its own SKU, price, and inventory settings",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/ProductVariant"
+      }
+    },
+    "images": {
+      "type": "array",
+      "description": "List of images associated with the product",
+      "items": {
+        "$ref": "#/$defs/ProductImage"
+      }
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the product was created"
+    },
+    "modifiedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the product was last modified"
+    }
+  },
+  "$defs": {
+    "ProductVariant": {
+      "type": "object",
+      "description": "A specific variant of a product representing a unique combination of options such as size and color",
+      "required": ["id", "sku"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product variant"
+        },
+        "sku": {
+          "type": "string",
+          "description": "Stock keeping unit identifier for inventory and order management"
+        },
+        "pricing": {
+          "$ref": "#/$defs/VariantPricing",
+          "description": "Pricing configuration for this variant"
+        },
+        "stock": {
+          "$ref": "#/$defs/VariantStock",
+          "description": "Stock tracking configuration and current quantity for this variant"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Key-value pairs mapping option names to selected values for this variant, such as Size: Large or Color: Blue",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "VariantPricing": {
+      "type": "object",
+      "description": "Pricing details for a product variant",
+      "properties": {
+        "basePrice": {
+          "$ref": "#/$defs/Money",
+          "description": "Regular selling price for this variant"
+        },
+        "salePrice": {
+          "$ref": "#/$defs/Money",
+          "description": "Discounted sale price shown when the variant is on sale"
+        },
+        "onSale": {
+          "type": "boolean",
+          "description": "Whether this variant is currently on sale at the salePrice"
+        }
+      }
+    },
+    "VariantStock": {
+      "type": "object",
+      "description": "Inventory tracking settings and current stock level for a product variant",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "description": "Current available stock quantity for this variant",
+          "minimum": 0
+        },
+        "unlimited": {
+          "type": "boolean",
+          "description": "When true, stock tracking is disabled and the variant is always available"
+        },
+        "backordered": {
+          "type": "boolean",
+          "description": "Whether the variant is available for purchase on backorder when out of stock"
+        }
+      }
+    },
+    "ProductImage": {
+      "type": "object",
+      "description": "An image associated with a product in the Squarespace catalog",
+      "required": ["id", "url"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product image"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Publicly accessible URL of the stored product image"
+        },
+        "altText": {
+          "type": "string",
+          "description": "Alternative text description for accessibility and SEO",
+          "maxLength": 500
+        },
+        "width": {
+          "type": "integer",
+          "description": "Width of the image in pixels",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "description": "Height of the image in pixels",
+          "minimum": 1
+        }
+      }
+    },
+    "Money": {
+      "type": "object",
+      "description": "A monetary value paired with its currency denomination",
+      "required": ["value", "currency"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": "Decimal string representation of the monetary amount",
+          "pattern": "^-?\\d+(\\.\\d+)?$"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 three-letter currency code",
+          "pattern": "^[A-Z]{3}$",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      }
+    }
+  }
+}

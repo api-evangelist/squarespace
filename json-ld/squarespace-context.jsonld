@@ -1,0 +1,286 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "sqsp": "https://developers.squarespace.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Order": {
+      "@id": "sqsp:Order",
+      "@context": {
+        "id": "@id",
+        "orderNumber": {
+          "@id": "schema:orderNumber",
+          "@type": "xsd:integer"
+        },
+        "channel": "sqsp:channel",
+        "testmode": {
+          "@id": "sqsp:testmode",
+          "@type": "xsd:boolean"
+        },
+        "customerEmail": {
+          "@id": "schema:email"
+        },
+        "billingAddress": {
+          "@id": "schema:billingAddress",
+          "@type": "@id"
+        },
+        "shippingAddress": {
+          "@id": "schema:shippingAddress",
+          "@type": "@id"
+        },
+        "fulfillmentStatus": "sqsp:fulfillmentStatus",
+        "lineItems": {
+          "@id": "schema:orderedItem",
+          "@container": "@set"
+        },
+        "fulfillments": {
+          "@id": "sqsp:fulfillments",
+          "@container": "@set"
+        },
+        "totals": "sqsp:totals",
+        "refundedTotal": "sqsp:refundedTotal",
+        "priceTaxInterpretation": "sqsp:priceTaxInterpretation",
+        "externalOrderReference": "sqsp:externalOrderReference",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modifiedOn": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Product": {
+      "@id": "schema:Product",
+      "@context": {
+        "id": "@id",
+        "type": "schema:additionalType",
+        "storePageId": "sqsp:storePageId",
+        "name": "schema:name",
+        "description": "schema:description",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "urlSlug": "sqsp:urlSlug",
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "isVisible": {
+          "@id": "sqsp:isVisible",
+          "@type": "xsd:boolean"
+        },
+        "variants": {
+          "@id": "schema:hasVariant",
+          "@container": "@set"
+        },
+        "images": {
+          "@id": "schema:image",
+          "@container": "@set"
+        },
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modifiedOn": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ProductVariant": {
+      "@id": "schema:ProductModel",
+      "@context": {
+        "id": "@id",
+        "sku": "schema:sku",
+        "pricing": "sqsp:pricing",
+        "stock": "sqsp:stock",
+        "attributes": "sqsp:attributes"
+      }
+    },
+
+    "ProductImage": {
+      "@id": "schema:ImageObject",
+      "@context": {
+        "id": "@id",
+        "url": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "altText": "schema:alternateName",
+        "width": {
+          "@id": "schema:width",
+          "@type": "xsd:integer"
+        },
+        "height": {
+          "@id": "schema:height",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "LineItem": {
+      "@id": "schema:OrderItem",
+      "@context": {
+        "id": "@id",
+        "variantId": "sqsp:variantId",
+        "sku": "schema:sku",
+        "productId": "sqsp:productId",
+        "productName": "schema:name",
+        "quantity": {
+          "@id": "schema:orderQuantity",
+          "@type": "xsd:integer"
+        },
+        "unitPricePaid": "schema:price",
+        "lineItemType": "sqsp:lineItemType",
+        "imageUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Address": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "address1": "schema:streetAddress",
+        "address2": "sqsp:address2",
+        "city": "schema:addressLocality",
+        "state": "schema:addressRegion",
+        "countryCode": "schema:addressCountry",
+        "postalCode": "schema:postalCode",
+        "phone": "schema:telephone"
+      }
+    },
+
+    "Profile": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "@id",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "email": "schema:email",
+        "hasAccount": {
+          "@id": "sqsp:hasAccount",
+          "@type": "xsd:boolean"
+        },
+        "isCustomer": {
+          "@id": "sqsp:isCustomer",
+          "@type": "xsd:boolean"
+        },
+        "address": "schema:address",
+        "commerceStats": "sqsp:commerceStats",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modifiedOn": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "TransactionDocument": {
+      "@id": "schema:Invoice",
+      "@context": {
+        "id": "@id",
+        "totalSales": "sqsp:totalSales",
+        "totalNetPayment": "sqsp:totalNetPayment",
+        "payments": {
+          "@id": "sqsp:payments",
+          "@container": "@set"
+        },
+        "lineItems": {
+          "@id": "sqsp:transactionLineItems",
+          "@container": "@set"
+        },
+        "orderDocumentType": "sqsp:orderDocumentType",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modifiedOn": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Payment": {
+      "@id": "schema:PaymentMethod",
+      "@context": {
+        "id": "@id",
+        "paymentGateway": "sqsp:paymentGateway",
+        "creditCardType": "sqsp:creditCardType",
+        "amount": "schema:price",
+        "refundedAmount": "sqsp:refundedAmount",
+        "externalTransactionId": "sqsp:externalTransactionId",
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WebhookSubscription": {
+      "@id": "sqsp:WebhookSubscription",
+      "@context": {
+        "id": "@id",
+        "endpointUrl": {
+          "@id": "sqsp:endpointUrl",
+          "@type": "@id"
+        },
+        "topics": {
+          "@id": "sqsp:topics",
+          "@container": "@set"
+        },
+        "createdOn": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedOn": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Money": {
+      "@id": "schema:MonetaryAmount",
+      "@context": {
+        "value": "schema:value",
+        "currency": "schema:currency"
+      }
+    },
+
+    "InventoryItem": {
+      "@id": "sqsp:InventoryItem",
+      "@context": {
+        "variantId": "sqsp:variantId",
+        "sku": "schema:sku",
+        "descriptor": "schema:description",
+        "isUnlimited": {
+          "@id": "sqsp:isUnlimited",
+          "@type": "xsd:boolean"
+        },
+        "isTracked": {
+          "@id": "sqsp:isTracked",
+          "@type": "xsd:boolean"
+        },
+        "quantity": {
+          "@id": "schema:inventoryLevel",
+          "@type": "xsd:integer"
+        }
+      }
+    }
+  }
+}

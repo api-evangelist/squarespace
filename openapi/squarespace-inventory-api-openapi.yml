@@ -1,0 +1,280 @@
+openapi: 3.1.0
+info:
+  title: Squarespace Inventory API
+  description: >-
+    The Squarespace Inventory API enables reading and adjusting stock information
+    for product variants on a Squarespace merchant site. Developers can retrieve
+    current inventory levels and apply incremental adjustments to stock quantities.
+    This API is useful for integrating Squarespace with warehouse management systems,
+    point-of-sale systems, or multi-channel inventory management platforms. Inventory
+    adjustments can be applied in bulk across multiple product variants.
+  version: '1.0'
+  contact:
+    name: Squarespace Developer Support
+    url: https://developers.squarespace.com/commerce-apis/inventory-overview
+  termsOfService: https://www.squarespace.com/terms-of-service
+externalDocs:
+  description: Squarespace Inventory API Documentation
+  url: https://developers.squarespace.com/commerce-apis/inventory-overview
+servers:
+  - url: https://api.squarespace.com/1.0
+    description: Production Server
+tags:
+  - name: Inventory
+    description: Stock level retrieval and adjustment for product variants
+security:
+  - bearerAuth: []
+paths:
+  /commerce/inventory:
+    get:
+      operationId: listInventory
+      summary: Retrieve all inventory
+      description: >-
+        Returns real-time stock information for all product variants on the merchant
+        site. The response contains up to 50 InventoryItem objects per page, with
+        dynamic cursor-based pagination for iterating through all records. Each
+        InventoryItem corresponds to a single product variant and includes its
+        current stock quantity and tracking settings.
+      tags:
+        - Inventory
+      parameters:
+        - $ref: '#/components/parameters/cursor'
+      responses:
+        '200':
+          description: Successful response with paginated list of inventory items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inventory:
+                    type: array
+                    description: List of inventory items for product variants
+                    items:
+                      $ref: '#/components/schemas/InventoryItem'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/inventory/{variantIds}:
+    get:
+      operationId: getInventoryByVariants
+      summary: Retrieve specific inventory
+      description: >-
+        Retrieves real-time stock information for up to 50 specific product variants
+        by their variant IDs. Variant IDs should be provided as a comma-separated
+        list in the path. This endpoint is useful for checking stock levels on
+        specific items without paginating through the full inventory.
+      tags:
+        - Inventory
+      parameters:
+        - $ref: '#/components/parameters/variantIds'
+      responses:
+        '200':
+          description: Successful response with inventory items for the specified variants
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inventory:
+                    type: array
+                    description: Inventory items for the requested product variants
+                    items:
+                      $ref: '#/components/schemas/InventoryItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /commerce/inventory/adjustments:
+    post:
+      operationId: adjustInventory
+      summary: Adjust stock quantities
+      description: >-
+        Applies incremental stock quantity adjustments to one or more product variants.
+        Adjustments are relative changes, not absolute values. Positive values increase
+        stock and negative values decrease it. Bulk adjustments across multiple
+        variants can be submitted in a single request. Each adjustment can optionally
+        include a reason for audit tracking.
+      tags:
+        - Inventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdjustInventoryRequest'
+      responses:
+        '200':
+          description: Inventory adjustments applied successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inventory:
+                    type: array
+                    description: Updated inventory items after adjustments were applied
+                    items:
+                      $ref: '#/components/schemas/InventoryItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate using an API key or OAuth access token. Include the token
+        in the Authorization header as "Bearer YOUR_TOKEN".
+  responses:
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: >-
+        Pagination cursor from a previous response's pagination.nextPageCursor field.
+        Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    variantIds:
+      name: variantIds
+      in: path
+      description: >-
+        Comma-separated list of up to 50 product variant IDs for which to retrieve
+        inventory information
+      required: true
+      schema:
+        type: string
+  schemas:
+    InventoryItem:
+      type: object
+      description: Stock information for a single product variant
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier of the product variant
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the variant
+        descriptor:
+          type: string
+          description: Human-readable description of the variant including option values
+        isUnlimited:
+          type: boolean
+          description: >-
+            When true, the variant has unlimited stock and quantity values are
+            not meaningful
+        isTracked:
+          type: boolean
+          description: Whether stock tracking is enabled for this variant
+        quantity:
+          type: integer
+          description: Current stock quantity available for the variant
+          minimum: 0
+        infiniteStock:
+          type: boolean
+          description: Alias for isUnlimited indicating the variant never goes out of stock
+    AdjustInventoryRequest:
+      type: object
+      description: Request body for applying inventory adjustments
+      required:
+        - increments
+      properties:
+        increments:
+          type: array
+          description: List of inventory adjustments to apply
+          items:
+            $ref: '#/components/schemas/InventoryAdjustment'
+    InventoryAdjustment:
+      type: object
+      description: A single stock quantity adjustment for a product variant
+      required:
+        - variantId
+        - quantity
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier of the product variant to adjust
+        quantity:
+          type: integer
+          description: >-
+            Relative quantity change to apply. Positive values increase stock,
+            negative values decrease it.
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
