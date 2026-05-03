@@ -28,7 +28,7 @@ paths:
   /commerce/inventory:
     get:
       operationId: listInventory
-      summary: Retrieve all inventory
+      summary: Retrieve All Inventory
       description: >-
         Returns real-time stock information for all product variants on the merchant
         site. The response contains up to 50 InventoryItem objects per page, with
@@ -63,7 +63,7 @@ paths:
   /commerce/inventory/{variantIds}:
     get:
       operationId: getInventoryByVariants
-      summary: Retrieve specific inventory
+      summary: Retrieve Specific Inventory
       description: >-
         Retrieves real-time stock information for up to 50 specific product variants
         by their variant IDs. Variant IDs should be provided as a comma-separated
@@ -99,7 +99,7 @@ paths:
   /commerce/inventory/adjustments:
     post:
       operationId: adjustInventory
-      summary: Adjust stock quantities
+      summary: Adjust Stock Quantities
       description: >-
         Applies incremental stock quantity adjustments to one or more product variants.
         Adjustments are relative changes, not absolute values. Positive values increase

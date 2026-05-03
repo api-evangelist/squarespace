@@ -29,7 +29,7 @@ paths:
   /commerce/orders:
     get:
       operationId: listOrders
-      summary: Retrieve all orders
+      summary: Retrieve All Orders
       description: >-
         Returns a paginated list of orders for the authenticated merchant site.
         By default returns up to 50 orders per page. Results can be filtered by
@@ -92,7 +92,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createOrder
-      summary: Create an order
+      summary: Create an Order
       description: >-
         Creates a new order on the merchant site. This endpoint is primarily used
         to import orders from third-party sales channels into Squarespace. The
@@ -125,7 +125,7 @@ paths:
   /commerce/orders/{orderId}:
     get:
       operationId: getOrder
-      summary: Retrieve a specific order
+      summary: Retrieve a Specific Order
       description: >-
         Retrieves detailed information for a specific order by its unique identifier.
         Returns the full Order resource object including line items, customer data,
@@ -152,7 +152,7 @@ paths:
   /commerce/orders/{orderId}/fulfillments:
     post:
       operationId: fulfillOrder
-      summary: Fulfill an order
+      summary: Fulfill an Order
       description: >-
         Marks one or more line items in an order as fulfilled and optionally
         records shipment tracking information. This updates the fulfillment

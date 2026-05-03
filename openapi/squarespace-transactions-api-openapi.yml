@@ -29,7 +29,7 @@ paths:
   /commerce/transactions:
     get:
       operationId: listTransactions
-      summary: Retrieve all transactions
+      summary: Retrieve All Transactions
       description: >-
         Returns a paginated list of financial transaction documents for all orders
         and donations on the merchant site. Supports filtering by transaction date
@@ -83,7 +83,7 @@ paths:
   /commerce/transactions/{transactionIds}:
     get:
       operationId: getTransactions
-      summary: Retrieve specific transactions
+      summary: Retrieve Specific Transactions
       description: >-
         Retrieves financial transaction documents for one or more specific orders
         or donations by their transaction document IDs. IDs should be provided as

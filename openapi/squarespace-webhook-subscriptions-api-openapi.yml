@@ -30,7 +30,7 @@ paths:
   /webhook_subscriptions:
     get:
       operationId: listWebhookSubscriptions
-      summary: Retrieve all webhook subscriptions
+      summary: Retrieve All Webhook Subscriptions
       description: >-
         Returns all webhook subscriptions configured for the authenticated merchant
         site. Each subscription includes its endpoint URL, subscribed topics, and
@@ -58,7 +58,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createWebhookSubscription
-      summary: Create a webhook subscription
+      summary: Create a Webhook Subscription
       description: >-
         Creates a new webhook subscription for the authenticated merchant site.
         The subscription must specify a publicly accessible endpoint URL and at
@@ -91,7 +91,7 @@ paths:
   /webhook_subscriptions/{subscriptionId}:
     get:
       operationId: getWebhookSubscription
-      summary: Retrieve a specific webhook subscription
+      summary: Retrieve a Specific Webhook Subscription
       description: >-
         Retrieves details for a single webhook subscription by its unique identifier.
         Returns the subscription configuration including endpoint URL and subscribed
@@ -117,7 +117,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: updateWebhookSubscription
-      summary: Update a webhook subscription
+      summary: Update a Webhook Subscription
       description: >-
         Updates an existing webhook subscription. The endpoint URL and subscribed
         topics can be modified. Requires OAuth token authentication.
@@ -150,7 +150,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: deleteWebhookSubscription
-      summary: Delete a webhook subscription
+      summary: Delete a Webhook Subscription
       description: >-
         Permanently deletes a webhook subscription. After deletion, Squarespace
         will no longer send event notifications to the subscription's endpoint URL.
@@ -173,7 +173,7 @@ paths:
   /webhook_subscriptions/{subscriptionId}/actions/sendTestNotification:
     post:
       operationId: sendTestNotification
-      summary: Send a test notification
+      summary: Send a Test Notification
       description: >-
         Sends a test notification to the webhook subscription's configured endpoint
         URL. This is useful for verifying that the endpoint is reachable and
@@ -197,7 +197,7 @@ paths:
   /webhook_subscriptions/{subscriptionId}/actions/rotateSecret:
     post:
       operationId: rotateWebhookSecret
-      summary: Rotate a webhook subscription secret
+      summary: Rotate a Webhook Subscription Secret
       description: >-
         Generates a new secret for the specified webhook subscription and invalidates
         the previous secret. The new secret must be stored securely and used to

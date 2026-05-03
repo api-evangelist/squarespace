@@ -1,0 +1,46 @@
+{
+  "name": "Squarespace Order",
+  "description": "Structure of a Squarespace commerce order object",
+  "fields": [
+    { "name": "id", "type": "string", "required": true, "description": "Unique order identifier" },
+    { "name": "orderNumber", "type": "integer", "required": true, "description": "Sequential human-readable order number" },
+    { "name": "createdOn", "type": "string", "required": true, "description": "ISO 8601 UTC creation timestamp" },
+    { "name": "modifiedOn", "type": "string", "required": false, "description": "ISO 8601 UTC last-modified timestamp" },
+    { "name": "channel", "type": "string", "required": false, "description": "Sales channel (e.g., SQUARESPACE, external channel name)" },
+    { "name": "testmode", "type": "boolean", "required": false, "description": "True if this is a test order" },
+    { "name": "customerEmail", "type": "string", "required": true, "description": "Customer email address" },
+    { "name": "billingAddress", "type": "object", "required": false, "description": "Billing address with name, address1, city, state, country, postalCode" },
+    { "name": "shippingAddress", "type": "object", "required": false, "description": "Shipping address with name, address1, city, state, country, postalCode" },
+    { "name": "fulfillmentStatus", "type": "string", "required": false, "description": "Order fulfillment status: PENDING, FULFILLED, CANCELED" },
+    {
+      "name": "lineItems",
+      "type": "array",
+      "required": true,
+      "description": "Ordered items in the order",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "id", "type": "string", "required": true, "description": "Line item ID" },
+          { "name": "productId", "type": "string", "required": false, "description": "Product ID" },
+          { "name": "productName", "type": "string", "required": false, "description": "Product name" },
+          { "name": "quantity", "type": "integer", "required": true, "description": "Quantity ordered" },
+          { "name": "unitPricePaid", "type": "object", "required": false, "description": "Unit price with currency and value" }
+        ]
+      }
+    },
+    {
+      "name": "totals",
+      "type": "object",
+      "required": true,
+      "description": "Order financial totals",
+      "fields": [
+        { "name": "subtotal", "type": "object", "required": false, "description": "Subtotal before discounts, shipping, and tax" },
+        { "name": "discount", "type": "object", "required": false, "description": "Total discount applied" },
+        { "name": "shipping", "type": "object", "required": false, "description": "Shipping charges" },
+        { "name": "taxTotal", "type": "object", "required": false, "description": "Total tax charged" },
+        { "name": "grandTotal", "type": "object", "required": true, "description": "Final order total paid" }
+      ]
+    },
+    { "name": "priceTaxInterpretation", "type": "string", "required": false, "description": "TAX_INCLUSIVE or TAX_EXCLUSIVE" }
+  ]
+}

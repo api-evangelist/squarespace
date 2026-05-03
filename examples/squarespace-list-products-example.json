@@ -1,0 +1,60 @@
+{
+  "title": "List Squarespace Products",
+  "description": "Example retrieving physical products from the Squarespace Products API",
+  "request": {
+    "method": "GET",
+    "url": "https://api.squarespace.com/1.0/commerce/products?type=PHYSICAL",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "products": [
+        {
+          "id": "product-xyz-456",
+          "type": "PHYSICAL",
+          "name": "Handmade Ceramic Mug",
+          "description": "A beautifully handcrafted ceramic mug, perfect for your morning coffee.",
+          "isVisible": true,
+          "urlSlug": "handmade-ceramic-mug",
+          "createdOn": "2026-03-01T12:00:00Z",
+          "images": [
+            {
+              "id": "img-001",
+              "altText": "Blue handmade ceramic mug",
+              "url": "https://images.squarespace-cdn.com/content/mug-blue.jpg"
+            }
+          ],
+          "variants": [
+            {
+              "id": "variant-001",
+              "sku": "MUG-BLUE-LG",
+              "pricing": {
+                "basePrice": { "currency": "USD", "value": "24.99" },
+                "salePrice": null
+              },
+              "stock": {
+                "quantity": 15,
+                "unlimited": false,
+                "isInStock": true
+              },
+              "attributes": {
+                "Color": "Blue",
+                "Size": "Large"
+              }
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "hasNextPage": false,
+        "nextPageCursor": null
+      }
+    }
+  }
+}

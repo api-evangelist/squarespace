@@ -1,0 +1,202 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Squarespace Products API"
+  description: >-
+    Squarespace Products API for managing product catalogs including physical products,
+    service products, gift cards, and digital downloads with their variants and images.
+  tags:
+    - Commerce
+    - E-Commerce
+    - Products
+    - Squarespace
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: squarespace-products
+      baseUri: https://api.squarespace.com/1.0
+      description: "Squarespace Products REST API"
+      authentication:
+        type: bearer
+        token: "{{SQUARESPACE_API_KEY}}"
+      resources:
+        - name: products
+          path: /commerce/products
+          description: "Product catalog management"
+          operations:
+            - name: list-products
+              method: GET
+              description: "Retrieve paginated product catalog"
+              inputParameters:
+                - name: cursor
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pagination cursor"
+                - name: type
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by product type"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-product
+              method: POST
+              description: "Create a new product"
+              body:
+                type: json
+                data:
+                  type: "{{tools.type}}"
+                  storePageId: "{{tools.storePageId}}"
+                  name: "{{tools.name}}"
+                  description: "{{tools.description}}"
+                  variants: "{{tools.variants}}"
+                  images: "{{tools.images}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: product-by-id
+          path: /commerce/products/{productId}
+          description: "Individual product management"
+          operations:
+            - name: get-product
+              method: GET
+              description: "Retrieve a specific product by ID"
+              inputParameters:
+                - name: productId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Product ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-product
+              method: PUT
+              description: "Update a product's details"
+              inputParameters:
+                - name: productId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Product ID"
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  description: "{{tools.description}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: delete-product
+              method: DELETE
+              description: "Delete a product from the catalog"
+              inputParameters:
+                - name: productId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Product ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8102
+      namespace: squarespace-products-rest
+      resources:
+        - path: /v1/products
+          name: products
+          description: "Product catalog"
+          operations:
+            - method: GET
+              name: list-products
+              description: "List all products"
+              call: "squarespace-products.list-products"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/products/{id}
+          name: product
+          description: "Individual product"
+          operations:
+            - method: GET
+              name: get-product
+              description: "Get a specific product"
+              call: "squarespace-products.get-product"
+              with:
+                productId: "rest.id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9102
+      namespace: squarespace-products-mcp
+      transport: http
+      tools:
+        - name: list-products
+          description: "Retrieve paginated product catalog from Squarespace"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-products.list-products"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-product
+          description: "Retrieve a specific product by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-products.get-product"
+          with:
+            productId: "tools.productId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-product
+          description: "Create a new product in the Squarespace catalog"
+          hints:
+            readOnly: false
+            idempotent: false
+          call: "squarespace-products.create-product"
+          with:
+            type: "tools.type"
+            name: "tools.name"
+            description: "tools.description"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-product
+          description: "Delete a product from the Squarespace catalog"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: "squarespace-products.delete-product"
+          with:
+            productId: "tools.productId"
+          outputParameters:
+            - type: object
+              mapping: "$."

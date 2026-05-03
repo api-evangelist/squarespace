@@ -29,7 +29,7 @@ paths:
   /commerce/products:
     get:
       operationId: listProducts
-      summary: Retrieve all products
+      summary: Retrieve All Products
       description: >-
         Returns a paginated list of products in the merchant's catalog. By default
         returns up to 50 products per page. Use the cursor parameter from the
@@ -73,7 +73,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: createProduct
-      summary: Create a product
+      summary: Create a Product
       description: >-
         Creates a new product in the merchant's catalog with appropriate subresources
         based on product type. Supports creation of physical, service, gift card,
@@ -106,7 +106,7 @@ paths:
   /commerce/products/{productIds}:
     get:
       operationId: getProducts
-      summary: Retrieve specific products
+      summary: Retrieve Specific Products
       description: >-
         Retrieves detailed information for up to 50 specific products by their
         product IDs. Product IDs should be provided as a comma-separated list
@@ -139,7 +139,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     post:
       operationId: updateProduct
-      summary: Update a product
+      summary: Update a Product
       description: >-
         Updates information for an existing product. The endpoint supports partial
         updates so any optional or conditional field may be omitted from the request.
@@ -174,7 +174,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: deleteProduct
-      summary: Delete a product
+      summary: Delete a Product
       description: >-
         Deletes a physical product and all its associated variants and images from
         the merchant's catalog. This action is permanent and cannot be undone.
@@ -197,7 +197,7 @@ paths:
   /commerce/products/{productId}/variants:
     post:
       operationId: createProductVariant
-      summary: Create a product variant
+      summary: Create a Product Variant
       description: >-
         Adds a new variant to an existing product. A variant represents a specific
         configuration of a product, such as a particular size and color combination.
@@ -232,7 +232,7 @@ paths:
   /commerce/products/{productId}/variants/{variantId}:
     post:
       operationId: updateProductVariant
-      summary: Update a product variant
+      summary: Update a Product Variant
       description: >-
         Updates attributes for an existing product variant such as price, SKU,
         stock settings, and option values. Supports partial updates.
@@ -267,7 +267,7 @@ paths:
   /commerce/products/{productId}/images:
     post:
       operationId: uploadProductImage
-      summary: Upload a product image
+      summary: Upload a Product Image
       description: >-
         Uploads a new image to a product using a publicly accessible image URL.
         The image is fetched from the provided URL and stored by Squarespace.
@@ -302,7 +302,7 @@ paths:
   /commerce/products/{productId}/images/{imageId}:
     post:
       operationId: updateProductImage
-      summary: Update a product image
+      summary: Update a Product Image
       description: >-
         Updates the alt text of an existing product image. The image itself
         cannot be replaced; delete and re-upload to change the image file.
@@ -336,7 +336,7 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
     delete:
       operationId: deleteProductImage
-      summary: Delete a product image
+      summary: Delete a Product Image
       description: >-
         Permanently removes an image from a product. This action cannot be undone.
       tags:
@@ -358,7 +358,7 @@ paths:
   /commerce/products/{productId}/images/reorder:
     post:
       operationId: reorderProductImages
-      summary: Reorder product images
+      summary: Reorder Product Images
       description: >-
         Changes the display order of images for a product by providing an ordered
         list of image IDs. The order of image IDs in the request determines the

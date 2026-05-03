@@ -1,0 +1,134 @@
+name: Squarespace Vocabulary
+description: >-
+  Domain vocabulary for the Squarespace platform covering e-commerce, website
+  building, API concepts, and commerce management terminology.
+version: '1.0'
+created: '2026-05-02'
+modified: '2026-05-02'
+url: https://developers.squarespace.com
+terms:
+  - term: Commerce API
+    definition: >-
+      The set of Squarespace REST APIs for programmatically managing e-commerce
+      operations on a Squarespace merchant site, including orders, products,
+      inventory, profiles, transactions, and webhooks.
+    tags:
+      - Core
+      - API
+  - term: Merchant Site
+    definition: >-
+      A Squarespace website with commerce features enabled. API keys and OAuth
+      tokens are scoped to a single merchant site.
+    tags:
+      - Core
+      - Authentication
+  - term: API Key
+    definition: >-
+      A static Bearer token generated in the Squarespace account settings that
+      grants access to Commerce API endpoints for a specific merchant site.
+    tags:
+      - Authentication
+      - Security
+  - term: OAuth Token
+    definition: >-
+      A scoped access token obtained through Squarespace's OAuth 2.0 flow,
+      granting limited permissions to third-party developer applications.
+      Required for webhook subscription management.
+    tags:
+      - Authentication
+      - Security
+      - OAuth
+  - term: Order
+    definition: >-
+      A commerce transaction representing a customer's purchase on a Squarespace
+      merchant site. Orders include line items, totals, fulfillment status,
+      billing/shipping addresses, and payment information.
+    tags:
+      - Commerce
+      - Core
+  - term: Line Item
+    definition: >-
+      An individual product or service entry within a Squarespace order,
+      including product name, quantity, variant, and unit price paid.
+    tags:
+      - Commerce
+      - Orders
+  - term: Fulfillment Status
+    definition: >-
+      The current order fulfillment state: PENDING (not yet shipped),
+      FULFILLED (shipped/delivered), or CANCELED (cancelled by merchant or customer).
+    tags:
+      - Commerce
+      - Orders
+  - term: Product
+    definition: >-
+      An item available for purchase on a Squarespace store. Product types
+      include PHYSICAL (shippable goods), SERVICE (booked services),
+      GIFT_CARD, and DIGITAL (downloadable files).
+    tags:
+      - Commerce
+      - Products
+  - term: Variant
+    definition: >-
+      A specific version of a product defined by attributes like color and size.
+      Each variant has its own SKU, pricing, and inventory level.
+    tags:
+      - Commerce
+      - Products
+  - term: Inventory
+    definition: >-
+      Stock quantity tracking for product variants. Squarespace supports
+      unlimited stock or tracked quantity with automatic out-of-stock handling.
+    tags:
+      - Commerce
+      - Inventory
+  - term: Profile
+    definition: >-
+      A Squarespace customer record containing contact information, account
+      status, and a summary of commerce activity (orders, donations, subscriptions).
+    tags:
+      - CRM
+      - Customers
+  - term: Transaction
+    definition: >-
+      A financial record representing a payment or refund associated with a
+      Squarespace order or donation. Includes gateway, amounts, and fee details.
+    tags:
+      - Finance
+      - Commerce
+  - term: Webhook Subscription
+    definition: >-
+      A registered endpoint URL that Squarespace calls with event payloads
+      when specified commerce events occur (e.g., order.create, order.update).
+    tags:
+      - Webhooks
+      - Events
+  - term: Cursor
+    definition: >-
+      An opaque pagination token returned in API responses to retrieve the
+      next page of results. Pass as the cursor query parameter.
+    tags:
+      - Pagination
+      - API
+  - term: HMAC-SHA256
+    definition: >-
+      The cryptographic signature algorithm used to sign webhook notification
+      payloads. Receivers validate the Squarespace-Signature header to verify
+      authenticity of incoming webhook events.
+    tags:
+      - Security
+      - Webhooks
+  - term: Store Page
+    definition: >-
+      A Squarespace website page configured as an e-commerce store, identified
+      by a storePageId. Products are associated with one or more store pages.
+    tags:
+      - Commerce
+      - Website
+  - term: Channel
+    definition: >-
+      The sales channel through which an order was placed. SQUARESPACE indicates
+      native orders; other values indicate third-party channel imports.
+    tags:
+      - Commerce
+      - Orders

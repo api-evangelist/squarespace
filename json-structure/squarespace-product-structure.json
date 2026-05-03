@@ -1,0 +1,46 @@
+{
+  "name": "Squarespace Product",
+  "description": "Structure of a Squarespace commerce product object",
+  "fields": [
+    { "name": "id", "type": "string", "required": true, "description": "Unique product identifier" },
+    { "name": "type", "type": "string", "required": true, "description": "Product type: PHYSICAL, SERVICE, GIFT_CARD, DIGITAL" },
+    { "name": "storePageId", "type": "string", "required": false, "description": "ID of the store page this product belongs to" },
+    { "name": "name", "type": "string", "required": true, "description": "Product display name" },
+    { "name": "description", "type": "string", "required": false, "description": "Product description (may include HTML)" },
+    { "name": "isVisible", "type": "boolean", "required": false, "description": "Whether the product is visible in the store" },
+    { "name": "urlSlug", "type": "string", "required": false, "description": "URL slug for the product detail page" },
+    { "name": "createdOn", "type": "string", "required": false, "description": "ISO 8601 creation timestamp" },
+    { "name": "modifiedOn", "type": "string", "required": false, "description": "ISO 8601 last-modified timestamp" },
+    {
+      "name": "images",
+      "type": "array",
+      "required": false,
+      "description": "Product images",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "id", "type": "string", "required": true, "description": "Image ID" },
+          { "name": "altText", "type": "string", "required": false, "description": "Image alt text" },
+          { "name": "url", "type": "string", "required": false, "description": "Image URL" },
+          { "name": "originalSize", "type": "object", "required": false, "description": "Original image dimensions" }
+        ]
+      }
+    },
+    {
+      "name": "variants",
+      "type": "array",
+      "required": false,
+      "description": "Product variants",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "id", "type": "string", "required": true, "description": "Variant ID" },
+          { "name": "sku", "type": "string", "required": false, "description": "Stock Keeping Unit identifier" },
+          { "name": "pricing", "type": "object", "required": false, "description": "Variant pricing with basePrice and salePrice" },
+          { "name": "stock", "type": "object", "required": false, "description": "Inventory stock settings" },
+          { "name": "attributes", "type": "object", "required": false, "description": "Variant attribute values (e.g., Color: Red, Size: M)" }
+        ]
+      }
+    }
+  ]
+}

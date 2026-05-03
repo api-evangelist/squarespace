@@ -1,0 +1,50 @@
+{
+  "title": "List Squarespace Orders",
+  "description": "Example retrieving a paginated list of orders from the Squarespace Orders API",
+  "request": {
+    "method": "GET",
+    "url": "https://api.squarespace.com/1.0/commerce/orders?fulfillmentStatus=PENDING&modifiedAfter=2026-01-01T00:00:00Z",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "result": [
+        {
+          "id": "order-abc-123",
+          "orderNumber": 1042,
+          "createdOn": "2026-04-15T09:30:00Z",
+          "modifiedOn": "2026-04-15T09:31:00Z",
+          "channel": "SQUARESPACE",
+          "testmode": false,
+          "customerEmail": "customer@example.com",
+          "fulfillmentStatus": "PENDING",
+          "lineItems": [
+            {
+              "id": "li-001",
+              "productName": "Organic Cotton T-Shirt",
+              "quantity": 2,
+              "unitPricePaid": { "currency": "USD", "value": "29.99" }
+            }
+          ],
+          "totals": {
+            "subtotal": { "currency": "USD", "value": "59.98" },
+            "shipping": { "currency": "USD", "value": "5.99" },
+            "taxTotal": { "currency": "USD", "value": "4.80" },
+            "grandTotal": { "currency": "USD", "value": "70.77" }
+          }
+        }
+      ],
+      "pagination": {
+        "hasNextPage": false,
+        "nextPageCursor": null,
+        "nextPageUrl": null
+      }
+    }
+  }
+}

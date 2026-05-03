@@ -1,0 +1,118 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Squarespace Profiles API"
+  description: >-
+    Squarespace Profiles API for reading customer profiles, mailing list subscribers,
+    and donors associated with a Squarespace merchant site.
+  tags:
+    - CRM
+    - Customer Profiles
+    - Squarespace
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: squarespace-profiles
+      baseUri: https://api.squarespace.com/1.0
+      description: "Squarespace Profiles REST API"
+      authentication:
+        type: bearer
+        token: "{{SQUARESPACE_API_KEY}}"
+      resources:
+        - name: profiles
+          path: /profiles
+          description: "Customer profile retrieval"
+          operations:
+            - name: list-profiles
+              method: GET
+              description: "Retrieve paginated customer profiles"
+              inputParameters:
+                - name: cursor
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pagination cursor"
+                - name: isCustomer
+                  in: query
+                  type: boolean
+                  required: false
+                  description: "Filter to customer profiles only"
+                - name: email
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by email address"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: profile-by-id
+          path: /profiles/{profileId}
+          description: "Individual profile retrieval"
+          operations:
+            - name: get-profile
+              method: GET
+              description: "Retrieve a specific profile by ID"
+              inputParameters:
+                - name: profileId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Profile ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8105
+      namespace: squarespace-profiles-rest
+      resources:
+        - path: /v1/profiles
+          name: profiles
+          description: "Customer profiles"
+          operations:
+            - method: GET
+              name: list-profiles
+              description: "List all profiles"
+              call: "squarespace-profiles.list-profiles"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9105
+      namespace: squarespace-profiles-mcp
+      transport: http
+      tools:
+        - name: list-profiles
+          description: "Retrieve customer, subscriber, and donor profiles from Squarespace"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-profiles.list-profiles"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-profile
+          description: "Retrieve a specific customer profile by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-profiles.get-profile"
+          with:
+            profileId: "tools.profileId"
+          outputParameters:
+            - type: object
+              mapping: "$."

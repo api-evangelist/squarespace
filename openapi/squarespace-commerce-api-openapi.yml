@@ -28,7 +28,7 @@ paths:
   /authorization/website:
     get:
       operationId: retrieveSiteInfo
-      summary: Retrieve basic site information
+      summary: Retrieve Basic Site Information
       description: >-
         Retrieves basic information about the Squarespace website associated with
         the authenticated API key or OAuth token. Returns site identifier, title,

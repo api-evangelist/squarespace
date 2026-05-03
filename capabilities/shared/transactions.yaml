@@ -1,0 +1,119 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Squarespace Transactions API"
+  description: >-
+    Squarespace Transactions API for retrieving financial transaction records
+    including payment details, fees, and gateway information for orders and donations.
+  tags:
+    - Commerce
+    - Finance
+    - Squarespace
+    - Transactions
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
+
+capability:
+  consumes:
+    - type: http
+      namespace: squarespace-transactions
+      baseUri: https://api.squarespace.com/1.0
+      description: "Squarespace Transactions REST API"
+      authentication:
+        type: bearer
+        token: "{{SQUARESPACE_API_KEY}}"
+      resources:
+        - name: transactions
+          path: /commerce/transactions
+          description: "Financial transaction retrieval"
+          operations:
+            - name: list-transactions
+              method: GET
+              description: "Retrieve paginated financial transactions"
+              inputParameters:
+                - name: cursor
+                  in: query
+                  type: string
+                  required: false
+                  description: "Pagination cursor"
+                - name: modifiedAfter
+                  in: query
+                  type: string
+                  required: false
+                  description: "ISO 8601 date filter"
+                - name: modifiedBefore
+                  in: query
+                  type: string
+                  required: false
+                  description: "ISO 8601 date filter"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: transaction-by-id
+          path: /commerce/transactions/{transactionId}
+          description: "Individual transaction retrieval"
+          operations:
+            - name: get-transaction
+              method: GET
+              description: "Retrieve a specific transaction by ID"
+              inputParameters:
+                - name: transactionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Transaction ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8104
+      namespace: squarespace-transactions-rest
+      resources:
+        - path: /v1/transactions
+          name: transactions
+          description: "Financial transactions"
+          operations:
+            - method: GET
+              name: list-transactions
+              description: "List all transactions"
+              call: "squarespace-transactions.list-transactions"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9104
+      namespace: squarespace-transactions-mcp
+      transport: http
+      tools:
+        - name: list-transactions
+          description: "Retrieve financial transaction records from Squarespace"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-transactions.list-transactions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-transaction
+          description: "Retrieve a specific financial transaction by ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "squarespace-transactions.get-transaction"
+          with:
+            transactionId: "tools.transactionId"
+          outputParameters:
+            - type: object
+              mapping: "$."
