@@ -1,0 +1,13 @@
+{
+  "repo": "squarespace",
+  "feeds": [
+    {
+      "source": "https://www.squarespace.com/blog",
+      "feed_url": "https://www.squarespace.com/blog?format=rss",
+      "saved": 10,
+      "title": "Making It \u2013 The Squarespace Blog - Squarespace"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:37:06Z"
+}
