@@ -4,118 +4,45 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Squarespace
 providerId: squarespace
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Commerce
   - E-Commerce
-  - Marketing
-  - Payments
-  - Retail
-  - Website Builder
-  - Webhooks
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Squarespace API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Squarespace Commerce APIs enforce a global limit of 300 requests per minute (equivalent to 5 requests per second). The Create Order endpoint enforces a stricter cap of 100 requests per hour per website when authenticated with an API key; OAuth-authenticated callers are not subject to this Create Order cap. Exceeding a limit returns 429 Too Many Requests with a one-minute cooldown.
+sources:
+  - https://developers.squarespace.com/commerce-apis/rate-limits
+  - https://developers.squarespace.com/commerce-apis/making-requests
+notes: Squarespace's docs do not enumerate X-RateLimit-* response headers; the published contract is the 429 status code and the one-minute cooldown.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: Global Commerce API
+    scope: website
     metric: requests_per_minute
-    limit: 10
-    burst: 20
+    limit: 300
     timeFrame: minute
-    applies:
-      - Squarespace Commerce API
-      - Squarespace Orders API
-      - Squarespace Products API
-      - Squarespace Inventory API
-      - Squarespace Profiles API
-      - Squarespace Transactions API
-      - Squarespace Webhook Subscriptions API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Squarespace Commerce API
-      - Squarespace Orders API
-      - Squarespace Products API
-      - Squarespace Inventory API
-      - Squarespace Profiles API
-      - Squarespace Transactions API
-      - Squarespace Webhook Subscriptions API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    notes: 300 requests per minute, equivalent to 5 requests per second. Applies across all Commerce API endpoints unless an endpoint declares a stricter cap.
+  - name: Global Commerce API (per-second equivalent)
+    scope: website
+    metric: requests_per_second
+    limit: 5
+    timeFrame: second
+    notes: Bandwidth equivalent of the 300/minute global limit.
+  - name: Create Order Endpoint (API Key auth)
+    scope: website/auth-method
+    metric: requests_per_hour
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Squarespace Commerce API
-      - Squarespace Orders API
-      - Squarespace Products API
-      - Squarespace Inventory API
-      - Squarespace Profiles API
-      - Squarespace Transactions API
-      - Squarespace Webhook Subscriptions API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Squarespace Commerce API
-      - Squarespace Orders API
-      - Squarespace Products API
-      - Squarespace Inventory API
-      - Squarespace Profiles API
-      - Squarespace Transactions API
-      - Squarespace Webhook Subscriptions API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Squarespace Commerce API
-      - Squarespace Orders API
-      - Squarespace Products API
-      - Squarespace Inventory API
-      - Squarespace Profiles API
-      - Squarespace Transactions API
-      - Squarespace Webhook Subscriptions API
+    timeFrame: hour
+    notes: Stricter limit specific to the Create Order endpoint when called with API Key authentication. Does not apply to OAuth-authenticated requests.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: 429 Cooldown
+    description: After exceeding the rate limit, the API returns 429 Too Many Requests and enters a one-minute cooldown before serving further calls. Clients should pause for at least 60 seconds before retrying.
+  - name: OAuth vs API Key
+    description: OAuth authentication is required to bypass the 100-per-hour Create Order cap. API key auth is the default but carries the stricter Create Order limit.
+  - name: Customer Care for Edge Cases
+    description: Squarespace directs operators to Customer Care for guidance on rate-limiting strategies beyond the published thresholds.
 maintainers:
-  - name: Squarespace Developer Support
-    url: https://developers.squarespace.com
+  - name: Squarespace, Inc.
+    url: https://developers.squarespace.com/
