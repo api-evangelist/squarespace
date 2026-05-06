@@ -1,242 +1,461 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Squarespace Commerce Management"
-  description: >-
-    Unified commerce management capability combining Squarespace Orders, Products,
-    and Inventory APIs. Enables e-commerce operators, integration developers, and
-    automation tools to manage the full product lifecycle — catalog management,
-    order fulfillment, and stock control — through a single REST API and MCP server.
-    Suited for ERP integrations, warehouse management, and multi-channel retail.
+  label: Squarespace Commerce Management
+  description: Unified commerce management capability combining Squarespace Orders, Products, and Inventory APIs. Enables
+    e-commerce operators, integration developers, and automation tools to manage the full product lifecycle — catalog management,
+    order fulfillment, and stock control — through a single REST API and MCP server. Suited for ERP integrations, warehouse
+    management, and multi-channel retail.
   tags:
-    - Commerce
-    - E-Commerce
-    - Inventory
-    - Orders
-    - Products
-    - Squarespace
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Commerce
+  - E-Commerce
+  - Inventory
+  - Orders
+  - Products
+  - Squarespace
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
-
+- namespace: env
+  keys:
+    SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
 capability:
   consumes:
-    - import: squarespace-orders
-      location: ./shared/orders.yaml
-    - import: squarespace-products
-      location: ./shared/products.yaml
-    - import: squarespace-inventory
-      location: ./shared/inventory.yaml
-
+  - type: http
+    namespace: squarespace-orders
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Orders REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: orders
+      path: /commerce/orders
+      description: Order management
+      operations:
+      - name: list-orders
+        method: GET
+        description: Retrieve paginated list of orders
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        - name: modifiedAfter
+          in: query
+          type: string
+          required: false
+          description: ISO 8601 date filter
+        - name: modifiedBefore
+          in: query
+          type: string
+          required: false
+          description: ISO 8601 date filter
+        - name: fulfillmentStatus
+          in: query
+          type: string
+          required: false
+          description: Filter by fulfillment status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-order
+        method: POST
+        description: Create a new order or import from third-party channel
+        body:
+          type: json
+          data:
+            channelName: '{{tools.channelName}}'
+            externalOrderReference: '{{tools.externalOrderReference}}'
+            lineItems: '{{tools.lineItems}}'
+            customerEmail: '{{tools.customerEmail}}'
+            fulfillmentStatus: '{{tools.fulfillmentStatus}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: order-by-id
+      path: /commerce/orders/{orderId}
+      description: Individual order retrieval
+      operations:
+      - name: get-order
+        method: GET
+        description: Retrieve a specific order by ID
+        inputParameters:
+        - name: orderId
+          in: path
+          type: string
+          required: true
+          description: Order ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: squarespace-products
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Products REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: products
+      path: /commerce/products
+      description: Product catalog management
+      operations:
+      - name: list-products
+        method: GET
+        description: Retrieve paginated product catalog
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Filter by product type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-product
+        method: POST
+        description: Create a new product
+        body:
+          type: json
+          data:
+            type: '{{tools.type}}'
+            storePageId: '{{tools.storePageId}}'
+            name: '{{tools.name}}'
+            description: '{{tools.description}}'
+            variants: '{{tools.variants}}'
+            images: '{{tools.images}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: product-by-id
+      path: /commerce/products/{productId}
+      description: Individual product management
+      operations:
+      - name: get-product
+        method: GET
+        description: Retrieve a specific product by ID
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+          description: Product ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-product
+        method: PUT
+        description: Update a product's details
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+          description: Product ID
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            description: '{{tools.description}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-product
+        method: DELETE
+        description: Delete a product from the catalog
+        inputParameters:
+        - name: productId
+          in: path
+          type: string
+          required: true
+          description: Product ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: squarespace-inventory
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Inventory REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: inventory
+      path: /commerce/inventory
+      description: Inventory level retrieval
+      operations:
+      - name: list-inventory
+        method: GET
+        description: Retrieve stock information for all product variants
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inventory-by-variant
+      path: /commerce/inventory/{variantId}
+      description: Individual variant inventory
+      operations:
+      - name: get-variant-inventory
+        method: GET
+        description: Get inventory for a specific variant
+        inputParameters:
+        - name: variantId
+          in: path
+          type: string
+          required: true
+          description: Variant ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: inventory-adjustments
+      path: /commerce/inventory/adjustments
+      description: Bulk inventory adjustment
+      operations:
+      - name: adjust-inventory
+        method: POST
+        description: Apply incremental stock adjustments to variants
+        body:
+          type: json
+          data:
+            inventory: '{{tools.inventory}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: squarespace-commerce-api
-      description: "Unified REST API for Squarespace commerce management."
-      resources:
-        - path: /v1/orders
-          name: orders
-          description: "Order history and management"
-          operations:
-            - method: GET
-              name: list-orders
-              description: "Retrieve all orders with optional date and status filters"
-              call: "squarespace-orders.list-orders"
-              with:
-                cursor: "rest.cursor"
-                modifiedAfter: "rest.modifiedAfter"
-                fulfillmentStatus: "rest.fulfillmentStatus"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/orders/{id}
-          name: order
-          description: "Individual order details"
-          operations:
-            - method: GET
-              name: get-order
-              description: "Retrieve a specific order by ID"
-              call: "squarespace-orders.get-order"
-              with:
-                orderId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/products
-          name: products
-          description: "Product catalog"
-          operations:
-            - method: GET
-              name: list-products
-              description: "Retrieve all products in the catalog"
-              call: "squarespace-products.list-products"
-              with:
-                cursor: "rest.cursor"
-                type: "rest.type"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-product
-              description: "Create a new product"
-              call: "squarespace-products.create-product"
-              with:
-                type: "rest.type"
-                name: "rest.name"
-                description: "rest.description"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/products/{id}
-          name: product
-          description: "Individual product management"
-          operations:
-            - method: GET
-              name: get-product
-              description: "Get a specific product"
-              call: "squarespace-products.get-product"
-              with:
-                productId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-product
-              description: "Delete a product from the catalog"
-              call: "squarespace-products.delete-product"
-              with:
-                productId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/inventory
-          name: inventory
-          description: "Stock level management"
-          operations:
-            - method: GET
-              name: list-inventory
-              description: "Retrieve inventory levels for all variants"
-              call: "squarespace-inventory.list-inventory"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/inventory/adjustments
-          name: inventory-adjustments
-          description: "Bulk inventory adjustment"
-          operations:
-            - method: POST
-              name: adjust-inventory
-              description: "Apply stock quantity adjustments"
-              call: "squarespace-inventory.adjust-inventory"
-              with:
-                inventory: "rest.inventory"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: squarespace-commerce-mcp
-      transport: http
-      description: "MCP server for AI-assisted Squarespace commerce management."
-      tools:
-        - name: list-orders
-          description: >-
-            Retrieve all orders from a Squarespace merchant site. Supports filtering
-            by fulfillment status and modification date range.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-orders.list-orders"
-          with:
-            cursor: "tools.cursor"
-            modifiedAfter: "tools.modifiedAfter"
-            fulfillmentStatus: "tools.fulfillmentStatus"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-order
-          description: "Retrieve details of a specific order by its ID."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-orders.get-order"
-          with:
-            orderId: "tools.orderId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-products
-          description: >-
-            Retrieve all products in the Squarespace catalog. Optionally filter
-            by product type (PHYSICAL, SERVICE, GIFT_CARD, DIGITAL).
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-products.list-products"
-          with:
-            cursor: "tools.cursor"
-            type: "tools.type"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-product
-          description: "Retrieve a specific product by its ID."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-products.get-product"
-          with:
-            productId: "tools.productId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-product
-          description: "Create a new product in the Squarespace catalog."
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "squarespace-products.create-product"
-          with:
-            type: "tools.type"
-            name: "tools.name"
-            description: "tools.description"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-product
-          description: "Delete a product from the Squarespace catalog."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "squarespace-products.delete-product"
-          with:
-            productId: "tools.productId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-inventory
-          description: "Retrieve current stock levels for all product variants."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-inventory.list-inventory"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: adjust-inventory
-          description: "Apply incremental stock quantity adjustments to product variants."
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "squarespace-inventory.adjust-inventory"
-          with:
-            inventory: "tools.inventory"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: squarespace-commerce-api
+    description: Unified REST API for Squarespace commerce management.
+    resources:
+    - path: /v1/orders
+      name: orders
+      description: Order history and management
+      operations:
+      - method: GET
+        name: list-orders
+        description: Retrieve all orders with optional date and status filters
+        call: squarespace-orders.list-orders
+        with:
+          cursor: rest.cursor
+          modifiedAfter: rest.modifiedAfter
+          fulfillmentStatus: rest.fulfillmentStatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{id}
+      name: order
+      description: Individual order details
+      operations:
+      - method: GET
+        name: get-order
+        description: Retrieve a specific order by ID
+        call: squarespace-orders.get-order
+        with:
+          orderId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products
+      name: products
+      description: Product catalog
+      operations:
+      - method: GET
+        name: list-products
+        description: Retrieve all products in the catalog
+        call: squarespace-products.list-products
+        with:
+          cursor: rest.cursor
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-product
+        description: Create a new product
+        call: squarespace-products.create-product
+        with:
+          type: rest.type
+          name: rest.name
+          description: rest.description
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/{id}
+      name: product
+      description: Individual product management
+      operations:
+      - method: GET
+        name: get-product
+        description: Get a specific product
+        call: squarespace-products.get-product
+        with:
+          productId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-product
+        description: Delete a product from the catalog
+        call: squarespace-products.delete-product
+        with:
+          productId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inventory
+      name: inventory
+      description: Stock level management
+      operations:
+      - method: GET
+        name: list-inventory
+        description: Retrieve inventory levels for all variants
+        call: squarespace-inventory.list-inventory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inventory/adjustments
+      name: inventory-adjustments
+      description: Bulk inventory adjustment
+      operations:
+      - method: POST
+        name: adjust-inventory
+        description: Apply stock quantity adjustments
+        call: squarespace-inventory.adjust-inventory
+        with:
+          inventory: rest.inventory
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: squarespace-commerce-mcp
+    transport: http
+    description: MCP server for AI-assisted Squarespace commerce management.
+    tools:
+    - name: list-orders
+      description: Retrieve all orders from a Squarespace merchant site. Supports filtering by fulfillment status and modification
+        date range.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-orders.list-orders
+      with:
+        cursor: tools.cursor
+        modifiedAfter: tools.modifiedAfter
+        fulfillmentStatus: tools.fulfillmentStatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-order
+      description: Retrieve details of a specific order by its ID.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-orders.get-order
+      with:
+        orderId: tools.orderId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-products
+      description: Retrieve all products in the Squarespace catalog. Optionally filter by product type (PHYSICAL, SERVICE,
+        GIFT_CARD, DIGITAL).
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-products.list-products
+      with:
+        cursor: tools.cursor
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-product
+      description: Retrieve a specific product by its ID.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-products.get-product
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-product
+      description: Create a new product in the Squarespace catalog.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: squarespace-products.create-product
+      with:
+        type: tools.type
+        name: tools.name
+        description: tools.description
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-product
+      description: Delete a product from the Squarespace catalog.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: squarespace-products.delete-product
+      with:
+        productId: tools.productId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-inventory
+      description: Retrieve current stock levels for all product variants.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-inventory.list-inventory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adjust-inventory
+      description: Apply incremental stock quantity adjustments to product variants.
+      hints:
+        readOnly: false
+        idempotent: false
+      call: squarespace-inventory.adjust-inventory
+      with:
+        inventory: tools.inventory
+      outputParameters:
+      - type: object
+        mapping: $.

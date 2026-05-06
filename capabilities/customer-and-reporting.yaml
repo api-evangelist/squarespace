@@ -1,224 +1,400 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Squarespace Customer and Reporting"
-  description: >-
-    Unified capability combining Squarespace Profiles, Transactions, and Webhook
-    Subscriptions APIs. Enables CRM integrations, financial reporting tools, and
-    event-driven automation workflows. Suited for email marketing platforms,
+  label: Squarespace Customer and Reporting
+  description: Unified capability combining Squarespace Profiles, Transactions, and Webhook Subscriptions APIs. Enables CRM
+    integrations, financial reporting tools, and event-driven automation workflows. Suited for email marketing platforms,
     accounting integrations, and real-time order notification systems.
   tags:
-    - Analytics
-    - CRM
-    - Event Notifications
-    - Finance
-    - Reporting
-    - Squarespace
-    - Webhooks
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Analytics
+  - CRM
+  - Event Notifications
+  - Finance
+  - Reporting
+  - Squarespace
+  - Webhooks
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
-
+- namespace: env
+  keys:
+    SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
 capability:
   consumes:
-    - import: squarespace-profiles
-      location: ./shared/profiles.yaml
-    - import: squarespace-transactions
-      location: ./shared/transactions.yaml
-    - import: squarespace-webhooks
-      location: ./shared/webhook-subscriptions.yaml
-
+  - type: http
+    namespace: squarespace-profiles
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Profiles REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: profiles
+      path: /profiles
+      description: Customer profile retrieval
+      operations:
+      - name: list-profiles
+        method: GET
+        description: Retrieve paginated customer profiles
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        - name: isCustomer
+          in: query
+          type: boolean
+          required: false
+          description: Filter to customer profiles only
+        - name: email
+          in: query
+          type: string
+          required: false
+          description: Filter by email address
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: profile-by-id
+      path: /profiles/{profileId}
+      description: Individual profile retrieval
+      operations:
+      - name: get-profile
+        method: GET
+        description: Retrieve a specific profile by ID
+        inputParameters:
+        - name: profileId
+          in: path
+          type: string
+          required: true
+          description: Profile ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: squarespace-transactions
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Transactions REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: transactions
+      path: /commerce/transactions
+      description: Financial transaction retrieval
+      operations:
+      - name: list-transactions
+        method: GET
+        description: Retrieve paginated financial transactions
+        inputParameters:
+        - name: cursor
+          in: query
+          type: string
+          required: false
+          description: Pagination cursor
+        - name: modifiedAfter
+          in: query
+          type: string
+          required: false
+          description: ISO 8601 date filter
+        - name: modifiedBefore
+          in: query
+          type: string
+          required: false
+          description: ISO 8601 date filter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: transaction-by-id
+      path: /commerce/transactions/{transactionId}
+      description: Individual transaction retrieval
+      operations:
+      - name: get-transaction
+        method: GET
+        description: Retrieve a specific transaction by ID
+        inputParameters:
+        - name: transactionId
+          in: path
+          type: string
+          required: true
+          description: Transaction ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: squarespace-webhooks
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Webhook Subscriptions REST API
+    authentication:
+      type: bearer
+      token: '{{SQUARESPACE_API_KEY}}'
+    resources:
+    - name: webhook-subscriptions
+      path: /webhook_subscriptions
+      description: Webhook subscription management
+      operations:
+      - name: list-webhook-subscriptions
+        method: GET
+        description: List all webhook subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-webhook-subscription
+        method: POST
+        description: Create a new webhook subscription
+        body:
+          type: json
+          data:
+            endpointUrl: '{{tools.endpointUrl}}'
+            topics: '{{tools.topics}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: webhook-subscription-by-id
+      path: /webhook_subscriptions/{subscriptionId}
+      description: Individual webhook subscription management
+      operations:
+      - name: get-webhook-subscription
+        method: GET
+        description: Retrieve a specific webhook subscription
+        inputParameters:
+        - name: subscriptionId
+          in: path
+          type: string
+          required: true
+          description: Webhook subscription ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-webhook-subscription
+        method: PUT
+        description: Update a webhook subscription endpoint or topics
+        inputParameters:
+        - name: subscriptionId
+          in: path
+          type: string
+          required: true
+          description: Webhook subscription ID
+        body:
+          type: json
+          data:
+            endpointUrl: '{{tools.endpointUrl}}'
+            topics: '{{tools.topics}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-webhook-subscription
+        method: DELETE
+        description: Delete a webhook subscription
+        inputParameters:
+        - name: subscriptionId
+          in: path
+          type: string
+          required: true
+          description: Webhook subscription ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8081
-      namespace: squarespace-customer-reporting-api
-      description: "Unified REST API for Squarespace customer data and financial reporting."
-      resources:
-        - path: /v1/profiles
-          name: profiles
-          description: "Customer, subscriber, and donor profiles"
-          operations:
-            - method: GET
-              name: list-profiles
-              description: "Retrieve all customer profiles with optional filters"
-              call: "squarespace-profiles.list-profiles"
-              with:
-                cursor: "rest.cursor"
-                isCustomer: "rest.isCustomer"
-                email: "rest.email"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/profiles/{id}
-          name: profile
-          description: "Individual customer profile"
-          operations:
-            - method: GET
-              name: get-profile
-              description: "Get a specific customer profile"
-              call: "squarespace-profiles.get-profile"
-              with:
-                profileId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/transactions
-          name: transactions
-          description: "Financial transaction records"
-          operations:
-            - method: GET
-              name: list-transactions
-              description: "Retrieve financial transactions with optional date filters"
-              call: "squarespace-transactions.list-transactions"
-              with:
-                cursor: "rest.cursor"
-                modifiedAfter: "rest.modifiedAfter"
-                modifiedBefore: "rest.modifiedBefore"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/transactions/{id}
-          name: transaction
-          description: "Individual transaction"
-          operations:
-            - method: GET
-              name: get-transaction
-              description: "Get a specific financial transaction"
-              call: "squarespace-transactions.get-transaction"
-              with:
-                transactionId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/webhook-subscriptions
-          name: webhook-subscriptions
-          description: "Webhook event subscriptions"
-          operations:
-            - method: GET
-              name: list-webhook-subscriptions
-              description: "List all webhook subscriptions"
-              call: "squarespace-webhooks.list-webhook-subscriptions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-webhook-subscription
-              description: "Create a new webhook subscription"
-              call: "squarespace-webhooks.create-webhook-subscription"
-              with:
-                endpointUrl: "rest.endpointUrl"
-                topics: "rest.topics"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/webhook-subscriptions/{id}
-          name: webhook-subscription
-          description: "Individual webhook subscription"
-          operations:
-            - method: DELETE
-              name: delete-webhook-subscription
-              description: "Delete a webhook subscription"
-              call: "squarespace-webhooks.delete-webhook-subscription"
-              with:
-                subscriptionId: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9091
-      namespace: squarespace-customer-reporting-mcp
-      transport: http
-      description: "MCP server for AI-assisted Squarespace customer analytics and reporting."
-      tools:
-        - name: list-profiles
-          description: >-
-            Retrieve customer, subscriber, and donor profiles from Squarespace.
-            Filter by customer status or email address.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-profiles.list-profiles"
-          with:
-            cursor: "tools.cursor"
-            isCustomer: "tools.isCustomer"
-            email: "tools.email"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-profile
-          description: "Retrieve a specific customer profile by ID."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-profiles.get-profile"
-          with:
-            profileId: "tools.profileId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-transactions
-          description: >-
-            Retrieve financial transaction records for orders and donations.
-            Supports date range filtering for reconciliation workflows.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-transactions.list-transactions"
-          with:
-            cursor: "tools.cursor"
-            modifiedAfter: "tools.modifiedAfter"
-            modifiedBefore: "tools.modifiedBefore"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-transaction
-          description: "Retrieve a specific financial transaction by ID."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-transactions.get-transaction"
-          with:
-            transactionId: "tools.transactionId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-webhook-subscriptions
-          description: "List all configured webhook subscriptions for the merchant site."
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "squarespace-webhooks.list-webhook-subscriptions"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-webhook-subscription
-          description: >-
-            Create a new webhook subscription to receive real-time notifications
-            for Squarespace commerce events (order created, order updated, etc).
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "squarespace-webhooks.create-webhook-subscription"
-          with:
-            endpointUrl: "tools.endpointUrl"
-            topics: "tools.topics"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: delete-webhook-subscription
-          description: "Delete a webhook subscription by ID."
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "squarespace-webhooks.delete-webhook-subscription"
-          with:
-            subscriptionId: "tools.subscriptionId"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8081
+    namespace: squarespace-customer-reporting-api
+    description: Unified REST API for Squarespace customer data and financial reporting.
+    resources:
+    - path: /v1/profiles
+      name: profiles
+      description: Customer, subscriber, and donor profiles
+      operations:
+      - method: GET
+        name: list-profiles
+        description: Retrieve all customer profiles with optional filters
+        call: squarespace-profiles.list-profiles
+        with:
+          cursor: rest.cursor
+          isCustomer: rest.isCustomer
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/profiles/{id}
+      name: profile
+      description: Individual customer profile
+      operations:
+      - method: GET
+        name: get-profile
+        description: Get a specific customer profile
+        call: squarespace-profiles.get-profile
+        with:
+          profileId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactions
+      name: transactions
+      description: Financial transaction records
+      operations:
+      - method: GET
+        name: list-transactions
+        description: Retrieve financial transactions with optional date filters
+        call: squarespace-transactions.list-transactions
+        with:
+          cursor: rest.cursor
+          modifiedAfter: rest.modifiedAfter
+          modifiedBefore: rest.modifiedBefore
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/transactions/{id}
+      name: transaction
+      description: Individual transaction
+      operations:
+      - method: GET
+        name: get-transaction
+        description: Get a specific financial transaction
+        call: squarespace-transactions.get-transaction
+        with:
+          transactionId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhook-subscriptions
+      name: webhook-subscriptions
+      description: Webhook event subscriptions
+      operations:
+      - method: GET
+        name: list-webhook-subscriptions
+        description: List all webhook subscriptions
+        call: squarespace-webhooks.list-webhook-subscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-webhook-subscription
+        description: Create a new webhook subscription
+        call: squarespace-webhooks.create-webhook-subscription
+        with:
+          endpointUrl: rest.endpointUrl
+          topics: rest.topics
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhook-subscriptions/{id}
+      name: webhook-subscription
+      description: Individual webhook subscription
+      operations:
+      - method: DELETE
+        name: delete-webhook-subscription
+        description: Delete a webhook subscription
+        call: squarespace-webhooks.delete-webhook-subscription
+        with:
+          subscriptionId: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9091
+    namespace: squarespace-customer-reporting-mcp
+    transport: http
+    description: MCP server for AI-assisted Squarespace customer analytics and reporting.
+    tools:
+    - name: list-profiles
+      description: Retrieve customer, subscriber, and donor profiles from Squarespace. Filter by customer status or email
+        address.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-profiles.list-profiles
+      with:
+        cursor: tools.cursor
+        isCustomer: tools.isCustomer
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-profile
+      description: Retrieve a specific customer profile by ID.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-profiles.get-profile
+      with:
+        profileId: tools.profileId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-transactions
+      description: Retrieve financial transaction records for orders and donations. Supports date range filtering for reconciliation
+        workflows.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-transactions.list-transactions
+      with:
+        cursor: tools.cursor
+        modifiedAfter: tools.modifiedAfter
+        modifiedBefore: tools.modifiedBefore
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-transaction
+      description: Retrieve a specific financial transaction by ID.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-transactions.get-transaction
+      with:
+        transactionId: tools.transactionId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-webhook-subscriptions
+      description: List all configured webhook subscriptions for the merchant site.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: squarespace-webhooks.list-webhook-subscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook-subscription
+      description: Create a new webhook subscription to receive real-time notifications for Squarespace commerce events (order
+        created, order updated, etc).
+      hints:
+        readOnly: false
+        idempotent: false
+      call: squarespace-webhooks.create-webhook-subscription
+      with:
+        endpointUrl: tools.endpointUrl
+        topics: tools.topics
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook-subscription
+      description: Delete a webhook subscription by ID.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: squarespace-webhooks.delete-webhook-subscription
+      with:
+        subscriptionId: tools.subscriptionId
+      outputParameters:
+      - type: object
+        mapping: $.
