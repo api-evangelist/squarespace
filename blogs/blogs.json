@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://www.squarespace.com/blog",
-      "feed_url": "https://www.squarespace.com/blog?format=rss",
-      "saved": 10,
-      "title": "Making It \u2013 The Squarespace Blog - Squarespace"
+      "feed_url": "https://www.squarespace.com/blog/atom.xml",
+      "title": "Making It \u2013 The Squarespace Blog - Squarespace",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:37:06Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
