@@ -1,0 +1,117 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Squarespace Transactions API — Transactions
+  description: 'Squarespace Transactions API — Transactions. 2 operations. Lead operation: Retrieve All Transactions. Self-contained
+    Naftiko capability covering one Squarespace business surface.'
+  tags:
+  - Squarespace
+  - Transactions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: transactions-transactions
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Transactions API — Transactions business capability. Self-contained, no shared references.
+    resources:
+    - name: commerce-transactions
+      path: /commerce/transactions
+      operations:
+      - name: listtransactions
+        method: GET
+        description: Retrieve All Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modifiedAfter
+          in: query
+          type: string
+          description: ISO 8601 UTC date-time string. Only returns transactions modified after this date and time.
+        - name: modifiedBefore
+          in: query
+          type: string
+          description: ISO 8601 UTC date-time string. Only returns transactions modified before this date and time.
+    - name: commerce-transactions-transactionIds
+      path: /commerce/transactions/{transactionIds}
+      operations:
+      - name: gettransactions
+        method: GET
+        description: Retrieve Specific Transactions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SQUARESPACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: transactions-transactions-rest
+    port: 8080
+    description: REST adapter for Squarespace Transactions API — Transactions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/commerce/transactions
+      name: commerce-transactions
+      description: REST surface for commerce-transactions.
+      operations:
+      - method: GET
+        name: listtransactions
+        description: Retrieve All Transactions
+        call: transactions-transactions.listtransactions
+        with:
+          modifiedAfter: rest.modifiedAfter
+          modifiedBefore: rest.modifiedBefore
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commerce/transactions/{transactionids}
+      name: commerce-transactions-transactionids
+      description: REST surface for commerce-transactions-transactionIds.
+      operations:
+      - method: GET
+        name: gettransactions
+        description: Retrieve Specific Transactions
+        call: transactions-transactions.gettransactions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: transactions-transactions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Squarespace Transactions API — Transactions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: retrieve-all-transactions
+      description: Retrieve All Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactions-transactions.listtransactions
+      with:
+        modifiedAfter: tools.modifiedAfter
+        modifiedBefore: tools.modifiedBefore
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-transactions
+      description: Retrieve Specific Transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: transactions-transactions.gettransactions
+      outputParameters:
+      - type: object
+        mapping: $.

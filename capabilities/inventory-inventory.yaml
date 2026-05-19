@@ -1,0 +1,144 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Squarespace Inventory API — Inventory
+  description: 'Squarespace Inventory API — Inventory. 3 operations. Lead operation: Retrieve All Inventory. Self-contained
+    Naftiko capability covering one Squarespace business surface.'
+  tags:
+  - Squarespace
+  - Inventory
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SQUARESPACE_API_KEY: SQUARESPACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inventory-inventory
+    baseUri: https://api.squarespace.com/1.0
+    description: Squarespace Inventory API — Inventory business capability. Self-contained, no shared references.
+    resources:
+    - name: commerce-inventory
+      path: /commerce/inventory
+      operations:
+      - name: listinventory
+        method: GET
+        description: Retrieve All Inventory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: commerce-inventory-adjustments
+      path: /commerce/inventory/adjustments
+      operations:
+      - name: adjustinventory
+        method: POST
+        description: Adjust Stock Quantities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: commerce-inventory-variantIds
+      path: /commerce/inventory/{variantIds}
+      operations:
+      - name: getinventorybyvariants
+        method: GET
+        description: Retrieve Specific Inventory
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SQUARESPACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inventory-inventory-rest
+    port: 8080
+    description: REST adapter for Squarespace Inventory API — Inventory. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/commerce/inventory
+      name: commerce-inventory
+      description: REST surface for commerce-inventory.
+      operations:
+      - method: GET
+        name: listinventory
+        description: Retrieve All Inventory
+        call: inventory-inventory.listinventory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commerce/inventory/adjustments
+      name: commerce-inventory-adjustments
+      description: REST surface for commerce-inventory-adjustments.
+      operations:
+      - method: POST
+        name: adjustinventory
+        description: Adjust Stock Quantities
+        call: inventory-inventory.adjustinventory
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commerce/inventory/{variantids}
+      name: commerce-inventory-variantids
+      description: REST surface for commerce-inventory-variantIds.
+      operations:
+      - method: GET
+        name: getinventorybyvariants
+        description: Retrieve Specific Inventory
+        call: inventory-inventory.getinventorybyvariants
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inventory-inventory-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Squarespace Inventory API — Inventory. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: retrieve-all-inventory
+      description: Retrieve All Inventory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-inventory.listinventory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adjust-stock-quantities
+      description: Adjust Stock Quantities
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-inventory.adjustinventory
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-inventory
+      description: Retrieve Specific Inventory
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-inventory.getinventorybyvariants
+      outputParameters:
+      - type: object
+        mapping: $.
