@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Profiles API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/profiles",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+              },
+              {
+                "name": "isCustomer",
+                "value": "",
+                "type": "query",
+                "description": "When true, filters results to only include customer profiles"
+              },
+              {
+                "name": "hasAccount",
+                "value": "",
+                "type": "query",
+                "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter profiles by exact email address match"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of profiles associated with the merchant site. Profiles represent customers, mailing list subscribers, and donors. By default returns up to 50 profiles per page. Results can be filtered by profile type, account status, or email address. Use the cursor parameter from the previous response's pagination.nextPageCursor to iterate through all profiles."
+        },
+        {
+          "info": {
+            "name": "Retrieve Specific Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/profiles/:profileIds",
+            "params": [
+              {
+                "name": "profileIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of profile IDs to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves profile information for one or more specific profiles by their profile IDs. Profile IDs can be provided as a comma-separated list in the path. The order of profiles in the response is not guaranteed to match the order of IDs provided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

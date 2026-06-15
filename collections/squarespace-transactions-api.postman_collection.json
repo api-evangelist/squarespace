@@ -1,0 +1,744 @@
+{
+  "item": [
+    {
+      "id": "daed54d6-85a3-4794-8f9b-6e4dbf223841",
+      "name": "Transactions",
+      "description": {
+        "content": "Financial transaction retrieval for orders and donations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7aca614-a009-4a6a-8a78-30799a6593f5",
+          "name": "Retrieve All Transactions",
+          "request": {
+            "name": "Retrieve All Transactions",
+            "description": {
+              "content": "Returns a paginated list of financial transaction documents for all orders and donations on the merchant site. Supports filtering by transaction date range. By default returns up to 50 transaction documents per page. Use the cursor parameter from a previous response to paginate through all results. Each document groups the financial details for a single order or donation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+                },
+                {
+                  "disabled": false,
+                  "key": "modifiedAfter",
+                  "value": "<dateTime>",
+                  "description": "ISO 8601 UTC date-time string. Only returns transactions modified after this date and time."
+                },
+                {
+                  "disabled": false,
+                  "key": "modifiedBefore",
+                  "value": "<dateTime>",
+                  "description": "ISO 8601 UTC date-time string. Only returns transactions modified before this date and time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "135122dc-586e-4596-af6e-20eede564432",
+              "name": "Successful response with paginated list of transaction documents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"2018-11-18T14:16:09.313Z\",\n      \"modifiedOn\": \"1994-03-10T11:12:48.472Z\",\n      \"totalSales\": {\n        \"value\": \"-27195841\",\n        \"currency\": \"HOQ\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"-387.0514578452\",\n        \"currency\": \"OMN\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-1646742540.3\",\n            \"currency\": \"DPR\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"77153105\",\n            \"currency\": \"SGT\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1968-08-20T20:23:09.341Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"28241132.7\",\n            \"currency\": \"JQX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"6371045\",\n            \"currency\": \"HRO\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2000-12-06T18:30:19.940Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TAX\",\n          \"amount\": {\n            \"value\": \"-259781971\",\n            \"currency\": \"BFM\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"89654350088.980629\",\n            \"currency\": \"RCI\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"ORDER\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"2017-05-11T16:38:04.474Z\",\n      \"modifiedOn\": \"1963-01-14T20:57:55.096Z\",\n      \"totalSales\": {\n        \"value\": \"-5\",\n        \"currency\": \"TPE\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"1327431\",\n        \"currency\": \"PFJ\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"PAYPAL\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-9195481750.13033015\",\n            \"currency\": \"GNH\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"840691633\",\n            \"currency\": \"VGQ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1984-04-11T02:02:41.669Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-0\",\n            \"currency\": \"BUV\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-783274.9057\",\n            \"currency\": \"SEE\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1950-03-13T15:27:48.492Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"3117.830666552\",\n            \"currency\": \"GJB\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TAX\",\n          \"amount\": {\n            \"value\": \"-48966692598\",\n            \"currency\": \"VZB\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://OOqfgLWFuLYWsEOpmqFCckBVvFKY.bkGA9Hm0I-,Msy-gcotvARB-WqQc-XUMyrTg,HKdRNq-\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4055f148-970b-47de-9249-490a865888d3",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f871ff79-e062-453e-8a7d-0c543a47d1d2",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef6aedab-174c-4d80-a660-1238b5e42e09",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "549de16b-4a61-4ad5-9e33-049c7719bb91",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "929ca3b2-060c-4a28-9e61-a3e1f4a4df5a",
+          "name": "Retrieve Specific Transactions",
+          "request": {
+            "name": "Retrieve Specific Transactions",
+            "description": {
+              "content": "Retrieves financial transaction documents for one or more specific orders or donations by their transaction document IDs. IDs should be provided as a comma-separated list in the path. Returns detailed payment information including gateway data, totals, and individual transaction line entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "transactions",
+                ":transactionIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionIds",
+                  "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1ae3031-ad5b-4266-8d30-00ed60f67193",
+              "name": "Successful response with the requested transaction documents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1977-09-08T03:34:33.844Z\",\n      \"modifiedOn\": \"1988-05-28T02:46:32.496Z\",\n      \"totalSales\": {\n        \"value\": \"74624971.0\",\n        \"currency\": \"OVS\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"878.3804\",\n        \"currency\": \"DVB\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-318773\",\n            \"currency\": \"FUU\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-58456.0745\",\n            \"currency\": \"SLF\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1953-05-09T22:36:03.633Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"0749906237\",\n            \"currency\": \"BHN\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-7703438643\",\n            \"currency\": \"FHP\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2023-09-05T17:08:55.050Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"DISCOUNT\",\n          \"amount\": {\n            \"value\": \"-9072420.65598766892\",\n            \"currency\": \"CJQ\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"SHIPPING\",\n          \"amount\": {\n            \"value\": \"56\",\n            \"currency\": \"ADZ\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1977-08-03T06:13:47.028Z\",\n      \"modifiedOn\": \"1993-08-31T09:35:41.222Z\",\n      \"totalSales\": {\n        \"value\": \"029275587\",\n        \"currency\": \"JPM\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"8119931078.2584921\",\n        \"currency\": \"QGX\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"16067564\",\n            \"currency\": \"THX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-605\",\n            \"currency\": \"JAC\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1967-03-17T11:03:46.462Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-0.07\",\n            \"currency\": \"THX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-74293950\",\n            \"currency\": \"HNJ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1993-04-15T08:48:57.154Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"7\",\n            \"currency\": \"ZCG\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"DISCOUNT\",\n          \"amount\": {\n            \"value\": \"-9678\",\n            \"currency\": \"NNG\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fe9615a-4318-4688-8fee-6a71037cd7dd",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9950e069-75de-4798-8fba-10ffcdbb69d4",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0f2ecab-1bed-48e6-942e-e31a6066b614",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2a239cc-ae1a-491a-a85c-c78160fa1545",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b31b6ce-88f0-4fc9-9882-75d191d26448",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "transactions",
+                    ":transactionIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionIds",
+                      "description": "(Required) Comma-separated list of transaction document IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.squarespace.com/1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ffc2c57a-ee9e-41a6-8380-072d075cc239",
+    "name": "Squarespace Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Squarespace Transactions API returns Document resource objects representing collections of financial transactions for orders and donations on a merchant site. It provides detailed payment data and supports multiple payment gateways including Squarespace Payments, Stripe, PayPal, and Square. The API is useful for building financial reporting tools, reconciliation workflows, and accounting integrations. Access requires a Commerce Basic, Commerce Advanced, or higher Squarespace plan.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

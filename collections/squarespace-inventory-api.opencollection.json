@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Inventory API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/inventory",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+              }
+            ]
+          },
+          "docs": "Returns real-time stock information for all product variants on the merchant site. The response contains up to 50 InventoryItem objects per page, with dynamic cursor-based pagination for iterating through all records. Each InventoryItem corresponds to a single product variant and includes its current stock quantity and tracking settings."
+        },
+        {
+          "info": {
+            "name": "Retrieve Specific Inventory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/inventory/:variantIds",
+            "params": [
+              {
+                "name": "variantIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
+              }
+            ]
+          },
+          "docs": "Retrieves real-time stock information for up to 50 specific product variants by their variant IDs. Variant IDs should be provided as a comma-separated list in the path. This endpoint is useful for checking stock levels on specific items without paginating through the full inventory."
+        },
+        {
+          "info": {
+            "name": "Adjust Stock Quantities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/inventory/adjustments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies incremental stock quantity adjustments to one or more product variants. Adjustments are relative changes, not absolute values. Positive values increase stock and negative values decrease it. Bulk adjustments across multiple variants can be submitted in a single request. Each adjustment can optionally include a reason for audit tracking."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

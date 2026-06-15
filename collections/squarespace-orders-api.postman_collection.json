@@ -1,0 +1,1457 @@
+{
+  "item": [
+    {
+      "id": "90baa24e-af2b-473a-ab5c-9e20ef1bc943",
+      "name": "Orders",
+      "description": {
+        "content": "Order management for one-time purchases and subscription orders",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3fe5aab-ed45-41d0-94da-c5bdf3e81de7",
+          "name": "Retrieve All Orders",
+          "request": {
+            "name": "Retrieve All Orders",
+            "description": {
+              "content": "Returns a paginated list of orders for the authenticated merchant site. By default returns up to 50 orders per page. Results can be filtered by modification date using modifiedAfter and modifiedBefore parameters. Use the cursor parameter from the previous response's pagination.nextPageCursor to retrieve subsequent pages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+                },
+                {
+                  "disabled": false,
+                  "key": "modifiedAfter",
+                  "value": "<dateTime>",
+                  "description": "ISO 8601 UTC date-time string. Only returns orders modified after this date and time."
+                },
+                {
+                  "disabled": false,
+                  "key": "modifiedBefore",
+                  "value": "<dateTime>",
+                  "description": "ISO 8601 UTC date-time string. Only returns orders modified before this date and time."
+                },
+                {
+                  "disabled": false,
+                  "key": "fulfillmentStatus",
+                  "value": "<string>",
+                  "description": "Filter orders by fulfillment status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "340638f8-5741-4d31-95b9-d27c53476197",
+              "name": "Successful response with paginated list of orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "fulfillmentStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"id\": \"string\",\n      \"orderNumber\": 5828,\n      \"createdOn\": \"1964-10-19T11:25:59.223Z\",\n      \"modifiedOn\": \"1980-11-05T18:47:13.560Z\",\n      \"channel\": \"string\",\n      \"testmode\": false,\n      \"customerEmail\": \"Zke2zZ@KthxKCgkibxSF.vvzt\",\n      \"billingAddress\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"address1\": \"string\",\n        \"address2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"YV\",\n        \"postalCode\": \"string\",\n        \"phone\": \"string\"\n      },\n      \"shippingAddress\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"address1\": \"string\",\n        \"address2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"PY\",\n        \"postalCode\": \"string\",\n        \"phone\": \"string\"\n      },\n      \"fulfillmentStatus\": \"FULFILLED\",\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"variantId\": \"string\",\n          \"sku\": \"string\",\n          \"productId\": \"string\",\n          \"productName\": \"string\",\n          \"quantity\": 3603,\n          \"unitPricePaid\": {\n            \"value\": \"76973923482\",\n            \"currency\": \"UCE\"\n          },\n          \"customizations\": [\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"imageUrl\": \"https://tKTZSXzuxClKSUtvAO.hzhmuniIOOiby.\",\n          \"lineItemType\": \"PHYSICAL\"\n        },\n        {\n          \"id\": \"string\",\n          \"variantId\": \"string\",\n          \"sku\": \"string\",\n          \"productId\": \"string\",\n          \"productName\": \"string\",\n          \"quantity\": 1791,\n          \"unitPricePaid\": {\n            \"value\": \"-94532954\",\n            \"currency\": \"TLW\"\n          },\n          \"customizations\": [\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"imageUrl\": \"https://nQFQSBGxZuSgT.faySsP3tdgKlPbTqpqYEtsTBQWFXxTmrFXCO\",\n          \"lineItemType\": \"GIFT_CARD\"\n        }\n      ],\n      \"fulfillments\": [\n        {\n          \"shipDate\": \"1999-06-24T07:00:17.716Z\",\n          \"carrierName\": \"string\",\n          \"service\": \"string\",\n          \"trackingNumber\": \"string\",\n          \"trackingUrl\": \"https://bqeLkaYX.hvjd1RnyUM758xBh1lQ7yoaSjWbp\"\n        },\n        {\n          \"shipDate\": \"1978-08-21T07:55:27.819Z\",\n          \"carrierName\": \"string\",\n          \"service\": \"string\",\n          \"trackingNumber\": \"string\",\n          \"trackingUrl\": \"http://KUPrnWDGP.toafoLA-abV3pPzTH5isNjchvjLjoiBHIkJkHBL,ucA\"\n        }\n      ],\n      \"totals\": {\n        \"subtotal\": {\n          \"value\": \"50635739454\",\n          \"currency\": \"DZO\"\n        },\n        \"shippingTotal\": {\n          \"value\": \"-82\",\n          \"currency\": \"CGN\"\n        },\n        \"taxTotal\": {\n          \"value\": \"9\",\n          \"currency\": \"EHK\"\n        },\n        \"discountTotal\": {\n          \"value\": \"715476\",\n          \"currency\": \"QWJ\"\n        },\n        \"grandTotal\": {\n          \"value\": \"-63\",\n          \"currency\": \"DYU\"\n        },\n        \"giftCardRedemptionTotal\": {\n          \"value\": \"1691391186.2238\",\n          \"currency\": \"RIH\"\n        }\n      },\n      \"formSubmission\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"refundedTotal\": {\n        \"value\": \"0483857463\",\n        \"currency\": \"WZG\"\n      },\n      \"priceTaxInterpretation\": \"EXCLUSIVE\"\n    },\n    {\n      \"id\": \"string\",\n      \"orderNumber\": 59,\n      \"createdOn\": \"1996-12-12T08:39:23.717Z\",\n      \"modifiedOn\": \"1952-05-14T13:15:09.890Z\",\n      \"channel\": \"string\",\n      \"testmode\": false,\n      \"customerEmail\": \"mrlaTLjPAejKwt@Yzdyj.mp\",\n      \"billingAddress\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"address1\": \"string\",\n        \"address2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"HB\",\n        \"postalCode\": \"string\",\n        \"phone\": \"string\"\n      },\n      \"shippingAddress\": {\n        \"firstName\": \"string\",\n        \"lastName\": \"string\",\n        \"address1\": \"string\",\n        \"address2\": \"string\",\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"KJ\",\n        \"postalCode\": \"string\",\n        \"phone\": \"string\"\n      },\n      \"fulfillmentStatus\": \"PENDING\",\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"variantId\": \"string\",\n          \"sku\": \"string\",\n          \"productId\": \"string\",\n          \"productName\": \"string\",\n          \"quantity\": 2351,\n          \"unitPricePaid\": {\n            \"value\": \"8\",\n            \"currency\": \"TVG\"\n          },\n          \"customizations\": [\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"imageUrl\": \"https://JZEb.zyxKeNYH8OuhT-Gjb\",\n          \"lineItemType\": \"GIFT_CARD\"\n        },\n        {\n          \"id\": \"string\",\n          \"variantId\": \"string\",\n          \"sku\": \"string\",\n          \"productId\": \"string\",\n          \"productName\": \"string\",\n          \"quantity\": 1025,\n          \"unitPricePaid\": {\n            \"value\": \"-1971134.112\",\n            \"currency\": \"VIU\"\n          },\n          \"customizations\": [\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"label\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"imageUrl\": \"https://vQbmQQWj.jvqTLbNPjSpv.voUEPDT4SyO6y+U4,bFdT7e9d.33+Tpf0UCi3.OlZK2SdJ8A.2XX\",\n          \"lineItemType\": \"SERVICE\"\n        }\n      ],\n      \"fulfillments\": [\n        {\n          \"shipDate\": \"1970-11-10T00:43:31.437Z\",\n          \"carrierName\": \"string\",\n          \"service\": \"string\",\n          \"trackingNumber\": \"string\",\n          \"trackingUrl\": \"https://Gy.dioEebV,UbSJz\"\n        },\n        {\n          \"shipDate\": \"1964-07-24T23:24:31.666Z\",\n          \"carrierName\": \"string\",\n          \"service\": \"string\",\n          \"trackingNumber\": \"string\",\n          \"trackingUrl\": \"https://YxQhqoRBHjJMz.epScA2Tzy3tuWLswZEox7usDZyhomuhitGFdJugVwot\"\n        }\n      ],\n      \"totals\": {\n        \"subtotal\": {\n          \"value\": \"-60499.7461865\",\n          \"currency\": \"LMF\"\n        },\n        \"shippingTotal\": {\n          \"value\": \"441694.7\",\n          \"currency\": \"PKM\"\n        },\n        \"taxTotal\": {\n          \"value\": \"8478362.944\",\n          \"currency\": \"DXK\"\n        },\n        \"discountTotal\": {\n          \"value\": \"-16341.57647775194\",\n          \"currency\": \"UDR\"\n        },\n        \"grandTotal\": {\n          \"value\": \"-17405851.23173\",\n          \"currency\": \"KJE\"\n        },\n        \"giftCardRedemptionTotal\": {\n          \"value\": \"41913421.280978526\",\n          \"currency\": \"TLI\"\n        }\n      },\n      \"formSubmission\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"refundedTotal\": {\n        \"value\": \"4531751\",\n        \"currency\": \"TSD\"\n      },\n      \"priceTaxInterpretation\": \"INCLUSIVE\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": true,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"https://azMlVhLSqAIJhqFIVguBDfNgApmna.peFhJZUCZFsVXQZneqR+DHR9W72USIC\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a24f7fc7-edaf-4e18-b139-f612300aece5",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "fulfillmentStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10b3862a-da3f-4363-a55c-485d4f4f333f",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "fulfillmentStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "005fa09d-f70a-4e0b-bb8c-e75ea5aeda88",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "fulfillmentStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85a67b34-e95d-40f4-902a-e86eeced9241",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "modifiedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modifiedBefore",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "fulfillmentStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78847e09-45e1-4fc3-85a0-081560487184",
+          "name": "Create an Order",
+          "request": {
+            "name": "Create an Order",
+            "description": {
+              "content": "Creates a new order on the merchant site. This endpoint is primarily used to import orders from third-party sales channels into Squarespace. The order must include line items, customer information, and address details. Creating an order does not process payment; it records the order as already completed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"<string>\",\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productName\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unitPricePaid\": {\n        \"value\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"lineItemType\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"productId\": \"<string>\",\n      \"productName\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"unitPricePaid\": {\n        \"value\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"label\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"imageUrl\": \"<uri>\",\n      \"lineItemType\": \"<string>\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"taxTotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"discountTotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"grandTotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"<dateTime>\",\n      \"carrierName\": \"<string>\",\n      \"service\": \"<string>\",\n      \"trackingNumber\": \"<string>\",\n      \"trackingUrl\": \"<uri>\"\n    },\n    {\n      \"shipDate\": \"<dateTime>\",\n      \"carrierName\": \"<string>\",\n      \"service\": \"<string>\",\n      \"trackingNumber\": \"<string>\",\n      \"trackingUrl\": \"<uri>\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f8aa8d9-b5ef-49ec-b308-0d5ec398fc7d",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 8471,\n      \"unitPricePaid\": {\n        \"value\": \"-4\",\n        \"currency\": \"YNT\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://ioXvFzUQjyiVXDy.jajieyng2b6dVEZzvGCL5HiYDF0,pO2MO4h7uGkD,pVaD-xb6Ed8\",\n      \"lineItemType\": \"GIFT_CARD\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 4374,\n      \"unitPricePaid\": {\n        \"value\": \"-1754950.478130787\",\n        \"currency\": \"NJA\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"https://asHdqnqPqBePwlEiPJjKlagvNHDiav.ebNdhTP-gKpvR-IfNB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"VC\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"OA\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-9574\",\n      \"currency\": \"NSK\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-183856.5625\",\n      \"currency\": \"KIF\"\n    },\n    \"taxTotal\": {\n      \"value\": \"-640013563.21708324\",\n      \"currency\": \"FVM\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-141.62\",\n      \"currency\": \"HQE\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-419147514\",\n      \"currency\": \"HWU\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-0183\",\n      \"currency\": \"MEQ\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1984-05-06T12:11:27.113Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://TlQWMtadjMlp.hrnG+Sd6evOa\"\n    },\n    {\n      \"shipDate\": \"1948-08-26T08:46:02.010Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://Dyvg.vbvJirGljD4ikgR10R2wg.1VLhULjb3e7IQG.XQUd-HvfH7Skha-dL25LZ28CXaL.2BqrnTw653aviVa\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderNumber\": 9904,\n  \"createdOn\": \"2023-11-06T13:16:16.266Z\",\n  \"modifiedOn\": \"1964-02-14T06:26:05.302Z\",\n  \"channel\": \"string\",\n  \"testmode\": true,\n  \"customerEmail\": \"oBcR@KJrSCklyNxUcYDjkDgAfyOzrF.mvw\",\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"NW\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"ZH\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"fulfillmentStatus\": \"CANCELED\",\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 3653,\n      \"unitPricePaid\": {\n        \"value\": \"-439096\",\n        \"currency\": \"UGE\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://oSYHOCKwLogvYjFfLlnLDoUVhMK.mwhjxIIwmtvj0bBc7ncxfjaJ83t0.yDPiAijaFHv7k7HH+NMAJaR.\",\n      \"lineItemType\": \"DIGITAL\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 5696,\n      \"unitPricePaid\": {\n        \"value\": \"169.56690\",\n        \"currency\": \"XOG\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://sGOORKJyLGtbMRRuqipHKFb.csjmocRNSLhyHvkQ4eiikh6pJ6JrOF5LVn3PjH++ZvcKcnOInJB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1972-01-12T10:42:59.571Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://hxGmpceqoFXuinigTaBxffvBAb.qxnbdJK8Q4EK2Yjc44QL\"\n    },\n    {\n      \"shipDate\": \"2000-10-11T13:55:47.641Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://muZpjkjBAZg.aevf4SxubY88Nkkb-nr,BQGNGI,W8Rlje+kY3U\"\n    }\n  ],\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-085637\",\n      \"currency\": \"HNF\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-3.56750055023\",\n      \"currency\": \"LYT\"\n    },\n    \"taxTotal\": {\n      \"value\": \"10287\",\n      \"currency\": \"OMB\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-65005\",\n      \"currency\": \"MHL\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-1150981185\",\n      \"currency\": \"YAB\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-948\",\n      \"currency\": \"RCN\"\n    }\n  },\n  \"formSubmission\": [\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"refundedTotal\": {\n    \"value\": \"5871.405\",\n    \"currency\": \"KUO\"\n  },\n  \"priceTaxInterpretation\": \"EXCLUSIVE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29278eb6-ee5a-468d-bdc0-2f228547b3b9",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 8471,\n      \"unitPricePaid\": {\n        \"value\": \"-4\",\n        \"currency\": \"YNT\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://ioXvFzUQjyiVXDy.jajieyng2b6dVEZzvGCL5HiYDF0,pO2MO4h7uGkD,pVaD-xb6Ed8\",\n      \"lineItemType\": \"GIFT_CARD\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 4374,\n      \"unitPricePaid\": {\n        \"value\": \"-1754950.478130787\",\n        \"currency\": \"NJA\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"https://asHdqnqPqBePwlEiPJjKlagvNHDiav.ebNdhTP-gKpvR-IfNB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"VC\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"OA\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-9574\",\n      \"currency\": \"NSK\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-183856.5625\",\n      \"currency\": \"KIF\"\n    },\n    \"taxTotal\": {\n      \"value\": \"-640013563.21708324\",\n      \"currency\": \"FVM\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-141.62\",\n      \"currency\": \"HQE\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-419147514\",\n      \"currency\": \"HWU\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-0183\",\n      \"currency\": \"MEQ\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1984-05-06T12:11:27.113Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://TlQWMtadjMlp.hrnG+Sd6evOa\"\n    },\n    {\n      \"shipDate\": \"1948-08-26T08:46:02.010Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://Dyvg.vbvJirGljD4ikgR10R2wg.1VLhULjb3e7IQG.XQUd-HvfH7Skha-dL25LZ28CXaL.2BqrnTw653aviVa\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67f72cab-577d-437c-b66e-f5e50991574e",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 8471,\n      \"unitPricePaid\": {\n        \"value\": \"-4\",\n        \"currency\": \"YNT\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://ioXvFzUQjyiVXDy.jajieyng2b6dVEZzvGCL5HiYDF0,pO2MO4h7uGkD,pVaD-xb6Ed8\",\n      \"lineItemType\": \"GIFT_CARD\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 4374,\n      \"unitPricePaid\": {\n        \"value\": \"-1754950.478130787\",\n        \"currency\": \"NJA\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"https://asHdqnqPqBePwlEiPJjKlagvNHDiav.ebNdhTP-gKpvR-IfNB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"VC\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"OA\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-9574\",\n      \"currency\": \"NSK\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-183856.5625\",\n      \"currency\": \"KIF\"\n    },\n    \"taxTotal\": {\n      \"value\": \"-640013563.21708324\",\n      \"currency\": \"FVM\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-141.62\",\n      \"currency\": \"HQE\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-419147514\",\n      \"currency\": \"HWU\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-0183\",\n      \"currency\": \"MEQ\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1984-05-06T12:11:27.113Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://TlQWMtadjMlp.hrnG+Sd6evOa\"\n    },\n    {\n      \"shipDate\": \"1948-08-26T08:46:02.010Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://Dyvg.vbvJirGljD4ikgR10R2wg.1VLhULjb3e7IQG.XQUd-HvfH7Skha-dL25LZ28CXaL.2BqrnTw653aviVa\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bb9bdb6-7049-48a5-ae0f-0b3f1278f252",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 8471,\n      \"unitPricePaid\": {\n        \"value\": \"-4\",\n        \"currency\": \"YNT\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://ioXvFzUQjyiVXDy.jajieyng2b6dVEZzvGCL5HiYDF0,pO2MO4h7uGkD,pVaD-xb6Ed8\",\n      \"lineItemType\": \"GIFT_CARD\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 4374,\n      \"unitPricePaid\": {\n        \"value\": \"-1754950.478130787\",\n        \"currency\": \"NJA\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"https://asHdqnqPqBePwlEiPJjKlagvNHDiav.ebNdhTP-gKpvR-IfNB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"VC\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"OA\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-9574\",\n      \"currency\": \"NSK\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-183856.5625\",\n      \"currency\": \"KIF\"\n    },\n    \"taxTotal\": {\n      \"value\": \"-640013563.21708324\",\n      \"currency\": \"FVM\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-141.62\",\n      \"currency\": \"HQE\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-419147514\",\n      \"currency\": \"HWU\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-0183\",\n      \"currency\": \"MEQ\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1984-05-06T12:11:27.113Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://TlQWMtadjMlp.hrnG+Sd6evOa\"\n    },\n    {\n      \"shipDate\": \"1948-08-26T08:46:02.010Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://Dyvg.vbvJirGljD4ikgR10R2wg.1VLhULjb3e7IQG.XQUd-HvfH7Skha-dL25LZ28CXaL.2BqrnTw653aviVa\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "812f85e4-b32b-4b69-9b21-ebc668cf7b26",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 8471,\n      \"unitPricePaid\": {\n        \"value\": \"-4\",\n        \"currency\": \"YNT\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://ioXvFzUQjyiVXDy.jajieyng2b6dVEZzvGCL5HiYDF0,pO2MO4h7uGkD,pVaD-xb6Ed8\",\n      \"lineItemType\": \"GIFT_CARD\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 4374,\n      \"unitPricePaid\": {\n        \"value\": \"-1754950.478130787\",\n        \"currency\": \"NJA\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"https://asHdqnqPqBePwlEiPJjKlagvNHDiav.ebNdhTP-gKpvR-IfNB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"VC\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"OA\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"customerEmail\": \"<email>\",\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-9574\",\n      \"currency\": \"NSK\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-183856.5625\",\n      \"currency\": \"KIF\"\n    },\n    \"taxTotal\": {\n      \"value\": \"-640013563.21708324\",\n      \"currency\": \"FVM\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-141.62\",\n      \"currency\": \"HQE\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-419147514\",\n      \"currency\": \"HWU\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-0183\",\n      \"currency\": \"MEQ\"\n    }\n  },\n  \"externalOrderReference\": \"<string>\",\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1984-05-06T12:11:27.113Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://TlQWMtadjMlp.hrnG+Sd6evOa\"\n    },\n    {\n      \"shipDate\": \"1948-08-26T08:46:02.010Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://Dyvg.vbvJirGljD4ikgR10R2wg.1VLhULjb3e7IQG.XQUd-HvfH7Skha-dL25LZ28CXaL.2BqrnTw653aviVa\"\n    }\n  ],\n  \"channel\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81f424fe-3395-45d0-badf-148c13089e51",
+          "name": "Retrieve a Specific Order",
+          "request": {
+            "name": "Retrieve a Specific Order",
+            "description": {
+              "content": "Retrieves detailed information for a specific order by its unique identifier. Returns the full Order resource object including line items, customer data, addresses, fulfillments, and payment details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) The unique identifier of the order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75525b30-af9d-44d2-b007-6846fdf265f7",
+              "name": "Successful response with order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderNumber\": 9904,\n  \"createdOn\": \"2023-11-06T13:16:16.266Z\",\n  \"modifiedOn\": \"1964-02-14T06:26:05.302Z\",\n  \"channel\": \"string\",\n  \"testmode\": true,\n  \"customerEmail\": \"oBcR@KJrSCklyNxUcYDjkDgAfyOzrF.mvw\",\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"NW\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"ZH\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"fulfillmentStatus\": \"CANCELED\",\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 3653,\n      \"unitPricePaid\": {\n        \"value\": \"-439096\",\n        \"currency\": \"UGE\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://oSYHOCKwLogvYjFfLlnLDoUVhMK.mwhjxIIwmtvj0bBc7ncxfjaJ83t0.yDPiAijaFHv7k7HH+NMAJaR.\",\n      \"lineItemType\": \"DIGITAL\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 5696,\n      \"unitPricePaid\": {\n        \"value\": \"169.56690\",\n        \"currency\": \"XOG\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://sGOORKJyLGtbMRRuqipHKFb.csjmocRNSLhyHvkQ4eiikh6pJ6JrOF5LVn3PjH++ZvcKcnOInJB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1972-01-12T10:42:59.571Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://hxGmpceqoFXuinigTaBxffvBAb.qxnbdJK8Q4EK2Yjc44QL\"\n    },\n    {\n      \"shipDate\": \"2000-10-11T13:55:47.641Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://muZpjkjBAZg.aevf4SxubY88Nkkb-nr,BQGNGI,W8Rlje+kY3U\"\n    }\n  ],\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-085637\",\n      \"currency\": \"HNF\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-3.56750055023\",\n      \"currency\": \"LYT\"\n    },\n    \"taxTotal\": {\n      \"value\": \"10287\",\n      \"currency\": \"OMB\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-65005\",\n      \"currency\": \"MHL\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-1150981185\",\n      \"currency\": \"YAB\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-948\",\n      \"currency\": \"RCN\"\n    }\n  },\n  \"formSubmission\": [\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"refundedTotal\": {\n    \"value\": \"5871.405\",\n    \"currency\": \"KUO\"\n  },\n  \"priceTaxInterpretation\": \"EXCLUSIVE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5afcd150-f9c7-4be8-ad37-80d87b9d193a",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2f9ba20-f7ca-4112-922b-61bd58879681",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c30ae4a7-3918-46e8-9dac-813bb43c51de",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "860b38ff-b632-4b88-90a6-d8018fea2d98",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd1cbd2e-b687-4fa4-8db4-2328054a7dad",
+          "name": "Fulfill an Order",
+          "request": {
+            "name": "Fulfill an Order",
+            "description": {
+              "content": "Marks one or more line items in an order as fulfilled and optionally records shipment tracking information. This updates the fulfillment status of the specified line items and can trigger order fulfillment notifications to the customer if configured.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "commerce",
+                "orders",
+                ":orderId",
+                "fulfillments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) The unique identifier of the order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"<dateTime>\",\n      \"carrierName\": \"<string>\",\n      \"service\": \"<string>\",\n      \"trackingNumber\": \"<string>\",\n      \"trackingUrl\": \"<uri>\"\n    },\n    {\n      \"shipDate\": \"<dateTime>\",\n      \"carrierName\": \"<string>\",\n      \"service\": \"<string>\",\n      \"trackingNumber\": \"<string>\",\n      \"trackingUrl\": \"<uri>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fcaf21d6-26e9-4c19-8c21-74d46532c4ba",
+              "name": "Order fulfillment recorded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderNumber\": 9904,\n  \"createdOn\": \"2023-11-06T13:16:16.266Z\",\n  \"modifiedOn\": \"1964-02-14T06:26:05.302Z\",\n  \"channel\": \"string\",\n  \"testmode\": true,\n  \"customerEmail\": \"oBcR@KJrSCklyNxUcYDjkDgAfyOzrF.mvw\",\n  \"billingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"NW\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"shippingAddress\": {\n    \"firstName\": \"string\",\n    \"lastName\": \"string\",\n    \"address1\": \"string\",\n    \"address2\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"countryCode\": \"ZH\",\n    \"postalCode\": \"string\",\n    \"phone\": \"string\"\n  },\n  \"fulfillmentStatus\": \"CANCELED\",\n  \"lineItems\": [\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 3653,\n      \"unitPricePaid\": {\n        \"value\": \"-439096\",\n        \"currency\": \"UGE\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://oSYHOCKwLogvYjFfLlnLDoUVhMK.mwhjxIIwmtvj0bBc7ncxfjaJ83t0.yDPiAijaFHv7k7HH+NMAJaR.\",\n      \"lineItemType\": \"DIGITAL\"\n    },\n    {\n      \"id\": \"string\",\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"productId\": \"string\",\n      \"productName\": \"string\",\n      \"quantity\": 5696,\n      \"unitPricePaid\": {\n        \"value\": \"169.56690\",\n        \"currency\": \"XOG\"\n      },\n      \"customizations\": [\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"label\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"imageUrl\": \"http://sGOORKJyLGtbMRRuqipHKFb.csjmocRNSLhyHvkQ4eiikh6pJ6JrOF5LVn3PjH++ZvcKcnOInJB\",\n      \"lineItemType\": \"DIGITAL\"\n    }\n  ],\n  \"fulfillments\": [\n    {\n      \"shipDate\": \"1972-01-12T10:42:59.571Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://hxGmpceqoFXuinigTaBxffvBAb.qxnbdJK8Q4EK2Yjc44QL\"\n    },\n    {\n      \"shipDate\": \"2000-10-11T13:55:47.641Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"https://muZpjkjBAZg.aevf4SxubY88Nkkb-nr,BQGNGI,W8Rlje+kY3U\"\n    }\n  ],\n  \"totals\": {\n    \"subtotal\": {\n      \"value\": \"-085637\",\n      \"currency\": \"HNF\"\n    },\n    \"shippingTotal\": {\n      \"value\": \"-3.56750055023\",\n      \"currency\": \"LYT\"\n    },\n    \"taxTotal\": {\n      \"value\": \"10287\",\n      \"currency\": \"OMB\"\n    },\n    \"discountTotal\": {\n      \"value\": \"-65005\",\n      \"currency\": \"MHL\"\n    },\n    \"grandTotal\": {\n      \"value\": \"-1150981185\",\n      \"currency\": \"YAB\"\n    },\n    \"giftCardRedemptionTotal\": {\n      \"value\": \"-948\",\n      \"currency\": \"RCN\"\n    }\n  },\n  \"formSubmission\": [\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    },\n    {\n      \"label\": \"string\",\n      \"value\": \"string\"\n    }\n  ],\n  \"refundedTotal\": {\n    \"value\": \"5871.405\",\n    \"currency\": \"KUO\"\n  },\n  \"priceTaxInterpretation\": \"EXCLUSIVE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8416ede0-f4c8-40b3-a0e0-afdad1373468",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f25d53e9-3b04-426d-84fe-b15a867f01cf",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faffcfd7-f8fb-4de9-9126-da3eba44af70",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3eb180f5-560d-4bb5-8df9-59c1924793a8",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eaa7a67-e0a7-4752-b6c3-b3915c268511",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "commerce",
+                    "orders",
+                    ":orderId",
+                    "fulfillments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) The unique identifier of the order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shouldSendNotification\": \"<boolean>\",\n  \"shipments\": [\n    {\n      \"shipDate\": \"2009-09-29T03:34:45.410Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://JeNbsUP.kkyzLIiJbNV.VSXfNdsZqCP8pesBRYfYmmL1IJX4MHxQqXq\"\n    },\n    {\n      \"shipDate\": \"1955-06-01T12:45:49.611Z\",\n      \"carrierName\": \"string\",\n      \"service\": \"string\",\n      \"trackingNumber\": \"string\",\n      \"trackingUrl\": \"http://rXutYPiDoTP.vejurkuXZjZOxD6gk3qYmw9lMHyzcOIob14oZ.Wh3UN.gym1\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7697\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.squarespace.com/1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "20abe75f-9ff9-4eaa-ad45-a16ce8e4463f",
+    "name": "Squarespace Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Squarespace Orders API provides access to order history for a Squarespace merchant site, supporting both one-time purchases and subscription orders. Developers can retrieve, create, and manage orders, as well as import orders from third-party sales channels into Squarespace. The API supports filtering by modification date and pagination via cursor for retrieving large sets of orders. It is commonly used to synchronize order data with external fulfillment systems, ERPs, or custom reporting tools.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

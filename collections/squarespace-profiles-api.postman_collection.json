@@ -1,0 +1,757 @@
+{
+  "item": [
+    {
+      "id": "d50ab984-eab9-4304-bb59-84fffc2d73e9",
+      "name": "Profiles",
+      "description": {
+        "content": "Customer, subscriber, and donor profile management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "843424bd-2714-4559-b897-24551ccb7d8d",
+          "name": "Retrieve All Profiles",
+          "request": {
+            "name": "Retrieve All Profiles",
+            "description": {
+              "content": "Returns a paginated list of profiles associated with the merchant site. Profiles represent customers, mailing list subscribers, and donors. By default returns up to 50 profiles per page. Results can be filtered by profile type, account status, or email address. Use the cursor parameter from the previous response's pagination.nextPageCursor to iterate through all profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+                },
+                {
+                  "disabled": false,
+                  "key": "isCustomer",
+                  "value": "<boolean>",
+                  "description": "When true, filters results to only include customer profiles"
+                },
+                {
+                  "disabled": false,
+                  "key": "hasAccount",
+                  "value": "<boolean>",
+                  "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles."
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "Filter profiles by exact email address match"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60ac0802-9c5b-4e72-b151-d2d2307bd6cf",
+              "name": "Successful response with paginated list of profiles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"c51H4PuT0Ma7P@vIRbmCDlkiSr.lybl\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"MM\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 853,\n        \"orderTotal\": {\n          \"value\": \"-03770\",\n          \"currency\": \"OHZ\"\n        },\n        \"donationCount\": 6884,\n        \"donationTotal\": {\n          \"value\": \"-98\",\n          \"currency\": \"WAL\"\n        },\n        \"firstOrderOn\": \"2000-09-17T05:58:09.356Z\",\n        \"lastOrderOn\": \"1983-01-22T06:49:16.727Z\"\n      },\n      \"createdOn\": \"1971-07-30T17:07:16.445Z\",\n      \"modifiedOn\": \"2009-03-29T00:13:59.050Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"Iy7oJIDM6USx@DNiLX.fovw\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"VV\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 4704,\n        \"orderTotal\": {\n          \"value\": \"1.50710498\",\n          \"currency\": \"GQB\"\n        },\n        \"donationCount\": 8436,\n        \"donationTotal\": {\n          \"value\": \"1.96012244\",\n          \"currency\": \"BIA\"\n        },\n        \"firstOrderOn\": \"1965-10-20T10:31:04.251Z\",\n        \"lastOrderOn\": \"1968-10-13T22:38:28.488Z\"\n      },\n      \"createdOn\": \"2000-07-27T06:56:02.925Z\",\n      \"modifiedOn\": \"1990-01-25T18:22:09.932Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://lmWNYHkeneXJOYxHRLWIMqNmN.lqN95CyJ1TI5jakAJZ7YPTFbnZLroa-lWRQEBaZ,fJd\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "321867b0-17fa-4a7f-a09c-47da604466db",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14fa531a-224a-4455-9f72-845178b8b234",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4918d0a9-a1b7-4ca1-ab0e-19ba1e628030",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43534064-cd7b-4c76-b054-ff9314d8440d",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e757226a-9484-4210-87fc-79669d7df712",
+          "name": "Retrieve Specific Profiles",
+          "request": {
+            "name": "Retrieve Specific Profiles",
+            "description": {
+              "content": "Retrieves profile information for one or more specific profiles by their profile IDs. Profile IDs can be provided as a comma-separated list in the path. The order of profiles in the response is not guaranteed to match the order of IDs provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "profiles",
+                ":profileIds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profileIds",
+                  "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d758dca-b01e-494c-8aa0-7ab61f989629",
+              "name": "Successful response with the requested profiles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"W3HwM45ei1@fdMalGJtO.zrp\",\n      \"hasAccount\": false,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"AU\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 6889,\n        \"orderTotal\": {\n          \"value\": \"-288.64995310058\",\n          \"currency\": \"KMK\"\n        },\n        \"donationCount\": 7317,\n        \"donationTotal\": {\n          \"value\": \"79599365756.039437717\",\n          \"currency\": \"NOI\"\n        },\n        \"firstOrderOn\": \"1991-05-29T14:31:56.284Z\",\n        \"lastOrderOn\": \"1949-01-31T08:08:50.782Z\"\n      },\n      \"createdOn\": \"1959-03-29T05:26:13.858Z\",\n      \"modifiedOn\": \"1973-10-19T22:09:51.635Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"M3en4293iJVmD@dZSpgHNYBnIHOvHnz.mpbt\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"WQ\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 9644,\n        \"orderTotal\": {\n          \"value\": \"-150164.46912\",\n          \"currency\": \"NHA\"\n        },\n        \"donationCount\": 2519,\n        \"donationTotal\": {\n          \"value\": \"043263\",\n          \"currency\": \"DUT\"\n        },\n        \"firstOrderOn\": \"1976-09-07T01:24:52.632Z\",\n        \"lastOrderOn\": \"1948-09-01T00:23:11.621Z\"\n      },\n      \"createdOn\": \"2023-12-02T19:34:28.670Z\",\n      \"modifiedOn\": \"1969-10-02T09:10:12.538Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fea925e5-f77e-48c6-8a58-a7e49327245e",
+              "name": "The request was malformed or contained invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d65be8b9-d514-4e8d-a8af-c7b8d8532f42",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b79acdc8-ea57-414c-aa36-720e8563f6b1",
+              "name": "The authenticated user does not have permission to access this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6d0fc4c-d7f5-4a09-84bd-aa9155f5441d",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f64622fd-1cd7-4a9a-823e-e086e8b3dfa3",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileIds",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.squarespace.com/1.0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "601baa84-c2e3-4324-820c-7b6e380c32e2",
+    "name": "Squarespace Profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Squarespace Profiles API provides access to Profile resource objects representing customers, mailing list subscribers, and donors associated with a Squarespace site. Each profile includes contact information, an approximate address derived from existing data, and a summary of the user's commerce activity such as orders and donations. This API is useful for CRM integrations, email marketing platforms, and customer analytics tools. Profile data is generated asynchronously from site activity and accessible through the standard Profiles panel.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

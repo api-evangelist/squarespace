@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Transactions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/transactions",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+              },
+              {
+                "name": "modifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC date-time string. Only returns transactions modified after this date and time."
+              },
+              {
+                "name": "modifiedBefore",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC date-time string. Only returns transactions modified before this date and time."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of financial transaction documents for all orders and donations on the merchant site. Supports filtering by transaction date range. By default returns up to 50 transaction documents per page. Use the cursor parameter from a previous response to paginate through all results. Each document groups the financial details for a single order or donation."
+        },
+        {
+          "info": {
+            "name": "Retrieve Specific Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/transactions/:transactionIds",
+            "params": [
+              {
+                "name": "transactionIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of transaction document IDs to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieves financial transaction documents for one or more specific orders or donations by their transaction document IDs. IDs should be provided as a comma-separated list in the path. Returns detailed payment information including gateway data, totals, and individual transaction line entries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

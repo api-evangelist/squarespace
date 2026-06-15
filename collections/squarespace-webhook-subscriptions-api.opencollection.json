@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Webhook Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhook Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Webhook Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions"
+          },
+          "docs": "Returns all webhook subscriptions configured for the authenticated merchant site. Each subscription includes its endpoint URL, subscribed topics, and creation metadata. Squarespace supports up to 25 active webhook subscriptions per website."
+        },
+        {
+          "info": {
+            "name": "Create a Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook subscription for the authenticated merchant site. The subscription must specify a publicly accessible endpoint URL and at least one event topic to subscribe to. Upon creation, a secret is generated for verifying the authenticity of incoming webhook notifications via HMAC-SHA256 signature validation. Requires OAuth token authentication."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription"
+              }
+            ]
+          },
+          "docs": "Retrieves details for a single webhook subscription by its unique identifier. Returns the subscription configuration including endpoint URL and subscribed topics. The subscription secret is not returned in this response."
+        },
+        {
+          "info": {
+            "name": "Update a Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook subscription. The endpoint URL and subscribed topics can be modified. Requires OAuth token authentication."
+        },
+        {
+          "info": {
+            "name": "Delete a Webhook Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription"
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook subscription. After deletion, Squarespace will no longer send event notifications to the subscription's endpoint URL. Requires OAuth token authentication."
+        },
+        {
+          "info": {
+            "name": "Send a Test Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions/:subscriptionId/actions/sendTestNotification",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription"
+              }
+            ]
+          },
+          "docs": "Sends a test notification to the webhook subscription's configured endpoint URL. This is useful for verifying that the endpoint is reachable and correctly processing Squarespace webhook payloads before relying on live events."
+        },
+        {
+          "info": {
+            "name": "Rotate a Webhook Subscription Secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/webhook_subscriptions/:subscriptionId/actions/rotateSecret",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the webhook subscription"
+              }
+            ]
+          },
+          "docs": "Generates a new secret for the specified webhook subscription and invalidates the previous secret. The new secret must be stored securely and used to verify the Squarespace-Signature header on subsequent notifications. Rotating the secret is recommended periodically or when the secret may have been compromised."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

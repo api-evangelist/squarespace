@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Orders API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/orders",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+              },
+              {
+                "name": "modifiedAfter",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC date-time string. Only returns orders modified after this date and time."
+              },
+              {
+                "name": "modifiedBefore",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 UTC date-time string. Only returns orders modified before this date and time."
+              },
+              {
+                "name": "fulfillmentStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter orders by fulfillment status"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of orders for the authenticated merchant site. By default returns up to 50 orders per page. Results can be filtered by modification date using modifiedAfter and modifiedBefore parameters. Use the cursor parameter from the previous response's pagination.nextPageCursor to retrieve subsequent pages."
+        },
+        {
+          "info": {
+            "name": "Create an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order on the merchant site. This endpoint is primarily used to import orders from third-party sales channels into Squarespace. The order must include line items, customer information, and address details. Creating an order does not process payment; it records the order as already completed."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Specific Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the order"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information for a specific order by its unique identifier. Returns the full Order resource object including line items, customer data, addresses, fulfillments, and payment details."
+        },
+        {
+          "info": {
+            "name": "Fulfill an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/orders/:orderId/fulfillments",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the order"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Marks one or more line items in an order as fulfilled and optionally records shipment tracking information. This updates the fulfillment status of the specified line items and can trigger order fulfillment notifications to the customer if configured."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

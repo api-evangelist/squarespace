@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Commerce API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Site",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Basic Site Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/authorization/website"
+          },
+          "docs": "Retrieves basic information about the Squarespace website associated with the authenticated API key or OAuth token. Returns site identifier, title, and other metadata useful for verifying authentication context."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

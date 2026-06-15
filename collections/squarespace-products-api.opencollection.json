@@ -1,0 +1,277 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Squarespace Products API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve All Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/products",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter products by product type"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of products in the merchant's catalog. By default returns up to 50 products per page. Use the cursor parameter from the previous response's pagination.nextPageCursor to retrieve subsequent pages. Each product includes its basic metadata, variant information, and associated images."
+        },
+        {
+          "info": {
+            "name": "Create a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product in the merchant's catalog with appropriate subresources based on product type. Supports creation of physical, service, gift card, and digital download products. The request must include the product type, name, and at least one variant. Images can be added after the product is created using the product image endpoints."
+        },
+        {
+          "info": {
+            "name": "Retrieve Specific Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productIds",
+            "params": [
+              {
+                "name": "productIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of up to 50 product IDs. When used for single-product operations, provide a single product ID."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information for up to 50 specific products by their product IDs. Product IDs should be provided as a comma-separated list in the path. Returns full product data including all variants and images."
+        },
+        {
+          "info": {
+            "name": "Update a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productIds",
+            "params": [
+              {
+                "name": "productIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of up to 50 product IDs. When used for single-product operations, provide a single product ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates information for an existing product. The endpoint supports partial updates so any optional or conditional field may be omitted from the request. Only the fields provided in the request body will be updated. This endpoint accepts a single product ID in the path when updating."
+        },
+        {
+          "info": {
+            "name": "Delete a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productIds",
+            "params": [
+              {
+                "name": "productIds",
+                "value": "",
+                "type": "path",
+                "description": "Comma-separated list of up to 50 product IDs. When used for single-product operations, provide a single product ID."
+              }
+            ]
+          },
+          "docs": "Deletes a physical product and all its associated variants and images from the merchant's catalog. This action is permanent and cannot be undone. Accepts a single product ID in the path."
+        },
+        {
+          "info": {
+            "name": "Create a Product Variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/variants",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new variant to an existing product. A variant represents a specific configuration of a product, such as a particular size and color combination. Each variant has its own SKU, price, and inventory tracking settings."
+        },
+        {
+          "info": {
+            "name": "Update a Product Variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/variants/:variantId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              },
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product variant"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates attributes for an existing product variant such as price, SKU, stock settings, and option values. Supports partial updates."
+        },
+        {
+          "info": {
+            "name": "Upload a Product Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/images",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Uploads a new image to a product using a publicly accessible image URL. The image is fetched from the provided URL and stored by Squarespace. An optional alt text can be provided for accessibility."
+        },
+        {
+          "info": {
+            "name": "Update a Product Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/images/:imageId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              },
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product image"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the alt text of an existing product image. The image itself cannot be replaced; delete and re-upload to change the image file."
+        },
+        {
+          "info": {
+            "name": "Delete a Product Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/images/:imageId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              },
+              {
+                "name": "imageId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product image"
+              }
+            ]
+          },
+          "docs": "Permanently removes an image from a product. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Reorder Product Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.squarespace.com/1.0/commerce/products/:productId/images/reorder",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the product"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the display order of images for a product by providing an ordered list of image IDs. The order of image IDs in the request determines the display order, with the first image becoming the primary product image."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
