@@ -131,6 +131,12 @@ apis:
       - type: AsyncAPI
         url: asyncapi/squarespace-webhooks-asyncapi.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/squarespace-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/squarespace-domain-security.yml
+  - type: Authentication
+    url: authentication/squarespace-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/squarespace
   - type: LinkedIn
