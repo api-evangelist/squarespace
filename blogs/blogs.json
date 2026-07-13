@@ -5,7 +5,14 @@
       "source": "https://www.squarespace.com/blog/atom.xml",
       "feed_url": "https://www.squarespace.com/blog/atom.xml",
       "title": "",
-      "saved": 4,
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://status.squarespace.com/history.atom",
+      "feed_url": "https://status.squarespace.com/history.atom",
+      "title": "",
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -16,6 +23,6 @@
       "method": "discovered"
     }
   ],
-  "post_count": 38,
-  "fetched": "2026-06-27T12:03:07Z"
+  "post_count": 70,
+  "fetched": "2026-07-11T11:50:51Z"
 }
