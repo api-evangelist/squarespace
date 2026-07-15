@@ -131,6 +131,8 @@ apis:
       - type: AsyncAPI
         url: asyncapi/squarespace-webhooks-asyncapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/squarespace-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/squarespace-vulnerability-disclosure.yml
   - type: DomainSecurity
