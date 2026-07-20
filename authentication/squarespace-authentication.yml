@@ -12,7 +12,7 @@ schemes:
   type: http
   scheme: bearer
   description: Authenticate using an API key or OAuth access token. Include the token in the
-    Authorization header as "Bearer YOUR_TOKEN".
+    Authorization header as "Bearer [example key]".
   sources:
   - openapi/squarespace-commerce-api-openapi.yml
   - openapi/squarespace-inventory-api-openapi.yml
