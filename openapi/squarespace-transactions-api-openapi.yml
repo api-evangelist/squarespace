@@ -1,63 +1,44 @@
 openapi: 3.1.0
 info:
-  title: Squarespace Transactions API
-  description: >-
-    The Squarespace Transactions API returns Document resource objects representing
-    collections of financial transactions for orders and donations on a merchant
-    site. It provides detailed payment data and supports multiple payment gateways
-    including Squarespace Payments, Stripe, PayPal, and Square. The API is useful
-    for building financial reporting tools, reconciliation workflows, and accounting
-    integrations. Access requires a Commerce Basic, Commerce Advanced, or higher
-    Squarespace plan.
+  title: Squarespace Commerce Inventory Transactions API
+  description: The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.
   version: '1.0'
   contact:
     name: Squarespace Developer Support
-    url: https://developers.squarespace.com/commerce-apis/transactions-overview
+    url: https://developers.squarespace.com/commerce-apis/overview
   termsOfService: https://www.squarespace.com/terms-of-service
-externalDocs:
-  description: Squarespace Transactions API Documentation
-  url: https://developers.squarespace.com/commerce-apis/transactions-overview
 servers:
-  - url: https://api.squarespace.com/1.0
-    description: Production Server
-tags:
-  - name: Transactions
-    description: Financial transaction retrieval for orders and donations
+- url: https://api.squarespace.com/1.0
+  description: Production Server
 security:
-  - bearerAuth: []
+- bearerAuth: []
+tags:
+- name: Transactions
+  description: Financial transaction retrieval for orders and donations
 paths:
   /commerce/transactions:
     get:
       operationId: listTransactions
       summary: Retrieve All Transactions
-      description: >-
-        Returns a paginated list of financial transaction documents for all orders
-        and donations on the merchant site. Supports filtering by transaction date
-        range. By default returns up to 50 transaction documents per page. Use the
-        cursor parameter from a previous response to paginate through all results.
-        Each document groups the financial details for a single order or donation.
+      description: Returns a paginated list of financial transaction documents for all orders and donations on the merchant site. Supports filtering by transaction date range. By default returns up to 50 transaction documents per page. Use the cursor parameter from a previous response to paginate through all results. Each document groups the financial details for a single order or donation.
       tags:
-        - Transactions
+      - Transactions
       parameters:
-        - $ref: '#/components/parameters/cursor'
-        - name: modifiedAfter
-          in: query
-          description: >-
-            ISO 8601 UTC date-time string. Only returns transactions modified after
-            this date and time.
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: modifiedBefore
-          in: query
-          description: >-
-            ISO 8601 UTC date-time string. Only returns transactions modified before
-            this date and time.
-          required: false
-          schema:
-            type: string
-            format: date-time
+      - $ref: '#/components/parameters/cursor'
+      - name: modifiedAfter
+        in: query
+        description: ISO 8601 UTC date-time string. Only returns transactions modified after this date and time.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: modifiedBefore
+        in: query
+        description: ISO 8601 UTC date-time string. Only returns transactions modified before this date and time.
+        required: false
+        schema:
+          type: string
+          format: date-time
       responses:
         '200':
           description: Successful response with paginated list of transaction documents
@@ -84,15 +65,11 @@ paths:
     get:
       operationId: getTransactions
       summary: Retrieve Specific Transactions
-      description: >-
-        Retrieves financial transaction documents for one or more specific orders
-        or donations by their transaction document IDs. IDs should be provided as
-        a comma-separated list in the path. Returns detailed payment information
-        including gateway data, totals, and individual transaction line entries.
+      description: Retrieves financial transaction documents for one or more specific orders or donations by their transaction document IDs. IDs should be provided as a comma-separated list in the path. Returns detailed payment information including gateway data, totals, and individual transaction line entries.
       tags:
-        - Transactions
+      - Transactions
       parameters:
-        - $ref: '#/components/parameters/transactionIds'
+      - $ref: '#/components/parameters/transactionIds'
       responses:
         '200':
           description: Successful response with the requested transaction documents
@@ -116,67 +93,50 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: >-
-        Authenticate using an API key or OAuth access token. Include the token
-        in the Authorization header as "Bearer YOUR_TOKEN".
-  responses:
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: >-
-        Pagination cursor from a previous response's pagination.nextPageCursor field.
-        Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
-    transactionIds:
-      name: transactionIds
-      in: path
-      description: Comma-separated list of transaction document IDs to retrieve
-      required: true
-      schema:
-        type: string
   schemas:
+    TransactionLineItem:
+      type: object
+      description: A financial line item within a transaction document
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the transaction line item
+        lineItemType:
+          type: string
+          description: Classification of this financial line item
+          enum:
+          - PRODUCT
+          - SHIPPING
+          - TAX
+          - DISCOUNT
+          - TIP
+        amount:
+          $ref: '#/components/schemas/Money'
+        taxName:
+          type: string
+          description: Name of the tax applied, if this is a tax line item
+        taxRate:
+          type: string
+          description: Tax rate as a decimal string, if this is a tax line item
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
     TransactionDocument:
       type: object
-      description: >-
-        A document grouping financial transaction details for a single order or
-        donation. Contains payment gateway information and line-level financial data.
+      description: A document grouping financial transaction details for a single order or donation. Contains payment gateway information and line-level financial data.
       properties:
         id:
           type: string
@@ -207,61 +167,8 @@ components:
           type: string
           description: The type of commerce activity this document represents
           enum:
-            - ORDER
-            - DONATION
-    Payment:
-      type: object
-      description: A single payment record including gateway and amount information
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the payment record
-        paymentGateway:
-          type: string
-          description: Name of the payment gateway that processed this payment
-          enum:
-            - SQUARESPACE
-            - STRIPE
-            - PAYPAL
-            - SQUARE
-        creditCardType:
-          type: string
-          description: Type of credit card used for the payment, if applicable
-        amount:
-          $ref: '#/components/schemas/Money'
-        refundedAmount:
-          $ref: '#/components/schemas/Money'
-        externalTransactionId:
-          type: string
-          description: Transaction identifier from the payment gateway's system
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp when the payment was recorded
-    TransactionLineItem:
-      type: object
-      description: A financial line item within a transaction document
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the transaction line item
-        lineItemType:
-          type: string
-          description: Classification of this financial line item
-          enum:
-            - PRODUCT
-            - SHIPPING
-            - TAX
-            - DISCOUNT
-            - TIP
-        amount:
-          $ref: '#/components/schemas/Money'
-        taxName:
-          type: string
-          description: Name of the tax applied, if this is a tax line item
-        taxRate:
-          type: string
-          description: Tax rate as a decimal string, if this is a tax line item
+          - ORDER
+          - DONATION
     Money:
       type: object
       description: A monetary value with currency
@@ -269,11 +176,11 @@ components:
         value:
           type: string
           description: Decimal string representation of the monetary amount
-          pattern: '^-?\d+(\.\d+)?$'
+          pattern: ^-?\d+(\.\d+)?$
         currency:
           type: string
           description: ISO 4217 three-letter currency code
-          pattern: '^[A-Z]{3}$'
+          pattern: ^[A-Z]{3}$
     Pagination:
       type: object
       description: Pagination metadata included with list responses
@@ -288,19 +195,86 @@ components:
           type: string
           format: uri
           description: Full URL for retrieving the next page of results
-    Error:
+    Payment:
       type: object
-      description: Standard error response returned by the Squarespace API
+      description: A single payment record including gateway and amount information
       properties:
-        type:
+        id:
           type: string
-          description: Machine-readable error type identifier
-        subtype:
+          description: Unique identifier for the payment record
+        paymentGateway:
           type: string
-          description: Optional more specific error subtype
-        message:
+          description: Name of the payment gateway that processed this payment
+          enum:
+          - SQUARESPACE
+          - STRIPE
+          - PAYPAL
+          - SQUARE
+        creditCardType:
           type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
+          description: Type of credit card used for the payment, if applicable
+        amount:
+          $ref: '#/components/schemas/Money'
+        refundedAmount:
+          $ref: '#/components/schemas/Money'
+        externalTransactionId:
+          type: string
+          description: Transaction identifier from the payment gateway's system
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the payment was recorded
+  parameters:
+    transactionIds:
+      name: transactionIds
+      in: path
+      description: Comma-separated list of transaction document IDs to retrieve
+      required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using an API key or OAuth access token. Include the token in the Authorization header as "Bearer YOUR_TOKEN".
+externalDocs:
+  description: Squarespace Commerce API Documentation
+  url: https://developers.squarespace.com/commerce-apis/overview
