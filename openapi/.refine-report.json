@@ -1,0 +1,26 @@
+{
+  "provider": "squarespace",
+  "sources": [
+    "squarespace-inventory-api-openapi.yml",
+    "squarespace-orders-api-openapi.yml",
+    "squarespace-products-api-openapi.yml",
+    "squarespace-profiles-api-openapi.yml",
+    "squarespace-site-api-openapi.yml",
+    "squarespace-transactions-api-openapi.yml",
+    "squarespace-webhook-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "squarespace-inventory-api-openapi.yml",
+    "squarespace-orders-api-openapi.yml",
+    "squarespace-products-api-openapi.yml",
+    "squarespace-profiles-api-openapi.yml",
+    "squarespace-site-api-openapi.yml",
+    "squarespace-transactions-api-openapi.yml",
+    "squarespace-webhook-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
