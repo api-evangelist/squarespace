@@ -21,7 +21,7 @@ accessModel:
 image: https://static1.squarespace.com/static/ta/5134cbefe4b0c6fb04df8065/10007/assets/logomark.svg
 url: https://www.squarespace.com
 created: '2026-05-02'
-modified: '2026-05-19'
+modified: '2026-08-13'
 apis:
 - name: Squarespace Orders API
   description: >-
@@ -39,6 +39,8 @@ apis:
     url: https://developers.squarespace.com/commerce-apis/orders-overview
   - type: OpenAPI
     url: openapi/squarespace-orders-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-orders-api-overlay.yaml
 - name: Squarespace Products API
   description: >-
     The Squarespace Products API allows developers to manage the product catalog of a Squarespace merchant
@@ -55,6 +57,8 @@ apis:
     url: https://developers.squarespace.com/commerce-apis/products-overview
   - type: OpenAPI
     url: openapi/squarespace-products-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-products-api-overlay.yaml
 - name: Squarespace Inventory API
   description: >-
     The Squarespace Inventory API enables developers to retrieve and update inventory quantities for product
@@ -71,6 +75,8 @@ apis:
     url: https://developers.squarespace.com/commerce-apis/inventory-overview
   - type: OpenAPI
     url: openapi/squarespace-inventory-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-inventory-api-overlay.yaml
 - name: Squarespace Profiles API
   description: >-
     The Squarespace Profiles API allows reading customer profiles, mailing list subscribers, and donors
@@ -86,6 +92,8 @@ apis:
     url: https://developers.squarespace.com/commerce-apis/profiles-overview
   - type: OpenAPI
     url: openapi/squarespace-profiles-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-profiles-api-overlay.yaml
 - name: Squarespace Transactions API
   description: >-
     The Squarespace Transactions API provides access to financial transaction records for a Squarespace
@@ -102,6 +110,8 @@ apis:
     url: https://developers.squarespace.com/commerce-apis/transactions-overview
   - type: OpenAPI
     url: openapi/squarespace-transactions-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-transactions-api-overlay.yaml
 - name: Squarespace Webhook Subscriptions API
   description: >-
     The Squarespace Webhook Subscriptions API allows developers to manage webhook endpoint subscriptions
@@ -118,11 +128,15 @@ apis:
     url: https://developers.squarespace.com/webhooks/overview
   - type: OpenAPI
     url: openapi/squarespace-webhook-subscriptions-api-openapi.yml
+  - type: Overlay
+    url: overlays/squarespace-webhook-subscriptions-api-overlay.yaml
   - type: AsyncAPI
     url: asyncapi/squarespace-webhooks-asyncapi.yml
 - aid: squarespace:squarespace-site-api
   name: Squarespace Site API
   description: Basic site information and metadata
+  humanUrl: https://developers.squarespace.com/commerce-apis/websites
+  baseUrl: https://api.squarespace.com/1.0
   tags:
   - Site
   properties:
@@ -138,6 +152,80 @@ apis:
     url: json-ld/squarespace-context.jsonld
   - type: Vocabulary
     url: vocabulary/squarespace-vocabulary.yml
+  - type: Overlay
+    url: overlays/squarespace-site-api-overlay.yaml
+- aid: squarespace:squarespace-commerce-api
+  name: Squarespace Commerce API
+  description: >-
+    The complete Squarespace Commerce API as Squarespace itself publishes it — a single OpenAPI
+    3.1.1 document covering 55 operations across ten resource families: Orders, Products,
+    Inventory, Contacts, Discounts, Transactions, Analytics, Websites, Profiles and Webhook
+    Subscriptions. Harvested verbatim on 2026-08-13 from the download link on the provider's own
+    API reference pages. This is the authoritative contract and supersedes the per-resource splits
+    elsewhere in this repo, which were derived from an earlier, smaller harvest and do not include
+    Contacts, Discounts or Analytics. Note the versioning: resource families carry independent
+    version numbers, so a single integration spans /1.0/, /v1/ and /v2/ paths at once.
+  humanUrl: https://developers.squarespace.com/commerce-apis
+  baseUrl: https://api.squarespace.com
+  tags:
+  - Commerce
+  - E-Commerce
+  - Orders
+  - Products
+  - Inventory
+  - CRM
+  - Discounts
+  - Transactions
+  - Webhooks
+  - REST API
+  properties:
+  - type: OpenAPI
+    url: openapi/squarespace-commerce-api-v2-openapi.json
+  - type: Documentation
+    url: https://developers.squarespace.com/commerce-apis/overview
+  - type: APIReference
+    url: https://developers.squarespace.com/commerce-apis
+  - type: GettingStarted
+    url: https://developers.squarespace.com/quick-start
+  - type: Authentication
+    url: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+  - type: OAuthScopes
+    url: scopes/squarespace-scopes.yml
+  - type: Overlay
+    url: overlays/squarespace-commerce-api-v2-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/squarespace-problem-types.yml
+  - type: Conventions
+    url: conventions/squarespace-conventions.yml
+  - type: Idempotency
+    url: conventions/squarespace-conventions.yml
+  - type: RateLimits
+    url: rate-limits/squarespace-rate-limits.yml
+  - type: DataModel
+    url: data-model/squarespace-data-model.yml
+  - type: ChangeLog
+    url: https://developers.squarespace.com/commerce-apis/changelog
+- aid: squarespace:squarespace-mcp
+  name: Squarespace MCP Server
+  description: >-
+    Squarespace operates a first-party remote MCP server at https://mcp.squarespace.com/mcp. It
+    answers an unauthenticated JSON-RPC tools/list with HTTP 200 and exposes two tools with full
+    JSON Schema inputSchemas — domains_search (search the Squarespace domain catalog for
+    availability, pricing and a purchase link) and domains_generate_names (generate brandable
+    business names from a free-text description). It covers the domain-acquisition funnel only;
+    none of the 55 Commerce API operations are reachable through it.
+  humanUrl: https://mcp.squarespace.com/mcp
+  baseUrl: https://mcp.squarespace.com/mcp
+  tags:
+  - MCP
+  - Agents
+  - Domains
+  - AI
+  properties:
+  - type: MCPServer
+    url: mcp/squarespace-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/squarespace-tool-crosswalk.yml
 common:
   - type: AgenticAccess
     url: agentic-access/squarespace-agentic-access.yml
@@ -167,6 +255,70 @@ common:
     url: https://status.squarespace.com
   - type: Blog
     url: https://www.squarespace.com/blog
+  - type: Security
+    url: security/squarespace-vulnerability-disclosure.yml
+  - type: TrustCenter
+    url: security/squarespace-trust-center.yml
+  - type: WellKnown
+    url: well-known/squarespace-well-known.yml
+  - type: SecurityTxt
+    url: well-known/squarespace-security.txt
+  - type: LLMsTxt
+    url: llms/squarespace-llms.txt
+  - type: MCPServer
+    url: mcp/squarespace-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/squarespace-tool-crosswalk.yml
+  - type: Packages
+    url: packages/squarespace-packages.yml
+  - type: Conventions
+    url: conventions/squarespace-conventions.yml
+  - type: Idempotency
+    url: conventions/squarespace-conventions.yml
+  - type: ErrorCatalog
+    url: errors/squarespace-problem-types.yml
+  - type: OAuthScopes
+    url: scopes/squarespace-scopes.yml
+  - type: Conformance
+    url: conformance/squarespace-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/squarespace-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/squarespace-lifecycle.yml
+  - type: Versioning
+    url: https://developers.squarespace.com/commerce-apis/versioning
+  - type: DataModel
+    url: data-model/squarespace-data-model.yml
+  - type: ChangeLog
+    url: changelog/squarespace-changelog.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/squarespace-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/squarespace-rate-limits.yml
+  - type: FinOps
+    url: finops/squarespace-finops.yml
+  - type: AsyncAPI
+    url: asyncapi/squarespace-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/squarespace-webhooks-asyncapi.yml
+  - type: APIReference
+    url: https://developers.squarespace.com/commerce-apis
+  - type: GettingStarted
+    url: https://developers.squarespace.com/quick-start
+  - type: Support
+    url: https://support.squarespace.com
+  - type: Pricing
+    url: https://www.squarespace.com/pricing
+  - type: SignUp
+    url: https://login.squarespace.com
+  - type: OAuth
+    url: https://developers.squarespace.com/oauth
+  - type: FAQ
+    url: https://developers.squarespace.com/commerce-apis/faq
+  - type: Glossary
+    url: https://developers.squarespace.com/commerce-apis/glossary
 maintainers:
   - name: Squarespace Developer Support
     url: https://developers.squarespace.com
@@ -178,3 +330,8 @@ tags:
   - Retail
   - Website Builder
   - Webhooks
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1
