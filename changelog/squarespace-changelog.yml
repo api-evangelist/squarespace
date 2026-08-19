@@ -1,0 +1,178 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/changelog
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Squarespace maintains a dated, public changelog for the Commerce APIs. Because Squarespace ships
+  additive and constraint-relaxing changes into an existing version WITHOUT a version increment, the
+  changelog — not the version string — is the authoritative compatibility feed. Squarespace says so
+  directly: "All changes are, nonetheless, registered in our changelog, even if they do not require
+  a version bump."
+url: https://developers.squarespace.com/commerce-apis/changelog
+markdown_url: https://developers.squarespace.com/commerce-apis/changelog.md
+machine_readable: false
+feed: null
+feed_note: >-
+  No RSS/Atom/JSON feed is published for the changelog. A .md rendering of the page is available at
+  the same path plus ".md", which is the only machine-friendly form and is a Zudoku docs feature
+  rather than a deliberate change feed.
+scheme: per-resource-version
+current_versions:
+  products: v2
+  contacts: v1
+  discounts: v1
+  inventory: '1.0'
+  orders: '1.0'
+  profiles: '1.0'
+  transactions: '1.0'
+  webhook_subscriptions: '1.0'
+entry_count_recent: 12
+earliest_entry: '2020-07-13'
+latest_entry: '2026-08-06'
+entries:
+  - date: '2026-08-06'
+    title: Discounts API now supports Free Shipping and Buy X Get Y discounts
+    breaking: false
+    additions:
+      - FREE_SHIPPING discount template waiving shipping for eligible carts.
+      - BUY_X_GET_Y discounts with new BuyXGetYCriteria plus BUY_X_GET_Y_FIXED_AMOUNT and BUY_X_GET_Y_PERCENTAGE templates.
+      - New retrieve-fulfillment-options endpoint (GET /v1/fulfillments/fulfillment-options) to look up shipping option IDs and carrier services.
+    apis: [Discounts]
+  - date: '2026-07-14'
+    title: Discounts API is now available
+    breaking: false
+    additions:
+      - Full CRUDL access to discounts configured for a Squarespace site.
+      - Supports both OAuth and API key authentication from launch.
+    apis: [Discounts]
+    ga: true
+  - date: '2026-06-17'
+    title: API keys are now supported for the Contacts API
+    breaking: false
+    additions:
+      - Contacts permission (Read Only / Read and Write) available on Developer API Keys, removing the OAuth-only requirement.
+    apis: [Contacts]
+  - date: '2026-05-26'
+    title: Payment Plans are now reflected in the Orders and Transactions APIs
+    breaking: false
+    additions:
+      - Order.paymentState surfaces PARTIALLY_PAID for payment-plan orders with installments outstanding.
+      - Transactions Document accumulates one TransactionPayment per captured payment; refunds per payment.
+    behavior_change:
+      - >-
+        The order.create webhook for a Payment Plan order fires only when paymentState transitions to
+        PAID (all installments collected), not when the order is placed — explicitly done to preserve
+        backward compatibility.
+    apis: [Orders, Transactions, Webhooks]
+  - date: '2026-05-13'
+    title: Orders can now be filtered by payment state
+    breaking: false
+    additions:
+      - Optional paymentStates query parameter on retrieve-all-orders.
+    note: >-
+      Defaults to NOT_CHARGED,AUTHORIZED,PAID,REFUNDED to preserve previous behaviour. Pass
+      PARTIALLY_PAID to include payment-plan orders mid-collection.
+    apis: [Orders]
+  - date: '2026-05-08'
+    title: New paymentState field on Order
+    breaking: false
+    additions:
+      - Order.paymentState with NOT_CHARGED, AUTHORIZED, PAID, PARTIALLY_PAID, PENDING, FAILED, REFUND_PENDING, REFUNDED, REFUND_FAILED.
+    note: Canonical payment status; removes the need to infer state from individual transactions and refunds.
+    apis: [Orders]
+  - date: '2026-04-15'
+    title: Contact and address book webhooks are now available
+    breaking: false
+    additions:
+      - 'contact.create, contact.update, contact.delete topics'
+      - 'address.create, address.update, address.delete topics'
+    apis: [Webhooks, Contacts]
+  - date: '2026-04-15'
+    title: Transactions can now be filtered by Order ID
+    breaking: false
+    additions:
+      - Optional orderId query parameter on retrieve-transactions.
+    apis: [Transactions]
+  - date: '2026-04-09'
+    title: Contacts API is now available
+    breaking: false
+    ga: true
+    additions:
+      - Full CRUD on contact records including name, email, locale, marketing preferences.
+      - Address book management, up to 50 addresses per contact, default shipping address support.
+      - Query and filtering via POST /v1/contacts/query with cursor pagination.
+      - Aggregated commerce analytics for contacts in bulk via the Analytics API.
+    deprecation_signal:
+      - >-
+        Profiles API placed in maintenance mode. Contacts is its modern replacement; migration
+        "highly recommended", new integrations should use Contacts. No sunset date given.
+    apis: [Contacts, Analytics, Profiles]
+  - date: '2026-01-13'
+    title: Orders can now be filtered by Customer ID
+    breaking: false
+    additions:
+      - customerId query parameter on retrieve-all-orders.
+    apis: [Orders]
+  - date: '2025-12-18'
+    title: Products API v2 is now available
+    breaking: false
+    ga: true
+    additions:
+      - v2 supports Service, Gift Card and Download products in addition to Physical.
+    limitations:
+      - Download products do not support create, delete, or variant CRUD.
+    apis: [Products]
+  - date: '2025-11-04'
+    title: Products API v2 (Beta) — enhanced product type support
+    breaking: false
+    additions:
+      - v2 endpoints at /v2/commerce/products/*, marked Beta.
+    note: v1.0 and v1.1 remain fully supported.
+    apis: [Products]
+older_entries_summary:
+  note: >-
+    The changelog runs back to 2020-07-13 (Orders API order creation). Notable older entries kept
+    for lifecycle context.
+  entries:
+    - date: '2023-10-31'
+      title: Products API read-only access for download products; new `type` filter.
+    - date: '2021-11-30'
+      title: New 402 PAYMENT REQUIRED response code for expired websites.
+      breaking: true
+      note: A new status code on existing endpoints, shipped without a version increment.
+    - date: '2021-04-20'
+      title: 'Products: variants.salePrice.value now the lesser of regular/sale price when onSale is false (previously 0).'
+      breaking: true
+      note: A change to an existing field's value semantics, shipped without a version increment.
+    - date: '2021-03-29'
+      title: Profiles API create/update restricted to allowed developers.
+      breaking: true
+    - date: '2021-03-02'
+      title: Product attributes limit raised from three to six.
+    - date: '2021-02-23'
+      title: Profiles API general availability.
+    - date: '2021-02-18'
+      title: Webhook notification test endpoint available.
+    - date: '2021-02-02'
+      title: Webhooks available (OAuth disconnection and Order events).
+    - date: '2020-07-27'
+      title: Products API general availability.
+    - date: '2020-07-13'
+      title: 'Orders API: order creation available for third-party sales-channel imports.'
+observations:
+  - >-
+    Cadence accelerated sharply in 2026 — nine entries in seven months against roughly one a year
+    from 2021 to 2025. Contacts, Discounts and Analytics are all new in 2026.
+  - >-
+    At least three historical entries (2021-11-30, 2021-04-20, 2021-03-29) changed observable
+    behaviour on existing endpoints without a version increment, which is what the 2025 versioning
+    rewrite was designed to stop.
+  - >-
+    The Discounts API reached GA on 2026-07-14 and shipped two new discount shapes 23 days later —
+    an additive change inside v1 that clients must tolerate under the published contract.
+evidence:
+  - url: https://developers.squarespace.com/commerce-apis/changelog
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/changelog.md
+    status: 200

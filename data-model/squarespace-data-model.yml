@@ -1,0 +1,388 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/squarespace-commerce-api-v2-openapi.json
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Entity-relationship graph for the Squarespace Commerce APIs, derived from the 187 component
+  schemas and 55 operations of the published OpenAPI 3.1.1 contract. Relationships are read from
+  $ref links between schemas and from id-reference fields (customerId, storePageId, salesOrderId,
+  variantId, websiteId). Nothing here is inferred from prose; every edge is present in the spec.
+spec:
+  file: openapi/squarespace-commerce-api-v2-openapi.json
+  openapi: 3.1.1
+  info_version: '2'
+  schemas: 187
+  operations: 55
+root:
+  entity: Website
+  note: >-
+    Every resource in this API is scoped to a single Squarespace website, and the credential IS the
+    scope — "requests only have access to data for the website that owns the API key or OAuth access
+    token". There is no cross-site query and no account-level entity. Website is therefore an
+    implicit root that is rarely expressed as a foreign key; only Discount and WebhookSubscription
+    carry an explicit websiteId.
+
+entities:
+  - name: Website
+    tag: Websites
+    identifier: id
+    operations: [getWebsiteProfile, getMemberProfile, getStorePages]
+    description: Site metadata, currency, timezone, locale. Readable by any authenticated request.
+    schemas: [WebsiteProfile, MemberProfile]
+  - name: StorePage
+    tag: Websites
+    identifier: id
+    operations: [getStorePages]
+    description: A store page on the site; products are assigned to one.
+    schemas: [StorePage, PaginatedStorePagesResponse]
+  - name: Product
+    tag: Products
+    identifier: id
+    version: v2
+    operations:
+      - getProducts
+      - createProduct
+      - getSpecificProducts
+      - updateProduct
+      - deleteProduct
+    description: >-
+      Physical, service, gift card or download product. v2 (GA 2025-12-18) added Service, Gift Card
+      and Download types alongside Physical.
+    schemas: [ProductV2, Product, ProductPricing, ProductType, SeoOptions, DigitalGood]
+    subtypes: [PHYSICAL, SERVICE, GIFT_CARD, DIGITAL]
+    limits:
+      attributes_per_product: 6
+  - name: ProductVariant
+    tag: Products
+    identifier: id
+    operations: [createProductVariant, updateProductVariant, deleteProductVariant, associateProductVariantImage]
+    description: A purchasable variation of a product; the unit inventory is tracked against.
+    schemas: [ProductVariantV2, ProductVariant, ProductStock, ProductMeasurements]
+    note: Download products have no variants.
+  - name: ProductImage
+    tag: Products
+    identifier: id
+    operations:
+      - uploadProductImage
+      - updateProductImage
+      - deleteProductImage
+      - updateProductImageOrder
+      - getProductImageProcessingStatus
+    description: >-
+      Image attached to a product, optionally associated with one variant. Upload is asynchronous —
+      a separate status operation reports processing state.
+    schemas: [ProductImage, ProductImageProcessingStatus, UploadProductImageResponse]
+  - name: InventoryItem
+    tag: Inventory
+    identifier: variantId
+    operations: [getInventoryItems, getSpecificInventoryItems, adjustInventoryStockLevels]
+    description: >-
+      Stock record. Keyed by variantId rather than an id of its own — inventory has no independent
+      identity, it is a projection of a ProductVariant.
+    schemas: [InventoryItem, PaginatedInventoryItemListResponse, CreateInventoryAdjustmentRequest]
+    idempotency_required: true
+  - name: Order
+    tag: Orders
+    identifier: id
+    operations: [getOrders, getOrder, createOrder, fulfillOrder]
+    description: >-
+      A one-time or subscription purchase. Carries paymentState (added 2026-05-08) as the canonical
+      payment status, including PARTIALLY_PAID for payment-plan orders mid-collection.
+    schemas: [Order, OrderListResponse, LineItem, ShippingLine, DiscountLine, OrderNote, FormItem, PaymentState, FulfillmentStatus]
+    idempotency_required: true
+  - name: Fulfillment
+    tag: Orders
+    identifier: null
+    operations: [fulfillOrder]
+    description: A shipment against an order. Embedded in Order; no standalone identifier or endpoint.
+    schemas: [Fulfillment, CreateOrderShipmentRequest]
+  - name: TransactionDocument
+    tag: Transactions
+    identifier: id
+    operations: [getDocumentsByUpdatedOn, getDocumentsById]
+    description: >-
+      Financial record for an order or donation. Accumulates one TransactionPayment per captured
+      payment, so a payment-plan order produces a deposit entry then one per installment over time.
+    schemas: [TransactionDocument, TransactionPayment, TransactionDiscount, TransactionSalesLineItem, TransactionShippingLineItem, PaymentGatewayError]
+  - name: Contact
+    tag: Contacts
+    identifier: id
+    version: v1
+    operations: [getContacts, queryContacts, getContact, createContact, patchContact, deleteContact]
+    description: >-
+      A person associated with the site — customer, subscriber or donor. GA 2026-04-09. The modern
+      replacement for Profile, adding writes, address books, filtering and webhooks.
+    schemas: [Contact, CreateContactRequest, CreateContactResponse, GetContactResponse, PatchContactResponse, Email, AcceptsMarketing]
+  - name: AddressBookEntry
+    tag: Contacts
+    identifier: id
+    operations: [getAddressBook, getAddressBookEntry, createAddressBookEntry, updateAddressBookEntry, deleteAddressBookEntry]
+    description: An address belonging to a contact; one may be the contact's default shipping address.
+    schemas: [AddressBookEntry, ContactAddress, AddressBook, CreateAddressBookEntryRequest]
+    limits:
+      entries_per_contact: 50
+  - name: Profile
+    tag: Profiles
+    identifier: id
+    operations: [getProfiles, getSpecificProfiles]
+    status: maintenance
+    description: >-
+      Read-only legacy customer record. In maintenance mode since 2026-04-09; Contact supersedes it.
+      Not marked deprecated in the spec.
+    schemas: [Profile, PaginatedProfileListResponse, TransactionsSummary]
+  - name: Discount
+    tag: Discounts
+    identifier: id
+    version: v1
+    operations: [listDiscounts, getDiscount, createDiscount, updateDiscount, deleteDiscount]
+    description: >-
+      A site discount. GA 2026-07-14. Polymorphic on two axes at once — a trigger (automatic or
+      promo code) and a template (fixed amount, percentage, free shipping, buy-X-get-Y fixed,
+      buy-X-get-Y percentage) — with criteria selecting what it applies to.
+    schemas:
+      - Discount
+      - DiscountResponse
+      - AutoTrigger
+      - PromoCodeTrigger
+      - FixedAmountTemplate
+      - PercentageTemplate
+      - FreeShippingTemplate
+      - BuyXGetYFixedAmountTemplate
+      - BuyXGetYPercentageTemplate
+      - AnyOrderCriteria
+      - CartTotalCriteria
+      - ProductCriteria
+      - BuyXGetYCriteria
+  - name: FulfillmentOption
+    tag: Discounts
+    identifier: null
+    operations: [getFulfillmentOptions]
+    description: >-
+      A site shipping option and its carrier services. Added 2026-08-06 specifically so a
+      FREE_SHIPPING discount can name a shipping option ID.
+    schemas: [FulfillmentOptionsList, CarrierService]
+  - name: WebhookSubscription
+    tag: WebhookSubscriptions
+    identifier: id
+    operations:
+      - getWebhookSubscriptions
+      - getWebhookSubscription
+      - createWebhookSubscription
+      - updateWebhookSubscription
+      - deleteWebhookSubscription
+      - rotateSubscriptionSecret
+      - sendTestNotificationForWebhookSubscription
+    description: >-
+      An endpoint registered for event notifications. Carries clientId and websiteId, so a
+      subscription belongs to an OAuth client AND a site. Subscriptions never expire.
+    schemas: [ExternalWebhookSubscriptionResponse, ExternalCreateWebhookSubscriptionRequest, ExternalRotateSecretResponse]
+    auth: oauth-only
+  - name: TransactionSummary
+    tag: Analytics
+    identifier: null
+    operations: [getTransactionsSummaries]
+    description: Aggregated commerce data (order counts, totals, donations) for contacts in bulk.
+    schemas: [RetrieveTransactionsSummariesResponse, TransactionsSummary]
+
+relationships:
+  - from: Website
+    to: StorePage
+    type: has_many
+    via: implicit (credential scope)
+  - from: StorePage
+    to: Product
+    type: has_many
+    via: Product.storePageId
+  - from: Product
+    to: StorePage
+    type: belongs_to
+    via: storePageId
+  - from: Product
+    to: ProductVariant
+    type: has_many
+    via: Product.variants[]
+  - from: Product
+    to: ProductImage
+    type: has_many
+    via: Product.images[]
+  - from: Product
+    to: ProductPricing
+    type: has_one
+    via: Product.pricing
+  - from: Product
+    to: DigitalGood
+    type: has_one
+    via: Product.digitalGood
+    note: Only for DIGITAL products.
+  - from: Product
+    to: SeoOptions
+    type: has_one
+    via: Product.seoOptions
+  - from: ProductVariant
+    to: ProductImage
+    type: has_one
+    via: ProductVariant.image
+  - from: ProductVariant
+    to: ProductStock
+    type: has_one
+    via: ProductVariant.stock
+  - from: ProductVariant
+    to: InventoryItem
+    type: has_one
+    via: InventoryItem.variantId
+    note: >-
+      The join key. Inventory is addressed only by variant ID; there is no inventory ID and no way
+      to list inventory by product.
+  - from: Order
+    to: LineItem
+    type: has_many
+    via: Order.lineItems[]
+  - from: Order
+    to: Fulfillment
+    type: has_many
+    via: Order.fulfillments[]
+  - from: Order
+    to: DiscountLine
+    type: has_many
+    via: Order.discountLines[]
+  - from: Order
+    to: ShippingLine
+    type: has_many
+    via: Order.shippingLines[]
+  - from: Order
+    to: Address
+    type: has_one
+    via: Order.billingAddress
+  - from: Order
+    to: Address
+    type: has_one
+    via: Order.shippingAddress
+  - from: Order
+    to: Contact
+    type: belongs_to
+    via: Order.customerId
+    confidence: medium
+    note: >-
+      Order.customerId is a filter parameter on getOrders and a field on Order, but the spec does
+      not declare it as a reference to Contact.id or Profile.id. The link is real in practice and
+      undeclared in the contract.
+  - from: Order
+    to: OrderNote
+    type: has_many
+    via: Order.internalNotes[]
+  - from: Order
+    to: FormItem
+    type: has_many
+    via: Order.formSubmission[]
+  - from: TransactionDocument
+    to: Order
+    type: belongs_to
+    via: TransactionDocument.salesOrderId
+  - from: TransactionDocument
+    to: TransactionPayment
+    type: has_many
+    via: TransactionDocument.payments[]
+    note: One entry per captured payment; grows over time for payment-plan orders.
+  - from: TransactionDocument
+    to: TransactionSalesLineItem
+    type: has_many
+    via: TransactionDocument.salesLineItems[]
+  - from: TransactionDocument
+    to: TransactionShippingLineItem
+    type: has_many
+    via: TransactionDocument.shippingLineItems[]
+  - from: TransactionDocument
+    to: TransactionDiscount
+    type: has_many
+    via: TransactionDocument.discounts[]
+  - from: Contact
+    to: AddressBookEntry
+    type: has_many
+    via: 'GET /v1/contacts/{contactId}/address-book'
+  - from: Contact
+    to: AddressBookEntry
+    type: has_one
+    via: Contact.defaultShippingAddress
+  - from: Contact
+    to: Email
+    type: has_one
+    via: Contact.primaryEmail
+  - from: AddressBookEntry
+    to: ContactAddress
+    type: has_one
+    via: AddressBookEntry.address
+  - from: Profile
+    to: Address
+    type: has_one
+    via: Profile.address
+  - from: Profile
+    to: TransactionsSummary
+    type: has_one
+    via: Profile.transactionsSummary
+  - from: Discount
+    to: Website
+    type: belongs_to
+    via: Discount.websiteId
+  - from: Discount
+    to: DiscountTrigger
+    type: has_one
+    via: 'Discount.trigger (AutoTrigger | PromoCodeTrigger)'
+  - from: Discount
+    to: DiscountTemplate
+    type: has_one
+    via: 'Discount.template (FixedAmount | Percentage | FreeShipping | BuyXGetYFixedAmount | BuyXGetYPercentage)'
+  - from: Discount
+    to: DiscountCriteria
+    type: has_one
+    via: 'Discount.criteria (AnyOrder | CartTotal | Product | BuyXGetY)'
+  - from: WebhookSubscription
+    to: Website
+    type: belongs_to
+    via: WebhookSubscription.websiteId
+  - from: WebhookSubscription
+    to: OAuthClient
+    type: belongs_to
+    via: WebhookSubscription.clientId
+
+shared_value_objects:
+  - name: MonetaryAmount
+    used_by: [Order, TransactionDocument, ProductPricing, Discount]
+    note: >-
+      Universal money shape. Price ceilings are currency-dependent — see
+      conventions/squarespace-conventions.yml value_limits.
+  - name: Address
+    used_by: [Order, Profile]
+  - name: ContactAddress
+    used_by: [AddressBookEntry]
+    note: >-
+      Contacts uses ContactAddress, not the Address used by Orders and Profiles. Two address shapes
+      coexist in one contract — a real migration hazard when moving from Profiles to Contacts.
+  - name: PaginationDetails
+    used_by: [all list responses]
+    fields: [hasNextPage, nextPageCursor, nextPageUrl]
+
+id_prefixes:
+  published: false
+  note: >-
+    Squarespace IDs are bare 24-character hex strings (MongoDB ObjectId shape, e.g.
+    5f3c3d55ac435e1a051f77b3) with no type prefix. Given an ID alone, a client cannot tell a website
+    from an order from a contact — there is no Stripe-style `ord_`/`cus_` discriminator anywhere in
+    the contract.
+
+observations:
+  - >-
+    Profile and Contact model the same real-world person with different schemas, different address
+    types and different identifier spaces. The spec publishes both as live, with no mapping between
+    them and no deprecation flag on Profile.
+  - >-
+    Inventory has no identity of its own — it is addressed solely by variantId. Any inventory
+    workflow must start from Products.
+  - >-
+    Discounts is by far the most polymorphic entity in the model: three independent oneOf axes
+    (trigger, template, criteria) producing a large combination space that arrived in two releases
+    23 days apart.
+  - >-
+    Order.customerId is the model's most important undeclared edge. It is the only path from
+    commerce data to a person, and the contract never says which entity it points at.
+render: null

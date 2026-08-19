@@ -4,49 +4,142 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Squarespace
 providerId: squarespace
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
+generated: '2026-08-13'
+method: probed
+source: https://www.squarespace.com/pricing.txt
+modified: '2026-08-13'
+reconciled: true
 tags:
   - Commerce
   - E-Commerce
   - Website Builder
   - Payments
-description: Squarespace's Commerce API is not sold separately - access is bundled with the merchant's Squarespace site subscription. Squarespace's website / commerce plan tiers (Personal, Business, Commerce Basic, Commerce Advanced) are rendered behind a JavaScript-driven pricing page that is not publicly scrapeable, and the developer-portal overview does not enumerate per-tier prices or API entitlements. Treat this artifact as a Contact Sales placeholder until the merchant-plan price table can be reconciled directly from squarespace.com/pricing.
+description: >-
+  Squarespace does not sell the Commerce API separately. API access is an entitlement of the
+  merchant's Squarespace site subscription, and the Commerce API keys used by custom applications
+  require the top Advanced tier. As of 2026 Squarespace publishes a machine-readable pricing
+  document at https://www.squarespace.com/pricing.txt (linked from https://www.squarespace.com/llms.txt)
+  that enumerates all four subscription tiers — Basic, Core, Plus, Advanced — across 27 currencies
+  and both monthly and annual billing. The prices recorded below are the published USD figures read
+  verbatim from that document; the complete multi-currency table is saved beside this file as
+  plans/squarespace-pricing.txt. This supersedes the 2026-05 placeholder that recorded
+  "Contact Sales" because the human pricing page is JavaScript-rendered.
 sources:
-  - https://developers.squarespace.com/commerce-apis/overview
+  - https://www.squarespace.com/pricing.txt
+  - https://www.squarespace.com/llms.txt
   - https://www.squarespace.com/pricing
-notes: API access is bundled with the merchant Squarespace site subscription, not priced separately. Concrete monthly prices for Personal / Business / Commerce Basic / Commerce Advanced are gated behind a JS-rendered pricing page and were not reconcilable in this pass.
+  - https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+notes: >-
+  Squarespace publishes machine-readable pricing at /pricing.txt and indexes it from /llms.txt,
+  explicitly telling agents to prefer the .txt over the JS-rendered /pricing page. Squarespace Plus
+  is published in USD only in that document; every other tier lists 27 currencies. Commerce API keys
+  for custom applications are gated to the Advanced plan; OAuth Extensions work on any plan.
+plan_count: 5
+currency: USD
+billing_periods:
+  - monthly
+  - annual
 plans:
-  - id: squarespace-contact-sales
-    name: Contact Sales
+  - id: squarespace-basic
+    name: Squarespace Basic
     type: subscription
-    description: Commerce API access is included with the merchant Squarespace subscription. Per-plan website / commerce pricing should be confirmed at squarespace.com/pricing; transaction take-rates apply on top of the subscription depending on tier (Squarespace's Commerce Advanced removes the additional transaction fee charged on lower tiers).
-    entries:
-      - label: Squarespace Site Subscription
-        name: site_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: see https://www.squarespace.com/pricing
-        userMultiplied: false
-      - label: Commerce API Access
-        name: commerce_api
-        type: flat
-        metric: api
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: included with site subscription
-        userMultiplied: false
-    elements:
-      - name: Commerce API (Products, Orders, Inventory, Transactions, Profiles)
-      - name: Webhook Subscriptions
-      - name: API Key and OAuth Authentication
-      - name: Bundled with Squarespace Merchant Subscription
-maintainers:
-  - name: Squarespace, Inc.
-    url: https://developers.squarespace.com/
+    price: 25
+    currency: USD
+    period: monthly
+    annual_price_per_month: 19
+    annual_total: 228
+    description: >-
+      Entry-level Squarespace website plan. Includes a custom domain (free for one year on annual
+      billing), unlimited bandwidth, SSL, mobile-optimized templates, SEO tools, and basic analytics.
+    api_access: false
+    limits:
+      - Commerce API keys not available on this tier
+  - id: squarespace-core
+    name: Squarespace Core
+    type: subscription
+    price: 39
+    currency: USD
+    period: monthly
+    annual_price_per_month: 29
+    annual_total: 348
+    description: >-
+      Plan for growing businesses. Adds advanced site analytics, premium integrations, customer
+      accounts, gift cards, point-of-sale, and unlimited products.
+    api_access: false
+    limits:
+      - 3% Squarespace transaction fee on commerce sales
+      - Commerce API keys not available on this tier
+  - id: squarespace-plus
+    name: Squarespace Plus
+    type: subscription
+    price: 65
+    currency: USD
+    period: monthly
+    annual_price_per_month: 49
+    annual_total: 588
+    description: >-
+      Plan for established commerce businesses. Everything in Core plus zero Squarespace transaction
+      fees, abandoned-cart recovery, advanced shipping and discount tools, subscriptions, and
+      merchandising.
+    api_access: false
+    limits:
+      - 0% Squarespace transaction fee
+      - Commerce API keys not available on this tier
+      - Published in USD only in pricing.txt
+  - id: squarespace-advanced
+    name: Squarespace Advanced
+    type: subscription
+    price: 139
+    currency: USD
+    period: monthly
+    annual_price_per_month: 99
+    annual_total: 1188
+    description: >-
+      Plan for high-volume commerce and enterprise needs. Everything in Plus plus advanced commerce
+      APIs, custom code, and priority support. This is the tier that unlocks Developer API Keys for
+      custom applications.
+    api_access: true
+    limits:
+      - 0% Squarespace transaction fee
+      - Commerce API key generation available (Settings > Advanced > Developer API Keys)
+  - id: squarespace-enterprise
+    name: Enterprise
+    type: contact-sales
+    price: null
+    currency: null
+    period: null
+    description: Custom plans for large organizations; pricing is not published.
+    api_access: true
+    url: https://www.squarespace.com/enterprise
+api_pricing:
+  model: bundled
+  note: >-
+    The Commerce API is not metered or billed per call. There is no per-request price, no API-only
+    plan, and no published API overage. The billing lever is the merchant's site subscription plus,
+    on Basic/Core, a percentage transaction fee on commerce sales.
+transaction_fees:
+  - plan: squarespace-basic
+    rate: null
+    note: Commerce selling is not the focus of this tier.
+  - plan: squarespace-core
+    rate: '3%'
+    note: 3% Squarespace transaction fee on commerce sales, per pricing.txt plan description.
+  - plan: squarespace-plus
+    rate: '0%'
+  - plan: squarespace-advanced
+    rate: '0%'
+evidence:
+  - url: https://www.squarespace.com/pricing.txt
+    status: 200
+    note: 6,043-byte machine-readable pricing document, all four tiers across 27 currencies.
+  - url: https://www.squarespace.com/llms.txt
+    status: 200
+    note: Indexes pricing.txt and says the human /pricing page requires JavaScript.
+pricing_document:
+  url: https://www.squarespace.com/pricing.txt
+  local: plans/squarespace-pricing.txt
+  last_updated: '2026-08-03T07:08:03.822Z'
+  source_note: >-
+    The document states "Data sourced from the Squarespace billing API" and carries its own
+    last-updated timestamp, so it is a generated feed rather than a hand-maintained page.
+  currencies: 27

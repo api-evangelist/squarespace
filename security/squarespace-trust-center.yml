@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.squarespace.com/security
+provider: Squarespace
+providerId: squarespace
+trust_center:
+  exists: false
+  url: null
+  note: >-
+    Squarespace operates no trust center. There is no portal publishing audit reports, no
+    certification index, and no document request flow. probe-security-programs.py returned
+    trust=none on 2026-08-13 and a manual search confirmed it.
+security_page:
+  url: https://www.squarespace.com/security
+  status: 200
+  audience: merchants
+  machine_readable: false
+  note: >-
+    A marketing page aimed at site owners, not a security posture disclosure aimed at auditors or
+    integrators. It covers automatic SSL on customer domains, platform monitoring, and payment
+    compliance, and links no evidence.
+certifications:
+  named: []
+  note: >-
+    No SOC 2, ISO 27001, HIPAA or FedRAMP status is published anywhere on squarespace.com. No audit
+    report, attestation letter, bridge letter or certificate is offered under NDA or otherwise.
+compliance_claims:
+  - standard: PCI-DSS
+    claim: >-
+      "All of Squarespace's built-in payment processor integrations are compliant with PCI-DSS.
+      Sensitive card data is never handled by Squarespace. It goes directly to the payment
+      processor's servers; Squarespace doesn't have access to this information."
+    scope: payment-processor-integrations
+    attests_own_environment: false
+    assessment: >-
+      This is a SCOPE-LIMITING statement, not a Squarespace attestation. It asserts that the
+      third-party processors are compliant and that Squarespace is out of card-data scope by design.
+      No SAQ type, no AOC, no assessor and no compliance level is named. Read as a descoping claim,
+      not a certification.
+    source: https://www.squarespace.com/security
+  - standard: 'global privacy and payment standards'
+    claim: >-
+      "Squarespace keeps your site constantly monitored and in compliance with global privacy and
+      payment standards."
+    scope: unspecified
+    attests_own_environment: false
+    assessment: Unnamed standards, no evidence, no scope. Not a usable compliance signal.
+    source: https://www.squarespace.com/security
+compliance_pointer_emitted: false
+compliance_pointer_rationale: >-
+  No `type: Compliance` pointer is wired into apis.yml for this provider. The only named standard on
+  the page is PCI-DSS, and Squarespace names it specifically to say the requirement lands on its
+  payment processors rather than on Squarespace. Crediting that as a published compliance program
+  would report a posture Squarespace has not claimed.
+vulnerability_disclosure:
+  published: true
+  detail: security/squarespace-vulnerability-disclosure.yml
+  url: https://www.squarespace.com/vulnerability-reporting
+  security_txt: well-known/squarespace-security.txt
+  bug_bounty:
+    platform: null
+    note: >-
+      No HackerOne, Bugcrowd or Intigriti program was located. The security.txt Contact and Policy
+      both resolve to Squarespace's own vulnerability-reporting page rather than a bounty platform.
+subdomain_caution:
+  finding: >-
+    https://trust.squarespace.com returns HTTP 200 and is NOT a Squarespace trust center — it is a
+    CUSTOMER SITE, a facilitation consultancy trading as "Trust" that built its website on
+    Squarespace.
+  why_it_matters: >-
+    Squarespace hosts customer sites on *.squarespace.com subdomains, so a 200 on a plausible
+    subdomain (trust., security., status-like names) proves nothing about Squarespace itself. Any
+    automated trust-center or well-known probe against this provider must read the page content
+    before recording a hit. Recorded here so a later pass does not re-discover this and file it as a
+    Squarespace trust center.
+  probed: '2026-08-13'
+evidence:
+  - url: https://www.squarespace.com/security
+    status: 200
+    note: Merchant-facing security marketing page; names PCI-DSS only as a processor-scope claim.
+  - url: https://trust.squarespace.com
+    status: 200
+    note: Customer site, not Squarespace. Content is a consultancy's marketing site.
+  - url: https://www.squarespace.com/trust
+    status: 404
+  - url: https://www.squarespace.com/vulnerability-reporting
+    status: 200
+  - url: https://www.squarespace.com/.well-known/security.txt
+    status: 200

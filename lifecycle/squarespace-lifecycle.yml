@@ -1,0 +1,182 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/versioning
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Versioning, deprecation and operational-status posture for the Squarespace Commerce APIs. Searched
+  from the provider's own versioning guide, changelog and status page, and cross-checked against the
+  published 55-operation OpenAPI.
+
+versioning:
+  style: uri-path
+  format: 'https://api.squarespace.com/{api-version}/{resource-path}'
+  scope: per-resource
+  scheme_history:
+    - era: pre-2025
+      scheme: semver-major-minor
+      note: >-
+        Endpoints released before 2025 used Major.Minor (1.0, 1.1) where MINOR updates sometimes
+        introduced breaking changes — the version string did not reliably signal compatibility.
+    - era: 2025-onwards
+      scheme: integer
+      note: >-
+        v1, v2, v3. Non-breaking changes ship into the existing version without an increment; the
+        version increments only on a breaking change that requires developers to update code.
+  current_versions:
+    - resource: /products
+      version: v2
+      legacy: ['1.1', '1.0']
+    - resource: /contacts
+      version: v1
+      legacy: []
+    - resource: /discounts
+      version: v1
+      legacy: []
+    - resource: /inventory
+      version: '1.0'
+      legacy: []
+    - resource: /orders
+      version: '1.0'
+      legacy: []
+    - resource: /profiles
+      version: '1.0'
+      legacy: []
+    - resource: /transactions
+      version: '1.0'
+      legacy: []
+    - resource: /webhook_subscriptions
+      version: '1.0'
+      legacy: []
+  contract_note: >-
+    Because versions are per-resource, one integration necessarily spans three version strings at
+    once — /1.0/commerce/orders, /v1/contacts and /v2/commerce/products all live in the same
+    published OpenAPI, whose info.version is simply "2".
+  non_breaking_change_contract:
+    description: >-
+      Squarespace publishes an explicit list of change classes that will NOT increment a version and
+      that client code MUST tolerate. This is a real, enforceable compatibility contract and is
+      unusually well specified.
+    classes:
+      - Additive response contents — new fields or objects in a JSON response.
+      - Relaxed constraints — a required field becomes optional, or validation loosens.
+      - New HTTP methods on endpoints that previously did not support them.
+      - New optional query parameters.
+      - Bug fixes that do not break.
+    also_applies_to_webhooks: >-
+      "Squarespace reserves the right to add properties and fields without a version change. Version
+      changes are reserved for breaking changes only."
+  source: https://developers.squarespace.com/commerce-apis/versioning
+
+deprecation:
+  policy_published: true
+  policy_url: https://developers.squarespace.com/commerce-apis/versioning
+  policy_summary: >-
+    Squarespace supports legacy API versions "for an extended period" and states it provides
+    "significant advance notice before deprecating any version". Supported legacy versions are
+    documented per API alongside the information needed to upgrade.
+  quantified: false
+  quantification_gap: >-
+    Neither "extended period" nor "significant advance notice" is given a number. There is no
+    published sunset window in months, no minimum notice period, and no dated end-of-life for any
+    version currently in the field.
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  header_gap: >-
+    No Sunset or Deprecation response header (RFC 8594 / RFC 9745) is documented, and none is
+    declared in the published OpenAPI. A running integration receives no runtime signal that an
+    endpoint is on its way out.
+  deprecated_operations_in_openapi: 0
+  deprecated_operations_note: >-
+    Zero of the 55 published operations carry `deprecated: true`, including every Profiles
+    operation — even though the docs place the entire Profiles API in maintenance mode. The
+    machine-readable contract does not carry the deprecation the prose announces.
+  maintenance_mode:
+    - api: Profiles
+      status: maintenance
+      announced: '2026-04-09'
+      replacement: Contacts API
+      replacement_url: https://developers.squarespace.com/commerce-apis/contacts-overview
+      operations:
+        - getProfiles
+        - getSpecificProfiles
+      guidance: >-
+        "The Profiles API is now in maintenance mode — migration to the Contacts API is highly
+        recommended, and new integrations should use the Contacts API."
+      end_of_life: null
+      note: >-
+        No sunset date has been announced. The operations remain live and undeprecated in the spec.
+  historical_restrictions:
+    - date: '2021-03-29'
+      change: >-
+        Creating and updating Profiles was restricted to allowed developers — an effective write
+        withdrawal that predates the maintenance-mode announcement by five years.
+
+legacy_versions:
+  - resource: /products
+    version: '1.0'
+    status: supported-legacy
+    superseded_by: v2
+    superseded_on: '2025-12-18'
+  - resource: /products
+    version: '1.1'
+    status: supported-legacy
+    superseded_by: v2
+    superseded_on: '2025-12-18'
+
+changelog:
+  published: true
+  dated: true
+  url: https://developers.squarespace.com/commerce-apis/changelog
+  markdown_url: https://developers.squarespace.com/commerce-apis/changelog.md
+  policy: >-
+    "All changes are, nonetheless, registered in our changelog, even if they do not require a
+    version bump." — the changelog is positioned as the authoritative compatibility feed, which is
+    the correct posture given non-breaking changes ship silently into existing versions.
+  detail: changelog/squarespace-changelog.yml
+  earliest_entry: '2020-07-13'
+  latest_entry: '2026-08-06'
+
+status_page:
+  url: https://status.squarespace.com
+  provider: Atlassian Statuspage
+  page_id: 1jkhm1drpysj
+  machine_readable: true
+  api:
+    status: https://status.squarespace.com/api/v2/status.json
+    summary: https://status.squarespace.com/api/v2/summary.json
+    index: https://status.squarespace.com/index.json
+    rss: https://status.squarespace.com/history.rss
+  note: >-
+    Probed 2026-08-13: the status page is Atlassian Statuspage, so the full unauthenticated
+    /api/v2/* JSON surface is available and an agent CAN poll incident state programmatically. The
+    developer docs never mention it — it is discoverable only by knowing the Statuspage convention.
+
+sla:
+  published: false
+  note: >-
+    No public uptime SLA, availability target or service credit schedule is published for the
+    Commerce APIs. Enterprise terms are not public.
+
+support:
+  channel: https://support.squarespace.com/hc/requests/new#choose-topic
+  escalation_identifier: contextId (returned in every error body)
+  developer_terms: https://developers.squarespace.com/commerce-apis/faq
+  brand_guidelines: https://www.squarespace.com/brand-guidelines
+  note: >-
+    Squarespace's developer terms forbid press releases about an integration without explicit
+    permission and forbid implying partnership or endorsement, and reserve the right to suspend
+    developer access at any time, for any reason, with or without notice. That termination clause is
+    a lifecycle risk for anyone building on this API and it is stated in the FAQ, not in a separate
+    agreement page.
+
+evidence:
+  - url: https://developers.squarespace.com/commerce-apis/versioning
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/changelog.md
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+    status: 200
+  - url: https://status.squarespace.com
+    status: 200

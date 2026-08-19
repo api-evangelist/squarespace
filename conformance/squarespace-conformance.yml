@@ -1,0 +1,235 @@
+generated: '2026-08-13'
+method: derived
+source: 'openapi/squarespace-commerce-api-v2-openapi.json, https://developers.squarespace.com, live probes 2026-08-13'
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Assertions about which industry and cross-cutting standards the Squarespace Commerce APIs actually
+  conform to, each with its evidence. Derived from the published OpenAPI and the provider's own
+  guides, plus live probes where a standard has a discoverable surface. A false here is a
+  measurement, not a criticism — most of these standards do not apply to a single-tenant commerce
+  API.
+standards:
+  - id: openapi
+    name: OpenAPI Specification
+    conforms: true
+    version: 3.1.1
+    evidence: >-
+      Squarespace publishes a single 55-operation OpenAPI 3.1.1 document with 187 component schemas,
+      served anonymously from the docs host at
+      developers.squarespace.com/commerce-apis/latest/schema-processor-version-version-latest.json
+      and downloadable from every API reference page. servers[] names https://api.squarespace.com,
+      matching the documented base URL.
+    saved: openapi/squarespace-commerce-api-v2-openapi.json
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: true
+    partial: true
+    evidence: >-
+      Authorization code grant with refresh tokens, state-based CSRF protection, HTTP Basic client
+      authentication at the token endpoint, and access_type=offline for long-term access. Documented
+      at https://developers.squarespace.com/oauth.
+    deviations:
+      - >-
+        The scope parameter is COMMA-separated, not space-separated as RFC 6749 §3.3 requires. This
+        breaks generic OAuth libraries.
+      - >-
+        No /.well-known/oauth-authorization-server (RFC 8414) — probed 404 on www, developers, api
+        and mcp hosts. Endpoints must be hard-coded.
+      - No dynamic client registration (RFC 7591); registration is a manual reviewed form.
+      - The oauth2 flow is absent from the OpenAPI securitySchemes, so scopes are not machine-readable.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: >-
+      No /.well-known/openid-configuration on any host (404 on www.squarespace.com,
+      developers.squarespace.com; 401 on api.squarespace.com). No id_token, no userinfo endpoint,
+      no OIDC scopes. Squarespace's OAuth is authorization-only.
+  - id: rfc9457
+    name: 'RFC 9457 Problem Details for HTTP APIs'
+    conforms: false
+    evidence: >-
+      Errors use a proprietary envelope (type / subtype / message / details / contextId) served as
+      application/json. There is no type URI, no title, no status member, and no
+      application/problem+json media type anywhere in the 137 declared error responses. See
+      errors/squarespace-problem-types.yml.
+    note: >-
+      The `type` field is a bare enum string (INVALID_REQUEST_ERROR), which superficially resembles
+      RFC 9457's `type` but is not a URI and must not be treated as one.
+  - id: idempotency
+    name: 'Idempotency-Key header (draft-ietf-httpapi-idempotency-key-header)'
+    conforms: true
+    evidence: >-
+      Squarespace implements the Idempotency-Key request header and REQUIRES it on the two
+      operations where replay is dangerous: POST /1.0/commerce/orders (createOrder) and
+      POST /1.0/commerce/inventory/adjustments (adjustInventoryStockLevels). Keys are up to 64
+      characters, UUIDs accepted, guaranteed effective for 48 hours. Declared as a required header
+      parameter in the OpenAPI, so it is machine-readable. Documented at
+      https://developers.squarespace.com/commerce-apis/idempotency-key.
+    deviations:
+      - >-
+        No Idempotency-Replayed or idempotency-specific response header is documented, so a client
+        cannot tell a replayed response from a first execution.
+    detail: conventions/squarespace-conventions.yml
+  - id: pagination
+    name: Cursor pagination
+    conforms: true
+    evidence: >-
+      Consistent cursor pagination on all eight list operations, with a uniform PaginationDetails
+      object (hasNextPage, nextPageCursor, nextPageUrl) and a fixed page size of 50.
+    caveat: >-
+      Cursors are explicitly DYNAMIC — they point at a location, not a snapshot, so the result set
+      can shift under a paging client. Squarespace documents this in its FAQ.
+  - id: rfc8594
+    name: 'RFC 8594 Sunset HTTP Header'
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header is documented or declared in the OpenAPI, and zero of the 55
+      operations carry deprecated:true — including the Profiles operations the docs describe as in
+      maintenance mode.
+  - id: rfc9116
+    name: 'RFC 9116 security.txt'
+    conforms: true
+    evidence: >-
+      https://www.squarespace.com/.well-known/security.txt returns HTTP 200 text/plain with Contact,
+      Expires (2028-01-01), Preferred-Languages and Policy fields.
+    deviations:
+      - No Encryption, Acknowledgments or Canonical fields.
+      - Contact is an HTTPS form URL rather than a mailto:.
+    saved: well-known/squarespace-security.txt
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    provider_published: false
+    evidence: >-
+      Squarespace documents a webhook catalog in prose but publishes no AsyncAPI document. The
+      AsyncAPI 2.6.0 file in this repo is an API Evangelist generation from that catalog, not a
+      provider artifact.
+    artifact: asyncapi/squarespace-webhooks-asyncapi.yml
+  - id: webhooks
+    name: Webhook event delivery
+    conforms: true
+    evidence: >-
+      Documented webhook subscription API with HMAC-SHA256 request signing via the
+      Squarespace-Signature header, secret rotation (rotateSubscriptionSecret), a test-notification
+      endpoint, and a published topic catalog covering extension, order, contact and address events.
+      Subscriptions never expire.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    partial: true
+    evidence: >-
+      A live first-party remote MCP server at https://mcp.squarespace.com/mcp answers an anonymous
+      JSON-RPC tools/list with HTTP 200 and two tools carrying full JSON Schema 2020-12 inputSchemas.
+      Probed 2026-08-13.
+    caveat: >-
+      The server covers the domain-acquisition funnel only. Zero of the 55 Commerce API operations
+      are exposed through MCP.
+    detail: mcp/squarespace-mcp.yml
+  - id: a2a
+    name: 'A2A (Agent2Agent) Agent Card'
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and the legacy /.well-known/agent.json return 404 on
+      www.squarespace.com, developers.squarespace.com and mcp.squarespace.com, and 401 on
+      api.squarespace.com. No agent card is served on any host.
+  - id: llms-txt
+    name: llms.txt
+    conforms: true
+    evidence: >-
+      https://www.squarespace.com/llms.txt returns HTTP 200 with a well-formed llms.txt — H1, a
+      blockquote summary, and Pricing / Plans / Optional sections of annotated links. It links a
+      companion machine-readable pricing document and explicitly tells agents to prefer it over the
+      JS-rendered pricing page.
+    caveat: >-
+      The document is a marketing/pricing index served from the www host. It says nothing about the
+      Commerce API, and developers.squarespace.com/llms.txt returns 404.
+    saved: llms/squarespace-llms.txt
+  - id: json-schema
+    name: 'JSON Schema 2020-12'
+    conforms: true
+    evidence: >-
+      The OpenAPI 3.1.1 document uses JSON Schema 2020-12 dialect throughout its 187 component
+      schemas, and the MCP tool inputSchemas declare $schema https://json-schema.org/draft/2020-12/schema.
+  - id: rest
+    name: REST / HTTP conventions
+    conforms: true
+    partial: true
+    evidence: >-
+      Resource-oriented paths, standard status codes, JSON-only payloads, HTTPS enforced.
+    deviations:
+      - >-
+        POST is used for updates on several resources instead of PUT/PATCH — updateProduct,
+        updateProductVariant, updateProductImage and updateWebhookSubscription are all POST to the
+        item path. Discounts (PUT) and Contacts (PATCH) use the conventional verbs, so the contract
+        is internally inconsistent.
+      - Comma-separated ID lists are passed in the PATH segment rather than as query parameters.
+  - id: cors
+    name: Cross-Origin Resource Sharing
+    conforms: false
+    deliberate: true
+    evidence: >-
+      Squarespace explicitly declines CORS support, documenting that browser-side calls would expose
+      the bearer token and directing developers to a server-side proxy.
+  - id: json-api
+    name: 'JSON:API'
+    conforms: false
+    evidence: Responses are plain JSON objects; no data/attributes/relationships envelope, no JSON:API media type.
+  - id: odata
+    name: OData
+    conforms: false
+    evidence: No $metadata document, no OData query syntax.
+  - id: scim
+    name: 'SCIM (RFC 7643/7644)'
+    conforms: false
+    evidence: No user-provisioning surface; Contacts is a commerce CRM, not an identity store.
+  - id: fhir
+    name: FHIR
+    conforms: false
+    applicable: false
+    evidence: Not a healthcare API.
+  - id: fapi
+    name: 'FAPI (Financial-grade API)'
+    conforms: false
+    applicable: false
+    evidence: Not a financial-services API; Transactions is a merchant reporting surface.
+  - id: psd2
+    name: PSD2 / Open Banking
+    conforms: false
+    applicable: false
+    evidence: Not a payment service provider API.
+  - id: grpc
+    name: gRPC / Protobuf
+    conforms: false
+    evidence: No .proto files published in the Squarespace GitHub org, on buf.build, or in the docs.
+  - id: graphql
+    name: GraphQL
+    conforms: false
+    evidence: >-
+      No GraphQL endpoint is published for the developer platform. The docs site loads a GraphiQL
+      stylesheet as part of the Zudoku documentation framework, which is not a Squarespace API surface.
+compliance_certifications:
+  published: false
+  trust_center: null
+  note: >-
+    probe-security-programs.py found no trust center and no named certification page for
+    squarespace.com on 2026-08-13. Squarespace publishes a vulnerability-reporting page but does not
+    publish SOC 2 / ISO 27001 / PCI DSS attestation status at a public, machine-findable URL. No
+    Compliance pointer is emitted for this repo as a result.
+summary:
+  conforms: 9
+  does_not_conform: 12
+  not_applicable: 3
+evidence:
+  - url: https://developers.squarespace.com/commerce-apis/latest/schema-processor-version-version-latest.json
+    status: 200
+  - url: https://mcp.squarespace.com/mcp
+    status: 200
+  - url: https://www.squarespace.com/.well-known/security.txt
+    status: 200
+  - url: https://www.squarespace.com/llms.txt
+    status: 200
+  - url: https://www.squarespace.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.squarespace.com/.well-known/agent-card.json
+    status: 404

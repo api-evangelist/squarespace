@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "60be18e1-8647-4e04-a3e1-2545cb28e24d",
+      "id": "237a8bc6-a739-4e55-bf1d-724e7e8cb0cc",
       "name": "Webhook Subscriptions",
       "description": {
         "content": "Manage webhook subscriptions for real-time event notifications",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "42665a5a-85ea-4ca2-a2b1-edfb9a320202",
+          "id": "ec4fa29c-376e-4075-8b7f-624589f02b3a",
           "name": "Retrieve All Webhook Subscriptions",
           "request": {
             "name": "Retrieve All Webhook Subscriptions",
@@ -38,7 +38,7 @@
           },
           "response": [
             {
-              "id": "78d3495d-df7d-4b62-bfce-3a60c5a16625",
+              "id": "762015ba-185e-4e9b-af56-c1b0d8e76557",
               "name": "Successful response with list of webhook subscriptions",
               "originalRequest": {
                 "url": {
@@ -76,12 +76,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"webhookSubscriptions\": [\n    {\n      \"id\": \"string\",\n      \"endpointUrl\": \"http://NXaifSNHJsCzQnyBXKczesLJ.jicE852hd-eSuU4gs0ehcq3hjs,k7c\",\n      \"topics\": [\n        \"extension.uninstall\",\n        \"order.create\"\n      ],\n      \"createdOn\": \"1966-11-27T19:13:33.326Z\",\n      \"updatedOn\": \"1965-03-31T19:54:55.417Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"endpointUrl\": \"https://zfW.ujgMUGFOAWGVmOT4VFcZiKOIMVZhlcg-97rEFLS+uYo.RjEPfzZ9\",\n      \"topics\": [\n        \"order.update\",\n        \"extension.uninstall\"\n      ],\n      \"createdOn\": \"2024-08-09T07:21:42.682Z\",\n      \"updatedOn\": \"1979-04-30T16:58:50.641Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"webhookSubscriptions\": [\n    {\n      \"id\": \"string\",\n      \"endpointUrl\": \"http://yKnPVybPZTOYo.xktjW4mF-0M6AnxwsoV.qBp6L,nHxAgU6VwBbs7RtjEVJtjIEJTYZ+qSc5CZcnk\",\n      \"topics\": [\n        \"extension.uninstall\",\n        \"order.create\"\n      ],\n      \"createdOn\": \"1982-09-06T12:14:24.669Z\",\n      \"updatedOn\": \"1978-10-15T03:03:30.498Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"endpointUrl\": \"http://ZVGvesqFNBUdwQN.gsfhSG3f-ODZZTQ+g3cKfLSdfe4vC\",\n      \"topics\": [\n        \"order.update\",\n        \"order.update\"\n      ],\n      \"createdOn\": \"1964-04-21T03:08:34.386Z\",\n      \"updatedOn\": \"2018-12-19T07:16:08.032Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2a6b8366-1cad-4207-a380-bf4253bfc723",
+              "id": "0d2246bd-9078-4a85-9f6e-48b0e8d5f381",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -119,12 +119,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5c82cc0f-457e-44f3-bb9d-c531340e84f9",
+              "id": "2d71648f-e3bb-4736-bc60-2b46f217cacf",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -162,12 +162,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b5457ffb-8d2f-4333-b8e1-3965b81a3875",
+              "id": "d5313581-3808-4496-89e7-c34a5cf66ca7",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -205,7 +205,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -216,7 +216,7 @@
           }
         },
         {
-          "id": "646669f2-18ec-4e7b-9e36-a9f0a0af4520",
+          "id": "99c6b93c-6cff-447b-8d15-005677b3c60e",
           "name": "Create a Webhook Subscription",
           "request": {
             "name": "Create a Webhook Subscription",
@@ -258,7 +258,7 @@
           },
           "response": [
             {
-              "id": "57c2179a-d0fd-43a4-aa4a-f5cf1bfb1da1",
+              "id": "8c51613b-cd33-4a9e-91f2-a752e85704f7",
               "name": "Webhook subscription created successfully",
               "originalRequest": {
                 "url": {
@@ -304,12 +304,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://zxmkmpnokc.gdciRiP\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"order.update\"\n  ],\n  \"createdOn\": \"2004-07-13T20:21:07.949Z\",\n  \"updatedOn\": \"2016-06-06T06:30:25.448Z\",\n  \"secret\": \"string\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://Odwj.iob4y.pOzQGIH5LPWwYaL53styM\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"order.update\"\n  ],\n  \"createdOn\": \"1987-06-10T06:47:16.298Z\",\n  \"updatedOn\": \"1962-06-19T16:22:47.370Z\",\n  \"secret\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2ee9227b-3634-4287-af9a-b682e5e56195",
+              "id": "4193b319-ebf0-49cf-af7a-8634bfbc8fcd",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -355,12 +355,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1e3ce16c-f974-46d9-a9ee-5560b05723b2",
+              "id": "581e4f5f-4660-4a2d-bdc4-6c0bf85aa5c4",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -406,12 +406,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0d58e36d-619a-4441-b364-57ad960120d5",
+              "id": "a1c9f933-a17a-4bcb-8fd5-b90a362a23ad",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -457,12 +457,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "c6a11d15-ff72-444e-bcce-a6189f9a1513",
+              "id": "e76d9aa9-d0d7-4012-90c6-d2914eaa6749",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -508,7 +508,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -519,7 +519,7 @@
           }
         },
         {
-          "id": "58e3b467-b0ef-4629-8f32-11d778efb747",
+          "id": "d30c57ed-8ed7-448b-98ed-3f9bb36f213c",
           "name": "Retrieve a Specific Webhook Subscription",
           "request": {
             "name": "Retrieve a Specific Webhook Subscription",
@@ -557,7 +557,7 @@
           },
           "response": [
             {
-              "id": "f15c6f3d-d186-4d4a-bb2f-d5cb6a64e2eb",
+              "id": "7cefae18-d045-4f95-8788-6e8abac89dfe",
               "name": "Successful response with webhook subscription details",
               "originalRequest": {
                 "url": {
@@ -604,12 +604,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://oGs.hseLGFpLurPsj7GP8C3SeGddzo\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"extension.uninstall\"\n  ],\n  \"createdOn\": \"2026-02-08T11:47:00.826Z\",\n  \"updatedOn\": \"2013-09-01T09:05:58.869Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"https://wftsXwKSOQPFCzHHp.ndcW5Dt,zGfGsyi1XBgfQ\",\n  \"topics\": [\n    \"order.create\",\n    \"order.create\"\n  ],\n  \"createdOn\": \"2020-12-03T06:29:47.616Z\",\n  \"updatedOn\": \"1963-03-14T10:16:34.763Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e661548f-e5a5-414a-85da-aea81c291e0e",
+              "id": "5a1a6bec-f181-4df3-b1d5-ee3d2b7becf0",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -656,12 +656,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "370733c4-afbf-4262-ab69-a00de092bc38",
+              "id": "f3542f08-63ca-466e-9ea2-a4301567be5c",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -708,12 +708,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "af7c785b-6514-4fe1-962a-42cd9c983283",
+              "id": "cea22631-a52d-4a34-a6a2-43263590bc19",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -760,12 +760,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "46a1986a-436e-4d6b-b6b7-0aab4c1a5c54",
+              "id": "137cae81-237a-4810-acad-05dcbd9ee07e",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -812,7 +812,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -823,7 +823,7 @@
           }
         },
         {
-          "id": "76c26573-2aab-49f6-82c0-97cecf293971",
+          "id": "b51b4bb7-4529-49e5-994d-0c75627048d0",
           "name": "Update a Webhook Subscription",
           "request": {
             "name": "Update a Webhook Subscription",
@@ -874,7 +874,7 @@
           },
           "response": [
             {
-              "id": "022898c0-cf76-4d54-83a1-e8f4aa63072a",
+              "id": "85b81a2f-fa89-480a-ab76-45bfc9f23ffc",
               "name": "Webhook subscription updated successfully",
               "originalRequest": {
                 "url": {
@@ -929,12 +929,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://oGs.hseLGFpLurPsj7GP8C3SeGddzo\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"extension.uninstall\"\n  ],\n  \"createdOn\": \"2026-02-08T11:47:00.826Z\",\n  \"updatedOn\": \"2013-09-01T09:05:58.869Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"https://wftsXwKSOQPFCzHHp.ndcW5Dt,zGfGsyi1XBgfQ\",\n  \"topics\": [\n    \"order.create\",\n    \"order.create\"\n  ],\n  \"createdOn\": \"2020-12-03T06:29:47.616Z\",\n  \"updatedOn\": \"1963-03-14T10:16:34.763Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a898689d-157d-4457-8c23-72de05d0c12c",
+              "id": "a45933f3-7e70-49dd-a60a-49a4cedc2c1c",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -989,12 +989,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3c937cfb-f290-4e07-9276-1c8609499b8e",
+              "id": "b9686722-84f1-4822-9c98-9594e58277cd",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1049,12 +1049,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "241955c6-49d0-4fb5-b661-c93c9810c11b",
+              "id": "a684d3a8-d351-4d86-9dc5-e194fd5c5c56",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1109,12 +1109,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "99de0f50-84cd-4531-80c6-7cda24a66d8a",
+              "id": "ba31549c-ac96-4d4f-8f10-7cc53cb80ea2",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -1169,12 +1169,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b08f0bd0-376b-4563-a61f-6a0623964d8b",
+              "id": "d0716e34-e1ef-43f6-bb2d-b7b2259a7966",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -1229,7 +1229,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1240,7 +1240,7 @@
           }
         },
         {
-          "id": "4ef0b6d7-e058-4323-9586-09a2615cde90",
+          "id": "2626e2e5-7fc6-44fd-bb78-5ae513748b73",
           "name": "Delete a Webhook Subscription",
           "request": {
             "name": "Delete a Webhook Subscription",
@@ -1278,7 +1278,7 @@
           },
           "response": [
             {
-              "id": "d8da22b0-53b6-4fb7-a953-45e74d858bfe",
+              "id": "8a1c0f69-ac10-4b5c-8a10-53f2e276d315",
               "name": "Webhook subscription deleted successfully",
               "originalRequest": {
                 "url": {
@@ -1326,7 +1326,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "54c783b5-2549-4a97-bca9-bac33cbd566e",
+              "id": "22d8045b-37b0-43e4-b33c-902af6d07192",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1373,12 +1373,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "291da6a0-febf-461e-8288-02210b7f37ee",
+              "id": "9d8a4172-7046-4a16-9de2-e13b0a8a02ce",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1425,12 +1425,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e9aa909c-eee7-442e-a109-0cbf1340cb3a",
+              "id": "ac951e43-2ffb-4719-9984-5b8120f533c8",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -1477,12 +1477,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6e836830-a066-4391-97e9-85ecbb047369",
+              "id": "3581a5c9-604f-4926-bcce-cacbfce16ab1",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -1529,7 +1529,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1540,7 +1540,7 @@
           }
         },
         {
-          "id": "aca72a53-7519-460d-bb76-5a237dad9be4",
+          "id": "4c0b5e9e-e1cf-40ba-a18e-a90b6e447352",
           "name": "Send a Test Notification",
           "request": {
             "name": "Send a Test Notification",
@@ -1580,7 +1580,7 @@
           },
           "response": [
             {
-              "id": "514b8c0a-b4fe-41b3-9a05-9046c788ebf1",
+              "id": "22aca0ee-e8c0-4401-b7f4-3453801ed15c",
               "name": "Test notification sent successfully",
               "originalRequest": {
                 "url": {
@@ -1630,7 +1630,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ece43d66-e579-43ce-8bac-279f54aa9177",
+              "id": "c0151902-496e-42c6-8cbc-e999258dcd2e",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1679,12 +1679,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0e0f1662-8c8b-4073-b544-37c35fb0f020",
+              "id": "1c0aa6fa-5d21-45c0-8e39-fab3126261f2",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1733,12 +1733,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "37e6706f-bb79-4b6b-bddb-2e355be56467",
+              "id": "d5af3c28-dbc9-4f1c-bafe-3b451034a9af",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -1787,12 +1787,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "a1041770-eb13-4f24-9cfa-119ffed87fbe",
+              "id": "f0335cae-fb88-40ff-a139-2ef7862eff3c",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -1841,7 +1841,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1852,7 +1852,7 @@
           }
         },
         {
-          "id": "00972261-f0ac-4359-804b-a85d344f0567",
+          "id": "62bfc160-d680-4ad2-9a17-0a5f693c6192",
           "name": "Rotate a Webhook Subscription Secret",
           "request": {
             "name": "Rotate a Webhook Subscription Secret",
@@ -1892,7 +1892,7 @@
           },
           "response": [
             {
-              "id": "d619d9d9-f6c1-43d7-84cc-4c80e2c8b2b8",
+              "id": "28beff4a-ee9b-4008-bf5c-590a3adb832f",
               "name": "Webhook secret rotated successfully",
               "originalRequest": {
                 "url": {
@@ -1941,12 +1941,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://zxmkmpnokc.gdciRiP\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"order.update\"\n  ],\n  \"createdOn\": \"2004-07-13T20:21:07.949Z\",\n  \"updatedOn\": \"2016-06-06T06:30:25.448Z\",\n  \"secret\": \"string\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"endpointUrl\": \"http://Odwj.iob4y.pOzQGIH5LPWwYaL53styM\",\n  \"topics\": [\n    \"extension.uninstall\",\n    \"order.update\"\n  ],\n  \"createdOn\": \"1987-06-10T06:47:16.298Z\",\n  \"updatedOn\": \"1962-06-19T16:22:47.370Z\",\n  \"secret\": \"string\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6e696387-6962-46c6-b66c-798cbb3ce34b",
+              "id": "9b447775-4fbd-4c31-80ff-19f6bfe597db",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1995,12 +1995,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "190d1794-ba02-4eda-960f-e6f7b1f74d4a",
+              "id": "5c7776d7-9de9-400d-9bbd-a7706ff9e533",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -2049,12 +2049,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "c3e968e8-d084-4110-89c3-b9e30aef344d",
+              "id": "e74d29a4-0155-4ae0-b16a-88d094ca28bd",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -2103,12 +2103,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2fe1f0f9-adbf-4296-b92f-3507c29e4a97",
+              "id": "636f14bb-3d6a-4e2e-abaf-4c6a08532610",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -2157,7 +2157,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9422\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 7719\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -2189,11 +2189,11 @@
     ]
   },
   "info": {
-    "_postman_id": "3463f890-fd50-4846-82ef-877f98df8f90",
-    "name": "Squarespace Webhook Subscriptions API",
+    "_postman_id": "3394f08c-83fd-4bb2-8b25-6514ef8b909f",
+    "name": "Squarespace Commerce Inventory Webhook Subscriptions API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Squarespace Webhook Subscriptions API allows developers to subscribe to event notifications from a Squarespace site. Supported event topics include order creation, order updates, and extension uninstalls, enabling real-time integrations with external systems. The API supports creating, updating, retrieving, and deleting webhook subscriptions, as well as sending test notifications and rotating subscription secrets. All webhook subscription requests require OAuth token authentication. Squarespace websites support a maximum of 25 webhook subscriptions.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
       "type": "text/plain"
     }
   }

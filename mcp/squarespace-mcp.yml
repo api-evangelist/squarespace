@@ -1,0 +1,131 @@
+generated: '2026-08-13'
+method: probed
+source: https://mcp.squarespace.com/mcp
+provider: Squarespace
+providerId: squarespace
+name: Squarespace MCP Server
+status: live
+description: >-
+  Squarespace operates a first-party REMOTE MCP server at https://mcp.squarespace.com/mcp. It
+  answers an unauthenticated JSON-RPC tools/list with HTTP 200 and returns two real tools with full
+  JSON Schema inputSchemas. The tool list was captured verbatim to mcp/squarespace-mcp-tools.json on
+  2026-08-13. Note what it is and is not: this server exposes the DOMAIN acquisition funnel — domain
+  search and brand-name generation — not the Commerce APIs. None of the 55 published Commerce
+  operations (orders, products, inventory, contacts, discounts, transactions, webhooks) are reachable
+  through it. It is a customer-acquisition surface an agent can call on an end user's behalf, not an
+  agent interface to a merchant's store.
+
+deployment:
+  mode: remote
+  endpoint: https://mcp.squarespace.com/mcp
+  transport: streamable-http
+  auth: none
+  verified: probed
+  probed: '2026-08-13'
+  http_status: 200
+  install: null
+  package: null
+  note: >-
+    No first-party stdio package is published — there is no @squarespace/mcp on npm and no install
+    command in Squarespace's docs. The only shipped surface is the hosted URL, which an MCP client
+    can POST to right now with no credential.
+
+server:
+  url: https://mcp.squarespace.com/mcp
+  protocol: MCP JSON-RPC 2.0 over HTTP
+  content_type: application/json
+  accept: 'application/json, text/event-stream'
+  edge: Cloudflare (cf-ray observed on the response)
+  authentication:
+    required: false
+    oauth_discovery:
+      '/.well-known/oauth-authorization-server': 404
+      '/.well-known/oauth-protected-resource': 404
+    note: >-
+      Anonymous tools/list succeeds, and neither MCP OAuth discovery document is served. There is no
+      published path to authenticate to this server, which is consistent with it exposing only
+      public catalog data.
+
+tools_count: 2
+tools:
+  - name: domains_search
+    category: domains
+    description: >-
+      Search Squarespace's domain catalog for a keyword. Returns availability, pricing, and a
+      pre-rendered purchase link per domain.
+    input_schema_published: true
+    parameters:
+      - name: body.query
+        type: string
+        required: true
+        description: Short keyword to base suggestions on, e.g. 'acmecoffee'. Not a sentence.
+      - name: body.limit
+        type: integer
+        required: false
+        default: 20
+        range: 1-50
+      - name: body.availableOnly
+        type: boolean
+        required: false
+        default: true
+      - name: body.checkAvailability
+        type: boolean
+        required: false
+        default: true
+        note: Set false for suggestion-only requests to skip availability lookups; results have available=null.
+    returns_commercial_link: true
+    commercial_note: >-
+      Each result carries a `checkoutLink`, and the tool description instructs the calling model to
+      render every non-null checkoutLink into a markdown table with a "Purchase on Squarespace" link
+      — prompt-level merchandising delivered through the tool description itself.
+  - name: domains_generate_names
+    category: domains
+    description: >-
+      Generate brand/business NAME IDEAS from a free-text description, when the user describes a
+      business or idea but doesn't have a name yet. Returns brandable names grouped by tone
+      (neutral, playful, professional, friendly, informative, quirky).
+    input_schema_published: true
+    parameters:
+      - name: body.description
+        type: string
+        required: true
+        description: Free-text description of the business or idea; a full phrase or sentence is expected.
+    routing_note: >-
+      The description explicitly routes between the two tools — use this one when the input is a
+      description or sentence, use domains_search when it is a keyword.
+
+surface_gap:
+  commerce_api_coverage: 0
+  detail: >-
+    The Commerce API (55 operations across Orders, Products, Inventory, Contacts, Discounts,
+    Transactions, Analytics, Websites, Profiles and Webhook Subscriptions) has NO MCP representation.
+    An agent that needs to read a merchant's orders or adjust inventory must call the REST API
+    directly with a bearer token; there is no Squarespace-operated MCP path to it.
+  crosswalk: mcp/squarespace-tool-crosswalk.yml
+
+third_party_servers:
+  - name: '@florasync/squarespace-mcp'
+    registry: npm
+    version: 0.1.0
+    published: '2026-07-26'
+    official: false
+    repository: https://github.com/FloraSync/squarespace-mcp
+    note: >-
+      Third-party, not Squarespace-published. Recorded for completeness only; not wired as a
+      Squarespace agent surface.
+
+evidence:
+  - url: https://mcp.squarespace.com/mcp
+    method: POST tools/list
+    status: 200
+    content_type: application/json
+    bytes: 4860
+    fetched: '2026-08-13'
+    saved: mcp/squarespace-mcp-tools.json
+  - url: https://mcp.squarespace.com/.well-known/oauth-authorization-server
+    status: 404
+  - url: https://mcp.squarespace.com/.well-known/oauth-protected-resource
+    status: 404
+  - url: https://api.squarespace.com/mcp
+    status: 401
+    note: Not an MCP endpoint; the API host returns its standard AUTHORIZATION_ERROR envelope for any unknown path.

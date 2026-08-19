@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Squarespace Inventory API",
+    "name": "Squarespace Commerce Inventory API",
     "version": "1.0"
   },
   "request": {

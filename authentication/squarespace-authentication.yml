@@ -1,23 +1,129 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/squarespace-commerce-api-openapi.yml, openapi/squarespace-inventory-api-openapi.yml,
-  openapi/squarespace-orders-api-openapi.yml, openapi/squarespace-products-api-openapi.yml,
-  openapi/squarespace-profiles-api-openapi.yml, openapi/squarespace-transactions-api-openapi.yml,
-  openapi/squarespace-webhook-subscriptions-api-openapi.yml
-summary:
-  types:
-  - http
-schemes:
-- name: bearerAuth
-  type: http
-  scheme: bearer
-  description: Authenticate using an API key or OAuth access token. Include the token in the
-    Authorization header as "Bearer [example key]".
-  sources:
-  - openapi/squarespace-commerce-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+docs: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+derived_from:
+  - openapi/squarespace-commerce-api-v2-openapi.json
   - openapi/squarespace-inventory-api-openapi.yml
   - openapi/squarespace-orders-api-openapi.yml
   - openapi/squarespace-products-api-openapi.yml
   - openapi/squarespace-profiles-api-openapi.yml
+  - openapi/squarespace-site-api-openapi.yml
   - openapi/squarespace-transactions-api-openapi.yml
   - openapi/squarespace-webhook-subscriptions-api-openapi.yml
+description: >-
+  Squarespace Commerce APIs accept two credential types over one wire format. Every request carries
+  `Authorization: Bearer <token>`, where the token is either a merchant-generated API key or an
+  OAuth 2.0 access token. The published OpenAPI collapses both into a single `http bearer` scheme
+  named `Authorization`, so the machine-readable contract cannot distinguish them — the split is
+  documented only in prose, and it matters, because several behaviours differ by credential type
+  (the Create Order rate limit, and the OAuth-only Webhook Subscriptions API).
+summary:
+  types:
+    - http
+    - oauth2
+  machine_readable_types:
+    - http
+  note: >-
+    oauth2 is fully documented but NOT declared in the OpenAPI. A tool reading only the spec will
+    conclude Squarespace is bearer-token-only and will miss the entire Extensions/OAuth path.
+schemes:
+  - name: Authorization
+    type: http
+    scheme: bearer
+    description: >-
+      API key or OAuth access token. Documented header default in the reference is
+      "Bearer YOUR_API_KEY_OR_OAUTH_TOKEN".
+    sources:
+      - openapi/squarespace-commerce-api-v2-openapi.json
+      - openapi/squarespace-inventory-api-openapi.yml
+      - openapi/squarespace-orders-api-openapi.yml
+      - openapi/squarespace-products-api-openapi.yml
+      - openapi/squarespace-profiles-api-openapi.yml
+      - openapi/squarespace-site-api-openapi.yml
+      - openapi/squarespace-transactions-api-openapi.yml
+      - openapi/squarespace-webhook-subscriptions-api-openapi.yml
+  - name: oauth2
+    type: oauth2
+    flow: authorizationCode
+    declared_in_openapi: false
+    authorizationUrl: https://login.squarespace.com/api/1/login/oauth/provider/authorize
+    tokenUrl: https://login.squarespace.com/api/1/login/oauth/provider/tokens
+    scopes_artifact: scopes/squarespace-scopes.yml
+    description: >-
+      OAuth 2.0 authorization code grant used by Squarespace Extensions. Client registration is
+      manual and reviewed by Squarespace — there is no dynamic client registration and no
+      self-service credential issuance for new clients beyond the registration form.
+    sources:
+      - https://developers.squarespace.com/oauth
+credentials:
+  - kind: api-key
+    name: Developer API Key
+    issuance: >-
+      Self-service in the Squarespace admin: Settings > Advanced > Developer API Keys > GENERATE KEY.
+      Requires the Squarespace Advanced (Commerce Advanced) plan.
+    transport: Authorization Bearer header
+    permission_model: >-
+      Permission level (Read Only / Read and Write) selected per Commerce API at generation time.
+      Permissions on an issued key CANNOT be modified — a new key must be generated.
+    expiry: >-
+      Keys never expire as long as the merchant site remains active. There is no documented rotation
+      mechanism and no expiry-based forcing function.
+    visibility: Shown once at generation; not retrievable afterwards.
+    restrictions:
+      - Not available for the Webhook Subscriptions API (OAuth only).
+      - Subject to the stricter 100/hour Create Order limit that OAuth callers are exempt from.
+    source: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+  - kind: oauth-token
+    name: OAuth 2.0 access token
+    issuance: >-
+      Authorization code grant after manual Squarespace review and issuance of client_id/client_secret.
+    transport: Authorization Bearer header
+    access_token_ttl: 30m
+    refresh: grant_type=refresh_token, requires access_type=offline on the authorize call
+    token_endpoint_auth: >-
+      HTTP Basic — the client builds an Authorization header from its OAuth 2.0 credentials.
+    permission_model: Comma-separated website.* scopes; see scopes/squarespace-scopes.yml
+    restrictions:
+      - Permissions cannot be changed on an existing grant; the merchant must re-initiate the connection.
+    source: https://developers.squarespace.com/oauth
+transport_requirements:
+  - requirement: HTTPS only
+    detail: All requests sent over HTTP instead of HTTPS are rejected.
+  - requirement: User-Agent required
+    detail: Requests without a User-Agent header are rejected; default client User-Agents may be rate-limited harder.
+  - requirement: No CORS
+    detail: >-
+      Squarespace explicitly does not support browser-side calls and documents CORS as a security
+      risk because it would expose the bearer token; a server-side proxy is the documented pattern.
+    source: https://developers.squarespace.com/commerce-apis/faq
+webhook_authentication:
+  mechanism: HMAC-SHA256 request signature
+  header: Squarespace-Signature
+  secret: >-
+    Returned only when creating a subscription or rotating a secret; a rotateSecret operation exists
+    (POST /1.0/webhook_subscriptions/{subscriptionId}/actions/rotateSecret).
+  source: https://developers.squarespace.com/webhooks/overview
+auth_errors:
+  - status: 401
+    type: AUTHORIZATION_ERROR
+    meaning: Missing Authorization header, or the token is invalid or expired.
+  - status: 402
+    type: WEBSITE_EXPIRED
+    meaning: The website that owns the token is in an expired billing state.
+  - status: 403
+    subtype: MISSING_SCOPE / OAUTH_TOKEN_REQUIRED / FORBIDDEN_RESOURCE
+    meaning: Token is valid but lacks the permission, or the endpoint requires OAuth rather than an API key.
+gaps:
+  - oauth2 is documented but absent from the OpenAPI securitySchemes.
+  - No /.well-known/oauth-authorization-server or /.well-known/openid-configuration is served (404 on every host probed).
+  - API keys never expire and have no documented rotation path.
+evidence:
+  - url: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+    status: 200
+  - url: https://developers.squarespace.com/oauth
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/making-requests
+    status: 200
+  - url: https://www.squarespace.com/.well-known/oauth-authorization-server
+    status: 404

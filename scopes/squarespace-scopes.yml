@@ -1,0 +1,130 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/oauth
+docs: https://developers.squarespace.com/oauth
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Squarespace authorizes third-party applications (Squarespace Extensions) with OAuth 2.0
+  authorization code grant. The scope parameter on the authorize endpoint takes a COMMA-separated
+  list of permission values — not the space-separated list RFC 6749 describes — and the
+  confirmation page always presents the merchant's website(s) for selection because every scope is
+  rooted at `website.*`. The scope list below is transcribed verbatim from the provider's OAuth
+  guide. Note that the published OpenAPI declares only a single `http bearer` security scheme and
+  no `oauth2` scheme, so these scopes exist ONLY in prose documentation and cannot be derived from
+  the machine-readable contract — `derive-oauth-scopes.py` finds zero.
+flow: authorization_code
+grant_types:
+  - authorization_code
+  - refresh_token
+endpoints:
+  authorization: https://login.squarespace.com/api/1/login/oauth/provider/authorize
+  token: https://login.squarespace.com/api/1/login/oauth/provider/tokens
+  registration: https://developers.squarespace.com/oauth
+scope_delimiter: ','
+scope_delimiter_note: >-
+  Squarespace documents "comma-separated list of client permission values", e.g.
+  scope=website.inventory,website.orders. This deviates from the space-delimited convention in
+  RFC 6749 §3.3 and is a common integration failure.
+token_lifetimes:
+  access_token: 30m
+  refresh_token: long-term (requires access_type=offline)
+  authorization_code: 2m, single use
+long_term_access:
+  parameter: access_type=offline
+  note: >-
+    Omit access_type for short-term API access. Use offline to receive a refresh token for
+    long-term access; subsequent token requests use grant_type=refresh_token.
+csrf:
+  parameter: state
+  required: true
+  note: Squarespace requires state and documents verifying it on the redirect URI to prevent CSRF.
+scope_count: 10
+scopes:
+  - name: website.orders
+    description: Send order data and mark orders as fulfilled.
+    access: write
+    api: Orders
+  - name: website.orders.read
+    description: View order and fulfillment information.
+    access: read
+    api: Orders
+  - name: website.transactions.read
+    description: Access transactional order and donation data.
+    access: read
+    api: Transactions
+  - name: website.inventory
+    description: View and update inventory stock levels.
+    access: write
+    api: Inventory
+  - name: website.inventory.read
+    description: View inventory stock levels.
+    access: read
+    api: Inventory
+  - name: website.products
+    description: View product information and modify products.
+    access: write
+    api: Products
+  - name: website.products.read
+    description: View product information.
+    access: read
+    api: Products
+  - name: website.contacts
+    description: >-
+      View customer contact information and address book entries; create, update, and delete
+      contacts and address book entries.
+    access: write
+    api: Contacts
+  - name: website.contacts.read
+    description: View customer contact information and address book entries.
+    access: read
+    api: Contacts
+  - name: website.discounts
+    description: View and manage discounts.
+    access: write
+    api: Discounts
+  - name: website.discounts.read
+    description: View discounts.
+    access: read
+    api: Discounts
+api_key_permissions:
+  note: >-
+    API keys are a separate authorization path from OAuth and use permission LEVELS selected in the
+    Squarespace admin (Settings > Advanced > Developer API Keys), not scope strings. Permissions on
+    an issued key or token can never be modified — a new key must be generated, and OAuth clients
+    must have the merchant re-initiate the connection.
+  source: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+  apis:
+    - api: Forms
+      levels: [read]
+      note: For Zapier integration only.
+    - api: Inventory
+      levels: [read, read-write]
+    - api: Orders
+      levels: [read, read-write]
+    - api: Products
+      levels: [read, read-write]
+    - api: Contacts
+      levels: [read, read-write]
+      note: API key support added 2026-06-17; previously OAuth only.
+    - api: Discounts
+      levels: [read, read-write]
+    - api: Webhook Subscriptions
+      levels: [read-write]
+      note: OAuth only — no API key path.
+    - api: Profiles
+      levels: [read]
+      note: Maintenance mode; new integrations should use Contacts.
+    - api: Transactions
+      levels: [read]
+gaps:
+  - The published OpenAPI declares no oauth2 securityScheme, so scopes are not machine-readable.
+  - >-
+    No scope is documented for the Webhook Subscriptions API even though it is OAuth-only; the docs
+    describe the permission by name but do not publish a website.* scope string for it.
+  - No scope is published for the Analytics API surfaced in the OpenAPI (POST /v1/analytics/transaction-summaries).
+evidence:
+  - url: https://developers.squarespace.com/oauth
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
+    status: 200

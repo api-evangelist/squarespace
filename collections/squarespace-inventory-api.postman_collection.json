@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "7026c595-ae6c-4d0f-9534-6d8ad29e8038",
+      "id": "4fa11b01-c8ab-4ed6-831f-3ab493fb0427",
       "name": "Inventory",
       "description": {
         "content": "Stock level retrieval and adjustment for product variants",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "02b5cdd2-8d6f-4786-be21-f84ec884e1a3",
+          "id": "f93ea82e-9a7b-4e87-aacc-0e3f02c72c97",
           "name": "Retrieve All Inventory",
           "request": {
             "name": "Retrieve All Inventory",
@@ -46,7 +46,7 @@
           },
           "response": [
             {
-              "id": "5a2864e7-4d8e-4c1c-9da3-05a2f1921e25",
+              "id": "ff9ef2ef-14ea-4fa8-9007-ab1f48a4ce0f",
               "name": "Successful response with paginated list of inventory items",
               "originalRequest": {
                 "url": {
@@ -90,12 +90,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": false,\n      \"quantity\": 9665,\n      \"infiniteStock\": true\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": true,\n      \"isTracked\": false,\n      \"quantity\": 492,\n      \"infiniteStock\": true\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://xlItURpzYIkhCmyzOtxRRvIof.ohig29TeCp4ZsjzOr0CdLskQ6sj8pUwZg7,LunIqr10.mywQBrhheIuC5UR4TZGpzUeaxmJuwjXFuEiP\"\n  }\n}",
+              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 7397,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": false,\n      \"quantity\": 5223,\n      \"infiniteStock\": false\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"https://C.prbdIRUxMzbSNVrma80NqdYKmcRMC5ZYDnMXwSQtHuALnQRpe\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1804b6a7-7ace-455e-ab17-058b8cea1c7b",
+              "id": "b3aa2455-d950-4956-af8f-2e29d38e4c8b",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -139,12 +139,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "13594760-93a9-4ef6-b035-79f6f05a3b51",
+              "id": "37b81e7d-4d29-4e94-9fbb-7d40787b3e37",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -188,12 +188,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b124f93f-91ff-4ea5-9c1e-1a830ba46415",
+              "id": "5b0a3a70-dd87-4e7e-a4cd-c07f65fad03d",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -237,7 +237,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -248,7 +248,7 @@
           }
         },
         {
-          "id": "b49df867-8dfc-4ed3-bfc2-38e355a993ae",
+          "id": "e7ba4a35-c36b-4388-9c53-088e8ccba886",
           "name": "Retrieve Specific Inventory",
           "request": {
             "name": "Retrieve Specific Inventory",
@@ -287,7 +287,7 @@
           },
           "response": [
             {
-              "id": "126c828c-4082-4eb4-8930-eac5b8df7709",
+              "id": "1246829d-7f49-4169-9db4-76215a0546f0",
               "name": "Successful response with inventory items for the specified variants",
               "originalRequest": {
                 "url": {
@@ -335,12 +335,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": true,\n      \"isTracked\": false,\n      \"quantity\": 9165,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": false,\n      \"quantity\": 1211,\n      \"infiniteStock\": false\n    }\n  ]\n}",
+              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": true,\n      \"isTracked\": true,\n      \"quantity\": 8608,\n      \"infiniteStock\": true\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 3574,\n      \"infiniteStock\": false\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4239e478-a73f-4de2-a874-fef8c7d5506f",
+              "id": "698940db-f25c-4c02-b270-481e9138dbde",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -388,12 +388,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "ee40fa1c-6317-417c-a3bd-2595632da584",
+              "id": "307f9e71-3a75-4469-8961-6b061671cff1",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -441,12 +441,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "aab092eb-063e-4c81-a29f-fb7ebe515b96",
+              "id": "42d617e7-72df-409b-8580-274b03c751b8",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -494,12 +494,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f80db193-3ecd-4541-9754-76ba07dcb7ca",
+              "id": "8dcec8d0-4044-4d5d-ac78-010f7b46db9c",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -547,12 +547,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "543c32e2-5390-4aa4-82b2-5138243113d5",
+              "id": "395a8782-eff4-421f-8f24-0bf27fac141c",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -600,7 +600,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -611,7 +611,7 @@
           }
         },
         {
-          "id": "92d37897-35b7-4f37-aad4-bb6e9f2bff30",
+          "id": "d2285422-038d-4b6f-86c8-e5cd52e5abd5",
           "name": "Adjust Stock Quantities",
           "request": {
             "name": "Adjust Stock Quantities",
@@ -655,7 +655,7 @@
           },
           "response": [
             {
-              "id": "17298f6f-ad26-43dc-976b-f2becbe3727c",
+              "id": "f2a8b487-7e44-45a5-8b21-97925de00115",
               "name": "Inventory adjustments applied successfully",
               "originalRequest": {
                 "url": {
@@ -687,7 +687,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 1907\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 7010\n    }\n  ]\n}",
+                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -703,12 +703,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": true,\n      \"isTracked\": false,\n      \"quantity\": 1135,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 8979,\n      \"infiniteStock\": true\n    }\n  ]\n}",
+              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 8708,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 8028,\n      \"infiniteStock\": false\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "67cff99e-45ac-4d63-b408-5f58ca08a6c0",
+              "id": "013edf04-bd61-4395-98fc-adf933b4538f",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -740,7 +740,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 1907\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 7010\n    }\n  ]\n}",
+                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -756,12 +756,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0eefc665-0023-4085-8ac9-c3c881dcb8f7",
+              "id": "755caeaf-2ee0-4074-8744-ec9e35abc7fc",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -793,7 +793,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 1907\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 7010\n    }\n  ]\n}",
+                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -809,12 +809,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5793b661-1ee3-418c-bab1-eca5be6c1094",
+              "id": "07974677-7eef-49a4-ab45-8c404fd90a93",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -846,7 +846,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 1907\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 7010\n    }\n  ]\n}",
+                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -862,12 +862,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "06e4b642-c24c-415b-a75a-f41b1d1cb65a",
+              "id": "5a3696e8-0c73-4666-945b-06729cddfbb9",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -899,7 +899,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 1907\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 7010\n    }\n  ]\n}",
+                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -915,7 +915,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 327\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -947,11 +947,11 @@
     ]
   },
   "info": {
-    "_postman_id": "0cc30ff5-5ddd-449b-a066-6b75a50f9fcc",
-    "name": "Squarespace Inventory API",
+    "_postman_id": "665c1ab3-d2a2-4d19-86c9-8a477dd98128",
+    "name": "Squarespace Commerce Inventory API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Squarespace Inventory API enables reading and adjusting stock information for product variants on a Squarespace merchant site. Developers can retrieve current inventory levels and apply incremental adjustments to stock quantities. This API is useful for integrating Squarespace with warehouse management systems, point-of-sale systems, or multi-channel inventory management platforms. Inventory adjustments can be applied in bulk across multiple product variants.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
       "type": "text/plain"
     }
   }

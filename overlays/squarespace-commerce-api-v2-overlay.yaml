@@ -1,0 +1,134 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Commerce API
+  version: 1.0.0
+  x-generated: '2026-08-13'
+  x-method: generated
+  x-source: openapi/squarespace-commerce-api-v2-openapi.json
+extends: openapi/squarespace-commerce-api-v2-openapi.json
+actions:
+- target: $.info
+  description: Attach API Evangelist provenance and cross-links to the repo artifacts that carry runtime
+    semantics this contract does not express.
+  update:
+    x-apievangelist:
+      provider: squarespace
+      enriched: '2026-08-13'
+      artifacts:
+        conventions: conventions/squarespace-conventions.yml
+        errors: errors/squarespace-problem-types.yml
+        authentication: authentication/squarespace-authentication.yml
+        scopes: scopes/squarespace-scopes.yml
+        rate_limits: rate-limits/squarespace-rate-limits.yml
+        lifecycle: lifecycle/squarespace-lifecycle.yml
+        changelog: changelog/squarespace-changelog.yml
+        data_model: data-model/squarespace-data-model.yml
+        plans: plans/squarespace-plans-pricing.yml
+- target: $
+  description: Document the OAuth 2.0 flow Squarespace operates but does not declare in securitySchemes.
+    Endpoints and scopes are transcribed from https://developers.squarespace.com/oauth.
+  update:
+    x-oauth2-undeclared:
+      note: Squarespace supports OAuth 2.0 authorization code alongside the bearer API key, but only the
+        http bearer scheme is declared in this contract.
+      authorizationUrl: https://login.squarespace.com/api/1/login/oauth/provider/authorize
+      tokenUrl: https://login.squarespace.com/api/1/login/oauth/provider/tokens
+      scopeDelimiter: ','
+      scopes: scopes/squarespace-scopes.yml
+      accessTokenTTL: 30m
+- target: $
+  description: Record the runtime limits and required headers that apply to every operation in this document.
+  update:
+    x-runtime:
+      rateLimit:
+        window: 1m
+        limit: 300
+        status: 429
+        cooldown: 1m
+        headers: []
+        note: No RateLimit-*, X-RateLimit-* or Retry-After headers are published.
+      requiredHeaders:
+      - name: Authorization
+        note: Bearer API key or OAuth access token.
+      - name: User-Agent
+        note: REQUIRED. Requests without a User-Agent are rejected; default client User-Agents may be
+          rate-limited harder.
+      httpsOnly: true
+      cors: false
+      pagination:
+        style: cursor
+        param: cursor
+        pageSize: 50
+        responseObject: pagination
+        fields:
+        - hasNextPage
+        - nextPageCursor
+        - nextPageUrl
+        note: Dynamic cursors — they point at a location, not a snapshot, so the result set can shift
+          while paging.
+      errorEnvelope: proprietary (type/subtype/message/details/contextId); not RFC 9457
+- target: $.paths.*.*[?(@.responses)]
+  description: Every operation can return 402 WEBSITE_EXPIRED when the merchant site is in an expired
+    billing state. Documented since 2021-11-30 but declared on zero operations in the published contract.
+  update:
+    x-undeclared-responses:
+    - status: 402
+      type: WEBSITE_EXPIRED
+      source: https://developers.squarespace.com/commerce-apis/responses-error-handling
+- target: $.paths['/1.0/commerce/inventory/adjustments'].post
+  description: Idempotency-Key is REQUIRED on this operation; keys are guaranteed effective for 48 hours
+    and a replay returns the original response.
+  update:
+    x-idempotency:
+      required: true
+      header: Idempotency-Key
+      maxLength: 64
+      format: alphanumeric, dashes and underscores; UUIDs valid
+      retention: 48h
+      replay: returns the original response
+      source: https://developers.squarespace.com/commerce-apis/idempotency-key
+- target: $.paths['/1.0/commerce/orders'].post
+  description: Idempotency-Key is REQUIRED on this operation; keys are guaranteed effective for 48 hours
+    and a replay returns the original response.
+  update:
+    x-idempotency:
+      required: true
+      header: Idempotency-Key
+      maxLength: 64
+      format: alphanumeric, dashes and underscores; UUIDs valid
+      retention: 48h
+      replay: returns the original response
+      source: https://developers.squarespace.com/commerce-apis/idempotency-key
+- target: $.paths['/1.0/commerce/orders'].post
+  description: This operation carries a second, stricter rate limit of 100 requests per hour per website
+    when authenticated with an API key. OAuth callers are exempt.
+  update:
+    x-rate-limit-override:
+      window: 1h
+      limit: 100
+      scope: per-website
+      appliesTo: api-key
+      exempt: oauth
+      source: https://developers.squarespace.com/commerce-apis/rate-limits
+- target: $.paths['/1.0/profiles'].get
+  description: The Profiles API entered maintenance mode on 2026-04-09. The contract does not mark it
+    deprecated; this overlay records the announced status and its replacement.
+  update:
+    x-lifecycle:
+      status: maintenance
+      announcedOn: '2026-04-09'
+      replacedBy: Contacts API
+      replacementUrl: https://developers.squarespace.com/commerce-apis/contacts-overview
+      sunset: null
+      source: https://developers.squarespace.com/commerce-apis/changelog
+- target: $.paths['/1.0/profiles/{profileIdCsvs}'].get
+  description: The Profiles API entered maintenance mode on 2026-04-09. The contract does not mark it
+    deprecated; this overlay records the announced status and its replacement.
+  update:
+    x-lifecycle:
+      status: maintenance
+      announcedOn: '2026-04-09'
+      replacedBy: Contacts API
+      replacementUrl: https://developers.squarespace.com/commerce-apis/contacts-overview
+      sunset: null
+      source: https://developers.squarespace.com/commerce-apis/changelog

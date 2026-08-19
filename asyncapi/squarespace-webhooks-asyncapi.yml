@@ -1,140 +1,203 @@
 asyncapi: 2.6.0
 info:
   title: Squarespace Webhook Events
-  description: >-
-    The Squarespace webhook system delivers real-time event notifications to
-    registered endpoint URLs when commerce activity occurs on a merchant site.
-    Supported events include order creation, order updates, and extension uninstalls.
-    Each notification includes a unique identifier, the website ID, subscription ID,
-    topic, and a data payload specific to the event type. Notifications are signed
-    using HMAC-SHA256 with the subscription secret, enabling receivers to verify
-    authenticity via the Squarespace-Signature header.
-  version: '1.0'
+  description: 'The Squarespace webhook system delivers real-time event notifications to registered endpoint
+    URLs when commerce activity occurs on a merchant site. Supported events include order creation, order
+    updates, and extension uninstalls. Each notification includes a unique identifier, the website ID,
+    subscription ID, topic, and a data payload specific to the event type. Notifications are signed using
+    HMAC-SHA256 with the subscription secret, enabling receivers to verify authenticity via the Squarespace-Signature
+    header.
+
+
+    Updated 2026-08-13: the six contact.* and address.* topics released 2026-04-15 were added, with payload
+    schemas lifted verbatim from Squarespace''s own published OpenAPI contract rather than hand-written.
+    Note an inconsistency Squarespace ships in those newer payloads — the subscription identifier is named
+    `subscriptionsId` (plural) in the contact and address envelopes, while the documented webhook envelope
+    and the older order/extension payloads use `subscriptionId`.'
+  version: '1.1'
   contact:
     name: Squarespace Developer Support
     url: https://developers.squarespace.com/webhooks/overview
   termsOfService: https://www.squarespace.com/terms-of-service
+  x-generated: '2026-08-13'
+  x-method: derived
+  x-source: https://developers.squarespace.com/webhooks/overview + openapi/squarespace-commerce-api-v2-openapi.json
 externalDocs:
   description: Squarespace Webhooks Documentation
   url: https://developers.squarespace.com/webhooks/overview
 servers:
   squarespace:
-    url: 'https://api.squarespace.com'
+    url: https://api.squarespace.com
     protocol: https
-    description: >-
-      Squarespace sends webhook notifications as HTTP POST requests from this
-      origin. Receiving endpoints must be publicly accessible HTTPS URLs registered
-      via the Webhook Subscriptions API.
+    description: Squarespace sends webhook notifications as HTTP POST requests from this origin. Receiving
+      endpoints must be publicly accessible HTTPS URLs registered via the Webhook Subscriptions API.
     security:
-      - hmacSignature: []
+    - hmacSignature: []
 channels:
   /webhook:
-    description: >-
-      The endpoint on the subscriber's server that receives webhook notifications
-      from Squarespace. Squarespace sends HTTP POST requests with JSON payloads
-      and a Squarespace-Signature header for verification.
+    description: The endpoint on the subscriber's server that receives webhook notifications from Squarespace.
+      Squarespace sends HTTP POST requests with JSON payloads and a Squarespace-Signature header for verification.
     publish:
       operationId: receiveWebhookNotification
       summary: Receive a webhook notification from Squarespace
-      description: >-
-        Squarespace sends this message to the subscriber's registered endpoint URL
-        when a subscribed event occurs on the merchant site. The receiver should
-        validate the Squarespace-Signature header before processing the payload.
-        Squarespace expects a 2xx response within a short timeout window.
+      description: Squarespace sends this message to the subscriber's registered endpoint URL when a subscribed
+        event occurs on the merchant site. The receiver should validate the Squarespace-Signature header
+        before processing the payload. Squarespace expects a 2xx response within a short timeout window.
       message:
         oneOf:
-          - $ref: '#/components/messages/OrderCreateNotification'
-          - $ref: '#/components/messages/OrderUpdateNotification'
-          - $ref: '#/components/messages/ExtensionUninstallNotification'
+        - $ref: '#/components/messages/OrderCreateNotification'
+        - $ref: '#/components/messages/OrderUpdateNotification'
+        - $ref: '#/components/messages/ExtensionUninstallNotification'
+        - $ref: '#/components/messages/ContactCreateNotification'
+        - $ref: '#/components/messages/ContactUpdateNotification'
+        - $ref: '#/components/messages/ContactDeleteNotification'
+        - $ref: '#/components/messages/AddressCreateNotification'
+        - $ref: '#/components/messages/AddressUpdateNotification'
+        - $ref: '#/components/messages/AddressDeleteNotification'
 components:
   securitySchemes:
     hmacSignature:
       type: httpApiKey
       name: Squarespace-Signature
       in: header
-      description: >-
-        HMAC-SHA256 signature generated by signing the raw request body with the
-        webhook subscription secret as the key. Recipients must compute the same
-        signature and compare it to the header value to verify the notification
-        originated from Squarespace.
+      description: HMAC-SHA256 signature generated by signing the raw request body with the webhook subscription
+        secret as the key. Recipients must compute the same signature and compare it to the header value
+        to verify the notification originated from Squarespace.
   messages:
     OrderCreateNotification:
       name: order.create
       title: Order Create Notification
       summary: Notification sent when a new order is created on the merchant site
-      description: >-
-        Squarespace sends this notification when a customer places a new order on
-        the merchant site. The data payload contains the unique order ID. Use the
-        Orders API to retrieve full order details using this ID.
+      description: Squarespace sends this notification when a customer places a new order on the merchant
+        site. The data payload contains the unique order ID. Use the Orders API to retrieve full order
+        details using this ID.
       contentType: application/json
       headers:
         type: object
         properties:
           Squarespace-Signature:
             type: string
-            description: >-
-              HMAC-SHA256 signature of the request body using the subscription
-              secret as the key. Used to verify notification authenticity.
+            description: HMAC-SHA256 signature of the request body using the subscription secret as the
+              key. Used to verify notification authenticity.
       payload:
         $ref: '#/components/schemas/OrderCreatePayload'
     OrderUpdateNotification:
       name: order.update
       title: Order Update Notification
       summary: Notification sent when an existing order is updated on the merchant site
-      description: >-
-        Squarespace sends this notification when an order is modified, such as when
-        fulfillment status changes or the order is refunded. The data payload contains
-        the order ID and an update type description.
+      description: Squarespace sends this notification when an order is modified, such as when fulfillment
+        status changes or the order is refunded. The data payload contains the order ID and an update
+        type description.
       contentType: application/json
       headers:
         type: object
         properties:
           Squarespace-Signature:
             type: string
-            description: >-
-              HMAC-SHA256 signature of the request body using the subscription
-              secret as the key. Used to verify notification authenticity.
+            description: HMAC-SHA256 signature of the request body using the subscription secret as the
+              key. Used to verify notification authenticity.
       payload:
         $ref: '#/components/schemas/OrderUpdatePayload'
     ExtensionUninstallNotification:
       name: extension.uninstall
       title: Extension Uninstall Notification
       summary: Notification sent when a Squarespace Extension is uninstalled from a site
-      description: >-
-        Squarespace sends this notification when a merchant uninstalls a Squarespace
-        Extension. Receiving this event should trigger cleanup of any stored data
-        or active resources associated with the merchant's site in the extension's
-        backend systems.
+      description: Squarespace sends this notification when a merchant uninstalls a Squarespace Extension.
+        Receiving this event should trigger cleanup of any stored data or active resources associated
+        with the merchant's site in the extension's backend systems.
       contentType: application/json
       headers:
         type: object
         properties:
           Squarespace-Signature:
             type: string
-            description: >-
-              HMAC-SHA256 signature of the request body using the subscription
-              secret as the key. Used to verify notification authenticity.
+            description: HMAC-SHA256 signature of the request body using the subscription secret as the
+              key. Used to verify notification authenticity.
       payload:
         $ref: '#/components/schemas/ExtensionUninstallPayload'
+    ContactCreateNotification:
+      name: contact.create
+      title: Contact Create Notification
+      summary: Notification sent for the contact.create event
+      description: Squarespace sends this notification when a contact is created on the merchant site.
+        The data payload is the full Contact resource.
+      contentType: application/json
+      headers: &id001
+        type: object
+        properties:
+          Squarespace-Signature:
+            type: string
+            description: HMAC-SHA256 signature of the request body using the subscription secret as the
+              key. Used to verify notification authenticity.
+      payload:
+        $ref: '#/components/schemas/ContactCreatePayload'
+    ContactUpdateNotification:
+      name: contact.update
+      title: Contact Update Notification
+      summary: Notification sent for the contact.update event
+      description: Squarespace sends this notification when a contact is modified. The data payload is
+        the full Contact resource after the change.
+      contentType: application/json
+      headers: *id001
+      payload:
+        $ref: '#/components/schemas/ContactUpdatePayload'
+    ContactDeleteNotification:
+      name: contact.delete
+      title: Contact Delete Notification
+      summary: Notification sent for the contact.delete event
+      description: Squarespace sends this notification when a contact is removed. The data payload carries
+        only the deleted contact id and deletedOn timestamp.
+      contentType: application/json
+      headers: *id001
+      payload:
+        $ref: '#/components/schemas/ContactDeletePayload'
+    AddressCreateNotification:
+      name: address.create
+      title: Address Create Notification
+      summary: Notification sent for the address.create event
+      description: Squarespace sends this notification when address book entries are added to a contact.
+        The data payload carries the contactId and the created entries.
+      contentType: application/json
+      headers: *id001
+      payload:
+        $ref: '#/components/schemas/AddressCreatePayload'
+    AddressUpdateNotification:
+      name: address.update
+      title: Address Update Notification
+      summary: Notification sent for the address.update event
+      description: Squarespace sends this notification when address book entries on a contact change.
+        The data payload carries the contactId and the entries after the update.
+      contentType: application/json
+      headers: *id001
+      payload:
+        $ref: '#/components/schemas/AddressUpdatePayload'
+    AddressDeleteNotification:
+      name: address.delete
+      title: Address Delete Notification
+      summary: Notification sent for the address.delete event
+      description: Squarespace sends this notification when address book entries are removed from a contact.
+        The data payload carries the contactId and the deleted entry ids.
+      contentType: application/json
+      headers: *id001
+      payload:
+        $ref: '#/components/schemas/AddressDeletePayload'
   schemas:
     NotificationBase:
       type: object
       description: Common fields present in all Squarespace webhook notification payloads
       required:
-        - notificationId
-        - websiteId
-        - subscriptionId
-        - topic
-        - createdOn
+      - notificationId
+      - websiteId
+      - subscriptionId
+      - topic
+      - createdOn
       properties:
         notificationId:
           type: string
           description: Unique identifier for this specific notification delivery
         websiteId:
           type: string
-          description: >-
-            Unique identifier of the Squarespace website that triggered the
-            notification
+          description: Unique identifier of the Squarespace website that triggered the notification
         subscriptionId:
           type: string
           description: Unique identifier of the webhook subscription that received this event
@@ -142,80 +205,914 @@ components:
           type: string
           description: The event topic that triggered this notification
           enum:
-            - order.create
-            - order.update
-            - extension.uninstall
+          - order.create
+          - order.update
+          - extension.uninstall
         createdOn:
           type: string
           format: date-time
           description: ISO 8601 UTC timestamp when the notification was created
     OrderCreatePayload:
       allOf:
-        - $ref: '#/components/schemas/NotificationBase'
-        - type: object
-          description: Payload for an order.create webhook notification
-          required:
-            - data
-          properties:
-            topic:
-              type: string
-              enum:
-                - order.create
-            data:
-              type: object
-              description: Data payload for the order create event
-              required:
-                - orderId
-              properties:
-                orderId:
-                  type: string
-                  description: >-
-                    Unique identifier of the newly created order. Use this ID with
-                    the Orders API to retrieve full order details.
+      - $ref: '#/components/schemas/NotificationBase'
+      - type: object
+        description: Payload for an order.create webhook notification
+        required:
+        - data
+        properties:
+          topic:
+            type: string
+            enum:
+            - order.create
+          data:
+            type: object
+            description: Data payload for the order create event
+            required:
+            - orderId
+            properties:
+              orderId:
+                type: string
+                description: Unique identifier of the newly created order. Use this ID with the Orders
+                  API to retrieve full order details.
     OrderUpdatePayload:
       allOf:
-        - $ref: '#/components/schemas/NotificationBase'
-        - type: object
-          description: Payload for an order.update webhook notification
-          required:
-            - data
-          properties:
-            topic:
-              type: string
-              enum:
-                - order.update
-            data:
-              type: object
-              description: Data payload for the order update event
-              required:
-                - orderId
-              properties:
-                orderId:
-                  type: string
-                  description: >-
-                    Unique identifier of the updated order. Use this ID with the
-                    Orders API to retrieve the current order state.
-                orderUpdate:
-                  type: string
-                  description: >-
-                    A string describing the type of update that was made to the
-                    order, such as fulfillment status changes or refunds.
+      - $ref: '#/components/schemas/NotificationBase'
+      - type: object
+        description: Payload for an order.update webhook notification
+        required:
+        - data
+        properties:
+          topic:
+            type: string
+            enum:
+            - order.update
+          data:
+            type: object
+            description: Data payload for the order update event
+            required:
+            - orderId
+            properties:
+              orderId:
+                type: string
+                description: Unique identifier of the updated order. Use this ID with the Orders API to
+                  retrieve the current order state.
+              orderUpdate:
+                type: string
+                description: A string describing the type of update that was made to the order, such as
+                  fulfillment status changes or refunds.
     ExtensionUninstallPayload:
       allOf:
-        - $ref: '#/components/schemas/NotificationBase'
-        - type: object
-          description: Payload for an extension.uninstall webhook notification
-          required:
-            - data
-          properties:
-            topic:
-              type: string
-              enum:
-                - extension.uninstall
-            data:
-              type: object
-              description: Data payload for the extension uninstall event
-              properties:
-                clientId:
-                  type: string
-                  description: The client ID of the extension that was uninstalled
+      - $ref: '#/components/schemas/NotificationBase'
+      - type: object
+        description: Payload for an extension.uninstall webhook notification
+        required:
+        - data
+        properties:
+          topic:
+            type: string
+            enum:
+            - extension.uninstall
+          data:
+            type: object
+            description: Data payload for the extension uninstall event
+            properties:
+              clientId:
+                type: string
+                description: The client ID of the extension that was uninstalled
+    AcceptsMarketing:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: Whether the contact accepts marketing email.
+        joinedOn:
+          type: string
+          description: The date and time the contact was added to the marketing list.The value returned
+            in the creation response is a near-real-time estimate; the Get Contact endpoint should be
+            used to verify the exact persisted timestamp.
+          format: date-time
+        leftOn:
+          type: string
+          description: The date and time the contact left Marketing list
+          format: date-time
+      description: Marketing subscription state for the contact's email.
+    AddressBookEntry:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry is the current default shipping address. When the contact has
+            any address book entries, exactly one entry has this value set to true.
+        id:
+          type: string
+          description: The address book entry's ID.
+          readOnly: true
+          examples:
+          - 5f8d0d55b54764421b7156aa
+      description: An address book entry for a contact.
+    AddressCreateData:
+      required:
+      - addressBookEntries
+      - contactId
+      type: object
+      properties:
+        addressBookEntries:
+          type: array
+          description: The address book entries that were created.
+          items:
+            $ref: '#/components/schemas/AddressBookEntry'
+        contactId:
+          type: string
+          description: The contact's ID.
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of the address book entries.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+      description: The address data for the created address book entries.
+    AddressCreatePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/AddressCreateData'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: address.create
+          enum:
+          - address.create
+          examples:
+          - address.create
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    AddressDeleteData:
+      required:
+      - addressBookEntryIds
+      - contactId
+      type: object
+      properties:
+        addressBookEntryIds:
+          type: array
+          description: The IDs of the deleted address book entries.
+          items:
+            type: string
+            description: The IDs of the deleted address book entries.
+        contactId:
+          type: string
+          description: The contact's ID.
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        deletedOn:
+          type: string
+          description: Deletion date and time in UTC (ISO 8601 format) of the address book entries.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+      description: Identifiers and metadata for the deleted address book entries.
+    AddressDeletePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/AddressDeleteData'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: address.delete
+          enum:
+          - address.delete
+          examples:
+          - address.delete
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    AddressUpdateData:
+      required:
+      - addressBookEntries
+      - contactId
+      type: object
+      properties:
+        addressBookEntries:
+          type: array
+          description: The address book entries after the update.
+          items:
+            $ref: '#/components/schemas/AddressBookEntry'
+        contactId:
+          type: string
+          description: The contact's ID.
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of the address book entries.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        updatedOn:
+          type: string
+          description: Last update date and time in UTC (ISO 8601 format) of the address book entries.
+          format: date-time
+          examples:
+          - '2024-02-15T14:30:00Z'
+      description: The address data after the update.
+    AddressUpdatePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/AddressUpdateData'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: address.update
+          enum:
+          - address.update
+          examples:
+          - address.update
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    Contact:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: The date and time when the contact was created.
+          format: date-time
+          readOnly: true
+        defaultShippingAddress:
+          $ref: '#/components/schemas/AddressBookEntry'
+        firstName:
+          type: string
+          description: The contact's first name.
+        id:
+          type: string
+          description: The contact's ID.
+          readOnly: true
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        lastName:
+          type: string
+          description: The contact's last name.
+        locale:
+          type: string
+          description: The contact's locale.
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/Email'
+      description: A contact.
+    ContactAddress:
+      required:
+      - countryCode
+      type: object
+      properties:
+        city:
+          type: string
+          description: Address' city
+          examples:
+          - Springfield
+        countryCode:
+          type: string
+          description: ISO 3166 alpha-2 country code string.
+          enum:
+          - AF
+          - AX
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AO
+          - AI
+          - AQ
+          - AG
+          - AR
+          - AM
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BA
+          - BW
+          - BV
+          - BR
+          - IO
+          - BN
+          - BG
+          - BF
+          - BI
+          - BQ
+          - KH
+          - CM
+          - CA
+          - CV
+          - KY
+          - CF
+          - TD
+          - CL
+          - CN
+          - CX
+          - CC
+          - CO
+          - KM
+          - CG
+          - CD
+          - CK
+          - CR
+          - CI
+          - CW
+          - HR
+          - CU
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FK
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - TF
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GG
+          - GN
+          - GW
+          - GY
+          - HT
+          - HM
+          - VA
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IR
+          - IQ
+          - IE
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JE
+          - JO
+          - KZ
+          - KE
+          - KI
+          - XK
+          - KP
+          - KR
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MF
+          - MK
+          - MG
+          - MW
+          - MY
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - YT
+          - MX
+          - FM
+          - MD
+          - MC
+          - MN
+          - ME
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NR
+          - NP
+          - NL
+          - AN
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NU
+          - NF
+          - MP
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PN
+          - PL
+          - PT
+          - PR
+          - QA
+          - RE
+          - RO
+          - RU
+          - RW
+          - BL
+          - SH
+          - KN
+          - LC
+          - PM
+          - VC
+          - WS
+          - SM
+          - ST
+          - SA
+          - SN
+          - RS
+          - SC
+          - SL
+          - SG
+          - SK
+          - SI
+          - SB
+          - SO
+          - SX
+          - ZA
+          - GS
+          - ES
+          - LK
+          - SD
+          - SR
+          - SJ
+          - SS
+          - SZ
+          - SY
+          - SE
+          - CH
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TL
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TM
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - GB
+          - US
+          - UM
+          - UY
+          - UZ
+          - VU
+          - VE
+          - VN
+          - VG
+          - VI
+          - WF
+          - EH
+          - YE
+          - ZM
+          - ZW
+          examples:
+          - US
+        firstName:
+          type: string
+          description: Contact's first name
+          examples:
+          - John
+        lastName:
+          type: string
+          description: Contact's last name
+          examples:
+          - Doe
+        line1:
+          type: string
+          description: First line of address
+          examples:
+          - 100 Main St
+        line2:
+          type: string
+          description: Second line of address
+          examples:
+          - Apt 1A
+        phoneNumber:
+          type: string
+          description: Contact's phone number
+          examples:
+          - 215-555-4321
+        postalCode:
+          type: string
+          description: zip/postal code
+          examples:
+          - '10900'
+        region:
+          type: string
+          description: General region (State, Province, County, etc...)
+          examples:
+          - IL
+      description: Address properties for a contact.
+    ContactCreatePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/Contact'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: contact.create
+          enum:
+          - contact.create
+          examples:
+          - contact.create
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    ContactDeleteData:
+      required:
+      - deletedOn
+      - id
+      type: object
+      properties:
+        deletedOn:
+          type: string
+          description: Deletion date and time in UTC (ISO 8601 format) of the contact.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        id:
+          type: string
+          description: The contact's ID.
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+      description: Identifiers and metadata for the deleted contact.
+    ContactDeletePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/ContactDeleteData'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: contact.delete
+          enum:
+          - contact.delete
+          examples:
+          - contact.delete
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    ContactUpdatePayload:
+      required:
+      - createdOn
+      - id
+      - subscriptionsId
+      - topic
+      - websiteId
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: Creation date and time in UTC (ISO 8601 format) of this message.
+          format: date-time
+          examples:
+          - '2024-01-28T10:44:00Z'
+        data:
+          $ref: '#/components/schemas/Contact'
+        id:
+          type: string
+          description: Unique notification id.
+          examples:
+          - 5c2ba184b63ed3cb411ce2b1
+        subscriptionsId:
+          type: string
+          description: Unique Webhook Subscriptions id.
+          examples:
+          - 5f3c2155d947844beedda991
+        topic:
+          type: string
+          description: 'Description of the event that triggered the notification.
+
+            * `order.create`        - always value for OrderCreatePayload.topic ref
+
+            * `order.update`        - always value for OrderUpdatePayload.topic
+
+            * `extension.uninstall` - always value for ExtensionUninstallPayload.topic
+
+            * `contact.create`      - always value for ContactCreatePayload.topic
+
+            * `contact.update`      - always value for ContactUpdatePayload.topic
+
+            * `contact.delete`      - always value for ContactDeletePayload.topic
+
+            * `address.create`      - always value for AddressCreatePayload.topic
+
+            * `address.update`      - always value for AddressUpdatePayload.topic
+
+            * `address.delete`      - always value for AddressDeletePayload.topic
+
+            '
+          default: contact.update
+          enum:
+          - contact.update
+          examples:
+          - contact.update
+        websiteId:
+          type: string
+          description: Squarespace website id that triggered the notification.
+          examples:
+          - 5f3c3d55ac435e1a051f77b3
+    Email:
+      type: object
+      properties:
+        acceptsMarketing:
+          $ref: '#/components/schemas/AcceptsMarketing'
+        createdOn:
+          type: string
+          description: The date and time when the email was created.
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: The contact's primary email.

@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "ea5a1047-763e-4972-8ad3-0e6e10bcfabf",
+      "id": "be519b6f-ac2c-4fc5-9468-f5a68372558d",
       "name": "Products",
       "description": {
         "content": "Product catalog management including variants and images",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "e0b87bdd-cfdd-41bc-8637-f848a4424824",
+          "id": "9cca0481-8711-43a6-bbb0-9a6be169a821",
           "name": "Retrieve All Products",
           "request": {
             "name": "Retrieve All Products",
@@ -52,7 +52,7 @@
           },
           "response": [
             {
-              "id": "03b64ce0-75b3-46ad-8444-8f76311d81a4",
+              "id": "40b43b7e-48bc-4707-bac2-32be7f3d7bfc",
               "name": "Successful response with paginated list of products",
               "originalRequest": {
                 "url": {
@@ -100,12 +100,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"products\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"PHYSICAL\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"https://vRLH.aznzOAKHXApNUTBIJZ\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": true,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 8406,\n            \"unlimited\": false,\n            \"backordered\": false\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\",\n            \"key_3\": \"string\",\n            \"key_4\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": true\n          },\n          \"stock\": {\n            \"quantity\": 7304,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"http://ZhypRZPlAdnCefSd.vobsT3-EB9WQvZMJvSLLxw7P6SLi4tVoYWqS4pNZBxik1VmhKYTTd,NRcyhOK\",\n          \"altText\": \"string\",\n          \"width\": 9042,\n          \"height\": 1963\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"https://ZujzXsvDaYePdlyau.fcwnxmvTzzhF+1wCJ6J5pictIk9th3\",\n          \"altText\": \"string\",\n          \"width\": 5261,\n          \"height\": 1495\n        }\n      ],\n      \"createdOn\": \"2015-05-25T02:37:56.892Z\",\n      \"modifiedOn\": \"2011-12-03T20:34:45.350Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"DIGITAL\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"http://gGnxzvEBvcmXC.vqqmZR25dPwrR7jLDn4ICOjHxU9fKza9palWuFunMHVmO\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": true,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 4101,\n            \"unlimited\": true,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 1738,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"https://EXqFAjDus.mxzeIw34NvuLFMK7CnuSPrFf4XT\",\n          \"altText\": \"string\",\n          \"width\": 6813,\n          \"height\": 9621\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"https://bSRfudTWjNnZN.htgcZPPY8f10CWOABvXUD+jgP1gFyoPqm\",\n          \"altText\": \"string\",\n          \"width\": 8900,\n          \"height\": 9251\n        }\n      ],\n      \"createdOn\": \"2019-09-05T04:16:50.467Z\",\n      \"modifiedOn\": \"1952-06-04T05:24:19.659Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://MOfPl.mbDZqT\"\n  }\n}",
+              "body": "{\n  \"products\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"GIFT_CARD\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"https://UpWPOZyimLmTCILrhgjLtlxrAIEEiE.eborSfQytL15HXyh8VWxgJlFdt\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": true,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 4102,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": true\n          },\n          \"stock\": {\n            \"quantity\": 9152,\n            \"unlimited\": true,\n            \"backordered\": false\n          },\n          \"attributes\": {\n            \"key_0\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"https://qr.tdhtYVHqe-2OKglvLi.5VU5k1Yz.u57,XOWWNsLHAq\",\n          \"altText\": \"string\",\n          \"width\": 6943,\n          \"height\": 7151\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"https://M.obxsgg,kroIqFBB5qdlcQGSDtx0hj5nfayS7I0WU1GW.0MQWa\",\n          \"altText\": \"string\",\n          \"width\": 3213,\n          \"height\": 4726\n        }\n      ],\n      \"createdOn\": \"2021-08-22T22:02:00.912Z\",\n      \"modifiedOn\": \"1959-08-21T13:19:43.179Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"GIFT_CARD\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"http://HMpljzLuzgQLivPiZlago.mvugKwxoi9JGnHvMEDCauBL,cJSO-mI-iAvF3dSI0Cywf3+DlgGRqCa\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": true,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 9499,\n            \"unlimited\": true,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 8271,\n            \"unlimited\": true,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"https://JBYtXqgDocIjOLldJcRZodYCdZyoI.jtrulhgkvM1xrhh+u.YdGoKa2wYXai0nslZzm.Hxcp,romzNHaPGIsob-\",\n          \"altText\": \"string\",\n          \"width\": 1839,\n          \"height\": 1182\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"https://tUGXkMHoVKYoQazJVufdPfjtL.bsiw5g-sat+AYqBLo+7V4cicPDBxz8LZtapSIdS\",\n          \"altText\": \"string\",\n          \"width\": 2029,\n          \"height\": 2141\n        }\n      ],\n      \"createdOn\": \"2009-05-18T07:33:32.494Z\",\n      \"modifiedOn\": \"1952-08-04T18:08:29.363Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": true,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://IfpDcrxUfVnqDQZPVfKWEgsvwueBYtOSz.ryW+IGWlgKLnEG+om\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e5aca539-d50d-4123-8c63-827553202954",
+              "id": "55c90c8a-35c6-4762-8a7e-865e2f8cc5fb",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -153,12 +153,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3eb64ded-dc41-4846-952c-77da8911b511",
+              "id": "917feda3-980e-4841-abdb-8bbed7c11bd4",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -206,12 +206,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "acf3e781-50f1-4deb-8fba-608ccf5b554e",
+              "id": "1d6e42b7-2697-4027-9984-baa73366a0e4",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -259,7 +259,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -270,7 +270,7 @@
           }
         },
         {
-          "id": "fb8930d7-dd00-4d7a-80e9-a1be0123d7fb",
+          "id": "89196d4e-353a-49c5-860b-87ce5ea6679a",
           "name": "Create a Product",
           "request": {
             "name": "Create a Product",
@@ -303,7 +303,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"<string>\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"salePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"onSale\": \"<boolean>\"\n      },\n      \"stock\": {\n        \"quantity\": \"<integer>\",\n        \"unlimited\": \"<boolean>\",\n        \"backordered\": \"<boolean>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    },\n    {\n      \"sku\": \"<string>\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"salePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"onSale\": \"<boolean>\"\n      },\n      \"stock\": {\n        \"quantity\": \"<integer>\",\n        \"unlimited\": \"<boolean>\",\n        \"backordered\": \"<boolean>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"<string>\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"salePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"onSale\": \"<boolean>\"\n      },\n      \"stock\": {\n        \"quantity\": \"<integer>\",\n        \"unlimited\": \"<boolean>\",\n        \"backordered\": \"<boolean>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    {\n      \"sku\": \"<string>\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"salePrice\": {\n          \"value\": \"<string>\",\n          \"currency\": \"<string>\"\n        },\n        \"onSale\": \"<boolean>\"\n      },\n      \"stock\": {\n        \"quantity\": \"<integer>\",\n        \"unlimited\": \"<boolean>\",\n        \"backordered\": \"<boolean>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -313,7 +313,7 @@
           },
           "response": [
             {
-              "id": "0696008e-73e6-4dbf-98b1-8f110daaf475",
+              "id": "f8c8d2b3-55e5-42c3-a714-2aaee3186b7c",
               "name": "Product created successfully",
               "originalRequest": {
                 "url": {
@@ -344,7 +344,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-5395886\",\n          \"currency\": \"HAD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-3421040633\",\n          \"currency\": \"FCE\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 7177,\n        \"unlimited\": false,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"859413\",\n          \"currency\": \"KUC\"\n        },\n        \"salePrice\": {\n          \"value\": \"-850.75600\",\n          \"currency\": \"VDX\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 540,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"98557564.750722\",\n          \"currency\": \"FPG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4\",\n          \"currency\": \"EYB\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 5335,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"99071.9155\",\n          \"currency\": \"KUG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-47437\",\n          \"currency\": \"CWK\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 1085,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -360,12 +360,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"type\": \"DIGITAL\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://GoATKGOwxRCc.hlehJP3AHI,QUX4edb498B\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-182988\",\n          \"currency\": \"NYS\"\n        },\n        \"salePrice\": {\n          \"value\": \"08454.6143165\",\n          \"currency\": \"JPV\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 6995,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-1\",\n          \"currency\": \"TBL\"\n        },\n        \"salePrice\": {\n          \"value\": \"5044084\",\n          \"currency\": \"ZLS\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 1226,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"https://NWp.ijrUJxp1lo9\",\n      \"altText\": \"string\",\n      \"width\": 8989,\n      \"height\": 799\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://dKNDMpMNGSdXHkcTI.bxkd,4O2eMED1PQbikLLxzYoiVicZvXJ6TuT6VJI3JRerAGLgHkw-JD\",\n      \"altText\": \"string\",\n      \"width\": 8719,\n      \"height\": 9096\n    }\n  ],\n  \"createdOn\": \"2001-09-16T02:57:00.494Z\",\n  \"modifiedOn\": \"2019-01-16T10:42:08.145Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"SERVICE\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://CdmiFRIytDzcJOl.opxgO4pcZLP9bxUJgSJzJXTPDYv18h6vk2ObLnpt+Mod\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-12618\",\n          \"currency\": \"BCD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4217446\",\n          \"currency\": \"UJV\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2386,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-7727.87\",\n          \"currency\": \"RSP\"\n        },\n        \"salePrice\": {\n          \"value\": \"-858873604.3120121\",\n          \"currency\": \"FMH\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2832,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"http://iMxAQWhiduTErTYojOFwHbKkYrb.nrjmnTPUgw.Pne\",\n      \"altText\": \"string\",\n      \"width\": 660,\n      \"height\": 2615\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://oimRHVHlZQsEkykSdJ.egbrp66,wxq8sC8xeRYWpzuaQUEwImneVKnbaFyTGCwJM+EwdVmp0kdSO\",\n      \"altText\": \"string\",\n      \"width\": 1550,\n      \"height\": 566\n    }\n  ],\n  \"createdOn\": \"1989-05-27T15:58:18.566Z\",\n  \"modifiedOn\": \"1982-10-14T06:58:45.014Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "58f4dec8-1225-438e-aec0-8fc644b8ab4d",
+              "id": "a4124f79-5a83-41ef-a5fe-7143493e3f9b",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -396,7 +396,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-5395886\",\n          \"currency\": \"HAD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-3421040633\",\n          \"currency\": \"FCE\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 7177,\n        \"unlimited\": false,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"859413\",\n          \"currency\": \"KUC\"\n        },\n        \"salePrice\": {\n          \"value\": \"-850.75600\",\n          \"currency\": \"VDX\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 540,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"98557564.750722\",\n          \"currency\": \"FPG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4\",\n          \"currency\": \"EYB\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 5335,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"99071.9155\",\n          \"currency\": \"KUG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-47437\",\n          \"currency\": \"CWK\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 1085,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -412,12 +412,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "73b6a54c-37e5-44fc-a372-4144bda09f0c",
+              "id": "196e4f67-4a47-4475-9d07-d6c917693306",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -448,7 +448,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-5395886\",\n          \"currency\": \"HAD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-3421040633\",\n          \"currency\": \"FCE\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 7177,\n        \"unlimited\": false,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"859413\",\n          \"currency\": \"KUC\"\n        },\n        \"salePrice\": {\n          \"value\": \"-850.75600\",\n          \"currency\": \"VDX\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 540,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"98557564.750722\",\n          \"currency\": \"FPG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4\",\n          \"currency\": \"EYB\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 5335,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"99071.9155\",\n          \"currency\": \"KUG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-47437\",\n          \"currency\": \"CWK\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 1085,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -464,12 +464,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "fa5f0d9a-b080-41e9-9c3c-e3956b278f32",
+              "id": "41a92cba-374a-4fcc-a13c-b24bb6b83e38",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -500,7 +500,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-5395886\",\n          \"currency\": \"HAD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-3421040633\",\n          \"currency\": \"FCE\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 7177,\n        \"unlimited\": false,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"859413\",\n          \"currency\": \"KUC\"\n        },\n        \"salePrice\": {\n          \"value\": \"-850.75600\",\n          \"currency\": \"VDX\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 540,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"98557564.750722\",\n          \"currency\": \"FPG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4\",\n          \"currency\": \"EYB\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 5335,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"99071.9155\",\n          \"currency\": \"KUG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-47437\",\n          \"currency\": \"CWK\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 1085,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -516,12 +516,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "e64d5a9d-f7a9-4118-8f68-d1996ca87b7d",
+              "id": "b584f408-dfb9-499c-ae5d-7fe973ca701c",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -552,7 +552,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-5395886\",\n          \"currency\": \"HAD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-3421040633\",\n          \"currency\": \"FCE\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 7177,\n        \"unlimited\": false,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"859413\",\n          \"currency\": \"KUC\"\n        },\n        \"salePrice\": {\n          \"value\": \"-850.75600\",\n          \"currency\": \"VDX\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 540,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"variants\": [\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"98557564.750722\",\n          \"currency\": \"FPG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4\",\n          \"currency\": \"EYB\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 5335,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"99071.9155\",\n          \"currency\": \"KUG\"\n        },\n        \"salePrice\": {\n          \"value\": \"-47437\",\n          \"currency\": \"CWK\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 1085,\n        \"unlimited\": true,\n        \"backordered\": true\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"description\": \"<string>\",\n  \"urlSlug\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isVisible\": \"<boolean>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -568,7 +568,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -579,7 +579,7 @@
           }
         },
         {
-          "id": "25cf0f87-e942-405c-a0df-814f88459273",
+          "id": "8bf22423-766e-47b8-9eec-330ee3462eed",
           "name": "Retrieve Specific Products",
           "request": {
             "name": "Retrieve Specific Products",
@@ -618,7 +618,7 @@
           },
           "response": [
             {
-              "id": "3fa585cb-ceec-4d13-a76f-987a1c221a29",
+              "id": "7f85e524-d7df-40f1-8b12-0e68aa37648c",
               "name": "Successful response with the requested products",
               "originalRequest": {
                 "url": {
@@ -666,12 +666,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"products\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"PHYSICAL\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"http://qSlmHIqbiNS.cnlo+exxPHdWDZU-1iOwx\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": false,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 3064,\n            \"unlimited\": true,\n            \"backordered\": false\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 2049,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\",\n            \"key_3\": \"string\",\n            \"key_4\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"http://hgpFLL.pesM0LbZ7bdEjX4jneV0Pq6iHclGZh4zNWx-VdF5.4DINiD\",\n          \"altText\": \"string\",\n          \"width\": 5590,\n          \"height\": 3572\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"http://pVQGQHiwSlEnhppSyNxlSrZ.uxyk5VuDy\",\n          \"altText\": \"string\",\n          \"width\": 9796,\n          \"height\": 7569\n        }\n      ],\n      \"createdOn\": \"1976-03-20T02:34:57.841Z\",\n      \"modifiedOn\": \"1986-01-17T20:18:14.234Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"PHYSICAL\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"https://QjrYanjeWxtIyexXRtqpU.txUASQaL1mjae.BtR-AMU5OGQf3CfJPr.yspQ4ddheKgQfpjgVZhls7fAoHEj\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": true,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 4256,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": true\n          },\n          \"stock\": {\n            \"quantity\": 8268,\n            \"unlimited\": false,\n            \"backordered\": false\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"https://EtBKyqtBeBggllRrdcV.ykM\",\n          \"altText\": \"string\",\n          \"width\": 3297,\n          \"height\": 7527\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"http://QNNKDuPfhWOraksVNDiQCzfngMXZ.dqxF2go8EwFxwYJ\",\n          \"altText\": \"string\",\n          \"width\": 7247,\n          \"height\": 8870\n        }\n      ],\n      \"createdOn\": \"1993-12-31T04:45:07.236Z\",\n      \"modifiedOn\": \"2016-03-14T09:01:53.130Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"products\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"SERVICE\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"http://KSADTWkrxwkZuWwmANPiKiuGmBOJLLf.ifnTTg9wjcIufI3\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": false,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": true\n          },\n          \"stock\": {\n            \"quantity\": 1104,\n            \"unlimited\": true,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": true\n          },\n          \"stock\": {\n            \"quantity\": 5929,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"http://kOZtMrJCRQmdyIBwiPSPtRZDhWTRHBZg.vxkcumm3e3CnTT1nhEcg4\",\n          \"altText\": \"string\",\n          \"width\": 1244,\n          \"height\": 5718\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"https://qhTdPFcnmBPLSYDchMYrcZaSCsLzra.xnjrHq2-5UMRmR32KUjVsOIPIK8TktQzDNc.P2mPyPbqO3dq5JP6R8aaPmcHTuUA0.\",\n          \"altText\": \"string\",\n          \"width\": 3495,\n          \"height\": 988\n        }\n      ],\n      \"createdOn\": \"1977-06-01T00:32:46.331Z\",\n      \"modifiedOn\": \"1992-04-18T22:00:25.041Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"DIGITAL\",\n      \"storePageId\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"https://EQhDtWaxlMoHBwzQX.dzumfhz,X3WuvR9NSpEdC1parREB0Whj+hRyLINlbPlrg\",\n      \"urlSlug\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"isVisible\": false,\n      \"variants\": [\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 9103,\n            \"unlimited\": true,\n            \"backordered\": false\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"sku\": \"string\",\n          \"pricing\": {\n            \"basePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"salePrice\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"onSale\": false\n          },\n          \"stock\": {\n            \"quantity\": 2609,\n            \"unlimited\": false,\n            \"backordered\": true\n          },\n          \"attributes\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          }\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"https://tptJjPgtcotCBtDgPHCYvoeHKAwEsyi.ccbWUUI06tSiQGWM.W6gY\",\n          \"altText\": \"string\",\n          \"width\": 2727,\n          \"height\": 991\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"http://wevWmPfTAzTccokUTaQUsALZzR.sjhdjhY.9moxe\",\n          \"altText\": \"string\",\n          \"width\": 6954,\n          \"height\": 3349\n        }\n      ],\n      \"createdOn\": \"1985-12-05T10:58:54.601Z\",\n      \"modifiedOn\": \"2007-05-31T20:44:13.064Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "afbaeea7-9569-4320-94ec-17ebeb78911b",
+              "id": "d22d3740-9d37-4619-aa38-dbd30cb6543a",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -719,12 +719,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "138921c8-f42d-4cd8-a443-44b59f8cfd4a",
+              "id": "0804ecea-fdeb-4fb6-bdbb-2ae47b475908",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -772,12 +772,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1fe17776-0e46-4d70-8aa2-b060cfa258bc",
+              "id": "f7dddf90-624f-4c31-8477-f36acdfb6f4f",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -825,12 +825,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "63fc1a3d-1672-4021-90ad-71e7a91f8bb2",
+              "id": "9b6da577-9a02-4fc0-9f56-f17737f5e2f5",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -878,12 +878,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "29ab6cfa-4680-4cfb-8c93-9b930f718919",
+              "id": "aaa580f4-c6ac-497a-80aa-25b19a06f5eb",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -931,7 +931,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -942,7 +942,7 @@
           }
         },
         {
-          "id": "2f400923-8860-4c20-9efc-dccfccf12bf4",
+          "id": "10701b14-b4f1-4f99-a543-c1ac400ebf0c",
           "name": "Update a Product",
           "request": {
             "name": "Update a Product",
@@ -994,7 +994,7 @@
           },
           "response": [
             {
-              "id": "a8e6e405-0154-4f98-957b-e391dd194a78",
+              "id": "d7608d88-fa9c-4d62-8f80-78315ca1809e",
               "name": "Product updated successfully",
               "originalRequest": {
                 "url": {
@@ -1050,12 +1050,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"type\": \"DIGITAL\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://GoATKGOwxRCc.hlehJP3AHI,QUX4edb498B\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-182988\",\n          \"currency\": \"NYS\"\n        },\n        \"salePrice\": {\n          \"value\": \"08454.6143165\",\n          \"currency\": \"JPV\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 6995,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-1\",\n          \"currency\": \"TBL\"\n        },\n        \"salePrice\": {\n          \"value\": \"5044084\",\n          \"currency\": \"ZLS\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 1226,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"https://NWp.ijrUJxp1lo9\",\n      \"altText\": \"string\",\n      \"width\": 8989,\n      \"height\": 799\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://dKNDMpMNGSdXHkcTI.bxkd,4O2eMED1PQbikLLxzYoiVicZvXJ6TuT6VJI3JRerAGLgHkw-JD\",\n      \"altText\": \"string\",\n      \"width\": 8719,\n      \"height\": 9096\n    }\n  ],\n  \"createdOn\": \"2001-09-16T02:57:00.494Z\",\n  \"modifiedOn\": \"2019-01-16T10:42:08.145Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"SERVICE\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://CdmiFRIytDzcJOl.opxgO4pcZLP9bxUJgSJzJXTPDYv18h6vk2ObLnpt+Mod\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-12618\",\n          \"currency\": \"BCD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4217446\",\n          \"currency\": \"UJV\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2386,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-7727.87\",\n          \"currency\": \"RSP\"\n        },\n        \"salePrice\": {\n          \"value\": \"-858873604.3120121\",\n          \"currency\": \"FMH\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2832,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"http://iMxAQWhiduTErTYojOFwHbKkYrb.nrjmnTPUgw.Pne\",\n      \"altText\": \"string\",\n      \"width\": 660,\n      \"height\": 2615\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://oimRHVHlZQsEkykSdJ.egbrp66,wxq8sC8xeRYWpzuaQUEwImneVKnbaFyTGCwJM+EwdVmp0kdSO\",\n      \"altText\": \"string\",\n      \"width\": 1550,\n      \"height\": 566\n    }\n  ],\n  \"createdOn\": \"1989-05-27T15:58:18.566Z\",\n  \"modifiedOn\": \"1982-10-14T06:58:45.014Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "fddfc6cc-6c78-4157-8387-beba22517e3c",
+              "id": "46c7c6d0-91c3-424c-8459-c20917485628",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -1111,12 +1111,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7a13c390-ce6a-4f02-b466-2e8fade39e45",
+              "id": "f3632ddf-58ba-469c-8160-190c1bca8e21",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1172,12 +1172,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "365081fd-22e8-4a7b-b86a-8d52b58b36f1",
+              "id": "4186844e-76e8-4096-879a-2e1e26c2501e",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1233,12 +1233,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d66e0f22-80c6-4704-949c-2b6ddb0d1eef",
+              "id": "a7f3e634-3b67-4da3-965f-81cb3d31d8b4",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -1294,12 +1294,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4acb2209-c174-4820-baa9-dde5a53dc35f",
+              "id": "7ffc8300-7828-4582-bdd6-7252c2afea86",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -1355,7 +1355,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1366,7 +1366,7 @@
           }
         },
         {
-          "id": "31667baf-5c6c-4e5d-ba45-62c119a201ed",
+          "id": "74021eb0-41ca-43b6-9de0-91f926245d96",
           "name": "Delete a Product",
           "request": {
             "name": "Delete a Product",
@@ -1405,7 +1405,7 @@
           },
           "response": [
             {
-              "id": "a7b4c0b8-8cd6-44ec-8ed1-b7a0c9ea5241",
+              "id": "d831becc-f587-442b-baef-3c1b84833282",
               "name": "Product deleted successfully",
               "originalRequest": {
                 "url": {
@@ -1454,7 +1454,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "beb35cb8-51d2-44ec-a1bb-57706f07fb3f",
+              "id": "4e8b2c9d-49a7-41f8-b758-71ebbce31136",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1502,12 +1502,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5cb4be29-cfef-4d3e-8a04-5e1fd2dbed5c",
+              "id": "14b4c0ec-dff6-433d-8be2-fd8d6f8aece9",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1555,12 +1555,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "49e26f47-cf5d-419e-8f3a-3842f3d80530",
+              "id": "996723c1-1b22-434b-85a2-ef855ea4fb0f",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -1608,12 +1608,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d5063b77-8a4f-4349-bf7f-60bb62bcbb2c",
+              "id": "91b0f10d-d389-483c-aa7e-44886eef9424",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -1661,7 +1661,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1672,7 +1672,7 @@
           }
         },
         {
-          "id": "a0995171-028d-4abb-9523-5e842ff1dad7",
+          "id": "6fe1f72c-b0bb-44b8-8a4f-5f72e3d94861",
           "name": "Create a Product Variant",
           "request": {
             "name": "Create a Product Variant",
@@ -1725,7 +1725,7 @@
           },
           "response": [
             {
-              "id": "9122deec-5521-48a2-84de-81cf40dbee07",
+              "id": "52a62f87-b397-47ce-bd94-5689188303fa",
               "name": "Product variant created successfully",
               "originalRequest": {
                 "url": {
@@ -1766,7 +1766,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1782,12 +1782,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"sku\": \"string\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-78982183.8284\",\n      \"currency\": \"DXT\"\n    },\n    \"salePrice\": {\n      \"value\": \"2289076856\",\n      \"currency\": \"DDB\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8203,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"sku\": \"string\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-72\",\n      \"currency\": \"HGX\"\n    },\n    \"salePrice\": {\n      \"value\": \"-6983\",\n      \"currency\": \"QMH\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 7681,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5b986d90-7f9e-46b1-9f77-4db6fd1ada68",
+              "id": "73a019b4-6f8d-4f95-8d98-dbc3a0a8d2de",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -1828,7 +1828,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1844,12 +1844,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9a6187c0-b8e0-4b0c-b0d2-f9d0aae9e701",
+              "id": "735fe148-e24a-4b7e-964e-2c026af3cc6d",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -1890,7 +1890,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1906,12 +1906,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b44d21c5-d967-435c-b117-40ec176061b8",
+              "id": "a23bb713-03ef-49d9-9183-df16c1eec448",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -1952,7 +1952,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1968,12 +1968,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "bdc216e6-080d-4f70-9e6c-4f9529ea0bc5",
+              "id": "a2d0d5cb-9f19-4a01-852b-3c1a1135180e",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -2014,7 +2014,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2030,12 +2030,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1a87e8b3-567d-4fbb-ae79-7cf47ed7608f",
+              "id": "77871701-d27d-47f5-8c82-35abb7250086",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -2076,7 +2076,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"74748305\",\n      \"currency\": \"DMF\"\n    },\n    \"salePrice\": {\n      \"value\": \"-4\",\n      \"currency\": \"JVD\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 3561,\n    \"unlimited\": false,\n    \"backordered\": true\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-0532\",\n      \"currency\": \"WML\"\n    },\n    \"salePrice\": {\n      \"value\": \"-286651444\",\n      \"currency\": \"YTI\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8985,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2092,7 +2092,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -2103,7 +2103,7 @@
           }
         },
         {
-          "id": "b9e7c4d3-d0fb-4aa4-9f37-2350aba67a74",
+          "id": "eb5074e1-de53-4b11-bc7f-c6f17bdc70b2",
           "name": "Update a Product Variant",
           "request": {
             "name": "Update a Product Variant",
@@ -2154,7 +2154,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"salePrice\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"onSale\": \"<boolean>\"\n  },\n  \"stock\": {\n    \"quantity\": \"<integer>\",\n    \"unlimited\": \"<boolean>\",\n    \"backordered\": \"<boolean>\"\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"salePrice\": {\n      \"value\": \"<string>\",\n      \"currency\": \"<string>\"\n    },\n    \"onSale\": \"<boolean>\"\n  },\n  \"stock\": {\n    \"quantity\": \"<integer>\",\n    \"unlimited\": \"<boolean>\",\n    \"backordered\": \"<boolean>\"\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2164,7 +2164,7 @@
           },
           "response": [
             {
-              "id": "7a2b3601-3fb4-40fb-bbed-c12c92366eae",
+              "id": "02d6f85c-c5a9-4d06-97f7-426526ebcbc9",
               "name": "Product variant updated successfully",
               "originalRequest": {
                 "url": {
@@ -2213,7 +2213,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2229,12 +2229,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"sku\": \"string\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-78982183.8284\",\n      \"currency\": \"DXT\"\n    },\n    \"salePrice\": {\n      \"value\": \"2289076856\",\n      \"currency\": \"DDB\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 8203,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"sku\": \"string\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-72\",\n      \"currency\": \"HGX\"\n    },\n    \"salePrice\": {\n      \"value\": \"-6983\",\n      \"currency\": \"QMH\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 7681,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2e0ebb47-5f70-48de-87bb-f698314ee76a",
+              "id": "0b28e722-f7a0-45bd-bb11-533260184474",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -2283,7 +2283,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2299,12 +2299,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "cdb35e86-c42d-4c3b-b17c-083dbc893e30",
+              "id": "e4dabea9-f330-4d6f-beb2-5394ffa86169",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -2353,7 +2353,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2369,12 +2369,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "dc42bf39-1fb3-487d-95dd-b96fdb110c73",
+              "id": "fda112a1-498a-434c-a502-574eccc7c91d",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -2423,7 +2423,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2439,12 +2439,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "dc40b8f3-4feb-4f06-913f-0d455060d862",
+              "id": "c23437cd-ef51-4da1-8271-8cca4cbc9129",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -2493,7 +2493,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2509,12 +2509,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d1d03eda-e4ba-4a53-b196-4a5d90afd7c7",
+              "id": "781dcd4f-b135-41a9-8085-d9bb7e003977",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -2563,7 +2563,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"874047\",\n      \"currency\": \"PRN\"\n    },\n    \"salePrice\": {\n      \"value\": \"239876.289169826\",\n      \"currency\": \"NCU\"\n    },\n    \"onSale\": false\n  },\n  \"stock\": {\n    \"quantity\": 5678,\n    \"unlimited\": true,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"sku\": \"<string>\",\n  \"pricing\": {\n    \"basePrice\": {\n      \"value\": \"-5262\",\n      \"currency\": \"MZJ\"\n    },\n    \"salePrice\": {\n      \"value\": \"88\",\n      \"currency\": \"STV\"\n    },\n    \"onSale\": true\n  },\n  \"stock\": {\n    \"quantity\": 3895,\n    \"unlimited\": false,\n    \"backordered\": false\n  },\n  \"attributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2579,7 +2579,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -2590,7 +2590,7 @@
           }
         },
         {
-          "id": "94b42f8e-ec3a-414e-a178-30f1bb335ea9",
+          "id": "01efce4a-ae67-4516-a179-ffa4f15b9f04",
           "name": "Upload a Product Image",
           "request": {
             "name": "Upload a Product Image",
@@ -2643,7 +2643,7 @@
           },
           "response": [
             {
-              "id": "94941184-97c2-4291-988b-d54ed153d112",
+              "id": "9eead184-5123-4d66-af51-dccb65d8d058",
               "name": "Product image uploaded successfully",
               "originalRequest": {
                 "url": {
@@ -2700,12 +2700,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"url\": \"http://LuaCQvaKXzfaNDBCkKKJKWFxdoovul.muTv00U8\",\n  \"altText\": \"string\",\n  \"width\": 52,\n  \"height\": 4511\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"url\": \"https://HOEyoShrMCqeizhHoJ.halqSeXR9ZpNrbedLDdFrhyBeC6qOFJmCuW1sRSoI\",\n  \"altText\": \"string\",\n  \"width\": 5006,\n  \"height\": 5728\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d533ce7d-eb61-47e8-a8e1-0c6937e4d86d",
+              "id": "66d931bd-4ee8-43fe-b041-587656a7737d",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -2762,12 +2762,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0f45b33c-7a4c-431f-8c4d-52bbd127fb3e",
+              "id": "ce3d3465-cd29-4d5c-8fe3-befe5ffcf984",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -2824,12 +2824,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "82e6b384-141b-4536-9b54-bfbba258ebfc",
+              "id": "b7e03029-b4f6-4c6c-80d2-399ab92de159",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -2886,12 +2886,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9407897c-680c-4e11-8342-15865faeca83",
+              "id": "674dd00b-f375-4bff-a33b-9b9e2ef8b044",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -2948,12 +2948,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "7eb6f0a5-ab9a-4110-8d5f-89a893b75581",
+              "id": "0d19fd0c-4a04-4713-85ef-ecc22a961ef9",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -3010,7 +3010,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -3021,7 +3021,7 @@
           }
         },
         {
-          "id": "dedd0abd-9cec-4a10-bba4-76a7bb75825e",
+          "id": "d2ba63f8-5bd0-40a4-917a-0c0090659756",
           "name": "Update a Product Image",
           "request": {
             "name": "Update a Product Image",
@@ -3082,7 +3082,7 @@
           },
           "response": [
             {
-              "id": "fcee37f0-135b-4cca-8696-bf6e9074c2bf",
+              "id": "42399a44-9fcf-4f8b-b262-855dd8fff330",
               "name": "Product image updated successfully",
               "originalRequest": {
                 "url": {
@@ -3147,12 +3147,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"url\": \"http://LuaCQvaKXzfaNDBCkKKJKWFxdoovul.muTv00U8\",\n  \"altText\": \"string\",\n  \"width\": 52,\n  \"height\": 4511\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"url\": \"https://HOEyoShrMCqeizhHoJ.halqSeXR9ZpNrbedLDdFrhyBeC6qOFJmCuW1sRSoI\",\n  \"altText\": \"string\",\n  \"width\": 5006,\n  \"height\": 5728\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "25aea796-9338-4ab4-9f97-05def76cf278",
+              "id": "f12d9fec-9c95-4765-8c83-6b0d2d383faa",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -3217,12 +3217,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "bfef905a-7f59-4375-97ad-3aa7bf37ff80",
+              "id": "e3f5ca35-3331-483c-b357-016bca74503c",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -3287,12 +3287,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "c19bf064-7089-4e40-ba65-be235a5e1edd",
+              "id": "66598fb9-61cf-4522-9eb7-732d1b57ed0d",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -3357,12 +3357,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3ba2c3fd-c860-4ead-994b-81e50d41b980",
+              "id": "4a1e4def-f765-4da1-9e8d-40ac74af7ba0",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -3427,12 +3427,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "1e6bbcb0-0a80-4e68-b754-5e51aa53c047",
+              "id": "b9248340-9a90-4145-914d-bfe0625a0ce2",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -3497,7 +3497,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -3508,7 +3508,7 @@
           }
         },
         {
-          "id": "79f8d637-5345-4f03-895e-f483c4ab8b25",
+          "id": "7779c180-8024-4e77-ab0d-1f87e33b9fa3",
           "name": "Delete a Product Image",
           "request": {
             "name": "Delete a Product Image",
@@ -3556,7 +3556,7 @@
           },
           "response": [
             {
-              "id": "8265afef-fdf6-4b11-99b6-6858127cc74a",
+              "id": "0d2476e1-bb45-4708-b5e9-b7f545d04526",
               "name": "Product image deleted successfully",
               "originalRequest": {
                 "url": {
@@ -3614,7 +3614,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "53132367-9567-47b1-9e2b-58970137055b",
+              "id": "52ed4b43-35de-4b97-92a5-ddf79eb372ef",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -3671,12 +3671,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "83b841d3-479a-4592-948e-6ea3149ee942",
+              "id": "161a8ec0-8e6f-4618-b3be-863bf7632dd5",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -3733,12 +3733,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d087d699-d8ec-429d-91bb-32040bf4143c",
+              "id": "46dbcb67-b607-4e71-a0de-3aef74a54b91",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -3795,12 +3795,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "babc73fd-e53a-4b8e-b573-d24618664cb5",
+              "id": "85c64e6d-ed94-453b-82b2-3cf0e4e9dddf",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -3857,7 +3857,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -3868,7 +3868,7 @@
           }
         },
         {
-          "id": "fcbe33ec-944e-41b0-928e-87c14ecef4ff",
+          "id": "62e4bcc8-cc76-456c-8f66-94cd934def75",
           "name": "Reorder Product Images",
           "request": {
             "name": "Reorder Product Images",
@@ -3922,7 +3922,7 @@
           },
           "response": [
             {
-              "id": "d0a0d401-fab6-4b53-b82b-3aba691c25fe",
+              "id": "57fc6134-b2a1-472e-bddf-b92c9702e13c",
               "name": "Product images reordered successfully",
               "originalRequest": {
                 "url": {
@@ -3980,12 +3980,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"type\": \"DIGITAL\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://GoATKGOwxRCc.hlehJP3AHI,QUX4edb498B\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-182988\",\n          \"currency\": \"NYS\"\n        },\n        \"salePrice\": {\n          \"value\": \"08454.6143165\",\n          \"currency\": \"JPV\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 6995,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-1\",\n          \"currency\": \"TBL\"\n        },\n        \"salePrice\": {\n          \"value\": \"5044084\",\n          \"currency\": \"ZLS\"\n        },\n        \"onSale\": true\n      },\n      \"stock\": {\n        \"quantity\": 1226,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"https://NWp.ijrUJxp1lo9\",\n      \"altText\": \"string\",\n      \"width\": 8989,\n      \"height\": 799\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://dKNDMpMNGSdXHkcTI.bxkd,4O2eMED1PQbikLLxzYoiVicZvXJ6TuT6VJI3JRerAGLgHkw-JD\",\n      \"altText\": \"string\",\n      \"width\": 8719,\n      \"height\": 9096\n    }\n  ],\n  \"createdOn\": \"2001-09-16T02:57:00.494Z\",\n  \"modifiedOn\": \"2019-01-16T10:42:08.145Z\"\n}",
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"SERVICE\",\n  \"storePageId\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"url\": \"https://CdmiFRIytDzcJOl.opxgO4pcZLP9bxUJgSJzJXTPDYv18h6vk2ObLnpt+Mod\",\n  \"urlSlug\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isVisible\": true,\n  \"variants\": [\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-12618\",\n          \"currency\": \"BCD\"\n        },\n        \"salePrice\": {\n          \"value\": \"-4217446\",\n          \"currency\": \"UJV\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2386,\n        \"unlimited\": false,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"sku\": \"string\",\n      \"pricing\": {\n        \"basePrice\": {\n          \"value\": \"-7727.87\",\n          \"currency\": \"RSP\"\n        },\n        \"salePrice\": {\n          \"value\": \"-858873604.3120121\",\n          \"currency\": \"FMH\"\n        },\n        \"onSale\": false\n      },\n      \"stock\": {\n        \"quantity\": 2832,\n        \"unlimited\": true,\n        \"backordered\": false\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"string\",\n      \"url\": \"http://iMxAQWhiduTErTYojOFwHbKkYrb.nrjmnTPUgw.Pne\",\n      \"altText\": \"string\",\n      \"width\": 660,\n      \"height\": 2615\n    },\n    {\n      \"id\": \"string\",\n      \"url\": \"http://oimRHVHlZQsEkykSdJ.egbrp66,wxq8sC8xeRYWpzuaQUEwImneVKnbaFyTGCwJM+EwdVmp0kdSO\",\n      \"altText\": \"string\",\n      \"width\": 1550,\n      \"height\": 566\n    }\n  ],\n  \"createdOn\": \"1989-05-27T15:58:18.566Z\",\n  \"modifiedOn\": \"1982-10-14T06:58:45.014Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2a09ac4f-bee6-45d4-a3ad-d0fcd81d20a3",
+              "id": "125e1888-5d94-4915-b341-40bd58ad57d1",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -4043,12 +4043,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "12f1dc7a-6764-49dc-97ce-bafec4ae6996",
+              "id": "a3c1686d-a272-40c4-966b-704cdd53c5fd",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -4106,12 +4106,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "24c49ecc-dc2b-49e2-b39f-b09ad8728699",
+              "id": "d701fedb-372f-4cdb-b588-b12e2a848de4",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -4169,12 +4169,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "58859ee8-0cef-49b8-8cb5-9b214b3e526e",
+              "id": "0e8350d7-9827-4a7b-af6a-aed05c8412b7",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -4232,12 +4232,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "2cbfc055-5d6f-4c4b-aad5-a60e1cda4a6d",
+              "id": "1fc9cc2b-18f4-4d89-8bf4-14f65fde7b3e",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -4295,7 +4295,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6651\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9856\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -4327,11 +4327,11 @@
     ]
   },
   "info": {
-    "_postman_id": "8caa334f-d655-487d-a193-865c85c7fb30",
-    "name": "Squarespace Products API",
+    "_postman_id": "c4d43746-b4ad-4590-a800-870bc689e085",
+    "name": "Squarespace Commerce Inventory Products API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Squarespace Products API allows developers to manage the product catalog of a Squarespace merchant site. It supports physical products, service products, gift cards, and digital downloads, along with their images and variants. Developers can create, update, retrieve, and delete products programmatically, enabling catalog synchronization with external systems. The API is well-suited for building product import tools, headless commerce integrations, or multi-channel retail management applications.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
       "type": "text/plain"
     }
   }

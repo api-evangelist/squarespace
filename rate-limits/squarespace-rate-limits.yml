@@ -4,45 +4,87 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Squarespace
 providerId: squarespace
 created: '2026-05-04'
-modified: '2026-05-05'
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/rate-limits
+modified: '2026-08-13'
 reconciled: true
 tags:
   - Commerce
   - E-Commerce
   - Rate Limiting
-description: Squarespace Commerce APIs enforce a global limit of 300 requests per minute (equivalent to 5 requests per second). The Create Order endpoint enforces a stricter cap of 100 requests per hour per website when authenticated with an API key; OAuth-authenticated callers are not subject to this Create Order cap. Exceeding a limit returns 429 Too Many Requests with a one-minute cooldown.
+description: >-
+  Squarespace Commerce APIs enforce a global limit of 300 requests per minute (an equivalent
+  bandwidth of five requests per second). The Create Order endpoint carries a separate, stricter
+  limit of 100 requests per hour per website when an API key is used for authentication; that
+  stricter limit explicitly does not apply when OAuth is used. Exceeding a limit returns
+  429 Too Many Requests with a one-minute cool-down period. Squarespace additionally warns that
+  requests sent with a default HTTP-client User-Agent (for example "curl/7.54.0") may be subject
+  to stricter rate limiting, and that requests with no User-Agent header at all are rejected
+  outright — a rate-limit input that is not a numeric quota and is easy to miss.
 sources:
   - https://developers.squarespace.com/commerce-apis/rate-limits
   - https://developers.squarespace.com/commerce-apis/making-requests
-notes: Squarespace's docs do not enumerate X-RateLimit-* response headers; the published contract is the 429 status code and the one-minute cooldown.
+  - https://developers.squarespace.com/commerce-apis/responses-error-handling
+notes: >-
+  Squarespace publishes NO RateLimit-* or X-RateLimit-* response headers and no Retry-After header.
+  The entire runtime signal available to an agent is the 429 status code plus the documented
+  one-minute cool-down — a client cannot read remaining quota before it is exhausted. Verified
+  against the docs on 2026-08-13 and against the 55-operation Commerce API OpenAPI, which declares
+  a 429 response on 22 operations but defines no rate-limit response headers.
+limit_count: 2
 responseCodes:
   throttled: 429
+response_headers:
+  published: []
+  note: >-
+    No rate-limit response headers are documented and none are declared in the published OpenAPI.
+    Retry-After is not documented either. Clients must implement a fixed one-minute back-off on 429.
 limits:
-  - name: Global Commerce API
-    scope: website
-    metric: requests_per_minute
+  - name: Global Commerce API limit
+    scope: per-website
+    window: 1m
     limit: 300
-    timeFrame: minute
-    notes: 300 requests per minute, equivalent to 5 requests per second. Applies across all Commerce API endpoints unless an endpoint declares a stricter cap.
-  - name: Global Commerce API (per-second equivalent)
-    scope: website
-    metric: requests_per_second
-    limit: 5
-    timeFrame: second
-    notes: Bandwidth equivalent of the 300/minute global limit.
-  - name: Create Order Endpoint (API Key auth)
-    scope: website/auth-method
-    metric: requests_per_hour
+    burst: null
+    equivalent: 5 requests per second
+    applies_to: All Commerce API endpoints
+    auth: both
+    on_exhaustion:
+      status: 429
+      cooldown: 1m
+    source: https://developers.squarespace.com/commerce-apis/rate-limits
+  - name: Create Order (API key)
+    scope: per-website
+    window: 1h
     limit: 100
-    timeFrame: hour
-    notes: Stricter limit specific to the Create Order endpoint when called with API Key authentication. Does not apply to OAuth-authenticated requests.
-policies:
-  - name: 429 Cooldown
-    description: After exceeding the rate limit, the API returns 429 Too Many Requests and enters a one-minute cooldown before serving further calls. Clients should pause for at least 60 seconds before retrying.
-  - name: OAuth vs API Key
-    description: OAuth authentication is required to bypass the 100-per-hour Create Order cap. API key auth is the default but carries the stricter Create Order limit.
-  - name: Customer Care for Edge Cases
-    description: Squarespace directs operators to Customer Care for guidance on rate-limiting strategies beyond the published thresholds.
-maintainers:
-  - name: Squarespace, Inc.
-    url: https://developers.squarespace.com/
+    burst: null
+    applies_to: POST /1.0/commerce/orders (operationId createOrder)
+    auth: api-key
+    exempt: oauth
+    note: >-
+      Documented as a separate, stricter limit that applies only when an API key is used for
+      authentication. OAuth-authenticated callers are not subject to it.
+    on_exhaustion:
+      status: 429
+      cooldown: 1m
+    source: https://developers.squarespace.com/commerce-apis/rate-limits
+non_numeric_controls:
+  - control: User-Agent header required
+    behavior: Requests without a User-Agent header are rejected.
+    source: https://developers.squarespace.com/commerce-apis/making-requests
+  - control: Default User-Agent penalised
+    behavior: >-
+      Default client User-Agent values (e.g. "curl/7.54.0") are permitted but "may be subject to
+      stricter rate limiting".
+    source: https://developers.squarespace.com/commerce-apis/making-requests
+  - control: HTTPS required
+    behavior: All requests sent over HTTP instead of HTTPS are rejected.
+    source: https://developers.squarespace.com/commerce-apis/making-requests
+escalation:
+  contact: https://support.squarespace.com/hc/requests/new#choose-topic
+  note: Squarespace directs rate-limit questions to Customer Care; no self-service limit increase is published.
+evidence:
+  - url: https://developers.squarespace.com/commerce-apis/rate-limits
+    status: 200
+  - url: https://developers.squarespace.com/commerce-apis/making-requests
+    status: 200

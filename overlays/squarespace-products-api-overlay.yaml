@@ -1,0 +1,77 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Squarespace Commerce Inventory Products API
+  version: 1.0.0
+  x-generated: '2026-08-13'
+  x-method: generated
+  x-source: openapi/squarespace-products-api-openapi.yml
+extends: openapi/squarespace-products-api-openapi.yml
+actions:
+- target: $.info
+  description: Attach API Evangelist provenance and cross-links to the repo artifacts that carry runtime
+    semantics this contract does not express.
+  update:
+    x-apievangelist:
+      provider: squarespace
+      enriched: '2026-08-13'
+      artifacts:
+        conventions: conventions/squarespace-conventions.yml
+        errors: errors/squarespace-problem-types.yml
+        authentication: authentication/squarespace-authentication.yml
+        scopes: scopes/squarespace-scopes.yml
+        rate_limits: rate-limits/squarespace-rate-limits.yml
+        lifecycle: lifecycle/squarespace-lifecycle.yml
+        changelog: changelog/squarespace-changelog.yml
+        data_model: data-model/squarespace-data-model.yml
+        plans: plans/squarespace-plans-pricing.yml
+- target: $
+  description: Document the OAuth 2.0 flow Squarespace operates but does not declare in securitySchemes.
+    Endpoints and scopes are transcribed from https://developers.squarespace.com/oauth.
+  update:
+    x-oauth2-undeclared:
+      note: Squarespace supports OAuth 2.0 authorization code alongside the bearer API key, but only the
+        http bearer scheme is declared in this contract.
+      authorizationUrl: https://login.squarespace.com/api/1/login/oauth/provider/authorize
+      tokenUrl: https://login.squarespace.com/api/1/login/oauth/provider/tokens
+      scopeDelimiter: ','
+      scopes: scopes/squarespace-scopes.yml
+      accessTokenTTL: 30m
+- target: $
+  description: Record the runtime limits and required headers that apply to every operation in this document.
+  update:
+    x-runtime:
+      rateLimit:
+        window: 1m
+        limit: 300
+        status: 429
+        cooldown: 1m
+        headers: []
+        note: No RateLimit-*, X-RateLimit-* or Retry-After headers are published.
+      requiredHeaders:
+      - name: Authorization
+        note: Bearer API key or OAuth access token.
+      - name: User-Agent
+        note: REQUIRED. Requests without a User-Agent are rejected; default client User-Agents may be
+          rate-limited harder.
+      httpsOnly: true
+      cors: false
+      pagination:
+        style: cursor
+        param: cursor
+        pageSize: 50
+        responseObject: pagination
+        fields:
+        - hasNextPage
+        - nextPageCursor
+        - nextPageUrl
+        note: Dynamic cursors — they point at a location, not a snapshot, so the result set can shift
+          while paging.
+      errorEnvelope: proprietary (type/subtype/message/details/contextId); not RFC 9457
+- target: $.paths.*.*[?(@.responses)]
+  description: Every operation can return 402 WEBSITE_EXPIRED when the merchant site is in an expired
+    billing state. Documented since 2021-11-30 but declared on zero operations in the published contract.
+  update:
+    x-undeclared-responses:
+    - status: 402
+      type: WEBSITE_EXPIRED
+      source: https://developers.squarespace.com/commerce-apis/responses-error-handling

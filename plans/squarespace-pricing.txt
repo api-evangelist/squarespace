@@ -1,0 +1,134 @@
+# Squarespace Pricing
+
+> Complete pricing for all Squarespace subscription plans across 27
+> supported currencies. Prices below show what the customer is billed; annual
+> plans display the per-month equivalent and the full annual total.
+
+Squarespace offers four plans: Basic, Core, Plus, and Advanced. Each plan
+supports monthly or annual billing. Annual billing is discounted relative to
+monthly. Prices include any applicable VAT/GST where required by region.
+
+Canonical pricing page: https://www.squarespace.com/pricing
+
+## Squarespace Basic
+
+Entry-level Squarespace website plan. Includes a custom domain (free for one year on annual billing), unlimited bandwidth, SSL security, mobile-optimized templates, SEO tools, and basic analytics. Suitable for personal sites, portfolios, and simple business pages.
+
+### Pricing
+
+| Currency | Region(s) | Monthly | Annual (per month) | Annual (total) |
+|----------|-----------|---------|--------------------|----------------|
+| AUD | AU | A$24 | A$17 | A$204 |
+| BRL | BR | R$119 | R$79 | R$948 |
+| CAD | CA | CA$30 | CA$21 | CA$252 |
+| CHF | CH | CHF 21 | CHF 15 | CHF 180 |
+| COP | CO | COP 97,000 | COP 69,000 | COP 828,000 |
+| DKK | DK | DKK 160 | DKK 110 | DKK 1,320 |
+| EUR | AT, BE, DE, ES, FI, FR, IE, IT, LU, NL, PT | €14 | €9 | €108 |
+| GBP | GB | £16 | £12 | £144 |
+| HKD | HK | HK$179 | HK$129 | HK$1,548 |
+| IDR | ID | IDR 350,000 | IDR 240,000 | IDR 2,880,000 |
+| INR | IN | ₹1,901 | ₹1,323 | ₹15,876 |
+| JPY | JP | ¥3,200 | ¥2,200 | ¥26,400 |
+| KRW | KR | ₩21,500 | ₩15,000 | ₩180,000 |
+| MXN | MX | MX$409 | MX$289 | MX$3,468 |
+| MYR | MY | MYR 109 | MYR 74 | MYR 888 |
+| NOK | NO | NOK 249 | NOK 179 | NOK 2,148 |
+| NZD | NZ | NZ$38 | NZ$27 | NZ$324 |
+| PHP | PH | ₱1,290 | ₱890 | ₱10,680 |
+| PLN | PL | PLN 99 | PLN 69 | PLN 828 |
+| SEK | SE | SEK 250 | SEK 175 | SEK 2,100 |
+| SGD | SG | SGD 30 | SGD 22 | SGD 264 |
+| THB | TH | THB 820 | THB 570 | THB 6,840 |
+| TRY | TR | TRY 600 | TRY 420 | TRY 5,040 |
+| TWD | TW | NT$720 | NT$500 | NT$6,000 |
+| USD | US | $25 | $19 | $228 |
+| VND | VN | ₫550,000 | ₫380,000 | ₫4,560,000 |
+| ZAR | ZA | ZAR 430 | ZAR 300 | ZAR 3,600 |
+
+## Squarespace Core
+
+Squarespace plan for growing businesses. Adds advanced site analytics, premium integrations, customer accounts, gift cards, point-of-sale, and the ability to sell unlimited products with a 3% transaction fee on commerce sales.
+
+### Pricing
+
+| Currency | Region(s) | Monthly | Annual (per month) | Annual (total) |
+|----------|-----------|---------|--------------------|----------------|
+| AUD | AU | A$40 | A$28 | A$336 |
+| BRL | BR | R$169 | R$113 | R$1,356 |
+| CAD | CA | CA$45 | CA$32 | CA$384 |
+| CHF | CH | CHF 30 | CHF 21 | CHF 252 |
+| COP | CO | COP 138,000 | COP 97,000 | COP 1,164,000 |
+| DKK | DK | DKK 230 | DKK 160 | DKK 1,920 |
+| EUR | AT, BE, DE, ES, FI, FR, IE, IT, LU, NL, PT | €20 | €14 | €168 |
+| GBP | GB | £24 | £17 | £204 |
+| HKD | HK | HK$260 | HK$180 | HK$2,160 |
+| IDR | ID | IDR 500,000 | IDR 350,000 | IDR 4,200,000 |
+| INR | IN | ₹2,727 | ₹1,902 | ₹22,824 |
+| JPY | JP | ¥4,500 | ¥3,200 | ¥38,400 |
+| KRW | KR | ₩32,500 | ₩22,500 | ₩270,000 |
+| MXN | MX | MX$599 | MX$409 | MX$4,908 |
+| MYR | MY | MYR 159 | MYR 109 | MYR 1,308 |
+| NOK | NO | NOK 359 | NOK 249 | NOK 2,988 |
+| NZD | NZ | NZ$55 | NZ$38 | NZ$456 |
+| PHP | PH | ₱1,820 | ₱1,290 | ₱15,480 |
+| PLN | PL | PLN 139 | PLN 99 | PLN 1,188 |
+| SEK | SE | SEK 360 | SEK 250 | SEK 3,000 |
+| SGD | SG | SGD 45 | SGD 31 | SGD 372 |
+| THB | TH | THB 1,200 | THB 820 | THB 9,840 |
+| TRY | TR | TRY 860 | TRY 600 | TRY 7,200 |
+| TWD | TW | NT$1,030 | NT$715 | NT$8,580 |
+| USD | US | $39 | $29 | $348 |
+| VND | VN | ₫780,000 | ₫550,000 | ₫6,600,000 |
+| ZAR | ZA | ZAR 620 | ZAR 440 | ZAR 5,280 |
+
+## Squarespace Plus
+
+Squarespace plan for established commerce businesses. Includes everything in Core plus zero Squarespace transaction fees, abandoned-cart recovery, advanced shipping and discount tools, subscriptions, and merchandising features.
+
+### Pricing
+
+| Currency | Region(s) | Monthly | Annual (per month) | Annual (total) |
+|----------|-----------|---------|--------------------|----------------|
+| USD | US | $65 | $49 | $588 |
+
+## Squarespace Advanced
+
+Squarespace plan for high-volume commerce and enterprise needs. Includes everything in Plus along with advanced commerce APIs, custom code, and priority support.
+
+### Pricing
+
+| Currency | Region(s) | Monthly | Annual (per month) | Annual (total) |
+|----------|-----------|---------|--------------------|----------------|
+| AUD | AU | A$75 | A$52 | A$624 |
+| BRL | BR | R$264 | R$183 | R$2,196 |
+| CAD | CA | CA$69 | CA$48 | CA$576 |
+| CHF | CH | CHF 39 | CHF 27 | CHF 324 |
+| COP | CO | COP 190,600 | COP 132,000 | COP 1,584,000 |
+| DKK | DK | DKK 315 | DKK 220 | DKK 2,640 |
+| EUR | AT, BE, DE, ES, FI, FR, IE, IT, LU, NL, PT | €30 | €21 | €252 |
+| GBP | GB | £37 | £25 | £300 |
+| HKD | HK | HK$380 | HK$260 | HK$3,120 |
+| IDR | ID | IDR 814,000 | IDR 565,000 | IDR 6,780,000 |
+| INR | IN | ₹4,310 | ₹2,990 | ₹35,880 |
+| JPY | JP | ¥7,450 | ¥5,170 | ¥62,040 |
+| KRW | KR | ₩51,000 | ₩30,000 | ₩360,000 |
+| MXN | MX | MX$904 | MX$630 | MX$7,560 |
+| MYR | MY | MYR 210 | MYR 140 | MYR 1,680 |
+| NOK | NO | NOK 490 | NOK 340 | NOK 4,080 |
+| NZD | NZ | NZ$85 | NZ$59 | NZ$708 |
+| PHP | PH | ₱2,850 | ₱1,980 | ₱23,760 |
+| PLN | PL | PLN 179 | PLN 120 | PLN 1,440 |
+| SEK | SE | SEK 460 | SEK 320 | SEK 3,840 |
+| SGD | SG | SGD 64 | SGD 44 | SGD 528 |
+| THB | TH | THB 1,611 | THB 1,120 | THB 13,440 |
+| TRY | TR | TRY 2,060 | TRY 1,430 | TRY 17,160 |
+| TWD | TW | NT$1,500 | NT$1,040 | NT$12,480 |
+| USD | US | $139 | $99 | $1,188 |
+| VND | VN | ₫1,291,000 | ₫896,000 | ₫10,752,000 |
+| ZAR | ZA | ZAR 850 | ZAR 590 | ZAR 7,080 |
+
+## Source
+
+- Data sourced from the Squarespace billing API.
+- Last updated: 2026-08-03T07:08:03.822Z

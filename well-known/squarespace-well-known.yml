@@ -1,0 +1,193 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes of every apis.yml and OpenAPI servers[] host
+provider: Squarespace
+providerId: squarespace
+probed: '2026-08-13'
+description: >-
+  Probe of the standard /.well-known/ surface across every Squarespace host in this repo. One real
+  document is served: security.txt on www.squarespace.com, saved verbatim beside this index. Every
+  other path misses, and two of the three hosts miss in ways worth recording rather than collapsing
+  to "404" — www.squarespace.com returns HTTP 404 with a JSON website-config body (an SPA catch-all,
+  not a document), and api.squarespace.com returns 401 with its standard AUTHORIZATION_ERROR
+  envelope for every unknown path, so an unauthenticated caller cannot distinguish "not served" from
+  "served but protected" on the API host.
+hosts:
+  - host: www.squarespace.com
+    role: website
+  - host: api.squarespace.com
+    role: api (baseURL and OpenAPI servers[])
+  - host: developers.squarespace.com
+    role: developer portal / docs
+  - host: mcp.squarespace.com
+    role: MCP server
+probes:
+  - host: www.squarespace.com
+    path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain;charset=utf-8
+    document: true
+    file: well-known/squarespace-security.txt
+    bytes: 180
+  - host: www.squarespace.com
+    path: /.well-known/openid-configuration
+    status: 404
+    content_type: application/json;charset=utf-8
+    document: false
+    note: SPA catch-all returns a website config JSON body, not an OIDC document.
+  - host: www.squarespace.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    content_type: application/json;charset=utf-8
+    document: false
+  - host: www.squarespace.com
+    path: /.well-known/oauth-protected-resource
+    status: 404
+    content_type: application/json;charset=utf-8
+    document: false
+  - host: www.squarespace.com
+    path: /.well-known/api-catalog
+    status: 404
+    content_type: application/json;charset=utf-8
+    document: false
+  - host: www.squarespace.com
+    path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: application/json;charset=utf-8
+    document: false
+  - host: www.squarespace.com
+    path: /.well-known/agent-card.json
+    status: 404
+    document: false
+  - host: www.squarespace.com
+    path: /.well-known/agent.json
+    status: 404
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/security.txt
+    status: 401
+    document: false
+    note: Standard AUTHORIZATION_ERROR envelope; the API host answers 401 for every unknown path.
+  - host: api.squarespace.com
+    path: /.well-known/openid-configuration
+    status: 401
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/oauth-authorization-server
+    status: 401
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/oauth-protected-resource
+    status: 401
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/api-catalog
+    status: 401
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/ai-plugin.json
+    status: 401
+    document: false
+  - host: api.squarespace.com
+    path: /.well-known/agent-card.json
+    status: 401
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/security.txt
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/openid-configuration
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/oauth-protected-resource
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/api-catalog
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/ai-plugin.json
+    status: 404
+    content_type: text/html
+    document: false
+  - host: developers.squarespace.com
+    path: /.well-known/agent-card.json
+    status: 404
+    content_type: text/html
+    document: false
+  - host: mcp.squarespace.com
+    path: /.well-known/oauth-authorization-server
+    status: 404
+    content_type: application/json
+    document: false
+    note: >-
+      Returns an httpproblems.com RFC-9457-style body. Notable because the MCP OAuth discovery
+      documents are exactly what an MCP client looks for; their absence confirms the server is
+      unauthenticated by design.
+  - host: mcp.squarespace.com
+    path: /.well-known/oauth-protected-resource
+    status: 404
+    content_type: application/json
+    document: false
+  - host: mcp.squarespace.com
+    path: /.well-known/agent-card.json
+    status: 404
+    content_type: application/json
+    document: false
+  - host: mcp.squarespace.com
+    path: /.well-known/agent.json
+    status: 404
+    content_type: application/json
+    document: false
+  - host: mcp.squarespace.com
+    path: /.well-known/security.txt
+    status: 404
+    content_type: application/json
+    document: false
+summary:
+  probed: 28
+  documents_served: 1
+  served:
+    - path: /.well-known/security.txt
+      host: www.squarespace.com
+      file: well-known/squarespace-security.txt
+security_txt:
+  contact: https://www.squarespace.com/vulnerability-reporting
+  policy: https://www.squarespace.com/vulnerability-reporting
+  expires: '2028-01-01T05:00:00.000Z'
+  preferred_languages: en
+  gaps:
+    - No Encryption field (no PGP key published).
+    - No Acknowledgments / hall-of-fame field.
+    - No Canonical field.
+    - >-
+      Contact is a web form URL rather than a mailto: or tel: — technically permitted, less useful
+      to automation.
+non_well_known_machine_readable:
+  note: >-
+    Squarespace does publish machine-readable documents, just not under /.well-known/. Recorded here
+    so a reader does not conclude from the 404s above that nothing is served.
+  documents:
+    - url: https://www.squarespace.com/llms.txt
+      status: 200
+      file: llms/squarespace-llms.txt
+    - url: https://www.squarespace.com/pricing.txt
+      status: 200
+      file: plans/squarespace-pricing.txt
+    - url: https://developers.squarespace.com/commerce-apis/latest/schema-processor-version-version-latest.json
+      status: 200
+      file: openapi/squarespace-commerce-api-v2-openapi.json
+    - url: https://status.squarespace.com/api/v2/status.json
+      status: 200

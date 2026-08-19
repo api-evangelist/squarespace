@@ -1,0 +1,243 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/responses-error-handling
+derived_from: openapi/squarespace-commerce-api-v2-openapi.json
+provider: Squarespace
+providerId: squarespace
+format: proprietary
+rfc9457: false
+content_type: application/json
+description: >-
+  Squarespace Commerce APIs return a single standard error envelope on every 4xx and 5xx. The
+  envelope is Squarespace's own — NOT RFC 9457 problem+json. It is declared once in the published
+  OpenAPI as components.schemas.StandardErrorPayload and referenced by 136 of the 137 error
+  responses across the 55 published operations, which is an unusually consistent error surface. The
+  `type` and `subtype` enumerations below are read verbatim from that schema; the status-code
+  meanings are transcribed from the responses-and-error-handling guide.
+sources:
+  - https://developers.squarespace.com/commerce-apis/responses-error-handling
+  - https://developers.squarespace.com/commerce-apis/rate-limits
+  - openapi/squarespace-commerce-api-v2-openapi.json
+
+envelope:
+  schema: '#/components/schemas/StandardErrorPayload'
+  all_fields_always_present: true
+  fields:
+    - name: type
+      nullable: false
+      description: General purpose descriptor for the type of the error.
+    - name: subtype
+      nullable: true
+      description: Descriptor for the subtype of the error, when available.
+    - name: message
+      nullable: false
+      description: >-
+        Plain-English message intended for developers for debugging. Explicitly NOT to be shown to
+        an end user.
+    - name: details
+      nullable: true
+      description: >-
+        Machine-readable data for generating user-friendly error messages. Reserved for future use —
+        always null at this time.
+    - name: contextId
+      nullable: false
+      description: >-
+        Identifier to quote when reporting an occurrence to Squarespace Customer Care. Required on
+        any 5xx report.
+  example:
+    type: INVALID_REQUEST_ERROR
+    subtype: MISSING_ARGUMENT
+    message: An expiration date is required.
+    details: null
+    contextId: RUPSUSPOW
+
+status_codes:
+  success:
+    - code: 200
+      meaning: Request processed successfully; expected data present in the body.
+    - code: 201
+      meaning: A new resource was created and is present in the body.
+    - code: 202
+      meaning: Request received and is being processed; expected data present in the body.
+    - code: 204
+      meaning: Request processed successfully; no body.
+  errors:
+    - code: 400
+      type: INVALID_REQUEST_ERROR
+      title: Bad Request
+      operations_declaring: 34
+      meaning: >-
+        A bad query parameter, a malformed body, or a body referencing an unknown system resource.
+      remediation: >-
+        Validate parameters against the operation schema. Check paired parameters — modifiedAfter
+        and modifiedBefore are each required when the other is present.
+    - code: 401
+      type: AUTHORIZATION_ERROR
+      title: Unauthorized
+      operations_declaring: 1
+      meaning: >-
+        Unexpected Authorization header information — a missing header, or a token that was invalid
+        or expired.
+      remediation: >-
+        Re-check the Bearer token. OAuth access tokens live only 30 minutes; refresh with
+        grant_type=refresh_token. Note this status is declared on only ONE operation in the spec
+        even though it can be returned by all of them.
+    - code: 402
+      type: WEBSITE_EXPIRED
+      title: Payment Required
+      operations_declaring: 0
+      meaning: The website that owns the authorization token is in an expired billing state.
+      remediation: >-
+        Not retryable by the integration. The merchant must resolve their Squarespace billing. Added
+        to the API 2021-11-30. Not declared on any operation in the published OpenAPI — an agent
+        reading only the spec will not expect it.
+    - code: 403
+      type: AUTHORIZATION_ERROR
+      title: Forbidden
+      operations_declaring: 17
+      subtypes: [MISSING_SCOPE, OAUTH_TOKEN_REQUIRED, FORBIDDEN_RESOURCE]
+      meaning: The provided token does not have sufficient permissions.
+      remediation: >-
+        Permissions on an issued key or token cannot be modified. Generate a new API key with the
+        right permission level, or have the merchant re-initiate the OAuth connection with the
+        needed scopes. OAUTH_TOKEN_REQUIRED means the endpoint refuses API keys entirely — the
+        Webhook Subscriptions API is OAuth-only.
+    - code: 404
+      type: INVALID_REQUEST_ERROR
+      title: Not Found
+      operations_declaring: 42
+      subtypes: [INVENTORY_ITEM_NOT_FOUND, PRODUCT_IMAGE_NOT_FOUND, PRODUCT_VARIANT_NOT_FOUND, STORE_PAGE_NOT_FOUND]
+      meaning: The requested resource could not be found.
+    - code: 405
+      type: METHOD_NOT_ALLOWED
+      title: Method Not Allowed
+      operations_declaring: 8
+      meaning: The resource was accessed with an unsupported HTTP method.
+    - code: 409
+      type: CONFLICT
+      title: Conflict
+      operations_declaring: 14
+      subtypes:
+        - CONCURRENT_MODIFICATION
+        - PRODUCT_UPDATE_CONFLICT
+        - DUPLICATE_USER_CONFLICT
+        - PROMO_CODE_CONFLICT
+        - INSUFFICIENT_STOCK
+        - STOCK_NOT_TRACKED
+        - STOCK_EXCEEDS_MAX
+        - SKU_UNAVAILABLE
+        - URL_SLUG_UNAVAILABLE
+      meaning: >-
+        The request could not be processed given the server state — concurrent requests competing
+        for the same resource, a system configuration option blocking the request, or other
+        state-specific causes.
+      remediation: >-
+        Depending on cause, resolve by waiting for resources to become available or by changing
+        system state. Re-read the resource before retrying; do NOT blind-retry a 409.
+    - code: 429
+      type: TOO_MANY_REQUESTS
+      title: Too Many Requests
+      operations_declaring: 22
+      meaning: Too many requests issued; new requests may be issued after a cool-down.
+      remediation: >-
+        Wait one minute. No Retry-After or RateLimit-* header is returned, so the cool-down must be
+        hard-coded. See rate-limits/squarespace-rate-limits.yml.
+    - code: 500
+      type: SERVER_ERROR
+      title: Internal Server Error
+      operations_declaring: 0
+      meaning: A problem happened on Squarespace's servers.
+      remediation: >-
+        Retry with exponential backoff, halting after a bounded number of attempts. Report the
+        occurrence with its contextId at
+        https://support.squarespace.com/hc/requests/new#choose-topic
+    - code: 503
+      type: SERVICE_UNAVAILABLE
+      title: Service Unavailable
+      operations_declaring: 0
+      meaning: Squarespace service temporarily unavailable.
+      remediation: Retry with exponential backoff.
+
+types:
+  - INVALID_REQUEST_ERROR
+  - AUTHORIZATION_ERROR
+  - WEBSITE_EXPIRED
+  - METHOD_NOT_ALLOWED
+  - CONFLICT
+  - TOO_MANY_REQUESTS
+  - SERVER_ERROR
+  - SERVICE_UNAVAILABLE
+
+subtypes:
+  - id: MISSING_ARGUMENT
+    domain: request
+  - id: INVALID_ARGUMENT
+    domain: request
+  - id: INVALID_CONTENT_TYPE
+    domain: request
+  - id: CONCURRENT_MODIFICATION
+    domain: conflict
+  - id: INSUFFICIENT_STOCK
+    domain: inventory
+  - id: STOCK_NOT_TRACKED
+    domain: inventory
+  - id: STOCK_EXCEEDS_MAX
+    domain: inventory
+  - id: CURRENCY_MISMATCH
+    domain: commerce
+  - id: MEASUREMENT_STANDARD_MISMATCH
+    domain: products
+  - id: INSUFFICIENT_PRODUCT_VARIANTS
+    domain: products
+  - id: URL_SLUG_UNAVAILABLE
+    domain: products
+  - id: SKU_UNAVAILABLE
+    domain: products
+  - id: STORE_PAGE_NOT_FOUND
+    domain: websites
+  - id: STORE_PAGE_PRODUCT_LIMIT_REACHED
+    domain: limits
+  - id: IMAGE_LIMIT_REACHED
+    domain: limits
+  - id: WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+    domain: limits
+  - id: MISSING_SCOPE
+    domain: authorization
+  - id: PROFILE_CANNOT_ACCEPT_MARKETING
+    domain: contacts
+  - id: ENTITY_LIMIT_REACHED
+    domain: limits
+  - id: PRODUCT_UPDATE_CONFLICT
+    domain: conflict
+  - id: DUPLICATE_USER_CONFLICT
+    domain: conflict
+  - id: PROMO_CODE_CONFLICT
+    domain: discounts
+  - id: INVENTORY_ITEM_NOT_FOUND
+    domain: inventory
+  - id: PRODUCT_IMAGE_NOT_FOUND
+    domain: products
+  - id: PRODUCT_VARIANT_NOT_FOUND
+    domain: products
+  - id: OAUTH_TOKEN_REQUIRED
+    domain: authorization
+  - id: FORBIDDEN_RESOURCE
+    domain: authorization
+  - id: OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+    domain: products
+
+coverage:
+  operations_in_spec: 55
+  error_responses_declared: 137
+  referencing_standard_envelope: 136
+  exception:
+    operationId: getMemberProfile
+    note: >-
+      GET /1.0/authorization/member declares a non-error MemberProfile schema on an error status —
+      the one deviation from the standard envelope in the published contract.
+
+gaps:
+  - 402 WEBSITE_EXPIRED is documented in prose but declared on zero operations in the OpenAPI.
+  - 5xx statuses (SERVER_ERROR, SERVICE_UNAVAILABLE) are in the type enum but declared on zero operations.
+  - No application/problem+json variant is offered, so RFC 9457 tooling cannot consume these errors.
+  - '`details` is permanently null — the docs describe it as reserved for future use.'

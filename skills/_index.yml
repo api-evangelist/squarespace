@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: generated
+source: openapi/squarespace-commerce-api-v2-openapi.json
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Packaged Agent Skills for the Squarespace Commerce APIs. Each is grounded in operationIds that
+  exist in the provider-published OpenAPI 3.1.1 contract harvested on 2026-08-13, and carries the
+  cross-cutting rules an agent gets wrong on first contact — the mandatory User-Agent header, the
+  required Idempotency-Key on the two mutating operations, dynamic cursors, and the flat one-minute
+  429 cool-down with no Retry-After to read.
+provider_published_skills: none
+provider_published_note: >-
+  No AGENTS.md, skills/ directory or provider-authored agent instructions were found on
+  developers.squarespace.com or in the Squarespace GitHub org. These skills are API Evangelist
+  generations from the published contract and docs.
+skill_count: 4
+skills:
+  - name: squarespace-import-order
+    file: skills/squarespace-import-order.md
+    flow: Import an order from a third-party sales channel
+    operations: [createOrder, getOrder, getOrders, getDocumentsByUpdatedOn]
+    apis: [Orders, Transactions]
+    idempotent: true
+    auth: 'api-key or oauth (OAuth strongly preferred — API keys hit a 100/hour cap on createOrder)'
+  - name: squarespace-sync-inventory
+    file: skills/squarespace-sync-inventory.md
+    flow: Reconcile stock between an external system of record and Squarespace
+    operations:
+      - getProducts
+      - getSpecificProducts
+      - getInventoryItems
+      - getSpecificInventoryItems
+      - adjustInventoryStockLevels
+    apis: [Products, Inventory]
+    idempotent: true
+    auth: api-key or oauth
+  - name: squarespace-subscribe-webhooks
+    file: skills/squarespace-subscribe-webhooks.md
+    flow: Move from polling to event delivery, with signature verification and secret rotation
+    operations:
+      - createWebhookSubscription
+      - getWebhookSubscriptions
+      - getWebhookSubscription
+      - updateWebhookSubscription
+      - deleteWebhookSubscription
+      - rotateSubscriptionSecret
+      - sendTestNotificationForWebhookSubscription
+    apis: [WebhookSubscriptions]
+    idempotent: false
+    auth: oauth-only
+  - name: squarespace-migrate-profiles-to-contacts
+    file: skills/squarespace-migrate-profiles-to-contacts.md
+    flow: Migrate off the maintenance-mode Profiles API onto Contacts
+    operations:
+      - getProfiles
+      - getSpecificProfiles
+      - getContacts
+      - queryContacts
+      - getContact
+      - createContact
+      - patchContact
+      - getAddressBook
+      - createAddressBookEntry
+      - getTransactionsSummaries
+    apis: [Profiles, Contacts, Analytics]
+    idempotent: false
+    auth: api-key or oauth
+shared_rules:
+  - Every request needs a descriptive User-Agent header; requests without one are REJECTED.
+  - HTTPS only — HTTP requests are rejected.
+  - 'Idempotency-Key is REQUIRED on createOrder and adjustInventoryStockLevels; keys last 48 hours.'
+  - 'Cursors are dynamic, not snapshots — a result set can shift while paging. Page size is fixed at 50.'
+  - '429 means wait one minute. No Retry-After and no RateLimit-* headers are published.'
+  - 'Errors use a proprietary envelope (type/subtype/message/details/contextId), not RFC 9457. Quote contextId on any 5xx report.'
+  - Array fields may return null OR an empty array. Handle both.
+  - Additive response fields ship without a version bump; deserializers must tolerate unknown fields.
+  - No CORS — call from a server, never a browser.
+uncovered_surfaces:
+  - api: Discounts
+    reason: >-
+      GA 2026-07-14 with a second release 2026-08-06. Highly polymorphic (three independent oneOf
+      axes) and a skill would need more real-world usage evidence than the contract alone provides.
+  - api: Analytics
+    reason: Single bulk-summary operation, covered inline in the Profiles-to-Contacts skill.
+cross_links:
+  conventions: conventions/squarespace-conventions.yml
+  errors: errors/squarespace-problem-types.yml
+  scopes: scopes/squarespace-scopes.yml
+  rate_limits: rate-limits/squarespace-rate-limits.yml
+  lifecycle: lifecycle/squarespace-lifecycle.yml
+  data_model: data-model/squarespace-data-model.yml

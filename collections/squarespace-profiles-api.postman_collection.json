@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "d50ab984-eab9-4304-bb59-84fffc2d73e9",
+      "id": "20c5f83a-bfd5-4f6a-9e01-d8b31be40436",
       "name": "Profiles",
       "description": {
         "content": "Customer, subscriber, and donor profile management",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "843424bd-2714-4559-b897-24551ccb7d8d",
+          "id": "09584d3c-3983-423c-aff6-92fa98ce6cc6",
           "name": "Retrieve All Profiles",
           "request": {
             "name": "Retrieve All Profiles",
@@ -63,7 +63,7 @@
           },
           "response": [
             {
-              "id": "60ac0802-9c5b-4e72-b151-d2d2307bd6cf",
+              "id": "6b0d59b2-53d4-44b8-9b1b-43cd1afcc0c1",
               "name": "Successful response with paginated list of profiles",
               "originalRequest": {
                 "url": {
@@ -118,12 +118,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"c51H4PuT0Ma7P@vIRbmCDlkiSr.lybl\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"MM\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 853,\n        \"orderTotal\": {\n          \"value\": \"-03770\",\n          \"currency\": \"OHZ\"\n        },\n        \"donationCount\": 6884,\n        \"donationTotal\": {\n          \"value\": \"-98\",\n          \"currency\": \"WAL\"\n        },\n        \"firstOrderOn\": \"2000-09-17T05:58:09.356Z\",\n        \"lastOrderOn\": \"1983-01-22T06:49:16.727Z\"\n      },\n      \"createdOn\": \"1971-07-30T17:07:16.445Z\",\n      \"modifiedOn\": \"2009-03-29T00:13:59.050Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"Iy7oJIDM6USx@DNiLX.fovw\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"VV\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 4704,\n        \"orderTotal\": {\n          \"value\": \"1.50710498\",\n          \"currency\": \"GQB\"\n        },\n        \"donationCount\": 8436,\n        \"donationTotal\": {\n          \"value\": \"1.96012244\",\n          \"currency\": \"BIA\"\n        },\n        \"firstOrderOn\": \"1965-10-20T10:31:04.251Z\",\n        \"lastOrderOn\": \"1968-10-13T22:38:28.488Z\"\n      },\n      \"createdOn\": \"2000-07-27T06:56:02.925Z\",\n      \"modifiedOn\": \"1990-01-25T18:22:09.932Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://lmWNYHkeneXJOYxHRLWIMqNmN.lqN95CyJ1TI5jakAJZ7YPTFbnZLroa-lWRQEBaZ,fJd\"\n  }\n}",
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"qliKb6CDXJAttb@oTAWQLRVuYjRGUk.lqg\",\n      \"hasAccount\": false,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"QD\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 7514,\n        \"orderTotal\": {\n          \"value\": \"85034.93\",\n          \"currency\": \"JPL\"\n        },\n        \"donationCount\": 9902,\n        \"donationTotal\": {\n          \"value\": \"5249235263\",\n          \"currency\": \"SDK\"\n        },\n        \"firstOrderOn\": \"1999-07-21T11:22:22.011Z\",\n        \"lastOrderOn\": \"1970-07-30T12:07:51.327Z\"\n      },\n      \"createdOn\": \"1994-03-06T10:39:24.386Z\",\n      \"modifiedOn\": \"1961-07-15T07:22:36.302Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"sVB@xDSWHfevhZZj.fdk\",\n      \"hasAccount\": true,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"OJ\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 595,\n        \"orderTotal\": {\n          \"value\": \"-4959\",\n          \"currency\": \"LSW\"\n        },\n        \"donationCount\": 4372,\n        \"donationTotal\": {\n          \"value\": \"-135147475\",\n          \"currency\": \"FQK\"\n        },\n        \"firstOrderOn\": \"1984-10-30T10:46:24.182Z\",\n        \"lastOrderOn\": \"2022-06-09T09:34:42.171Z\"\n      },\n      \"createdOn\": \"2000-08-13T05:49:35.422Z\",\n      \"modifiedOn\": \"1951-01-26T13:16:37.868Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": true,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"https://rtMnrUmkxWDPkKVtik.chPTV0sbQ4K.KGRYeIPA.-6A\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "321867b0-17fa-4a7f-a09c-47da604466db",
+              "id": "95575e25-93e3-4aae-ab1f-06a6fd1b7888",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -178,12 +178,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "14fa531a-224a-4455-9f72-845178b8b234",
+              "id": "3411b1a0-cf30-4e08-a389-edfd49ebecc3",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -238,12 +238,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4918d0a9-a1b7-4ca1-ab0e-19ba1e628030",
+              "id": "569f3f40-f1c1-429e-bad8-48609b9f521f",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -298,12 +298,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "43534064-cd7b-4c76-b054-ff9314d8440d",
+              "id": "cbdd6bfe-7142-4936-919d-9c4982540daa",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -358,7 +358,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -369,7 +369,7 @@
           }
         },
         {
-          "id": "e757226a-9484-4210-87fc-79669d7df712",
+          "id": "1eeddf08-0dcb-4090-b164-befca917ec32",
           "name": "Retrieve Specific Profiles",
           "request": {
             "name": "Retrieve Specific Profiles",
@@ -407,7 +407,7 @@
           },
           "response": [
             {
-              "id": "7d758dca-b01e-494c-8aa0-7ab61f989629",
+              "id": "f7d31129-26e1-4406-a1dd-4d47af592f97",
               "name": "Successful response with the requested profiles",
               "originalRequest": {
                 "url": {
@@ -454,12 +454,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"W3HwM45ei1@fdMalGJtO.zrp\",\n      \"hasAccount\": false,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"AU\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 6889,\n        \"orderTotal\": {\n          \"value\": \"-288.64995310058\",\n          \"currency\": \"KMK\"\n        },\n        \"donationCount\": 7317,\n        \"donationTotal\": {\n          \"value\": \"79599365756.039437717\",\n          \"currency\": \"NOI\"\n        },\n        \"firstOrderOn\": \"1991-05-29T14:31:56.284Z\",\n        \"lastOrderOn\": \"1949-01-31T08:08:50.782Z\"\n      },\n      \"createdOn\": \"1959-03-29T05:26:13.858Z\",\n      \"modifiedOn\": \"1973-10-19T22:09:51.635Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"M3en4293iJVmD@dZSpgHNYBnIHOvHnz.mpbt\",\n      \"hasAccount\": true,\n      \"isCustomer\": true,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"WQ\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 9644,\n        \"orderTotal\": {\n          \"value\": \"-150164.46912\",\n          \"currency\": \"NHA\"\n        },\n        \"donationCount\": 2519,\n        \"donationTotal\": {\n          \"value\": \"043263\",\n          \"currency\": \"DUT\"\n        },\n        \"firstOrderOn\": \"1976-09-07T01:24:52.632Z\",\n        \"lastOrderOn\": \"1948-09-01T00:23:11.621Z\"\n      },\n      \"createdOn\": \"2023-12-02T19:34:28.670Z\",\n      \"modifiedOn\": \"1969-10-02T09:10:12.538Z\"\n    }\n  ]\n}",
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"qeZ@WOAWtLSqpGDZjKkezDMFoqGpdDHMEAc.ibe\",\n      \"hasAccount\": true,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"FE\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 7320,\n        \"orderTotal\": {\n          \"value\": \"4792.02961080458\",\n          \"currency\": \"AUM\"\n        },\n        \"donationCount\": 386,\n        \"donationTotal\": {\n          \"value\": \"-7263697288.98\",\n          \"currency\": \"LCB\"\n        },\n        \"firstOrderOn\": \"1966-11-02T08:21:07.254Z\",\n        \"lastOrderOn\": \"2009-07-10T07:40:50.562Z\"\n      },\n      \"createdOn\": \"2017-01-01T02:12:11.480Z\",\n      \"modifiedOn\": \"2022-05-08T12:17:59.881Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"YkiVERKzie@pKiJVYEazaTZhMyVNkkAPpUljnLqx.wvco\",\n      \"hasAccount\": false,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"TT\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 2478,\n        \"orderTotal\": {\n          \"value\": \"-24\",\n          \"currency\": \"MEB\"\n        },\n        \"donationCount\": 9539,\n        \"donationTotal\": {\n          \"value\": \"-69923807783.10969\",\n          \"currency\": \"FLE\"\n        },\n        \"firstOrderOn\": \"1979-11-03T21:12:24.365Z\",\n        \"lastOrderOn\": \"2020-03-15T00:52:59.316Z\"\n      },\n      \"createdOn\": \"1950-02-11T00:33:34.902Z\",\n      \"modifiedOn\": \"2007-12-11T08:47:53.513Z\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "fea925e5-f77e-48c6-8a58-a7e49327245e",
+              "id": "2f9cc9d2-c435-4103-a5c6-36320a6fee25",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -506,12 +506,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d65be8b9-d514-4e8d-a8af-c7b8d8532f42",
+              "id": "45904c27-5b76-4aac-98a3-e1cac7a5140c",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -558,12 +558,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b79acdc8-ea57-414c-aa36-720e8563f6b1",
+              "id": "da302a8f-e87d-44d2-82d6-7d0d5c95a620",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -610,12 +610,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f6d0fc4c-d7f5-4a09-84bd-aa9155f5441d",
+              "id": "9ee82482-8609-4b67-910e-5144e8642876",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -662,12 +662,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f64622fd-1cd7-4a9a-823e-e086e8b3dfa3",
+              "id": "c4beb356-3fb8-470a-beb6-4bf114f2d256",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -714,7 +714,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6187\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -746,11 +746,11 @@
     ]
   },
   "info": {
-    "_postman_id": "601baa84-c2e3-4324-820c-7b6e380c32e2",
-    "name": "Squarespace Profiles API",
+    "_postman_id": "1b36ef82-d86a-4b97-897f-8139593ef4cb",
+    "name": "Squarespace Commerce Inventory Profiles API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Squarespace Profiles API provides access to Profile resource objects representing customers, mailing list subscribers, and donors associated with a Squarespace site. Each profile includes contact information, an approximate address derived from existing data, and a summary of the user's commerce activity such as orders and donations. This API is useful for CRM integrations, email marketing platforms, and customer analytics tools. Profile data is generated asynchronously from site activity and accessible through the standard Profiles panel.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
       "type": "text/plain"
     }
   }

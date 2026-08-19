@@ -1,0 +1,203 @@
+generated: '2026-08-13'
+method: searched
+source: 'registry.npmjs.org, pypi.org, api.github.com/orgs/Squarespace, https://developers.squarespace.com'
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Client-library inventory for Squarespace. The headline finding is an absence with a clear shape:
+  Squarespace publishes NO official SDK for the Commerce APIs in any language. Its developer docs
+  contain no SDK page, no client-library section and no code samples beyond raw curl. Every
+  first-party package Squarespace does publish belongs to the TEMPLATE-development toolchain — the
+  LESS compiler, the JSON template engine, the local development server — which is a different
+  product from the Commerce API and is not a way to call it. That distinction is recorded per entry
+  as `api_client: false` so nothing here can be read as SDK coverage for the API.
+sdk_count: 0
+official_api_clients: 0
+package_count: 8
+registries_searched:
+  - npm
+  - PyPI
+  - RubyGems
+  - Packagist
+  - crates.io
+  - Maven Central
+  - NuGet
+  - pkg.go.dev
+docs_checked:
+  - https://developers.squarespace.com/commerce-apis/overview
+  - https://developers.squarespace.com/commerce-apis/making-requests
+  - https://developers.squarespace.com/quick-start
+
+packages:
+  - name: '@squarespace/template-engine'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/template-engine
+    repository: https://github.com/Squarespace/template-engine
+    official: true
+    api_client: false
+    kind: template-tooling
+    language: TypeScript
+    license: Apache-2.0
+    version: 2.10.10
+    published: '2026-06-04'
+    description: TypeScript implementation of the Squarespace template language.
+    note: >-
+      Actively maintained (repo pushed 2026-06-04) and the most current first-party package
+      Squarespace ships. Renders Squarespace's JSON template language; it does not talk to the
+      Commerce API.
+  - name: '@squarespace/server'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/server
+    repository: null
+    official: true
+    api_client: false
+    kind: local-dev-server
+    language: JavaScript
+    version: 1.10.3
+    published: '2025-12-08'
+    description: Squarespace Local Development Server.
+    note: Published by the squarespace-dev npm account. For template development, not API access.
+  - name: '@squarespace/less-ts'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/less-ts
+    repository: https://github.com/Squarespace/less-ts
+    official: true
+    api_client: false
+    kind: build-tooling
+    language: TypeScript
+    license: Apache-2.0
+    version: 1.1.5
+    published: '2024-01-09'
+    description: Squarespace LESS compiler in TypeScript.
+    note: >-
+      Package last published 2024-01-09 but the repository is still active (pushed 2026-07-01) — the
+      source is maintained ahead of the release.
+  - name: '@squarespace/less-ts-cli'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/less-ts-cli
+    repository: https://github.com/Squarespace/less-ts
+    official: true
+    api_client: false
+    kind: cli
+    language: TypeScript
+    license: Apache-2.0
+    version: 1.1.5
+    published: '2024-01-09'
+    description: Command-line interface to @squarespace/less-ts.
+    note: >-
+      This is the only first-party Squarespace CLI on a public registry. It compiles LESS; it has no
+      Commerce API commands, so no cli/ artifact is emitted for it.
+  - name: '@squarespace/toolbelt'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/toolbelt
+    repository: https://github.com/Squarespace/squarespace-toolbelt
+    official: true
+    api_client: false
+    kind: template-tooling
+    language: JavaScript
+    version: 0.12.5
+    published: '2022-01-20'
+    description: Utilities for building and maintaining Squarespace templates.
+    note: >-
+      Last published 2022-01-20; the repo was last pushed 2024-11-01 in what appears to be an
+      org-wide archival sweep. Treat as dormant.
+  - name: '@squarespace/core'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/core
+    repository: https://github.com/Squarespace/squarespace-core
+    official: true
+    api_client: false
+    kind: frontend-library
+    language: JavaScript
+    version: 1.2.2
+    published: '2021-11-30'
+    description: The frontend JS API for Squarespace templates.
+    note: Dormant. Front-end template runtime, unrelated to the Commerce API.
+  - name: '@squarespace/polyfills'
+    registry: npm
+    url: https://www.npmjs.com/package/@squarespace/polyfills
+    repository: https://github.com/Squarespace/squarespace-polyfills
+    official: true
+    api_client: false
+    kind: frontend-library
+    language: JavaScript
+    version: 1.0.2
+    published: '2017-02-21'
+    description: Polyfill library for Squarespace templates.
+    note: Dormant since 2017.
+  - name: eslint-config-squarespace
+    registry: npm
+    url: https://www.npmjs.com/package/eslint-config-squarespace
+    repository: https://github.com/Squarespace/eslint-config-squarespace
+    official: true
+    api_client: false
+    kind: lint-config
+    language: JavaScript
+    version: 2.0.0
+    published: '2021-02-12'
+    description: Universal ESLint configuration used at Squarespace.
+    note: Internal engineering convention published publicly. Dormant.
+
+third_party:
+  note: >-
+    Recorded so a reader knows the community gap-fillers exist and that none of them are
+    Squarespace-maintained. Not counted in package_count and never marked official.
+  packages:
+    - name: squarespace
+      registry: PyPI
+      url: https://pypi.org/project/squarespace/
+      official: false
+      api_client: true
+      version: 0.0.2
+      published: null
+      published_note: >-
+        PyPI reports version 0.0.2; no release date is recorded here because the JSON metadata
+        release list was not read in this pass. Honest gap.
+      author: skullY
+      repository: https://github.com/skullydazed/squarespace-python
+      description: Library to access the Squarespace Commerce API.
+      assessment: >-
+        The only Python client for the Commerce API on PyPI, at version 0.0.2 by an individual. It
+        predates Contacts, Discounts and Analytics entirely.
+    - name: squarespace-node-api
+      registry: npm
+      official: false
+      api_client: true
+      version: 2.0.0
+      published: '2021-07-27'
+      repository: https://github.com/zenfulfillment/squarespace-node-api
+      description: Community Node client for the Squarespace Commerce API.
+      assessment: Five years stale; predates Products v2, Contacts, Discounts and Analytics.
+    - name: '@florasync/squarespace-mcp'
+      registry: npm
+      official: false
+      api_client: true
+      version: 0.1.0
+      published: '2026-07-26'
+      repository: https://github.com/FloraSync/squarespace-mcp
+      description: Third-party MCP server wrapping Squarespace.
+      assessment: Not Squarespace-published. See mcp/squarespace-mcp.yml.
+    - name: '@pipedream/squarespace'
+      registry: npm
+      official: false
+      api_client: true
+      version: 0.1.0
+      published: '2026-05-14'
+      description: Pipedream integration component.
+
+findings:
+  - >-
+    Zero official Commerce API SDKs. A developer integrating Squarespace writes raw HTTP in every
+    language — the docs' own quick start is a curl command.
+  - >-
+    No SDKs pointer is emitted in apis.yml for this repo. The eight first-party packages are real
+    and official, but every one is template/build tooling; counting them as SDK coverage for the
+    Commerce API would credit Squarespace with client libraries it does not ship.
+  - >-
+    The community fills the gap badly. The best-known Python client sits at 0.0.2 and the Node
+    client has not shipped since 2021 — both predate three whole APIs (Contacts, Discounts,
+    Analytics) that reached GA in 2026.
+  - >-
+    Most of the Squarespace GitHub org's template repos share a 2024-11-01 push date, consistent
+    with a single bulk housekeeping commit rather than active maintenance. Only less-ts,
+    template-engine and template-compiler show independent 2026 activity.

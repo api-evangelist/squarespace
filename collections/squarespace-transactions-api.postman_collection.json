@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "daed54d6-85a3-4794-8f9b-6e4dbf223841",
+      "id": "b79c7aa3-216c-40a6-9282-0a2acbc59fee",
       "name": "Transactions",
       "description": {
         "content": "Financial transaction retrieval for orders and donations",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "f7aca614-a009-4a6a-8a78-30799a6593f5",
+          "id": "0b09c2ed-1d5c-4b65-92e0-46faa4ba3969",
           "name": "Retrieve All Transactions",
           "request": {
             "name": "Retrieve All Transactions",
@@ -58,7 +58,7 @@
           },
           "response": [
             {
-              "id": "135122dc-586e-4596-af6e-20eede564432",
+              "id": "3a32c57e-975b-450c-8af1-55e9aaa2c337",
               "name": "Successful response with paginated list of transaction documents",
               "originalRequest": {
                 "url": {
@@ -110,12 +110,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"2018-11-18T14:16:09.313Z\",\n      \"modifiedOn\": \"1994-03-10T11:12:48.472Z\",\n      \"totalSales\": {\n        \"value\": \"-27195841\",\n        \"currency\": \"HOQ\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"-387.0514578452\",\n        \"currency\": \"OMN\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-1646742540.3\",\n            \"currency\": \"DPR\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"77153105\",\n            \"currency\": \"SGT\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1968-08-20T20:23:09.341Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"28241132.7\",\n            \"currency\": \"JQX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"6371045\",\n            \"currency\": \"HRO\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2000-12-06T18:30:19.940Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TAX\",\n          \"amount\": {\n            \"value\": \"-259781971\",\n            \"currency\": \"BFM\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"89654350088.980629\",\n            \"currency\": \"RCI\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"ORDER\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"2017-05-11T16:38:04.474Z\",\n      \"modifiedOn\": \"1963-01-14T20:57:55.096Z\",\n      \"totalSales\": {\n        \"value\": \"-5\",\n        \"currency\": \"TPE\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"1327431\",\n        \"currency\": \"PFJ\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"PAYPAL\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-9195481750.13033015\",\n            \"currency\": \"GNH\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"840691633\",\n            \"currency\": \"VGQ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1984-04-11T02:02:41.669Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-0\",\n            \"currency\": \"BUV\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-783274.9057\",\n            \"currency\": \"SEE\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1950-03-13T15:27:48.492Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"3117.830666552\",\n            \"currency\": \"GJB\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TAX\",\n          \"amount\": {\n            \"value\": \"-48966692598\",\n            \"currency\": \"VZB\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://OOqfgLWFuLYWsEOpmqFCckBVvFKY.bkGA9Hm0I-,Msy-gcotvARB-WqQc-XUMyrTg,HKdRNq-\"\n  }\n}",
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1973-02-05T14:44:25.602Z\",\n      \"modifiedOn\": \"1989-06-19T09:22:23.294Z\",\n      \"totalSales\": {\n        \"value\": \"-6088194798.5514170669\",\n        \"currency\": \"OHC\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"4346866.5315884956\",\n        \"currency\": \"AQP\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-7841\",\n            \"currency\": \"VWD\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-2\",\n            \"currency\": \"EVC\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1995-03-26T15:45:33.109Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"5824327.5708183\",\n            \"currency\": \"LCC\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"94.65\",\n            \"currency\": \"VKQ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1967-01-18T11:58:40.307Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"PRODUCT\",\n          \"amount\": {\n            \"value\": \"5753\",\n            \"currency\": \"YFP\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"PRODUCT\",\n          \"amount\": {\n            \"value\": \"-96905.94934\",\n            \"currency\": \"OEI\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1952-04-21T14:08:12.229Z\",\n      \"modifiedOn\": \"2009-04-29T00:50:54.514Z\",\n      \"totalSales\": {\n        \"value\": \"-00\",\n        \"currency\": \"UCS\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"-716112\",\n        \"currency\": \"RPB\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-950\",\n            \"currency\": \"SKM\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-2057705723\",\n            \"currency\": \"DOQ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2018-02-12T13:07:35.959Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"21.7012\",\n            \"currency\": \"KFF\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"391641658.7308\",\n            \"currency\": \"HKB\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2006-11-25T11:07:08.641Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"SHIPPING\",\n          \"amount\": {\n            \"value\": \"-688\",\n            \"currency\": \"WLN\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"PRODUCT\",\n          \"amount\": {\n            \"value\": \"-6624295.3\",\n            \"currency\": \"YYM\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"http://lgUzrFDC.usPCoBQmEM9\"\n  }\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "4055f148-970b-47de-9249-490a865888d3",
+              "id": "a3f33c9b-b12e-4a57-ab13-5e999cac8a01",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -167,12 +167,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f871ff79-e062-453e-8a7d-0c543a47d1d2",
+              "id": "2850e60d-5502-40c0-a2f8-1ad3b9a8c613",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -224,12 +224,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "ef6aedab-174c-4d80-a660-1238b5e42e09",
+              "id": "6ac79026-f4a5-46c6-b8f0-323d6524ff8f",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -281,12 +281,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "549de16b-4a61-4ad5-9e33-049c7719bb91",
+              "id": "5e8e8efc-ed3e-4dfc-a8ce-c5a3d70f8d5a",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -338,7 +338,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -349,7 +349,7 @@
           }
         },
         {
-          "id": "929ca3b2-060c-4a28-9e61-a3e1f4a4df5a",
+          "id": "80f15a37-9ff2-4008-a9c1-963f54d3c9fa",
           "name": "Retrieve Specific Transactions",
           "request": {
             "name": "Retrieve Specific Transactions",
@@ -388,7 +388,7 @@
           },
           "response": [
             {
-              "id": "d1ae3031-ad5b-4266-8d30-00ed60f67193",
+              "id": "ebfdd7cd-f5e2-411a-bfe5-edb9e7ac2a17",
               "name": "Successful response with the requested transaction documents",
               "originalRequest": {
                 "url": {
@@ -436,12 +436,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1977-09-08T03:34:33.844Z\",\n      \"modifiedOn\": \"1988-05-28T02:46:32.496Z\",\n      \"totalSales\": {\n        \"value\": \"74624971.0\",\n        \"currency\": \"OVS\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"878.3804\",\n        \"currency\": \"DVB\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-318773\",\n            \"currency\": \"FUU\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-58456.0745\",\n            \"currency\": \"SLF\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1953-05-09T22:36:03.633Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"0749906237\",\n            \"currency\": \"BHN\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-7703438643\",\n            \"currency\": \"FHP\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2023-09-05T17:08:55.050Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"DISCOUNT\",\n          \"amount\": {\n            \"value\": \"-9072420.65598766892\",\n            \"currency\": \"CJQ\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"SHIPPING\",\n          \"amount\": {\n            \"value\": \"56\",\n            \"currency\": \"ADZ\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1977-08-03T06:13:47.028Z\",\n      \"modifiedOn\": \"1993-08-31T09:35:41.222Z\",\n      \"totalSales\": {\n        \"value\": \"029275587\",\n        \"currency\": \"JPM\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"8119931078.2584921\",\n        \"currency\": \"QGX\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"16067564\",\n            \"currency\": \"THX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-605\",\n            \"currency\": \"JAC\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1967-03-17T11:03:46.462Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"STRIPE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"-0.07\",\n            \"currency\": \"THX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-74293950\",\n            \"currency\": \"HNJ\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1993-04-15T08:48:57.154Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TIP\",\n          \"amount\": {\n            \"value\": \"7\",\n            \"currency\": \"ZCG\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"DISCOUNT\",\n          \"amount\": {\n            \"value\": \"-9678\",\n            \"currency\": \"NNG\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ]\n}",
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"1949-03-09T12:53:27.210Z\",\n      \"modifiedOn\": \"1946-08-30T21:47:54.212Z\",\n      \"totalSales\": {\n        \"value\": \"26\",\n        \"currency\": \"UUX\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"-44995194937\",\n        \"currency\": \"HUN\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARESPACE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"439792\",\n            \"currency\": \"LWD\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"18.45081\",\n            \"currency\": \"HPO\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1962-12-13T07:14:14.595Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"6.72900952875\",\n            \"currency\": \"MWV\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-12\",\n            \"currency\": \"EOE\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1988-02-14T06:37:35.914Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"PRODUCT\",\n          \"amount\": {\n            \"value\": \"-141430.0\",\n            \"currency\": \"NQQ\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"DISCOUNT\",\n          \"amount\": {\n            \"value\": \"-3700320\",\n            \"currency\": \"IJG\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    },\n    {\n      \"id\": \"string\",\n      \"createdOn\": \"2019-11-19T02:22:05.702Z\",\n      \"modifiedOn\": \"1956-04-12T05:58:37.193Z\",\n      \"totalSales\": {\n        \"value\": \"-0057204.56\",\n        \"currency\": \"TRM\"\n      },\n      \"totalNetPayment\": {\n        \"value\": \"-010514\",\n        \"currency\": \"SYA\"\n      },\n      \"payments\": [\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"SQUARE\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"74.5\",\n            \"currency\": \"EQZ\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-20990671131.4\",\n            \"currency\": \"YSG\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"2024-01-08T12:40:34.382Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"paymentGateway\": \"PAYPAL\",\n          \"creditCardType\": \"string\",\n          \"amount\": {\n            \"value\": \"683.9827\",\n            \"currency\": \"JIX\"\n          },\n          \"refundedAmount\": {\n            \"value\": \"-7939975004.005252926\",\n            \"currency\": \"RDV\"\n          },\n          \"externalTransactionId\": \"string\",\n          \"createdOn\": \"1980-03-24T14:00:45.748Z\"\n        }\n      ],\n      \"lineItems\": [\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"TAX\",\n          \"amount\": {\n            \"value\": \"11886611.3420\",\n            \"currency\": \"DGM\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"lineItemType\": \"SHIPPING\",\n          \"amount\": {\n            \"value\": \"47741.285260\",\n            \"currency\": \"CDY\"\n          },\n          \"taxName\": \"string\",\n          \"taxRate\": \"string\"\n        }\n      ],\n      \"orderDocumentType\": \"DONATION\"\n    }\n  ]\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "0fe9615a-4318-4688-8fee-6a71037cd7dd",
+              "id": "f5d12be1-1355-4edb-87fa-b8bb36db8f7e",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
                 "url": {
@@ -489,12 +489,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "9950e069-75de-4798-8fba-10ffcdbb69d4",
+              "id": "e741d3a2-ea88-4ecb-a87b-97ebedbbe321",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
                 "url": {
@@ -542,12 +542,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "d0f2ecab-1bed-48e6-942e-e31a6066b614",
+              "id": "48604898-f57b-4c44-b3a7-8d368be11f69",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
                 "url": {
@@ -595,12 +595,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b2a239cc-ae1a-491a-a85c-c78160fa1545",
+              "id": "feeb9028-fe5e-4148-b429-ede80380dd78",
               "name": "The requested resource was not found",
               "originalRequest": {
                 "url": {
@@ -648,12 +648,12 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "5b31b6ce-88f0-4fc9-9882-75d191d26448",
+              "id": "c9a48a6b-4cd1-477e-8a49-a8e20f52bcc5",
               "name": "Rate limit exceeded",
               "originalRequest": {
                 "url": {
@@ -701,7 +701,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 8735\n}",
+              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6039\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -733,11 +733,11 @@
     ]
   },
   "info": {
-    "_postman_id": "ffc2c57a-ee9e-41a6-8380-072d075cc239",
-    "name": "Squarespace Transactions API",
+    "_postman_id": "1ce3ab19-1689-4b6b-814f-60652042c349",
+    "name": "Squarespace Commerce Inventory Transactions API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "The Squarespace Transactions API returns Document resource objects representing collections of financial transactions for orders and donations on a merchant site. It provides detailed payment data and supports multiple payment gateways including Squarespace Payments, Stripe, PayPal, and Square. The API is useful for building financial reporting tools, reconciliation workflows, and accounting integrations. Access requires a Commerce Basic, Commerce Advanced, or higher Squarespace plan.\n\nContact Support:\n Name: Squarespace Developer Support",
+      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
       "type": "text/plain"
     }
   }

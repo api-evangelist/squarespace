@@ -1,0 +1,133 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/squarespace-mcp-tools.json, openapi/squarespace-commerce-api-v2-openapi.json
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Binds Squarespace's live MCP tools to the operations of its published REST contract. The headline
+  finding is a total disjunction: the two shipped MCP tools and the 55 published REST operations
+  address entirely different products. The MCP server sells domains; the REST API runs a merchant's
+  store. There is not one row where a tool and an operation describe the same capability, so
+  crosswalk[] is empty by measurement, not by omission. Both surfaces are real and both were probed
+  on 2026-08-13.
+
+surfaces:
+  openapi:
+    file: openapi/squarespace-commerce-api-v2-openapi.json
+    source: https://developers.squarespace.com/commerce-apis/latest/schema-processor-version-version-latest.json
+    version: 3.1.1
+    info_version: '2'
+    servers: ['https://api.squarespace.com']
+    operations: 55
+    gated: false
+    note: Spec is public and anonymous; the API itself requires a bearer token.
+  mcp:
+    url: https://mcp.squarespace.com/mcp
+    tools: 2
+    gated: false
+    note: tools/list answers anonymously with full inputSchemas — the schemas below are real, not inferred.
+  graphql:
+    endpoint: null
+    note: No GraphQL surface is published for the Squarespace developer platform.
+
+coverage:
+  mcp_tools: 2
+  rest_operations: 55
+  crosswalked: 0
+  mcp_only: 2
+  rest_only: 55
+  mcp_coverage_of_rest: 0.0
+  rest_coverage_of_mcp: 0.0
+
+crosswalk: []
+
+mcp_only:
+  - tool: domains_search
+    reason: >-
+      No public REST operation exists for the Squarespace domain catalog. Domain search,
+      availability and pricing are not part of the Commerce API — the published contract has no
+      /domains path and no domain schema. The tool's backing service is unexposed to REST clients.
+    category: domains
+  - tool: domains_generate_names
+    reason: >-
+      Brand-name generation is an MCP-only capability with no REST analogue anywhere in the
+      Squarespace developer platform. It is a generative service, not a resource, and is not
+      documented on developers.squarespace.com at all.
+    category: domains
+
+rest_only:
+  - tag: Orders
+    operations: [getOrders, createOrder, getOrder, fulfillOrder]
+    reason: No MCP tool addresses merchant orders.
+  - tag: Products
+    operations:
+      - getProducts
+      - createProduct
+      - getSpecificProducts
+      - deleteProduct
+      - updateProduct
+      - uploadProductImage
+      - deleteProductImage
+      - updateProductImage
+      - updateProductImageOrder
+      - getProductImageProcessingStatus
+      - createProductVariant
+      - deleteProductVariant
+      - updateProductVariant
+      - associateProductVariantImage
+    reason: No MCP tool addresses the product catalog.
+  - tag: Inventory
+    operations: [getInventoryItems, adjustInventoryStockLevels, getSpecificInventoryItems]
+    reason: No MCP tool addresses stock levels.
+  - tag: Contacts
+    operations:
+      - getContacts
+      - createContact
+      - queryContacts
+      - deleteContact
+      - getContact
+      - patchContact
+      - getAddressBook
+      - createAddressBookEntry
+      - deleteAddressBookEntry
+      - getAddressBookEntry
+      - updateAddressBookEntry
+    reason: No MCP tool addresses contacts or address books.
+  - tag: Discounts
+    operations: [listDiscounts, createDiscount, deleteDiscount, getDiscount, updateDiscount, getFulfillmentOptions]
+    reason: No MCP tool addresses discounts.
+  - tag: Transactions
+    operations: [getDocumentsByUpdatedOn, getDocumentsById]
+    reason: No MCP tool addresses financial transactions.
+  - tag: Analytics
+    operations: [getTransactionsSummaries]
+    reason: No MCP tool addresses commerce analytics.
+  - tag: Websites
+    operations: [getMemberProfile, getWebsiteProfile, getStorePages]
+    reason: No MCP tool addresses site metadata.
+  - tag: Profiles
+    operations: [getProfiles, getSpecificProfiles]
+    reason: 'No MCP tool addresses profiles; the API is in maintenance mode regardless.'
+  - tag: WebhookSubscriptions
+    operations:
+      - getWebhookSubscriptions
+      - createWebhookSubscription
+      - deleteWebhookSubscription
+      - getWebhookSubscription
+      - updateWebhookSubscription
+      - rotateSubscriptionSecret
+      - sendTestNotificationForWebhookSubscription
+    reason: No MCP tool addresses webhook subscriptions.
+
+interpretation: >-
+  Squarespace's agent investment sits in front of the funnel, not inside the product. The MCP server
+  helps an agent name a business and buy it a domain — the moment a prospect becomes a Squarespace
+  customer. Everything an agent could do FOR an existing merchant remains REST-only, bearer-token,
+  and Advanced-plan-gated. Any tool-crosswalk consumer should read the zero here as a real,
+  measured gap in agent reach over the commerce surface, not as a discovery failure.
+
+notes:
+  - Both surfaces were probed anonymously; neither result is inferred from prose.
+  - >-
+    The MCP inputSchemas are the authoritative parameter definitions for the two tools because there
+    is no REST operation to inherit parameters from.

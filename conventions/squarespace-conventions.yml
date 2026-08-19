@@ -1,0 +1,241 @@
+generated: '2026-08-13'
+method: searched
+source: https://developers.squarespace.com/commerce-apis/making-requests
+provider: Squarespace
+providerId: squarespace
+description: >-
+  Cross-cutting runtime semantics for the Squarespace Commerce APIs — the rules an agent must know
+  that are not expressible in a single operation. Searched from the "Using Commerce APIs" guides and
+  cross-checked against the 55-operation published OpenAPI at
+  developers.squarespace.com/commerce-apis/latest/schema-processor-version-version-latest.json.
+sources:
+  - https://developers.squarespace.com/commerce-apis/making-requests
+  - https://developers.squarespace.com/commerce-apis/idempotency-key
+  - https://developers.squarespace.com/commerce-apis/responses-error-handling
+  - https://developers.squarespace.com/commerce-apis/versioning
+  - https://developers.squarespace.com/commerce-apis/rate-limits
+  - https://developers.squarespace.com/commerce-apis/price-limits
+  - https://developers.squarespace.com/commerce-apis/faq
+
+auth:
+  style: bearer
+  header: Authorization
+  value: 'Bearer <API key or OAuth access token>'
+  detail: authentication/squarespace-authentication.yml
+  scopes: scopes/squarespace-scopes.yml
+
+required_headers:
+  - name: Authorization
+    required: always
+  - name: User-Agent
+    required: always
+    note: >-
+      Requests without a User-Agent are REJECTED. This is unusual and is the single most common
+      first-call failure. A descriptive application User-Agent is required; a default client
+      User-Agent is accepted but may be rate-limited more aggressively.
+  - name: Content-Type
+    required: on requests with a body
+    value: application/json
+  - name: Accept
+    required: false
+    note: Commerce APIs return JSON only; an Accept header is permitted but unnecessary.
+
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  required_on:
+    - operationId: adjustInventoryStockLevels
+      method: POST
+      path: /1.0/commerce/inventory/adjustments
+      required: true
+    - operationId: createOrder
+      method: POST
+      path: /1.0/commerce/orders
+      required: true
+  scope: per key + parameters
+  key_format: >-
+    A unique string of up to 64 alphanumeric characters, dashes and underscores. UUIDs are valid
+    and common.
+  retention: >-
+    Keys are recycled after an unspecified interval but are guaranteed effective for 48 hours from
+    the time they are used successfully.
+  replay_behavior: >-
+    Using the same Idempotency-Key and the same parameters, a request may be retried multiple times
+    but is executed only on the first successful attempt; every subsequent request receives the same
+    response.
+  note: >-
+    Idempotency is REQUIRED, not optional, on the two mutating operations that can double-charge or
+    double-count. It is declared as a required header parameter in the published OpenAPI, so the
+    requirement is machine-readable.
+  source: https://developers.squarespace.com/commerce-apis/idempotency-key
+
+pagination:
+  style: cursor
+  request_param: cursor
+  response_object: pagination
+  response_fields:
+    - hasNextPage
+    - nextPageCursor
+    - nextPageUrl
+  page_size: 50
+  page_size_configurable: false
+  cursor_semantics: >-
+    Squarespace calls these DYNAMIC cursors: a cursor points at a location in a collection, not at a
+    snapshot of it. If the collection changes between pages (a product is added or deleted) the
+    response changes too. Agents must not assume a stable result set across pages.
+  exclusivity: >-
+    On the Orders and Products list operations, `cursor` cannot be combined with the other filter
+    parameters (modifiedAfter/modifiedBefore etc.) — the cursor already encodes them.
+  applies_to:
+    - GET /v1/contacts
+    - GET /v1/contacts/{contactId}/address-book
+    - GET /v2/commerce/products
+    - GET /1.0/commerce/inventory
+    - GET /1.0/commerce/orders
+    - GET /1.0/commerce/store_pages
+    - GET /1.0/commerce/transactions
+    - GET /1.0/profiles
+  source: https://developers.squarespace.com/commerce-apis/faq
+
+filtering:
+  style: query-parameters
+  examples:
+    - 'GET /1.0/commerce/orders?customerId=&modifiedAfter=&modifiedBefore=&fulfillmentStatus=&paymentStates='
+    - 'GET /1.0/commerce/transactions?orderId='
+    - 'GET /v2/commerce/products?type='
+  time_format: ISO 8601 UTC (YYYY-MM-DDThh:mm:ss.sZ)
+  paired_params: >-
+    modifiedAfter and modifiedBefore are mutually required — passing one without the other is an error.
+  csv_params: >-
+    Several read operations take comma-separated ID lists in the PATH, not the query string:
+    /1.0/commerce/inventory/{variantIdCsvs}, /1.0/profiles/{profileIdCsvs},
+    /v2/commerce/products/{productIdCsvs}, /1.0/commerce/transactions/{documentIds}.
+  query_endpoint: >-
+    Contacts additionally exposes POST /v1/contacts/query for filter expressions that do not fit in
+    a query string (search by name/email, marketing status, order history, donation activity).
+
+field_expansion:
+  supported: false
+  note: No expand / fields / include parameter is documented or present in the OpenAPI.
+
+sparse_fieldsets:
+  supported: false
+
+metadata:
+  supported: false
+  note: >-
+    There is no generic customer-supplied metadata bag on Squarespace resources. Orders carry
+    formSubmission and internalNotes; Products carry customForms and SEO options. None of these are
+    a free-form key/value store.
+
+request_tracing:
+  request_id_header: null
+  response_field: contextId
+  note: >-
+    Squarespace does not return a request-id HEADER. Instead every error body carries a `contextId`
+    string, and the docs instruct developers to quote that contextId when reporting 5xx errors to
+    Customer Care. Successful responses carry no correlation identifier at all, so an agent cannot
+    correlate a successful call with a support ticket.
+  source: https://developers.squarespace.com/commerce-apis/responses-error-handling
+
+versioning:
+  style: uri-path
+  format: 'https://api.squarespace.com/{api-version}/{resource-path}'
+  scheme: per-resource
+  note: >-
+    Each Commerce API resource carries an INDEPENDENT version number, so a single integration spans
+    three version strings at once (1.0, v1 and v2). Pre-2025 endpoints used SemVer Major.Minor where
+    minor updates sometimes shipped breaking changes; from 2025 Squarespace uses plain integers
+    (v1, v2, v3) and increments only on a breaking change.
+  current:
+    '/products': v2
+    '/contacts': v1
+    '/discounts': v1
+    '/inventory': '1.0'
+    '/orders': '1.0'
+    '/profiles': '1.0'
+    '/transactions': '1.0'
+    '/webhook_subscriptions': '1.0'
+  legacy:
+    '/products': ['1.1', '1.0']
+  non_breaking_changes_shipped_without_version_bump:
+    - Additive response contents (new fields or objects)
+    - Relaxed constraints (required field becomes optional, validation loosened)
+    - New HTTP methods on existing endpoints
+    - New optional query parameters
+    - Bug fixes
+  client_obligation: >-
+    Clients MUST tolerate all of the above without a version change. Squarespace states this as a
+    hard requirement of using the API.
+  detail: lifecycle/squarespace-lifecycle.yml
+  source: https://developers.squarespace.com/commerce-apis/versioning
+
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  content_type: application/json
+  media_type_used_for_errors: application/json
+  fields:
+    type: General purpose descriptor for the error type. Always present.
+    subtype: Descriptor for the error subtype when available. Nullable.
+    message: Plain-English developer message. Not for end users.
+    details: 'Machine-readable data for user-friendly messages. Reserved for future use; always null at this time.'
+    contextId: Identifier to quote when reporting the issue to Squarespace Customer Care.
+  always_present: true
+  note: >-
+    Every field is always present even when null. The envelope is Squarespace's own shape, NOT
+    RFC 9457 problem+json — there is no type URI, no title, no status member, and the content type
+    is application/json rather than application/problem+json.
+  catalog: errors/squarespace-problem-types.yml
+
+null_semantics:
+  documented_fields_always_present: true
+  empty_arrays: >-
+    An array field with no data may be returned as either null OR an empty array. Clients must
+    handle both. This is stated explicitly in the docs and is a real deserialization hazard.
+  ordering: >-
+    Ordering of response data is not guaranteed unless explicitly stated on the endpoint's
+    reference page.
+
+rate_limit_signaling:
+  headers: []
+  status: 429
+  cooldown: 1m
+  retry_after_header: false
+  detail: rate-limits/squarespace-rate-limits.yml
+  note: No RateLimit-*, X-RateLimit-* or Retry-After headers are published.
+
+retry_policy:
+  recommended: exponential backoff
+  applies_to: 5xx
+  note: >-
+    Squarespace states 5xx errors are sometimes transient network faults and recommends exponential
+    backoff with a bounded attempt count. On 429 the documented behaviour is a flat one-minute
+    cool-down. Retries of createOrder and adjustInventoryStockLevels are safe ONLY because the
+    Idempotency-Key header is required on them.
+
+value_limits:
+  max_price_by_currency:
+    JPY: 999999999
+    KRW: 99999999
+    HUF: 10000000
+    COP: 10000000
+    default: 1000000
+  address_book_entries_per_contact: 50
+  product_attributes_per_product: 6
+  source: https://developers.squarespace.com/commerce-apis/price-limits
+
+cors:
+  supported: false
+  reason: >-
+    Squarespace declines CORS deliberately, on the grounds that browser-side calls would expose the
+    bearer token to end users. The documented pattern is a server-side proxy.
+
+cross_links:
+  errors: errors/squarespace-problem-types.yml
+  lifecycle: lifecycle/squarespace-lifecycle.yml
+  authentication: authentication/squarespace-authentication.yml
+  scopes: scopes/squarespace-scopes.yml
+  rate_limits: rate-limits/squarespace-rate-limits.yml
+  data_model: data-model/squarespace-data-model.yml
+  changelog: changelog/squarespace-changelog.yml
