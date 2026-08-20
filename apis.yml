@@ -33,6 +33,10 @@ apis:
   baseUrl: https://api.squarespace.com/1.0
   tags:
   - Commerce
+  - Order
+  - REST API
+  tags_raw:
+  - Commerce
   - Orders
   - REST API
   properties:
@@ -50,6 +54,10 @@ apis:
   humanUrl: https://developers.squarespace.com/commerce-apis/products-overview
   baseUrl: https://api.squarespace.com/1.0
   tags:
+  - Commerce
+  - Product
+  - REST API
+  tags_raw:
   - Commerce
   - Products
   - REST API
@@ -105,6 +113,10 @@ apis:
   tags:
   - Commerce
   - Finance
+  - Transaction
+  tags_raw:
+  - Commerce
+  - Finance
   - Transactions
   properties:
   - type: Documentation
@@ -121,6 +133,10 @@ apis:
   humanUrl: https://developers.squarespace.com/webhooks/overview
   baseUrl: https://api.squarespace.com/1.0
   tags:
+  - Webhook
+  - Event Notifications
+  - REST API
+  tags_raw:
   - Webhooks
   - Event Notifications
   - REST API
@@ -171,6 +187,17 @@ apis:
   tags:
   - Commerce
   - E-Commerce
+  - Order
+  - Product
+  - Inventory
+  - CRM
+  - Discounts
+  - Transaction
+  - Webhook
+  - REST API
+  tags_raw:
+  - Commerce
+  - E-Commerce
   - Orders
   - Products
   - Inventory
@@ -218,6 +245,11 @@ apis:
   humanUrl: https://mcp.squarespace.com/mcp
   baseUrl: https://mcp.squarespace.com/mcp
   tags:
+  - MCP
+  - Agents
+  - Domains
+  - Artificial Intelligence
+  tags_raw:
   - MCP
   - Agents
   - Domains
@@ -324,6 +356,14 @@ maintainers:
   - name: Squarespace Developer Support
     url: https://developers.squarespace.com
 tags:
+  - Commerce
+  - E-Commerce
+  - Marketing
+  - Payments
+  - Retail
+  - Website Builder
+  - Webhook
+tags_raw:
   - Commerce
   - E-Commerce
   - Marketing
