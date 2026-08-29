@@ -361,6 +361,9 @@ apis:
   - type: ChangeLog
     url: https://developers.squarespace.com/commerce-apis/changelog
 common:
+  - type: CapabilityMap
+    url: capabilities/squarespace-capability-edges.yml
+    name: Squarespace Business Capability Map
   - type: Overlay
     url: overlays/squarespace-commerce-api-v2-overlay.yaml
   - type: AgenticAccess

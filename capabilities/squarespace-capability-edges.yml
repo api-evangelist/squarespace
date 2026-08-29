@@ -1,0 +1,74 @@
+slug: squarespace
+provider: Squarespace
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Retail & Consumer Goods
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Discounts
+  spec_file: squarespace-discounts-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.88
+  evidence: POST /v1/commerce/discounts createDiscount 'Create discount'; schemas PromoCodeTrigger, FreeShippingTemplate,
+    BuyXGetYPercentageTemplate
+  reason: Operations create and manage discount/promo-code rules for a commerce site — Discount & Promotion
+    Management.
+- tag: Contacts
+  spec_file: squarespace-contacts-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.85
+  evidence: '"Manage customer contacts and address book entries for a website: create, read, update, delete,
+    and query contacts"; schemas AddressBookEntry, AcceptsMarketing'
+  reason: CRUD and query over customer contact records and their addresses — maintenance of the customer
+    master/contact record for a commerce site.
+- tag: Inventory
+  spec_file: squarespace-inventory-api-openapi.yml
+  capability_id: BC-530.10
+  capability_id_l1: BC-530
+  capability_name: Stock Level Management
+  confidence: 0.82
+  evidence: POST /1.0/commerce/inventory/adjustments adjustInventoryStockLevels 'Adjust stock quantities';
+    InventoryItem, InventoryAdjustment
+  reason: Reads and adjusts stock quantities per variant — inventory stock level management.
+- tag: Orders
+  spec_file: squarespace-orders-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.8
+  evidence: POST /1.0/commerce/orders/{id}/fulfillments fulfillOrder 'Fulfill order'; schemas Fulfillment,
+    ShippingLine, CreateOrderShipmentRequest
+  reason: Order capture and fulfilment for e-commerce orders — order fulfilment management. Could also
+    be seen as omnichannel order management but evidence is single-channel order/fulfilment.
+- tag: Profiles
+  spec_file: squarespace-profiles-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.8
+  evidence: GET /profiles listProfiles 'Retrieve All Profiles'; schemas Profile, Address, TransactionsSummary,
+    CommerceStats
+  reason: Read access to customer profile records with addresses and commerce statistics — customer data
+    management.
+- tag: Products
+  spec_file: squarespace-products-api-openapi.yml
+  capability_id: BC-2370.10
+  capability_id_l1: BC-2370
+  capability_name: Item Master Data Management
+  confidence: 0.78
+  evidence: POST /v2/commerce/products createProduct; POST /v2/commerce/products/{productId}/images uploadProductImage;
+    schemas PhysicalProduct, ProductVariantV2, ChangeSeoOptions
+  reason: Maintains item records, variants, images and SEO content for a merchant catalog — product/item
+    master data with content authoring.
