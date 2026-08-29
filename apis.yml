@@ -5,6 +5,18 @@ description: >-
   create, manage, and scale their online presence. Squarespace provides a suite of Commerce APIs for developers to build
   integrations managing products, orders, inventory, customer profiles, transactions, and webhook notifications. All
   APIs use HTTPS REST conventions with API key or OAuth authentication.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 specificationVersion: '0.23'
 accessModel:
   pricing: enterprise
