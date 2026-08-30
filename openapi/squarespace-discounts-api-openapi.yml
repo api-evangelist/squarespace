@@ -1,0 +1,1038 @@
+openapi: 3.2.0
+info:
+  title: Commerce Discounts API
+  version: '2'
+  description: Manage discounts for a website.
+servers:
+- url: https://api.squarespace.com
+  description: Commerce API
+security:
+- Authorization: []
+tags:
+- description: Manage discounts for a website.
+  name: Discounts
+  x-zudoku-collapsed: true
+paths:
+  /v1/commerce/discounts:
+    get:
+      description: Returns a paginated list of discounts for the website. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS.
+      operationId: listDiscounts
+      parameters:
+      - description: Sort field for the result set.
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+          default: CREATED_ON
+          enum:
+          - CREATED_ON
+          - PROMO_CODE
+          - USES_COUNT
+      - description: Sort direction.
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          type: string
+          default: DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+      - description: Free-text search across a discount's name and promo code.
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+      - description: Filter by discount lifecycle status.
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+          default: ALL
+          enum:
+          - ALL
+          - ACTIVE
+          - EXPIRED
+          - SCHEDULED
+      - description: Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.
+        in: query
+        name: criteria
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - ANY_ORDER
+            - CART_TOTAL
+            - PRODUCT
+            - BUY_X_GET_Y
+          default:
+          - ANY_ORDER
+          - CART_TOTAL
+          - PRODUCT
+          - BUY_X_GET_Y
+      - description: Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.
+        in: query
+        name: template
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - FIXED_AMOUNT
+            - PERCENTAGE
+            - BUY_X_GET_Y_FIXED_AMOUNT
+            - BUY_X_GET_Y_PERCENTAGE
+            - FREE_SHIPPING
+          default:
+          - FIXED_AMOUNT
+          - PERCENTAGE
+          - BUY_X_GET_Y_FIXED_AMOUNT
+          - BUY_X_GET_Y_PERCENTAGE
+          - FREE_SHIPPING
+      - description: 'Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.'
+        in: query
+        name: trigger
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - AUTO
+            - CODE
+          enum:
+          - AUTO
+          - CODE
+      - description: When true, only discounts with limited-use semantics (per product rules) are returned.
+        in: query
+        name: limitedUseOnly
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - description: Zero-based offset into the result set. Must be non-negative. Default 0.
+        in: query
+        name: offset
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          format: int32
+          default: 0
+      - description: Page size (1–1000; default 50).
+        in: query
+        name: limit
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+          default: 50
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDiscountListResponse'
+          description: Paginated discounts for the website (empty page is a successful response).
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Invalid query parameters (e.g. limit over cap, unknown enum value).
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: List discounts
+      tags:
+      - Discounts
+    post:
+      description: Creates a discount. A successful request returns the created Discount resource. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS.
+      operationId: createDiscount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDiscountRequest'
+        description: The discount to create.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountResponse'
+          description: The created discount.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Bad request. Missing or invalid fields, invalid criteria/template pairing, or promo code reserved for gift cards.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Conflict. The promo code is already in use by another discount, or the maximum number of auto-trigger discounts has been reached.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: Create discount
+      tags:
+      - Discounts
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+  /v1/commerce/discounts/{discountId}:
+    delete:
+      description: Deletes the discount for the given discount ID. Deletion is permitted for any discount owned by the website, including discounts whose criteria, template, or trigger types are not supported by this API version; no type validation is performed. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS.
+      operationId: deleteDiscount
+      parameters:
+      - description: The discount's ID.
+        in: path
+        name: discountId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64b8f4e3d9a2ca6f41b25e3c
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '204':
+          description: No content. The discount was deleted successfully.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found. The requested discount was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: Delete discount
+      tags:
+      - Discounts
+    get:
+      description: Returns the discount for the given discount ID. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS.
+      operationId: getDiscount
+      parameters:
+      - description: The discount's ID
+        in: path
+        name: discountId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64b8f4e3d9a2ca6f41b25e3c
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountResponse'
+          description: Discount found.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Discount not found for this website.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: Get discount
+      tags:
+      - Discounts
+    put:
+      description: Replaces the discount for the given discount ID. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS.
+      operationId: updateDiscount
+      parameters:
+      - description: The discount's unique identifier.
+        in: path
+        name: discountId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64b8f4e3d9a2ca6f41b25e3c
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Discount'
+        description: The discount replacement payload.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountResponse'
+          description: The updated discount.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Bad request. Missing or invalid fields, invalid criteria/template pairing, or promo code reserved for gift cards.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Discount not found for this website.
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Conflict. The promo code is already in use by another discount, or the maximum number of auto-trigger discounts has been reached.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: Update discount
+      tags:
+      - Discounts
+  /v1/fulfillments/fulfillment-options:
+    get:
+      description: Returns a list of fulfillment option IDs and carrier services that can be used with discounts. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS.
+      operationId: getFulfillmentOptions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FulfillmentOptionsList'
+          description: List of fulfillment option IDs and carrier services for the website.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Rate limit exceeded.
+      summary: Get fulfillment options
+      tags:
+      - Discounts
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+components:
+  schemas:
+    PromoCodeTrigger:
+      title: PromoCodeTrigger
+      required:
+      - promoCode
+      - type
+      type: object
+      description: Trigger for a discount that is unlocked by a shopper-entered promo code.
+      properties:
+        type:
+          type: string
+        promoCode:
+          pattern: ^[A-Za-z0-9_\-]{1,50}$
+          type: string
+          description: 'Shopper-entered promo code. Required, non-empty, 1–50 characters; allowed characters: letters, digits, underscore, hyphen.'
+      discriminator:
+        propertyName: type
+    CartTotalCriteria:
+      title: CartTotalCriteria
+      required:
+      - minimumCartTotal
+      - type
+      type: object
+      description: Discount applies when the cart total meets or exceeds a minimum.
+      properties:
+        type:
+          type: string
+        minimumCartTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
+      discriminator:
+        propertyName: type
+    SelectedShippingOption:
+      required:
+      - shippingOptionId
+      - shippingOptionName
+      type: object
+      properties:
+        isAllServicesSelected:
+          type: boolean
+          description: If true, all services within the shipping option are eligible.
+        selectedService:
+          type: string
+          description: Carrier service eligible for a free-shipping discount.
+          enum:
+          - FEDEX_GROUND
+          - FEDEX_GROUND_HOME_DELIVERY
+          - FEDEX_PRIORITY_OVERNIGHT
+          - FEDEX_STANDARD_OVERNIGHT
+          - FEDEX_2_DAY
+          - FEDEX_2_DAY_AM
+          - FEDEX_EXPRESS_SAVER
+          - FEDEX_FIRST_OVERNIGHT
+          - FEDEX_SAME_DAY
+          - FEDEX_SAME_DAY_CITY
+          - UPS_GROUND
+          - UPS_NEXT_DAY_AIR
+          - UPS_NEXT_DAY_AIR_SAVER
+          - UPS_NEXT_DAY_AIR_EARLY_AM
+          - UPS_TWO_DAY_AIR
+          - UPS_TWO_DAY_AIR_AM
+          - UPS_THREE_DAY_SELECT
+          - USPS_PRIORITY
+          - USPS_EXPRESS
+          - USPS_STANDARD
+        shippingOptionId:
+          type: string
+          description: Identifier of the shipping option.
+        shippingOptionName:
+          type: string
+          description: Display-time snapshot of the shipping option name.
+      description: A shipping option targeted by a free-shipping discount.
+    AutoTrigger:
+      title: AutoTrigger
+      type: object
+      description: Trigger for a discount that is automatically applied; no promo code required.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+      discriminator:
+        propertyName: type
+    FulfillmentOption:
+      required:
+      - availableServices
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        availableServices:
+          type: array
+          description: Available carrier services.
+          items:
+            $ref: '#/components/schemas/CarrierService'
+        id:
+          type: string
+          description: Fulfillment option id.
+        name:
+          type: string
+          description: Display name for the option.
+          examples:
+          - Standard Shipping
+        type:
+          type: string
+          description: Fulfillment channel for this option.
+          enum:
+          - SHIPPING
+          - PICKUP
+          - LOCAL_DELIVERY
+      description: Fulfillment option IDs and carrier services for a website.
+    PercentageTemplate:
+      title: PercentageTemplate
+      required:
+      - percentage
+      - type
+      type: object
+      description: Apply a percentage discount off the cart total.
+      properties:
+        type:
+          type: string
+        percentage:
+          maximum: 100
+          exclusiveMinimum: 0
+          type: number
+          description: Percentage to subtract from the cart total. Range (0, 100].
+      discriminator:
+        propertyName: type
+    PaymentPlanOptions:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines how the discount applies to payment-plan payments.
+          enum:
+          - NONE
+          - ALL_PAYMENTS
+      description: Payment-plan applicability settings for this discount. When omitted from a create or update request, defaults to NONE.
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    FulfillmentOptionsList:
+      required:
+      - fulfillmentOptions
+      type: object
+      properties:
+        fulfillmentOptions:
+          type: array
+          description: Fulfillment option IDs and carrier services for this website.
+          items:
+            $ref: '#/components/schemas/FulfillmentOption'
+      description: List of fulfillment option IDs and carrier services.
+    BuyXGetYFixedAmountTemplate:
+      title: BuyXGetYFixedAmountTemplate
+      required:
+      - discountAmount
+      - type
+      type: object
+      description: Apply a fixed monetary amount off each reward item in a BUY_X_GET_Y discount.
+      properties:
+        type:
+          type: string
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        maxApplicationsPerCart:
+          minimum: 0
+          type: integer
+          description: Caps how many times the discount can be applied per cart. 0 means unlimited.
+          format: int32
+      discriminator:
+        propertyName: type
+    MonetaryAmount:
+      type: object
+      properties:
+        currency:
+          type: object
+          description: ISO 4217 currency code.
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            numericCode:
+              type: integer
+              format: int32
+            numericCodeAsString:
+              type: string
+            symbol:
+              type: string
+          examples:
+          - USD
+        value:
+          type: number
+          description: Decimal monetary value.
+          examples:
+          - 49.99
+      description: A monetary amount with currency code and decimal value.
+    FreeShippingTemplate:
+      title: FreeShippingTemplate
+      type: object
+      description: Waive shipping cost for eligible carts.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        appliesToFulfillmentOptionType:
+          type: string
+          description: Fulfillment channel a free-shipping discount applies to.
+          enum:
+          - SHIPPING
+          - PICKUP
+          - LOCAL_DELIVERY
+        selectedShippingOption:
+          $ref: '#/components/schemas/SelectedShippingOption'
+      discriminator:
+        propertyName: type
+    BuyXGetYPercentageTemplate:
+      title: BuyXGetYPercentageTemplate
+      required:
+      - discountPercentage
+      - type
+      type: object
+      description: Apply a percentage discount off each reward item in a BUY_X_GET_Y discount.
+      properties:
+        type:
+          type: string
+        discountPercentage:
+          maximum: 100
+          exclusiveMinimum: 0
+          type: number
+          description: Percentage to subtract from each reward item. Range (0, 100].
+        maxApplicationsPerCart:
+          minimum: 0
+          type: integer
+          description: Caps how many times the discount can be applied per cart. 0 means unlimited.
+          format: int32
+      discriminator:
+        propertyName: type
+    ProductCriteria:
+      title: ProductCriteria
+      type: object
+      description: Discount applies when the cart contains a specific product.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        productId:
+          type: string
+          description: Identifier of the product the discount targets.
+        productName:
+          type: string
+          description: Display-time snapshot of the product name at the time the discount was created.
+      discriminator:
+        propertyName: type
+    SubscriptionOptions:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines how the discount applies to subscription payments.
+          enum:
+          - EXCLUDED
+          - ALL_PAYMENTS
+          - LIMITED_PAYMENTS
+      description: Subscription applicability settings for this discount. When omitted from a create or update request, defaults to EXCLUDED.
+    FixedAmountTemplate:
+      title: FixedAmountTemplate
+      required:
+      - discountAmount
+      - type
+      type: object
+      description: Apply a fixed monetary amount off the cart total.
+      properties:
+        type:
+          type: string
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+      discriminator:
+        propertyName: type
+    Discount:
+      required:
+      - criteria
+      - name
+      - template
+      - trigger
+      - validFrom
+      type: object
+      properties:
+        criteria:
+          oneOf:
+          - $ref: '#/components/schemas/AnyOrderCriteria'
+          - $ref: '#/components/schemas/BuyXGetYCriteria'
+          - $ref: '#/components/schemas/CartTotalCriteria'
+          - $ref: '#/components/schemas/ProductCriteria'
+        id:
+          type: string
+          description: Discount id.
+          readOnly: true
+        isLimitedUses:
+          type: boolean
+          description: If true, the discount can only be used `maxUsesAllowed` times site-wide.
+        isOncePerCustomer:
+          type: boolean
+          description: If true, a given customer can only use this discount once.
+        lastRedeemedAt:
+          type: string
+          description: Timestamp of the most recent redemption. Null if never redeemed.
+          format: date-time
+          readOnly: true
+        maxUsesAllowed:
+          type: integer
+          description: Maximum site-wide redemptions. Required when isLimitedUses=true; null otherwise.
+          format: int32
+        name:
+          type: string
+          description: Display name for the discount.
+        numberOfUses:
+          type: integer
+          description: Number of times this discount has been redeemed.
+          format: int32
+          readOnly: true
+        paymentPlanOptions:
+          $ref: '#/components/schemas/PaymentPlanOptions'
+        status:
+          type: string
+          description: Defines the lifecycle status of a discount.
+          readOnly: true
+          enum:
+          - ACTIVE
+          - SCHEDULED
+          - EXPIRED
+        subscriptionOptions:
+          $ref: '#/components/schemas/SubscriptionOptions'
+        template:
+          oneOf:
+          - $ref: '#/components/schemas/BuyXGetYFixedAmountTemplate'
+          - $ref: '#/components/schemas/BuyXGetYPercentageTemplate'
+          - $ref: '#/components/schemas/FixedAmountTemplate'
+          - $ref: '#/components/schemas/FreeShippingTemplate'
+          - $ref: '#/components/schemas/PercentageTemplate'
+        trigger:
+          oneOf:
+          - $ref: '#/components/schemas/AutoTrigger'
+          - $ref: '#/components/schemas/PromoCodeTrigger'
+        validFrom:
+          type: string
+          description: When the discount becomes active.
+          format: date-time
+        validTo:
+          type: string
+          description: When the discount expires. Null = no expiry.
+          format: date-time
+        websiteId:
+          type: string
+          description: 24-char website id.
+          readOnly: true
+      description: Discount configured for a Commerce store.
+    AnyOrderCriteria:
+      title: AnyOrderCriteria
+      type: object
+      description: Discount applies to any order. No additional conditions.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+      discriminator:
+        propertyName: type
+    CreateDiscountRequest:
+      required:
+      - criteria
+      - name
+      - template
+      - trigger
+      - validFrom
+      type: object
+      properties:
+        criteria:
+          oneOf:
+          - $ref: '#/components/schemas/AnyOrderCriteria'
+          - $ref: '#/components/schemas/BuyXGetYCriteria'
+          - $ref: '#/components/schemas/CartTotalCriteria'
+          - $ref: '#/components/schemas/ProductCriteria'
+        isLimitedUses:
+          type: boolean
+          description: If true, the discount can only be used `maxUsesAllowed` times site-wide.
+        isOncePerCustomer:
+          type: boolean
+          description: If true, a given customer can only use this discount once.
+        maxUsesAllowed:
+          type: integer
+          description: Maximum site-wide redemptions. Required when isLimitedUses=true; null otherwise.
+          format: int32
+        name:
+          type: string
+          description: Display name for the discount.
+        paymentPlanOptions:
+          $ref: '#/components/schemas/PaymentPlanOptions'
+        subscriptionOptions:
+          $ref: '#/components/schemas/SubscriptionOptions'
+        template:
+          oneOf:
+          - $ref: '#/components/schemas/BuyXGetYFixedAmountTemplate'
+          - $ref: '#/components/schemas/BuyXGetYPercentageTemplate'
+          - $ref: '#/components/schemas/FixedAmountTemplate'
+          - $ref: '#/components/schemas/FreeShippingTemplate'
+          - $ref: '#/components/schemas/PercentageTemplate'
+        trigger:
+          oneOf:
+          - $ref: '#/components/schemas/AutoTrigger'
+          - $ref: '#/components/schemas/PromoCodeTrigger'
+        validFrom:
+          type: string
+          description: When the discount becomes active.
+          format: date-time
+        validTo:
+          type: string
+          description: When the discount expires. Null = no expiry.
+          format: date-time
+      description: Request body for creating a discount.
+    DiscountResponse:
+      required:
+      - discount
+      type: object
+      properties:
+        discount:
+          $ref: '#/components/schemas/Discount'
+      description: Envelope for a single discount response.
+    BuyXGetYCriteria:
+      title: BuyXGetYCriteria
+      required:
+      - eligibleForDiscountQuantity
+      - requiredFullPriceQuantity
+      - type
+      type: object
+      description: Discount applies when the cart contains a required quantity of qualifying items (buy side), granting a discount on a quantity of eligible items (reward side).
+      properties:
+        type:
+          type: string
+        criteriaAppliesTo:
+          type: string
+          description: Specifies the possible targets for a BuyXGetYCriteria buy-side.
+          enum:
+          - PRODUCT
+        criteriaProductIds:
+          uniqueItems: true
+          type: array
+          description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
+          items:
+            type: string
+            description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
+        eligibleForDiscountQuantity:
+          minimum: 1
+          type: integer
+          description: Quantity of eligible items the discount applies to.
+          format: int32
+        requiredFullPriceQuantity:
+          minimum: 1
+          type: integer
+          description: Quantity of qualifying items required at full price.
+          format: int32
+        rewardAppliesTo:
+          type: string
+          description: Specifies the possible targets for a BuyXGetYCriteria reward-side.
+          enum:
+          - PRODUCT
+        rewardProductIds:
+          uniqueItems: true
+          type: array
+          description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
+          items:
+            type: string
+            description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
+      discriminator:
+        propertyName: type
+    CarrierService:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable carrier service name.
+          examples:
+          - FedEx Ground®
+        name:
+          type: string
+          description: Carrier service identifier.
+          examples:
+          - FEDEX_GROUND
+      description: Carrier service identifier and display name.
+    PaginatedDiscountListResponse:
+      required:
+      - discounts
+      type: object
+      properties:
+        discounts:
+          type: array
+          description: Discounts for this page.
+          items:
+            $ref: '#/components/schemas/Discount'
+        hasNextPage:
+          type: boolean
+          description: True when more results exist after the current window.
+        hasPreviousPage:
+          type: boolean
+          description: True when a page of results exists before the current window.
+      description: Offset-paginated list of discounts for a website.
+  securitySchemes:
+    Authorization:
+      in: header
+      scheme: bearer
+      type: http

@@ -1,0 +1,1477 @@
+openapi: 3.2.0
+info:
+  title: Commerce Contacts API
+  version: '2'
+  description: 'Manage customer contacts and address book entries for a website: create, read, update, delete, and query contacts; maintain addresses for shipping and fulfillment.'
+servers:
+- url: https://api.squarespace.com
+  description: Commerce API
+security:
+- Authorization: []
+tags:
+- description: 'Manage customer contacts and address book entries for a website: create, read, update, delete, and query contacts; maintain addresses for shipping and fulfillment.'
+  name: Contacts
+  x-zudoku-collapsed: true
+paths:
+  /v1/contacts:
+    get:
+      description: Returns a paginated list of contacts for the website. Requires OAuth website scope website.contacts.read or website.contacts, or API key scope CONTACT_READONLY or CONTACT, or OAuth website scope website.profiles.read or website.profiles (OAuth only).
+      operationId: getContacts
+      parameters:
+      - description: number of contacts to retrieve per request
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 0
+          type: integer
+          format: int32
+          default: 50
+      - description: where next page of results begins. should be {pagination.nextPageCursor} from previous response.
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGetContactsResponse'
+          description: A paginated list of contacts.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: 'Invalid pagination parameters: page size out of range or cursor not from a previous response.'
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: List contacts
+      tags:
+      - Contacts
+    post:
+      description: Creates a new contact. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: createContact
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContactRequest'
+        description: The contact to create.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateContactResponse'
+          description: The created contact.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Invalid input or malformed JSON.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: A contact with the same unique fields already exists.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Create contact
+      tags:
+      - Contacts
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+  /v1/contacts/query:
+    post:
+      description: Returns a paginated list of contacts matching filters and sort options in the request body. Requires OAuth website scope website.contacts.read or website.contacts, or API key scope CONTACT_READONLY or CONTACT, or OAuth website scope website.profiles.read or website.profiles (OAuth only).
+      operationId: queryContacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryContactsRequest'
+        description: Filters and sort order for the contact query.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedQueryContactsResponse'
+          description: A paginated list of contacts matching the query.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Invalid input or malformed JSON.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Query contacts
+      tags:
+      - Contacts
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+  /v1/contacts/{contactId}:
+    delete:
+      description: Deletes the contact for the given contact ID. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: deleteContact
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '204':
+          description: No content.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Delete contact
+      tags:
+      - Contacts
+    get:
+      description: Returns the contact for the given contact ID. Requires OAuth website scope website.contacts.read or website.contacts, or API key scope CONTACT_READONLY or CONTACT, or OAuth website scope website.profiles.read or website.profiles (OAuth only).
+      operationId: getContact
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetContactResponse'
+          description: The requested contact.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Get contact
+      tags:
+      - Contacts
+    patch:
+      description: Updates a contact using JSON merge patch. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: patchContact
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      requestBody:
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchContactRequest'
+        description: Fields to update on the contact.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatchContactResponse'
+          description: The updated contact.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Malformed syntax or invalid request body.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact was not found.
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The email address is already associated with another contact.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Update contact
+      tags:
+      - Contacts
+  /v1/contacts/{contactId}/address-book:
+    get:
+      description: Returns paginated addresses for the contact. When there is at least one entry, exactly one is the default shipping address (defaultShippingAddressId and each entry's defaultShipping reflect this). The default shipping address (when present) is always included on the first page of results. Requires OAuth website scope website.contacts.read or website.contacts, or API key scope CONTACT_READONLY or CONTACT, or OAuth website scope website.profiles.read or website.profiles (OAuth only).
+      operationId: getAddressBook
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - description: number of contacts to retrieve per request
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 0
+          type: integer
+          format: int32
+          default: 50
+      - description: where next page of results begins. should be {pagination.nextPageCursor} from previous response.
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAddressBookResponse'
+          description: Paginated list of the contact's addresses. When there is at least one entry, the first page always includes the default shipping address, and defaultShippingAddressId identifies it. On later pages, addressBookEntries is the next slice only; defaultShippingAddressId is present only when the default shipping entry appears in that slice.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Get address book
+      tags:
+      - Contacts
+    post:
+      description: Creates a new address book entry for the contact. If this is the contact's only address book entry after creation, it becomes the default shipping address even when defaultShipping is false. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: createAddressBookEntry
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAddressBookEntryRequest'
+        description: The address book entry to create.
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAddressBookEntryResponse'
+          description: The created address book entry.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Invalid input or malformed JSON.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Create address book entry
+      tags:
+      - Contacts
+  /v1/contacts/{contactId}/address-book/{addressBookEntryId}:
+    delete:
+      description: Deletes the address book entry for the contact. If the deleted entry was the default shipping address, another entry is assigned as the default. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: deleteAddressBookEntry
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - description: The address book entry's ID.
+        in: path
+        name: addressBookEntryId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 5f8d0d55b54764421b7156aa
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '204':
+          description: No content.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact or address book entry was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Delete address book entry
+      tags:
+      - Contacts
+    get:
+      description: Returns a single address book entry for the contact. Requires OAuth website scope website.contacts.read or website.contacts, or API key scope CONTACT_READONLY or CONTACT, or OAuth website scope website.profiles.read or website.profiles (OAuth only).
+      operationId: getAddressBookEntry
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - description: The address book entry's ID.
+        in: path
+        name: addressBookEntryId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 5f8d0d55b54764421b7156aa
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAddressBookEntryResponse'
+          description: The requested address book entry.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact or address book entry was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Get address book entry
+      tags:
+      - Contacts
+    put:
+      description: Replaces an address book entry for the contact with a full JSON body. When updating the entry that is currently the default, setting "defaultShipping" from true to false has no effect. Requires OAuth website scope website.contacts, or API key scope CONTACT, or OAuth website scope website.profiles (OAuth only).
+      operationId: updateAddressBookEntry
+      parameters:
+      - description: The contact's ID.
+        in: path
+        name: contactId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 64a7e3d2c8f1b95e30a14d2b
+      - description: The address book entry's ID.
+        in: path
+        name: addressBookEntryId
+        required: true
+        schema:
+          type: string
+        examples:
+          default:
+            value: 5f8d0d55b54764421b7156aa
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAddressBookEntryRequest'
+        description: The replacement address book entry.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAddressBookEntryResponse'
+          description: The updated address book entry.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Invalid input or malformed JSON.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: The contact or address book entry was not found.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Too many requests. The rate limit for this endpoint has been exceeded.
+      summary: Replace address book entry
+      tags:
+      - Contacts
+components:
+  schemas:
+    CreateContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    CreateAddressBookEntryResponse:
+      type: object
+      properties:
+        addressBookEntry:
+          $ref: '#/components/schemas/AddressBookEntry'
+    AddressBook:
+      type: object
+      properties:
+        addressBookEntries:
+          type: array
+          description: List of Address Book Entries
+          items:
+            $ref: '#/components/schemas/AddressBookEntry'
+        defaultShippingAddressId:
+          type: string
+          description: The id of the address book entry that is the default shipping address.
+      description: Address settings for a contact. When there is at least one address book entry, exactly one is the default shipping address; default shipping address is always returned on the first page of paginated results).
+    UpdateAddressBookEntryRequest:
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry should be the default shipping address. When updating the entry that is currently the default, changing this value from true to false has no effect.
+    IntegerFilter:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Filter out any numbers greater
+          format: int32
+        min:
+          type: integer
+          description: Filter out any numbers lower
+          format: int32
+      description: Object for filtering by a min and max integer
+    CreateContactRequest:
+      required:
+      - firstName
+      - lastName
+      - locale
+      - primaryEmail
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact's first name
+          examples:
+          - john
+        lastName:
+          type: string
+          description: Contact's last name
+          examples:
+          - doe
+        locale:
+          type: string
+          description: Contact's locale
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/CreateEmail'
+    CreateEmail:
+      required:
+      - email
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: If contact's email accepts marketing
+          default: false
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: Primary email supplied when creating a contact.
+    PatchContactRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The contact's first name.
+          examples:
+          - John
+        lastName:
+          type: string
+          description: The contact's last name.
+          examples:
+          - Smith
+        locale:
+          type: string
+          description: The contact's locale.
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/PatchEmail'
+      description: Fields to update on an existing contact.
+      examples:
+      - firstName: John
+        lastName: Smith
+        locale: en-US
+        primaryEmail:
+          email: johnsmith@mail.com
+          acceptsMarketing: true
+    GetAddressBookEntryResponse:
+      type: object
+      properties:
+        addressBookEntry:
+          $ref: '#/components/schemas/AddressBookEntry'
+    PaginatedGetContactsResponse:
+      type: object
+      properties:
+        contacts:
+          type: array
+          description: paginated list of contacts retrieved
+          items:
+            $ref: '#/components/schemas/Contact'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    QueryContactsRequest:
+      type: object
+      properties:
+        acceptsMarketingWithDate:
+          $ref: '#/components/schemas/AcceptsMarketingWithDate'
+        cursor:
+          type: string
+          description: The cursor for the next page of results. Use the value of `pagination.nextPageCursor` from the previous response.
+        donationAmount:
+          $ref: '#/components/schemas/IntegerFilter'
+        donationCount:
+          $ref: '#/components/schemas/IntegerFilter'
+        firstDonationOn:
+          $ref: '#/components/schemas/DateFilter'
+        firstOrderOn:
+          $ref: '#/components/schemas/DateFilter'
+        lastDonationOn:
+          $ref: '#/components/schemas/DateFilter'
+        lastOrderOn:
+          $ref: '#/components/schemas/DateFilter'
+        orderAmount:
+          $ref: '#/components/schemas/IntegerFilter'
+        orderCount:
+          $ref: '#/components/schemas/IntegerFilter'
+        pageSize:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          description: The number of contacts to return per request.
+          format: int32
+          default: 50
+        searchString:
+          type: string
+          description: Search string for Name and Email address
+        sortDirection:
+          type: string
+          description: Direction to sort results, ASCENDING or DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+        sortField:
+          type: string
+          description: Field to sort results by
+          enum:
+          - ID
+          - CREATED_ON
+          - EMAIL
+          - ACCEPTS_MARKETING_JOINED_ON
+          - FIRST_NAME
+          - LAST_NAME
+          - ORDER_COUNT
+          - LAST_ORDER_ON
+          - ORDER_AMOUNT
+          - DONATION_COUNT
+          - LAST_DONATION_ON
+          - DONATION_AMOUNT
+      examples:
+      - acceptsMarketingWithDate:
+          acceptsMarketing: true
+          joinedOn:
+            before: '2025-11-21T10:00:00Z'
+            after: '2020-11-26T14:30:00Z'
+        searchString: jane
+        firstOrderOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        lastOrderOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        orderCount:
+          min: 1
+          max: 10
+        firstDonationOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        lastDonationOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        donationCount:
+          min: 1
+          max: 10
+        pageSize: 50
+        cursor: abc
+        sortField: createdOn
+        sortDirection: ASCENDING
+    GetContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    PatchEmail:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: If contact's email accepts marketing
+          examples:
+          - true
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: Primary email fields for an update request.
+      examples:
+      - email: johnsmith@mail.com
+        acceptsMarketing: true
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    AcceptsMarketing:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: Whether the contact accepts marketing email.
+        joinedOn:
+          type: string
+          description: The date and time the contact was added to the marketing list.The value returned in the creation response is a near-real-time estimate; the Get Contact endpoint should be used to verify the exact persisted timestamp.
+          format: date-time
+        leftOn:
+          type: string
+          description: The date and time the contact left Marketing list
+          format: date-time
+      description: Marketing subscription state for the contact's email.
+    AddressBookEntry:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry is the current default shipping address. When the contact has any address book entries, exactly one entry has this value set to true.
+        id:
+          type: string
+          description: The address book entry's ID.
+          readOnly: true
+          examples:
+          - 5f8d0d55b54764421b7156aa
+      description: An address book entry for a contact.
+    PaginatedQueryContactsResponse:
+      type: object
+      properties:
+        contacts:
+          type: array
+          description: paginated list of contacts retrieved
+          items:
+            $ref: '#/components/schemas/Contact'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    GetAddressBookResponse:
+      type: object
+      properties:
+        addressBook:
+          $ref: '#/components/schemas/AddressBook'
+        pagination:
+          $ref: '#/components/schemas/PaginationDetails'
+    Email:
+      type: object
+      properties:
+        acceptsMarketing:
+          $ref: '#/components/schemas/AcceptsMarketing'
+        createdOn:
+          type: string
+          description: The date and time when the email was created.
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: The contact's primary email.
+    PatchContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    DateFilter:
+      type: object
+      properties:
+        after:
+          type: string
+          description: Filter out any dates after
+          format: date-time
+        before:
+          type: string
+          description: Filter out any dates before
+          format: date-time
+      description: Object for filtering by before and after dates
+    Contact:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: The date and time when the contact was created.
+          format: date-time
+          readOnly: true
+        defaultShippingAddress:
+          $ref: '#/components/schemas/AddressBookEntry'
+        firstName:
+          type: string
+          description: The contact's first name.
+        id:
+          type: string
+          description: The contact's ID.
+          readOnly: true
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        lastName:
+          type: string
+          description: The contact's last name.
+        locale:
+          type: string
+          description: The contact's locale.
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/Email'
+      description: A contact.
+    PaginationDetails:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+        nextPageCursor:
+          type: string
+        nextPageUrl:
+          type: string
+    UpdateAddressBookEntryResponse:
+      type: object
+      properties:
+        addressBookEntry:
+          $ref: '#/components/schemas/AddressBookEntry'
+    AcceptsMarketingWithDate:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: If contact's email accepts marketing
+        joinedOn:
+          $ref: '#/components/schemas/DateFilter'
+      description: Contact's marketing settings with joined on date
+    ContactAddress:
+      required:
+      - countryCode
+      type: object
+      properties:
+        city:
+          type: string
+          description: Address' city
+          examples:
+          - Springfield
+        countryCode:
+          type: string
+          description: ISO 3166 alpha-2 country code string.
+          enum:
+          - AF
+          - AX
+          - AL
+          - DZ
+          - AS
+          - AD
+          - AO
+          - AI
+          - AQ
+          - AG
+          - AR
+          - AM
+          - AW
+          - AU
+          - AT
+          - AZ
+          - BS
+          - BH
+          - BD
+          - BB
+          - BY
+          - BE
+          - BZ
+          - BJ
+          - BM
+          - BT
+          - BO
+          - BA
+          - BW
+          - BV
+          - BR
+          - IO
+          - BN
+          - BG
+          - BF
+          - BI
+          - BQ
+          - KH
+          - CM
+          - CA
+          - CV
+          - KY
+          - CF
+          - TD
+          - CL
+          - CN
+          - CX
+          - CC
+          - CO
+          - KM
+          - CG
+          - CD
+          - CK
+          - CR
+          - CI
+          - CW
+          - HR
+          - CU
+          - CY
+          - CZ
+          - DK
+          - DJ
+          - DM
+          - DO
+          - EC
+          - EG
+          - SV
+          - GQ
+          - ER
+          - EE
+          - ET
+          - FK
+          - FO
+          - FJ
+          - FI
+          - FR
+          - GF
+          - PF
+          - TF
+          - GA
+          - GM
+          - GE
+          - DE
+          - GH
+          - GI
+          - GR
+          - GL
+          - GD
+          - GP
+          - GU
+          - GT
+          - GG
+          - GN
+          - GW
+          - GY
+          - HT
+          - HM
+          - VA
+          - HN
+          - HK
+          - HU
+          - IS
+          - IN
+          - ID
+          - IR
+          - IQ
+          - IE
+          - IM
+          - IL
+          - IT
+          - JM
+          - JP
+          - JE
+          - JO
+          - KZ
+          - KE
+          - KI
+          - XK
+          - KP
+          - KR
+          - KW
+          - KG
+          - LA
+          - LV
+          - LB
+          - LS
+          - LR
+          - LY
+          - LI
+          - LT
+          - LU
+          - MO
+          - MF
+          - MK
+          - MG
+          - MW
+          - MY
+          - MV
+          - ML
+          - MT
+          - MH
+          - MQ
+          - MR
+          - MU
+          - YT
+          - MX
+          - FM
+          - MD
+          - MC
+          - MN
+          - ME
+          - MS
+          - MA
+          - MZ
+          - MM
+          - NA
+          - NR
+          - NP
+          - NL
+          - AN
+          - NC
+          - NZ
+          - NI
+          - NE
+          - NG
+          - NU
+          - NF
+          - MP
+          - 'NO'
+          - OM
+          - PK
+          - PW
+          - PS
+          - PA
+          - PG
+          - PY
+          - PE
+          - PH
+          - PN
+          - PL
+          - PT
+          - PR
+          - QA
+          - RE
+          - RO
+          - RU
+          - RW
+          - BL
+          - SH
+          - KN
+          - LC
+          - PM
+          - VC
+          - WS
+          - SM
+          - ST
+          - SA
+          - SN
+          - RS
+          - SC
+          - SL
+          - SG
+          - SK
+          - SI
+          - SB
+          - SO
+          - SX
+          - ZA
+          - GS
+          - ES
+          - LK
+          - SD
+          - SR
+          - SJ
+          - SS
+          - SZ
+          - SY
+          - SE
+          - CH
+          - TW
+          - TJ
+          - TZ
+          - TH
+          - TL
+          - TG
+          - TK
+          - TO
+          - TT
+          - TN
+          - TR
+          - TM
+          - TC
+          - TV
+          - UG
+          - UA
+          - AE
+          - GB
+          - US
+          - UM
+          - UY
+          - UZ
+          - VU
+          - VE
+          - VN
+          - VG
+          - VI
+          - WF
+          - EH
+          - YE
+          - ZM
+          - ZW
+          examples:
+          - US
+        firstName:
+          type: string
+          description: Contact's first name
+          examples:
+          - John
+        lastName:
+          type: string
+          description: Contact's last name
+          examples:
+          - Doe
+        line1:
+          type: string
+          description: First line of address
+          examples:
+          - 100 Main St
+        line2:
+          type: string
+          description: Second line of address
+          examples:
+          - Apt 1A
+        phoneNumber:
+          type: string
+          description: Contact's phone number
+          examples:
+          - 215-555-4321
+        postalCode:
+          type: string
+          description: zip/postal code
+          examples:
+          - '10900'
+        region:
+          type: string
+          description: General region (State, Province, County, etc...)
+          examples:
+          - IL
+      description: Address properties for a contact.
+    CreateAddressBookEntryRequest:
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry should be the default shipping address. If this is the only address book entry for the contact after creation, it becomes the default even when set to false.
+  securitySchemes:
+    Authorization:
+      in: header
+      scheme: bearer
+      type: http

@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: Commerce Websites API
+  version: '2'
+servers:
+- url: https://api.squarespace.com
+  description: Commerce API
+security:
+- Authorization: []
+tags:
+- name: Websites
+  x-zudoku-collapsed: true
+paths:
+  /1.0/authorization/member:
+    get:
+      description: Retrieves basic details about the Squarespace member who owns the provided OAuth token
+      operationId: getMemberProfile
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberProfile'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberProfile'
+          description: Authorization error
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found. The API version is not supported.
+      summary: Retrieves basic details about the Squarespace member who owns the provided OAuth token
+      tags:
+      - Websites
+  /1.0/authorization/website:
+    get:
+      description: Retrieves basic details about the website that owns the provided API key or OAuth token
+      operationId: getWebsiteProfile
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebsiteProfile'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found. The API version is not supported.
+      summary: Retrieves basic details about the website that owns the provided API key or OAuth token
+      tags:
+      - Websites
+  /1.0/commerce/store_pages:
+    get:
+      description: Retrieves information for all store pages on the website. The response supports dynamic cursors for pagination.
+      operationId: getStorePages
+      parameters:
+      - in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedStorePagesResponse'
+          description: OK
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found. The API version is not supported.
+      summary: List store pages
+      tags:
+      - Websites
+components:
+  schemas:
+    StorePage:
+      type: object
+      properties:
+        id:
+          type: string
+        isEnabled:
+          type: boolean
+        title:
+          type: string
+        urlSlug:
+          type: string
+    MeasurementStandard:
+      type: string
+      enum:
+      - IMPERIAL
+      - METRIC
+    Location:
+      type: object
+      properties:
+        country:
+          type: string
+        region:
+          type: string
+    WebsiteProfile:
+      type: object
+      properties:
+        currency:
+          type: string
+        id:
+          type: string
+        language:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        measurementStandard:
+          $ref: '#/components/schemas/MeasurementStandard'
+        siteId:
+          type: string
+        timeZone:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+    PaginatedStorePagesResponse:
+      type: object
+      properties:
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/store_pages?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        storePages:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorePage'
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    MemberProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Profile email address.
+        firstName:
+          type: string
+          description: Profile first name.
+        id:
+          type: string
+          description: Unique Profile id.
+        lastName:
+          type: string
+          description: Profile last name.
+  securitySchemes:
+    Authorization:
+      in: header
+      scheme: bearer
+      type: http
