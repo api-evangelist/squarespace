@@ -304,6 +304,8 @@ apis:
   name: Squarespace Webhook Subscriptions API
   description: The WebhookSubscriptions API from Squarespace — 4 operation(s) for webhooksubscriptions.
   tags:
+  - Webhook Subscriptions
+  tags_raw:
   - WebhookSubscriptions
   properties:
   - type: OpenAPI
