@@ -300,38 +300,6 @@ apis:
     url: data-model/squarespace-data-model.yml
   - type: ChangeLog
     url: https://developers.squarespace.com/commerce-apis/changelog
-- aid: squarespace:squarespace-webhooksubscriptions-api
-  name: Squarespace Webhook Subscriptions API
-  description: The WebhookSubscriptions API from Squarespace — 4 operation(s) for webhooksubscriptions.
-  tags:
-  - Webhook Subscriptions
-  tags_raw:
-  - WebhookSubscriptions
-  properties:
-  - type: OpenAPI
-    url: openapi/squarespace-webhooksubscriptions-api-openapi.yml
-  - type: Documentation
-    url: https://developers.squarespace.com/commerce-apis/overview
-  - type: APIReference
-    url: https://developers.squarespace.com/commerce-apis
-  - type: GettingStarted
-    url: https://developers.squarespace.com/quick-start
-  - type: Authentication
-    url: https://developers.squarespace.com/commerce-apis/authentication-and-permissions
-  - type: OAuthScopes
-    url: scopes/squarespace-scopes.yml
-  - type: ErrorCatalog
-    url: errors/squarespace-problem-types.yml
-  - type: Conventions
-    url: conventions/squarespace-conventions.yml
-  - type: Idempotency
-    url: conventions/squarespace-conventions.yml
-  - type: RateLimits
-    url: rate-limits/squarespace-rate-limits.yml
-  - type: DataModel
-    url: data-model/squarespace-data-model.yml
-  - type: ChangeLog
-    url: https://developers.squarespace.com/commerce-apis/changelog
 - aid: squarespace:squarespace-websites-api
   name: Squarespace Websites API
   description: The Websites API from Squarespace — 3 operation(s) for websites.
