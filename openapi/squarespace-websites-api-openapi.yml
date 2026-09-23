@@ -49,7 +49,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/StandardErrorPayload'
           description: Not found. The API version is not supported.
-      summary: Retrieves basic details about the Squarespace member who owns the provided OAuth token
+      summary: Retrieves basic details about the Squarespace member who owns the provided…
       tags:
       - Websites
   /1.0/authorization/website:
@@ -84,7 +84,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/StandardErrorPayload'
           description: Not found. The API version is not supported.
-      summary: Retrieves basic details about the website that owns the provided API key or OAuth token
+      summary: Retrieves basic details about the website that owns the provided API key or…
       tags:
       - Websites
   /1.0/commerce/store_pages:
@@ -129,29 +129,31 @@ paths:
       - Websites
 components:
   schemas:
-    StorePage:
-      type: object
-      properties:
-        id:
-          type: string
-        isEnabled:
-          type: boolean
-        title:
-          type: string
-        urlSlug:
-          type: string
     MeasurementStandard:
       type: string
       enum:
       - IMPERIAL
       - METRIC
-    Location:
+    PaginatedStorePagesResponse:
       type: object
       properties:
-        country:
-          type: string
-        region:
-          type: string
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/store_pages?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        storePages:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorePage'
     WebsiteProfile:
       type: object
       properties:
@@ -173,26 +175,6 @@ components:
           type: string
         url:
           type: string
-    PaginatedStorePagesResponse:
-      type: object
-      properties:
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/store_pages?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-        storePages:
-          type: array
-          items:
-            $ref: '#/components/schemas/StorePage'
     StandardErrorPayload:
       type: object
       properties:
@@ -244,6 +226,17 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
+    StorePage:
+      type: object
+      properties:
+        id:
+          type: string
+        isEnabled:
+          type: boolean
+        title:
+          type: string
+        urlSlug:
+          type: string
     MemberProfile:
       type: object
       properties:
@@ -259,6 +252,13 @@ components:
         lastName:
           type: string
           description: Profile last name.
+    Location:
+      type: object
+      properties:
+        country:
+          type: string
+        region:
+          type: string
   securitySchemes:
     Authorization:
       in: header

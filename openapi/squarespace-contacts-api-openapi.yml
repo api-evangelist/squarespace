@@ -714,91 +714,11 @@ paths:
       - Contacts
 components:
   schemas:
-    CreateContactResponse:
-      type: object
-      properties:
-        contact:
-          $ref: '#/components/schemas/Contact'
     CreateAddressBookEntryResponse:
       type: object
       properties:
         addressBookEntry:
           $ref: '#/components/schemas/AddressBookEntry'
-    AddressBook:
-      type: object
-      properties:
-        addressBookEntries:
-          type: array
-          description: List of Address Book Entries
-          items:
-            $ref: '#/components/schemas/AddressBookEntry'
-        defaultShippingAddressId:
-          type: string
-          description: The id of the address book entry that is the default shipping address.
-      description: Address settings for a contact. When there is at least one address book entry, exactly one is the default shipping address; default shipping address is always returned on the first page of paginated results).
-    UpdateAddressBookEntryRequest:
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/ContactAddress'
-        defaultShipping:
-          type: boolean
-          description: Whether this entry should be the default shipping address. When updating the entry that is currently the default, changing this value from true to false has no effect.
-    IntegerFilter:
-      type: object
-      properties:
-        max:
-          type: integer
-          description: Filter out any numbers greater
-          format: int32
-        min:
-          type: integer
-          description: Filter out any numbers lower
-          format: int32
-      description: Object for filtering by a min and max integer
-    CreateContactRequest:
-      required:
-      - firstName
-      - lastName
-      - locale
-      - primaryEmail
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: Contact's first name
-          examples:
-          - john
-        lastName:
-          type: string
-          description: Contact's last name
-          examples:
-          - doe
-        locale:
-          type: string
-          description: Contact's locale
-          examples:
-          - en-US
-        primaryEmail:
-          $ref: '#/components/schemas/CreateEmail'
-    CreateEmail:
-      required:
-      - email
-      type: object
-      properties:
-        acceptsMarketing:
-          type: boolean
-          description: If contact's email accepts marketing
-          default: false
-        email:
-          type: string
-          format: email
-          description: The email address.
-          examples:
-          - jane.doe@example.com
-      description: Primary email supplied when creating a contact.
     PatchContactRequest:
       type: object
       properties:
@@ -827,122 +747,6 @@ components:
         primaryEmail:
           email: johnsmith@mail.com
           acceptsMarketing: true
-    GetAddressBookEntryResponse:
-      type: object
-      properties:
-        addressBookEntry:
-          $ref: '#/components/schemas/AddressBookEntry'
-    PaginatedGetContactsResponse:
-      type: object
-      properties:
-        contacts:
-          type: array
-          description: paginated list of contacts retrieved
-          items:
-            $ref: '#/components/schemas/Contact'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-    QueryContactsRequest:
-      type: object
-      properties:
-        acceptsMarketingWithDate:
-          $ref: '#/components/schemas/AcceptsMarketingWithDate'
-        cursor:
-          type: string
-          description: The cursor for the next page of results. Use the value of `pagination.nextPageCursor` from the previous response.
-        donationAmount:
-          $ref: '#/components/schemas/IntegerFilter'
-        donationCount:
-          $ref: '#/components/schemas/IntegerFilter'
-        firstDonationOn:
-          $ref: '#/components/schemas/DateFilter'
-        firstOrderOn:
-          $ref: '#/components/schemas/DateFilter'
-        lastDonationOn:
-          $ref: '#/components/schemas/DateFilter'
-        lastOrderOn:
-          $ref: '#/components/schemas/DateFilter'
-        orderAmount:
-          $ref: '#/components/schemas/IntegerFilter'
-        orderCount:
-          $ref: '#/components/schemas/IntegerFilter'
-        pageSize:
-          maximum: 1000
-          minimum: 1
-          type: integer
-          description: The number of contacts to return per request.
-          format: int32
-          default: 50
-        searchString:
-          type: string
-          description: Search string for Name and Email address
-        sortDirection:
-          type: string
-          description: Direction to sort results, ASCENDING or DESCENDING
-          enum:
-          - ASCENDING
-          - DESCENDING
-        sortField:
-          type: string
-          description: Field to sort results by
-          enum:
-          - ID
-          - CREATED_ON
-          - EMAIL
-          - ACCEPTS_MARKETING_JOINED_ON
-          - FIRST_NAME
-          - LAST_NAME
-          - ORDER_COUNT
-          - LAST_ORDER_ON
-          - ORDER_AMOUNT
-          - DONATION_COUNT
-          - LAST_DONATION_ON
-          - DONATION_AMOUNT
-      examples:
-      - acceptsMarketingWithDate:
-          acceptsMarketing: true
-          joinedOn:
-            before: '2025-11-21T10:00:00Z'
-            after: '2020-11-26T14:30:00Z'
-        searchString: jane
-        firstOrderOn:
-          before: '2025-11-21T10:00:00Z'
-          after: '2025-11-26T14:30:00Z'
-        lastOrderOn:
-          before: '2025-11-21T10:00:00Z'
-          after: '2025-11-26T14:30:00Z'
-        orderCount:
-          min: 1
-          max: 10
-        firstDonationOn:
-          before: '2025-11-21T10:00:00Z'
-          after: '2025-11-26T14:30:00Z'
-        lastDonationOn:
-          before: '2025-11-21T10:00:00Z'
-          after: '2025-11-26T14:30:00Z'
-        donationCount:
-          min: 1
-          max: 10
-        pageSize: 50
-        cursor: abc
-        sortField: createdOn
-        sortDirection: ASCENDING
-    GetContactResponse:
-      type: object
-      properties:
-        contact:
-          $ref: '#/components/schemas/Contact'
     PatchEmail:
       type: object
       properties:
@@ -961,57 +765,6 @@ components:
       examples:
       - email: johnsmith@mail.com
         acceptsMarketing: true
-    StandardErrorPayload:
-      type: object
-      properties:
-        contextId:
-          type: string
-        details:
-          type: object
-        message:
-          type: string
-        subtype:
-          type: string
-          enum:
-          - MISSING_ARGUMENT
-          - INVALID_ARGUMENT
-          - INVALID_CONTENT_TYPE
-          - CONCURRENT_MODIFICATION
-          - INSUFFICIENT_STOCK
-          - STOCK_NOT_TRACKED
-          - STOCK_EXCEEDS_MAX
-          - CURRENCY_MISMATCH
-          - MEASUREMENT_STANDARD_MISMATCH
-          - INSUFFICIENT_PRODUCT_VARIANTS
-          - URL_SLUG_UNAVAILABLE
-          - SKU_UNAVAILABLE
-          - STORE_PAGE_NOT_FOUND
-          - STORE_PAGE_PRODUCT_LIMIT_REACHED
-          - IMAGE_LIMIT_REACHED
-          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
-          - MISSING_SCOPE
-          - PROFILE_CANNOT_ACCEPT_MARKETING
-          - ENTITY_LIMIT_REACHED
-          - PRODUCT_UPDATE_CONFLICT
-          - DUPLICATE_USER_CONFLICT
-          - PROMO_CODE_CONFLICT
-          - INVENTORY_ITEM_NOT_FOUND
-          - PRODUCT_IMAGE_NOT_FOUND
-          - PRODUCT_VARIANT_NOT_FOUND
-          - OAUTH_TOKEN_REQUIRED
-          - FORBIDDEN_RESOURCE
-          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
-        type:
-          type: string
-          enum:
-          - INVALID_REQUEST_ERROR
-          - AUTHORIZATION_ERROR
-          - WEBSITE_EXPIRED
-          - METHOD_NOT_ALLOWED
-          - CONFLICT
-          - TOO_MANY_REQUESTS
-          - SERVER_ERROR
-          - SERVICE_UNAVAILABLE
     AcceptsMarketing:
       type: object
       properties:
@@ -1027,136 +780,6 @@ components:
           description: The date and time the contact left Marketing list
           format: date-time
       description: Marketing subscription state for the contact's email.
-    AddressBookEntry:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/ContactAddress'
-        defaultShipping:
-          type: boolean
-          description: Whether this entry is the current default shipping address. When the contact has any address book entries, exactly one entry has this value set to true.
-        id:
-          type: string
-          description: The address book entry's ID.
-          readOnly: true
-          examples:
-          - 5f8d0d55b54764421b7156aa
-      description: An address book entry for a contact.
-    PaginatedQueryContactsResponse:
-      type: object
-      properties:
-        contacts:
-          type: array
-          description: paginated list of contacts retrieved
-          items:
-            $ref: '#/components/schemas/Contact'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-    GetAddressBookResponse:
-      type: object
-      properties:
-        addressBook:
-          $ref: '#/components/schemas/AddressBook'
-        pagination:
-          $ref: '#/components/schemas/PaginationDetails'
-    Email:
-      type: object
-      properties:
-        acceptsMarketing:
-          $ref: '#/components/schemas/AcceptsMarketing'
-        createdOn:
-          type: string
-          description: The date and time when the email was created.
-          format: date-time
-          readOnly: true
-        email:
-          type: string
-          format: email
-          description: The email address.
-          examples:
-          - jane.doe@example.com
-      description: The contact's primary email.
-    PatchContactResponse:
-      type: object
-      properties:
-        contact:
-          $ref: '#/components/schemas/Contact'
-    DateFilter:
-      type: object
-      properties:
-        after:
-          type: string
-          description: Filter out any dates after
-          format: date-time
-        before:
-          type: string
-          description: Filter out any dates before
-          format: date-time
-      description: Object for filtering by before and after dates
-    Contact:
-      type: object
-      properties:
-        createdOn:
-          type: string
-          description: The date and time when the contact was created.
-          format: date-time
-          readOnly: true
-        defaultShippingAddress:
-          $ref: '#/components/schemas/AddressBookEntry'
-        firstName:
-          type: string
-          description: The contact's first name.
-        id:
-          type: string
-          description: The contact's ID.
-          readOnly: true
-          examples:
-          - 64a7e3d2c8f1b95e30a14d2b
-        lastName:
-          type: string
-          description: The contact's last name.
-        locale:
-          type: string
-          description: The contact's locale.
-          examples:
-          - en-US
-        primaryEmail:
-          $ref: '#/components/schemas/Email'
-      description: A contact.
-    PaginationDetails:
-      type: object
-      properties:
-        hasNextPage:
-          type: boolean
-        nextPageCursor:
-          type: string
-        nextPageUrl:
-          type: string
-    UpdateAddressBookEntryResponse:
-      type: object
-      properties:
-        addressBookEntry:
-          $ref: '#/components/schemas/AddressBookEntry'
-    AcceptsMarketingWithDate:
-      type: object
-      properties:
-        acceptsMarketing:
-          type: boolean
-          description: If contact's email accepts marketing
-        joinedOn:
-          $ref: '#/components/schemas/DateFilter'
-      description: Contact's marketing settings with joined on date
     ContactAddress:
       required:
       - countryCode
@@ -1460,6 +1083,41 @@ components:
           examples:
           - IL
       description: Address properties for a contact.
+    CreateEmail:
+      required:
+      - email
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: If contact's email accepts marketing
+          default: false
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: Primary email supplied when creating a contact.
+    UpdateAddressBookEntryRequest:
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry should be the default shipping address. When updating the entry that is currently the default, changing this value from true to false has no effect.
+    AcceptsMarketingWithDate:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: If contact's email accepts marketing
+        joinedOn:
+          $ref: '#/components/schemas/DateFilter'
+      description: Contact's marketing settings with joined on date
     CreateAddressBookEntryRequest:
       required:
       - address
@@ -1470,6 +1128,348 @@ components:
         defaultShipping:
           type: boolean
           description: Whether this entry should be the default shipping address. If this is the only address book entry for the contact after creation, it becomes the default even when set to false.
+    AddressBook:
+      type: object
+      properties:
+        addressBookEntries:
+          type: array
+          description: List of Address Book Entries
+          items:
+            $ref: '#/components/schemas/AddressBookEntry'
+        defaultShippingAddressId:
+          type: string
+          description: The id of the address book entry that is the default shipping address.
+      description: Address settings for a contact. When there is at least one address book entry, exactly one is the default shipping address; default shipping address is always returned on the first page of paginated results).
+    DateFilter:
+      type: object
+      properties:
+        after:
+          type: string
+          description: Filter out any dates after
+          format: date-time
+        before:
+          type: string
+          description: Filter out any dates before
+          format: date-time
+      description: Object for filtering by before and after dates
+    CreateContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    Email:
+      type: object
+      properties:
+        acceptsMarketing:
+          $ref: '#/components/schemas/AcceptsMarketing'
+        createdOn:
+          type: string
+          description: The date and time when the email was created.
+          format: date-time
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address.
+          examples:
+          - jane.doe@example.com
+      description: The contact's primary email.
+    AddressBookEntry:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/ContactAddress'
+        defaultShipping:
+          type: boolean
+          description: Whether this entry is the current default shipping address. When the contact has any address book entries, exactly one entry has this value set to true.
+        id:
+          type: string
+          description: The address book entry's ID.
+          readOnly: true
+          examples:
+          - 5f8d0d55b54764421b7156aa
+      description: An address book entry for a contact.
+    IntegerFilter:
+      type: object
+      properties:
+        max:
+          type: integer
+          description: Filter out any numbers greater
+          format: int32
+        min:
+          type: integer
+          description: Filter out any numbers lower
+          format: int32
+      description: Object for filtering by a min and max integer
+    PatchContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    GetContactResponse:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/Contact'
+    GetAddressBookEntryResponse:
+      type: object
+      properties:
+        addressBookEntry:
+          $ref: '#/components/schemas/AddressBookEntry'
+    Contact:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: The date and time when the contact was created.
+          format: date-time
+          readOnly: true
+        defaultShippingAddress:
+          $ref: '#/components/schemas/AddressBookEntry'
+        firstName:
+          type: string
+          description: The contact's first name.
+        id:
+          type: string
+          description: The contact's ID.
+          readOnly: true
+          examples:
+          - 64a7e3d2c8f1b95e30a14d2b
+        lastName:
+          type: string
+          description: The contact's last name.
+        locale:
+          type: string
+          description: The contact's locale.
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/Email'
+      description: A contact.
+    CreateContactRequest:
+      required:
+      - firstName
+      - lastName
+      - locale
+      - primaryEmail
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Contact's first name
+          examples:
+          - john
+        lastName:
+          type: string
+          description: Contact's last name
+          examples:
+          - doe
+        locale:
+          type: string
+          description: Contact's locale
+          examples:
+          - en-US
+        primaryEmail:
+          $ref: '#/components/schemas/CreateEmail'
+    UpdateAddressBookEntryResponse:
+      type: object
+      properties:
+        addressBookEntry:
+          $ref: '#/components/schemas/AddressBookEntry'
+    PaginatedQueryContactsResponse:
+      type: object
+      properties:
+        contacts:
+          type: array
+          description: paginated list of contacts retrieved
+          items:
+            $ref: '#/components/schemas/Contact'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    GetAddressBookResponse:
+      type: object
+      properties:
+        addressBook:
+          $ref: '#/components/schemas/AddressBook'
+        pagination:
+          $ref: '#/components/schemas/PaginationDetails'
+    PaginationDetails:
+      type: object
+      properties:
+        hasNextPage:
+          type: boolean
+        nextPageCursor:
+          type: string
+        nextPageUrl:
+          type: string
+    QueryContactsRequest:
+      type: object
+      properties:
+        acceptsMarketingWithDate:
+          $ref: '#/components/schemas/AcceptsMarketingWithDate'
+        cursor:
+          type: string
+          description: The cursor for the next page of results. Use the value of `pagination.nextPageCursor` from the previous response.
+        donationAmount:
+          $ref: '#/components/schemas/IntegerFilter'
+        donationCount:
+          $ref: '#/components/schemas/IntegerFilter'
+        firstDonationOn:
+          $ref: '#/components/schemas/DateFilter'
+        firstOrderOn:
+          $ref: '#/components/schemas/DateFilter'
+        lastDonationOn:
+          $ref: '#/components/schemas/DateFilter'
+        lastOrderOn:
+          $ref: '#/components/schemas/DateFilter'
+        orderAmount:
+          $ref: '#/components/schemas/IntegerFilter'
+        orderCount:
+          $ref: '#/components/schemas/IntegerFilter'
+        pageSize:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          description: The number of contacts to return per request.
+          format: int32
+          default: 50
+        searchString:
+          type: string
+          description: Search string for Name and Email address
+        sortDirection:
+          type: string
+          description: Direction to sort results, ASCENDING or DESCENDING
+          enum:
+          - ASCENDING
+          - DESCENDING
+        sortField:
+          type: string
+          description: Field to sort results by
+          enum:
+          - ID
+          - CREATED_ON
+          - EMAIL
+          - ACCEPTS_MARKETING_JOINED_ON
+          - FIRST_NAME
+          - LAST_NAME
+          - ORDER_COUNT
+          - LAST_ORDER_ON
+          - ORDER_AMOUNT
+          - DONATION_COUNT
+          - LAST_DONATION_ON
+          - DONATION_AMOUNT
+      examples:
+      - acceptsMarketingWithDate:
+          acceptsMarketing: true
+          joinedOn:
+            before: '2025-11-21T10:00:00Z'
+            after: '2020-11-26T14:30:00Z'
+        searchString: jane
+        firstOrderOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        lastOrderOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        orderCount:
+          min: 1
+          max: 10
+        firstDonationOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        lastDonationOn:
+          before: '2025-11-21T10:00:00Z'
+          after: '2025-11-26T14:30:00Z'
+        donationCount:
+          min: 1
+          max: 10
+        pageSize: 50
+        cursor: abc
+        sortField: createdOn
+        sortDirection: ASCENDING
+    PaginatedGetContactsResponse:
+      type: object
+      properties:
+        contacts:
+          type: array
+          description: paginated list of contacts retrieved
+          items:
+            $ref: '#/components/schemas/Contact'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /v1/contacts?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
   securitySchemes:
     Authorization:
       in: header

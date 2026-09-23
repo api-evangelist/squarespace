@@ -466,116 +466,53 @@ paths:
           default: YOUR_CUSTOM_APP_DESCRIPTION
 components:
   schemas:
-    PromoCodeTrigger:
-      title: PromoCodeTrigger
+    BuyXGetYCriteria:
+      title: BuyXGetYCriteria
       required:
-      - promoCode
+      - eligibleForDiscountQuantity
+      - requiredFullPriceQuantity
       - type
       type: object
-      description: Trigger for a discount that is unlocked by a shopper-entered promo code.
+      description: Discount applies when the cart contains a required quantity of qualifying items (buy side), granting a discount on a quantity of eligible items (reward side).
       properties:
         type:
           type: string
-        promoCode:
-          pattern: ^[A-Za-z0-9_\-]{1,50}$
+        criteriaAppliesTo:
           type: string
-          description: 'Shopper-entered promo code. Required, non-empty, 1–50 characters; allowed characters: letters, digits, underscore, hyphen.'
-      discriminator:
-        propertyName: type
-    CartTotalCriteria:
-      title: CartTotalCriteria
-      required:
-      - minimumCartTotal
-      - type
-      type: object
-      description: Discount applies when the cart total meets or exceeds a minimum.
-      properties:
-        type:
-          type: string
-        minimumCartTotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-      discriminator:
-        propertyName: type
-    SelectedShippingOption:
-      required:
-      - shippingOptionId
-      - shippingOptionName
-      type: object
-      properties:
-        isAllServicesSelected:
-          type: boolean
-          description: If true, all services within the shipping option are eligible.
-        selectedService:
-          type: string
-          description: Carrier service eligible for a free-shipping discount.
+          description: Specifies the possible targets for a BuyXGetYCriteria buy-side.
           enum:
-          - FEDEX_GROUND
-          - FEDEX_GROUND_HOME_DELIVERY
-          - FEDEX_PRIORITY_OVERNIGHT
-          - FEDEX_STANDARD_OVERNIGHT
-          - FEDEX_2_DAY
-          - FEDEX_2_DAY_AM
-          - FEDEX_EXPRESS_SAVER
-          - FEDEX_FIRST_OVERNIGHT
-          - FEDEX_SAME_DAY
-          - FEDEX_SAME_DAY_CITY
-          - UPS_GROUND
-          - UPS_NEXT_DAY_AIR
-          - UPS_NEXT_DAY_AIR_SAVER
-          - UPS_NEXT_DAY_AIR_EARLY_AM
-          - UPS_TWO_DAY_AIR
-          - UPS_TWO_DAY_AIR_AM
-          - UPS_THREE_DAY_SELECT
-          - USPS_PRIORITY
-          - USPS_EXPRESS
-          - USPS_STANDARD
-        shippingOptionId:
-          type: string
-          description: Identifier of the shipping option.
-        shippingOptionName:
-          type: string
-          description: Display-time snapshot of the shipping option name.
-      description: A shipping option targeted by a free-shipping discount.
-    AutoTrigger:
-      title: AutoTrigger
-      type: object
-      description: Trigger for a discount that is automatically applied; no promo code required.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-      discriminator:
-        propertyName: type
-    FulfillmentOption:
-      required:
-      - availableServices
-      - id
-      - name
-      - type
-      type: object
-      properties:
-        availableServices:
+          - PRODUCT
+        criteriaProductIds:
+          uniqueItems: true
           type: array
-          description: Available carrier services.
+          description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
           items:
-            $ref: '#/components/schemas/CarrierService'
-        id:
+            type: string
+            description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
+        eligibleForDiscountQuantity:
+          minimum: 1
+          type: integer
+          description: Quantity of eligible items the discount applies to.
+          format: int32
+        requiredFullPriceQuantity:
+          minimum: 1
+          type: integer
+          description: Quantity of qualifying items required at full price.
+          format: int32
+        rewardAppliesTo:
           type: string
-          description: Fulfillment option id.
-        name:
-          type: string
-          description: Display name for the option.
-          examples:
-          - Standard Shipping
-        type:
-          type: string
-          description: Fulfillment channel for this option.
+          description: Specifies the possible targets for a BuyXGetYCriteria reward-side.
           enum:
-          - SHIPPING
-          - PICKUP
-          - LOCAL_DELIVERY
-      description: Fulfillment option IDs and carrier services for a website.
+          - PRODUCT
+        rewardProductIds:
+          uniqueItems: true
+          type: array
+          description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
+          items:
+            type: string
+            description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
+      discriminator:
+        propertyName: type
     PercentageTemplate:
       title: PercentageTemplate
       required:
@@ -591,99 +528,6 @@ components:
           exclusiveMinimum: 0
           type: number
           description: Percentage to subtract from the cart total. Range (0, 100].
-      discriminator:
-        propertyName: type
-    PaymentPlanOptions:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: Defines how the discount applies to payment-plan payments.
-          enum:
-          - NONE
-          - ALL_PAYMENTS
-      description: Payment-plan applicability settings for this discount. When omitted from a create or update request, defaults to NONE.
-    StandardErrorPayload:
-      type: object
-      properties:
-        contextId:
-          type: string
-        details:
-          type: object
-        message:
-          type: string
-        subtype:
-          type: string
-          enum:
-          - MISSING_ARGUMENT
-          - INVALID_ARGUMENT
-          - INVALID_CONTENT_TYPE
-          - CONCURRENT_MODIFICATION
-          - INSUFFICIENT_STOCK
-          - STOCK_NOT_TRACKED
-          - STOCK_EXCEEDS_MAX
-          - CURRENCY_MISMATCH
-          - MEASUREMENT_STANDARD_MISMATCH
-          - INSUFFICIENT_PRODUCT_VARIANTS
-          - URL_SLUG_UNAVAILABLE
-          - SKU_UNAVAILABLE
-          - STORE_PAGE_NOT_FOUND
-          - STORE_PAGE_PRODUCT_LIMIT_REACHED
-          - IMAGE_LIMIT_REACHED
-          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
-          - MISSING_SCOPE
-          - PROFILE_CANNOT_ACCEPT_MARKETING
-          - ENTITY_LIMIT_REACHED
-          - PRODUCT_UPDATE_CONFLICT
-          - DUPLICATE_USER_CONFLICT
-          - PROMO_CODE_CONFLICT
-          - INVENTORY_ITEM_NOT_FOUND
-          - PRODUCT_IMAGE_NOT_FOUND
-          - PRODUCT_VARIANT_NOT_FOUND
-          - OAUTH_TOKEN_REQUIRED
-          - FORBIDDEN_RESOURCE
-          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
-        type:
-          type: string
-          enum:
-          - INVALID_REQUEST_ERROR
-          - AUTHORIZATION_ERROR
-          - WEBSITE_EXPIRED
-          - METHOD_NOT_ALLOWED
-          - CONFLICT
-          - TOO_MANY_REQUESTS
-          - SERVER_ERROR
-          - SERVICE_UNAVAILABLE
-    FulfillmentOptionsList:
-      required:
-      - fulfillmentOptions
-      type: object
-      properties:
-        fulfillmentOptions:
-          type: array
-          description: Fulfillment option IDs and carrier services for this website.
-          items:
-            $ref: '#/components/schemas/FulfillmentOption'
-      description: List of fulfillment option IDs and carrier services.
-    BuyXGetYFixedAmountTemplate:
-      title: BuyXGetYFixedAmountTemplate
-      required:
-      - discountAmount
-      - type
-      type: object
-      description: Apply a fixed monetary amount off each reward item in a BUY_X_GET_Y discount.
-      properties:
-        type:
-          type: string
-        discountAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        maxApplicationsPerCart:
-          minimum: 0
-          type: integer
-          description: Caps how many times the discount can be applied per cart. 0 means unlimited.
-          format: int32
       discriminator:
         propertyName: type
     MonetaryAmount:
@@ -715,26 +559,6 @@ components:
           examples:
           - 49.99
       description: A monetary amount with currency code and decimal value.
-    FreeShippingTemplate:
-      title: FreeShippingTemplate
-      type: object
-      description: Waive shipping cost for eligible carts.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        appliesToFulfillmentOptionType:
-          type: string
-          description: Fulfillment channel a free-shipping discount applies to.
-          enum:
-          - SHIPPING
-          - PICKUP
-          - LOCAL_DELIVERY
-        selectedShippingOption:
-          $ref: '#/components/schemas/SelectedShippingOption'
-      discriminator:
-        propertyName: type
     BuyXGetYPercentageTemplate:
       title: BuyXGetYPercentageTemplate
       required:
@@ -755,50 +579,6 @@ components:
           type: integer
           description: Caps how many times the discount can be applied per cart. 0 means unlimited.
           format: int32
-      discriminator:
-        propertyName: type
-    ProductCriteria:
-      title: ProductCriteria
-      type: object
-      description: Discount applies when the cart contains a specific product.
-      required:
-      - type
-      properties:
-        type:
-          type: string
-        productId:
-          type: string
-          description: Identifier of the product the discount targets.
-        productName:
-          type: string
-          description: Display-time snapshot of the product name at the time the discount was created.
-      discriminator:
-        propertyName: type
-    SubscriptionOptions:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: Defines how the discount applies to subscription payments.
-          enum:
-          - EXCLUDED
-          - ALL_PAYMENTS
-          - LIMITED_PAYMENTS
-      description: Subscription applicability settings for this discount. When omitted from a create or update request, defaults to EXCLUDED.
-    FixedAmountTemplate:
-      title: FixedAmountTemplate
-      required:
-      - discountAmount
-      - type
-      type: object
-      description: Apply a fixed monetary amount off the cart total.
-      properties:
-        type:
-          type: string
-        discountAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
       discriminator:
         propertyName: type
     Discount:
@@ -879,6 +659,262 @@ components:
           description: 24-char website id.
           readOnly: true
       description: Discount configured for a Commerce store.
+    FixedAmountTemplate:
+      title: FixedAmountTemplate
+      required:
+      - discountAmount
+      - type
+      type: object
+      description: Apply a fixed monetary amount off the cart total.
+      properties:
+        type:
+          type: string
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+      discriminator:
+        propertyName: type
+    ProductCriteria:
+      title: ProductCriteria
+      type: object
+      description: Discount applies when the cart contains a specific product.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        productId:
+          type: string
+          description: Identifier of the product the discount targets.
+        productName:
+          type: string
+          description: Display-time snapshot of the product name at the time the discount was created.
+      discriminator:
+        propertyName: type
+    SubscriptionOptions:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines how the discount applies to subscription payments.
+          enum:
+          - EXCLUDED
+          - ALL_PAYMENTS
+          - LIMITED_PAYMENTS
+      description: Subscription applicability settings for this discount. When omitted from a create or update request, defaults to EXCLUDED.
+    SelectedShippingOption:
+      required:
+      - shippingOptionId
+      - shippingOptionName
+      type: object
+      properties:
+        isAllServicesSelected:
+          type: boolean
+          description: If true, all services within the shipping option are eligible.
+        selectedService:
+          type: string
+          description: Carrier service eligible for a free-shipping discount.
+          enum:
+          - FEDEX_GROUND
+          - FEDEX_GROUND_HOME_DELIVERY
+          - FEDEX_PRIORITY_OVERNIGHT
+          - FEDEX_STANDARD_OVERNIGHT
+          - FEDEX_2_DAY
+          - FEDEX_2_DAY_AM
+          - FEDEX_EXPRESS_SAVER
+          - FEDEX_FIRST_OVERNIGHT
+          - FEDEX_SAME_DAY
+          - FEDEX_SAME_DAY_CITY
+          - UPS_GROUND
+          - UPS_NEXT_DAY_AIR
+          - UPS_NEXT_DAY_AIR_SAVER
+          - UPS_NEXT_DAY_AIR_EARLY_AM
+          - UPS_TWO_DAY_AIR
+          - UPS_TWO_DAY_AIR_AM
+          - UPS_THREE_DAY_SELECT
+          - USPS_PRIORITY
+          - USPS_EXPRESS
+          - USPS_STANDARD
+        shippingOptionId:
+          type: string
+          description: Identifier of the shipping option.
+        shippingOptionName:
+          type: string
+          description: Display-time snapshot of the shipping option name.
+      description: A shipping option targeted by a free-shipping discount.
+    PaginatedDiscountListResponse:
+      required:
+      - discounts
+      type: object
+      properties:
+        discounts:
+          type: array
+          description: Discounts for this page.
+          items:
+            $ref: '#/components/schemas/Discount'
+        hasNextPage:
+          type: boolean
+          description: True when more results exist after the current window.
+        hasPreviousPage:
+          type: boolean
+          description: True when a page of results exists before the current window.
+      description: Offset-paginated list of discounts for a website.
+    CarrierService:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        description:
+          type: string
+          description: Human-readable carrier service name.
+          examples:
+          - FedEx Ground®
+        name:
+          type: string
+          description: Carrier service identifier.
+          examples:
+          - FEDEX_GROUND
+      description: Carrier service identifier and display name.
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    FulfillmentOptionsList:
+      required:
+      - fulfillmentOptions
+      type: object
+      properties:
+        fulfillmentOptions:
+          type: array
+          description: Fulfillment option IDs and carrier services for this website.
+          items:
+            $ref: '#/components/schemas/FulfillmentOption'
+      description: List of fulfillment option IDs and carrier services.
+    PaymentPlanOptions:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines how the discount applies to payment-plan payments.
+          enum:
+          - NONE
+          - ALL_PAYMENTS
+      description: Payment-plan applicability settings for this discount. When omitted from a create or update request, defaults to NONE.
+    FulfillmentOption:
+      required:
+      - availableServices
+      - id
+      - name
+      - type
+      type: object
+      properties:
+        availableServices:
+          type: array
+          description: Available carrier services.
+          items:
+            $ref: '#/components/schemas/CarrierService'
+        id:
+          type: string
+          description: Fulfillment option id.
+        name:
+          type: string
+          description: Display name for the option.
+          examples:
+          - Standard Shipping
+        type:
+          type: string
+          description: Fulfillment channel for this option.
+          enum:
+          - SHIPPING
+          - PICKUP
+          - LOCAL_DELIVERY
+      description: Fulfillment option IDs and carrier services for a website.
+    PromoCodeTrigger:
+      title: PromoCodeTrigger
+      required:
+      - promoCode
+      - type
+      type: object
+      description: Trigger for a discount that is unlocked by a shopper-entered promo code.
+      properties:
+        type:
+          type: string
+        promoCode:
+          pattern: ^[A-Za-z0-9_\-]{1,50}$
+          type: string
+          description: 'Shopper-entered promo code. Required, non-empty, 1–50 characters; allowed characters: letters, digits, underscore, hyphen.'
+      discriminator:
+        propertyName: type
+    BuyXGetYFixedAmountTemplate:
+      title: BuyXGetYFixedAmountTemplate
+      required:
+      - discountAmount
+      - type
+      type: object
+      description: Apply a fixed monetary amount off each reward item in a BUY_X_GET_Y discount.
+      properties:
+        type:
+          type: string
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        maxApplicationsPerCart:
+          minimum: 0
+          type: integer
+          description: Caps how many times the discount can be applied per cart. 0 means unlimited.
+          format: int32
+      discriminator:
+        propertyName: type
     AnyOrderCriteria:
       title: AnyOrderCriteria
       type: object
@@ -942,6 +978,26 @@ components:
           description: When the discount expires. Null = no expiry.
           format: date-time
       description: Request body for creating a discount.
+    FreeShippingTemplate:
+      title: FreeShippingTemplate
+      type: object
+      description: Waive shipping cost for eligible carts.
+      required:
+      - type
+      properties:
+        type:
+          type: string
+        appliesToFulfillmentOptionType:
+          type: string
+          description: Fulfillment channel a free-shipping discount applies to.
+          enum:
+          - SHIPPING
+          - PICKUP
+          - LOCAL_DELIVERY
+        selectedShippingOption:
+          $ref: '#/components/schemas/SelectedShippingOption'
+      discriminator:
+        propertyName: type
     DiscountResponse:
       required:
       - discount
@@ -950,87 +1006,31 @@ components:
         discount:
           $ref: '#/components/schemas/Discount'
       description: Envelope for a single discount response.
-    BuyXGetYCriteria:
-      title: BuyXGetYCriteria
+    CartTotalCriteria:
+      title: CartTotalCriteria
       required:
-      - eligibleForDiscountQuantity
-      - requiredFullPriceQuantity
+      - minimumCartTotal
       - type
       type: object
-      description: Discount applies when the cart contains a required quantity of qualifying items (buy side), granting a discount on a quantity of eligible items (reward side).
+      description: Discount applies when the cart total meets or exceeds a minimum.
       properties:
         type:
           type: string
-        criteriaAppliesTo:
-          type: string
-          description: Specifies the possible targets for a BuyXGetYCriteria buy-side.
-          enum:
-          - PRODUCT
-        criteriaProductIds:
-          uniqueItems: true
-          type: array
-          description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
-          items:
-            type: string
-            description: Product ids the cart must contain. Required if criteriaAppliesTo=PRODUCT.
-        eligibleForDiscountQuantity:
-          minimum: 1
-          type: integer
-          description: Quantity of eligible items the discount applies to.
-          format: int32
-        requiredFullPriceQuantity:
-          minimum: 1
-          type: integer
-          description: Quantity of qualifying items required at full price.
-          format: int32
-        rewardAppliesTo:
-          type: string
-          description: Specifies the possible targets for a BuyXGetYCriteria reward-side.
-          enum:
-          - PRODUCT
-        rewardProductIds:
-          uniqueItems: true
-          type: array
-          description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
-          items:
-            type: string
-            description: Product ids eligible for the reward. Required if rewardAppliesTo=PRODUCT.
+        minimumCartTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
       discriminator:
         propertyName: type
-    CarrierService:
-      required:
-      - description
-      - name
+    AutoTrigger:
+      title: AutoTrigger
       type: object
-      properties:
-        description:
-          type: string
-          description: Human-readable carrier service name.
-          examples:
-          - FedEx Ground®
-        name:
-          type: string
-          description: Carrier service identifier.
-          examples:
-          - FEDEX_GROUND
-      description: Carrier service identifier and display name.
-    PaginatedDiscountListResponse:
+      description: Trigger for a discount that is automatically applied; no promo code required.
       required:
-      - discounts
-      type: object
+      - type
       properties:
-        discounts:
-          type: array
-          description: Discounts for this page.
-          items:
-            $ref: '#/components/schemas/Discount'
-        hasNextPage:
-          type: boolean
-          description: True when more results exist after the current window.
-        hasPreviousPage:
-          type: boolean
-          description: True when a page of results exists before the current window.
-      description: Offset-paginated list of discounts for a website.
+        type:
+          type: string
+      discriminator:
+        propertyName: type
   securitySchemes:
     Authorization:
       in: header

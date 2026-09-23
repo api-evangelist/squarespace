@@ -1,22 +1,136 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Squarespace Commerce Inventory Transactions API
-  description: The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.
+  title: Squarespace Transactions API
   version: '1.0'
-  contact:
-    name: Squarespace Developer Support
-    url: https://developers.squarespace.com/commerce-apis/overview
-  termsOfService: https://www.squarespace.com/terms-of-service
+  description: 'Operations tagged Transactions across 2 of this provider''s published API definitions: squarespace-commerce-api-v2-openapi.json, squarespace-transactions-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
+- url: https://api.squarespace.com
+  description: Commerce API
 - url: https://api.squarespace.com/1.0
   description: Production Server
-security:
-- bearerAuth: []
 tags:
 - name: Transactions
-  description: Financial transaction retrieval for orders and donations
+  x-zudoku-collapsed: true
 paths:
+  /1.0/commerce/transactions:
+    get:
+      description: Retrieves all financial transactions for orders and donations. Per order and donation, the response groups transactions into a Document, contains up to 50 Documents ordered by their modification date (modifiedOn), and supports dynamic cursors for pagination.
+      operationId: getDocumentsByUpdatedOn
+      parameters:
+      - description: Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response.
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+      - description: Time-boxes the request to Documents that were modified after a given ISO 8601 UTC date and time string (YYYY-MM-DDThh:mm:ss.sZ).
+        in: query
+        name: modifiedAfter
+        required: false
+        schema:
+          type: string
+      - description: Time-boxes the request to Documents that were modified before a given ISO 8601 UTC date and time string (YYYY-MM-DDThh:mm:ss.sZ).
+        in: query
+        name: modifiedBefore
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: orderId
+        required: false
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransactionListResponse'
+          description: A paginated list of transaction documents.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Bad request. The cursor parameter contains an invalid value.
+      summary: List transactions
+      tags:
+      - Transactions
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.squarespace.com
+      description: Commerce API
+  /1.0/commerce/transactions/{documentIds}:
+    get:
+      description: Retrieves information for specific transaction Documents. The response contains up to 50 Documents. Multiple Documents can be retrieved by providing a comma-separated list of Document ids.
+      operationId: getDocumentsById
+      parameters:
+      - description: Specifies the Documents to retrieve. Multiple Documents can be retrieved by providing a comma-separated list of Document ids.
+        in: path
+        name: documentIds
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: Authorization
+        required: true
+        description: API key or OAuth access token
+        schema:
+          type: string
+          default: Bearer YOUR_API_KEY_OR_OAUTH_TOKEN
+      - in: header
+        name: User-Agent
+        required: true
+        description: User Agent
+        schema:
+          type: string
+          default: YOUR_CUSTOM_APP_DESCRIPTION
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+          description: The requested transaction documents.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Bad request. ids specifies greater than 50 Documents.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardErrorPayload'
+          description: Not found. One or more requested Documents were not found.
+      summary: Get transactions
+      tags:
+      - Transactions
+      security:
+      - Authorization: []
+    servers:
+    - url: https://api.squarespace.com
+      description: Commerce API
   /commerce/transactions:
+    servers:
+    - url: https://api.squarespace.com/1.0
+      description: Production Server
     get:
       operationId: listTransactions
       summary: Retrieve All Transactions
@@ -50,7 +164,7 @@ paths:
                   documents:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TransactionDocument'
+                      $ref: '#/components/schemas/TransactionDocument_2'
                   pagination:
                     $ref: '#/components/schemas/Pagination'
         '400':
@@ -61,7 +175,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      security:
+      - bearerAuth: []
   /commerce/transactions/{transactionIds}:
+    servers:
+    - url: https://api.squarespace.com/1.0
+      description: Production Server
     get:
       operationId: getTransactions
       summary: Retrieve Specific Transactions
@@ -81,7 +200,7 @@ paths:
                   documents:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TransactionDocument'
+                      $ref: '#/components/schemas/TransactionDocument_2'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -92,8 +211,500 @@ paths:
           $ref: '#/components/responses/NotFound'
         '429':
           $ref: '#/components/responses/TooManyRequests'
+      security:
+      - bearerAuth: []
 components:
   schemas:
+    TransactionShippingLineItem:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        description:
+          type: string
+          description: Description of the shipping line item as defined by the Squarespace merchant.
+          examples:
+          - USPS Flat Rate
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        id:
+          type: string
+          description: Unique id for the shipping line item.
+          examples:
+          - bd63d55e-0066-400e-9aa9-e75d4e6215b0
+        netAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        taxes:
+          type: array
+          description: Array of taxes for the shipping line item.
+          items:
+            $ref: '#/components/schemas/TransactionTax'
+      description: Array of shipping line items.
+    TransactionProcessingFee:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        amountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+        exchangeRate:
+          type: number
+          description: Foreign exchange rate between the payment gateway's and payment's currencies; determined when the payment is processed.
+          examples:
+          - 1
+        feeRefunds:
+          type: array
+          description: Array of processing fee refunds for the payment.
+          items:
+            $ref: '#/components/schemas/TransactionProcessingFeeRefund'
+        id:
+          type: string
+          description: Unique processing fee id.
+          examples:
+          - 2Jdsno3mdk
+        netAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        netAmountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+        refundedAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        refundedAmountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Array of processing fees associated with the payment.
+    MonetaryAmount:
+      type: object
+      properties:
+        currency:
+          type: object
+          description: ISO 4217 currency code.
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            numericCode:
+              type: integer
+              format: int32
+            numericCodeAsString:
+              type: string
+            symbol:
+              type: string
+          examples:
+          - USD
+        value:
+          type: number
+          description: Decimal monetary value.
+          examples:
+          - 49.99
+      description: A monetary amount with currency code and decimal value.
+    ExternalTransactionProperty:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      description: Array of properties for the payment transaction provided by the payment gateway. Properties are listed in key/value pairs.
+    TransactionSalesLineItem:
+      type: object
+      properties:
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        id:
+          type: string
+          description: Unique id for the sales item.
+          examples:
+          - d93f9637-fba6-4e8b-a1f3-24008f60c774
+        taxes:
+          type: array
+          description: Array of taxes for the sale item.
+          items:
+            $ref: '#/components/schemas/TransactionTax'
+        total:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalNetSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Array of sales items for an order payment transaction; empty for donations.
+    TransactionPayment:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        creditCardType:
+          type: string
+          description: 'Payment credit card type; possible values: VISA, MASTERCARD, DISCOVER, AMEX, JCB, and OTHER. null if credit card processing isn''t available for the payment gateway.'
+          examples:
+          - VISA
+        externalCustomerId:
+          type: string
+          description: Unique customer id for the payment transaction provided by the payment gateway. Value is null if not available.
+        externalTransactionId:
+          type: string
+          description: Unique id for the payment transaction provided by the payment gateway.
+          examples:
+          - ch_1FFCJCLMG4qggZ0BzchTZjwR
+        externalTransactionProperties:
+          type: array
+          description: Array of properties for the payment transaction provided by the payment gateway. Properties are listed in key/value pairs.
+          items:
+            $ref: '#/components/schemas/ExternalTransactionProperty'
+        giftCardId:
+          type: string
+          description: Unique id for a Squarespace gift card. Value is null if a gift card was not used.
+          format: uuid
+          examples:
+          - ece69479-50bc-4763-9067-4473f3abcf83
+        id:
+          type: string
+          description: Unique payment id.
+          examples:
+          - ece69479-50bc-4763-9067-4473f3abcf83
+        netAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        paidOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the payment was made.
+          format: date-time
+          examples:
+          - '2019-09-05T23:24:09.845Z'
+        processingFees:
+          type: array
+          description: Array of processing fees associated with the payment.
+          items:
+            $ref: '#/components/schemas/TransactionProcessingFee'
+        provider:
+          type: string
+          description: Payment gateway used for processing.
+          examples:
+          - STRIPE
+        refundedAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        refunds:
+          type: array
+          description: Array of refunds for the payment transaction.
+          items:
+            $ref: '#/components/schemas/TransactionRefund'
+      description: Array of payment transactions for the order or donation.
+    PaymentGatewayError:
+      type: string
+      description: Captures errors from the payment gateway; value is null if not applicable.
+      enum:
+      - GATEWAY_FEE_PROCEESING_ERROR
+      - GATEWAY_API_PERMISSION_ERROR
+      - GATEWAY_DISCONNNECTED
+    TransactionTax:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        jurisdiction:
+          type: string
+          description: 'Tax jurisdiction in COUNTRY:{value},STATE:{value},LOCAL:{value} format. Examples: COUNTRY:US, COUNTRY:US,STATE:NY, and COUNTRY:US,STATE:NY,LOCAL:10001.'
+          examples:
+          - COUNTRY:US,STATE:NY,LOCAL:10001
+        name:
+          type: string
+          description: Tax classification as defined by the Squarespace merchant.
+          examples:
+          - Local Sales Tax
+        rate:
+          type: string
+          description: Tax rate as a percent. For example, a value of 7.00 is a 7% tax.
+          examples:
+          - '10.0'
+      description: Array of taxes for the shipping line item.
+    TransactionListResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          description: Array of Document resources.
+          items:
+            $ref: '#/components/schemas/TransactionDocument'
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    TransactionProcessingFeeRefund:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        amountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+        exchangeRate:
+          type: number
+          description: Foreign exchange rate between the payment gateway's and payment's currencies; determined when the payment is processed.
+          examples:
+          - 1
+        externalTransactionId:
+          type: string
+          description: Unique id for the processing fee refund transaction provided by the payment gateway.
+          examples:
+          - 3fjowGck2f
+        id:
+          type: string
+          description: Unique processing fee refund id.
+          examples:
+          - c413a46c-b3e8-426d-8e0f-a4bc7a18cdd0
+        refundedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the processing fee refund was issued.
+          format: date-time
+          examples:
+          - '2019-11-18T21:22:06.5Z'
+      description: Array of processing fee refunds for the payment.
+    TransactionDocument:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the Document was created.
+          format: date-time
+          examples:
+          - '2019-11-18T21:20:05.354Z'
+        customerEmail:
+          type: string
+          format: email
+          description: Customer or donor email address. May be null for point of sale orders because email wasn't collected.
+          examples:
+          - customer@squarespace.com
+        discounts:
+          type: array
+          description: Array of discounts for an order payment transaction; empty for donations.
+          items:
+            $ref: '#/components/schemas/TransactionDiscount'
+        id:
+          type: string
+          description: Unique Document id.
+          examples:
+          - a7e4c6b5-d1fe-4e42-a932-f185b4b86829
+        modifiedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the Document was last modified.
+          format: date-time
+          examples:
+          - '2019-11-18T21:23:02.87Z'
+        paymentGatewayError:
+          $ref: '#/components/schemas/PaymentGatewayError'
+        payments:
+          type: array
+          description: Array of payment transactions for the order or donation.
+          items:
+            $ref: '#/components/schemas/TransactionPayment'
+        salesLineItems:
+          type: array
+          description: Array of sales items for an order payment transaction; empty for donations.
+          items:
+            $ref: '#/components/schemas/TransactionSalesLineItem'
+        salesOrderId:
+          type: string
+          description: Unique order id; not applicable if payment transaction is a donation.
+          examples:
+          - 5d71991aac180c3e7857e1df
+        shippingLineItems:
+          type: array
+          description: Array of shipping line items.
+          items:
+            $ref: '#/components/schemas/TransactionShippingLineItem'
+        total:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalNetPayment:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalNetSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalNetShipping:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalTaxes:
+          $ref: '#/components/schemas/MonetaryAmount'
+        voided:
+          type: boolean
+          description: Flag; indicates order cancellation.
+      description: Array of Document resources.
+    TransactionDiscount:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        description:
+          type: string
+          description: Discount description.
+          examples:
+          - Discount description
+        name:
+          type: string
+          description: Discount name.
+          examples:
+          - Sales Discount
+      description: Array of discounts for an order payment transaction; empty for donations.
+    TransactionRefund:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        externalTransactionId:
+          type: string
+          description: Unique id for the refund transaction provided by the payment gateway.
+          examples:
+          - re_1Flhp8J4wh083J8f7qYtzU9m
+        id:
+          type: string
+          description: Unique refund id.
+          examples:
+          - cfdb6b87-64bf-461a-b48b-eca7bd2389fc
+        refundedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents refund issue date.
+          format: date-time
+          examples:
+          - '2019-11-18T21:22:06.5Z'
+      description: Array of refunds for the payment transaction.
+    PaginatedTransactionListResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          description: Array of Document resources. If the merchant site doesn't have any payment transactions for orders or donations, this array is empty.
+          items:
+            $ref: '#/components/schemas/TransactionDocument'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/transactions?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
+    Payment:
+      type: object
+      description: A single payment record including gateway and amount information
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the payment record
+        paymentGateway:
+          type: string
+          description: Name of the payment gateway that processed this payment
+          enum:
+          - SQUARESPACE
+          - STRIPE
+          - PAYPAL
+          - SQUARE
+        creditCardType:
+          type: string
+          description: Type of credit card used for the payment, if applicable
+        amount:
+          $ref: '#/components/schemas/Money'
+        refundedAmount:
+          $ref: '#/components/schemas/Money'
+        externalTransactionId:
+          type: string
+          description: Transaction identifier from the payment gateway's system
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the payment was recorded
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: ^-?\d+(\.\d+)?$
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: ^[A-Z]{3}$
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
     TransactionLineItem:
       type: object
       description: A financial line item within a transaction document
@@ -118,23 +729,7 @@ components:
         taxRate:
           type: string
           description: Tax rate as a decimal string, if this is a tax line item
-    Error:
-      type: object
-      description: Standard error response returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
-    TransactionDocument:
+    TransactionDocument_2:
       type: object
       description: A document grouping financial transaction details for a single order or donation. Contains payment gateway information and line-level financial data.
       properties:
@@ -169,83 +764,7 @@ components:
           enum:
           - ORDER
           - DONATION
-    Money:
-      type: object
-      description: A monetary value with currency
-      properties:
-        value:
-          type: string
-          description: Decimal string representation of the monetary amount
-          pattern: ^-?\d+(\.\d+)?$
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code
-          pattern: ^[A-Z]{3}$
-    Pagination:
-      type: object
-      description: Pagination metadata included with list responses
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates whether additional pages of results are available
-        nextPageCursor:
-          type: string
-          description: Cursor value to pass in the next request to retrieve the next page
-        nextPageUrl:
-          type: string
-          format: uri
-          description: Full URL for retrieving the next page of results
-    Payment:
-      type: object
-      description: A single payment record including gateway and amount information
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the payment record
-        paymentGateway:
-          type: string
-          description: Name of the payment gateway that processed this payment
-          enum:
-          - SQUARESPACE
-          - STRIPE
-          - PAYPAL
-          - SQUARE
-        creditCardType:
-          type: string
-          description: Type of credit card used for the payment, if applicable
-        amount:
-          $ref: '#/components/schemas/Money'
-        refundedAmount:
-          $ref: '#/components/schemas/Money'
-        externalTransactionId:
-          type: string
-          description: Transaction identifier from the payment gateway's system
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp when the payment was recorded
-  parameters:
-    transactionIds:
-      name: transactionIds
-      in: path
-      description: Comma-separated list of transaction document IDs to retrieve
-      required: true
-      schema:
-        type: string
-    cursor:
-      name: cursor
-      in: query
-      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or contained invalid parameters
       content:
@@ -258,8 +777,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:
@@ -270,7 +789,32 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    transactionIds:
+      name: transactionIds
+      in: path
+      description: Comma-separated list of transaction document IDs to retrieve
+      required: true
+      schema:
+        type: string
   securitySchemes:
+    Authorization:
+      in: header
+      scheme: bearer
+      type: http
     bearerAuth:
       type: http
       scheme: bearer
@@ -278,3 +822,6 @@ components:
 externalDocs:
   description: Squarespace Commerce API Documentation
   url: https://developers.squarespace.com/commerce-apis/overview
+x-refined-from:
+- squarespace-commerce-api-v2-openapi.json
+- squarespace-transactions-api-openapi.yml

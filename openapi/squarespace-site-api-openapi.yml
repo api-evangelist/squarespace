@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Squarespace Commerce Inventory Site API
+  title: Squarespace Commerce Site API
   description: The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.
   version: '1.0'
   contact:
@@ -38,22 +38,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response object returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
     SiteInfo:
       type: object
       description: Basic information about a Squarespace website
@@ -78,9 +62,25 @@ components:
           type: string
           format: date-time
           description: ISO 8601 UTC timestamp when the website was created
+    Error:
+      type: object
+      description: Standard error response object returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
       content:
         application/json:
           schema:
@@ -91,8 +91,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:

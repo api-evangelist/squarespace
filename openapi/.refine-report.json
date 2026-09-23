@@ -1,26 +1,55 @@
 {
   "provider": "squarespace",
   "sources": [
+    "_original/squarespace-commerce-api-openapi.yml",
+    "_original/squarespace-commerce-api-v2-openapi.json",
     "squarespace-inventory-api-openapi.yml",
     "squarespace-orders-api-openapi.yml",
     "squarespace-products-api-openapi.yml",
     "squarespace-profiles-api-openapi.yml",
-    "squarespace-site-api-openapi.yml",
     "squarespace-transactions-api-openapi.yml",
     "squarespace-webhook-subscriptions-api-openapi.yml"
   ],
   "outputs": [
+    "squarespace-site-api-openapi.yml",
+    "squarespace-analytics-api-openapi.yml",
+    "squarespace-contacts-api-openapi.yml",
+    "squarespace-discounts-api-openapi.yml",
     "squarespace-inventory-api-openapi.yml",
     "squarespace-orders-api-openapi.yml",
     "squarespace-products-api-openapi.yml",
     "squarespace-profiles-api-openapi.yml",
-    "squarespace-site-api-openapi.yml",
     "squarespace-transactions-api-openapi.yml",
+    "squarespace-webhooksubscriptions-api-openapi.yml",
+    "squarespace-websites-api-openapi.yml",
     "squarespace-webhook-subscriptions-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [],
-  "skipped": []
+  "warnings": [
+    "squarespace-inventory-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /commerce/inventory get, /commerce/inventory/adjustments post, /commerce/inventory/{variantIds} get); its other 3 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "squarespace-orders-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /commerce/orders get, /commerce/orders post, /commerce/orders/{orderId} get); its other 4 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "squarespace-products-api-openapi.yml: previously refined output kept for 11 operation(s) no archived document covers (e.g. /commerce/products get, /commerce/products post, /commerce/products/{productIds} delete); its other 14 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "squarespace-profiles-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /profiles get, /profiles/{profileIds} get); its other 2 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "squarespace-transactions-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /commerce/transactions get, /commerce/transactions/{transactionIds} get); its other 2 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "squarespace-webhook-subscriptions-api-openapi.yml: previously refined output kept for 7 operation(s) no archived document covers (e.g. /webhook_subscriptions get, /webhook_subscriptions post, /webhook_subscriptions/{subscriptionId} delete); its other 7 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "squarespace-commerce-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "squarespace-commerce-api-v2-openapi.json: upgraded openapi 3.1.1 -> OpenAPI 3.2.0",
+    "tag 'Inventory' spans 2 source specs (squarespace-commerce-api-v2-openapi.json, squarespace-inventory-api-openapi.yml): per-path servers applied",
+    "tag 'Orders' spans 2 source specs (squarespace-commerce-api-v2-openapi.json, squarespace-orders-api-openapi.yml): per-path servers applied",
+    "tag 'Products' spans 2 source specs (squarespace-commerce-api-v2-openapi.json, squarespace-products-api-openapi.yml): per-path servers applied",
+    "tag 'Profiles' spans 2 source specs (squarespace-commerce-api-v2-openapi.json, squarespace-profiles-api-openapi.yml): per-path servers applied",
+    "tag 'Transactions' spans 2 source specs (squarespace-commerce-api-v2-openapi.json, squarespace-transactions-api-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+1 apis, 13 total)"
+  ],
+  "skipped": [
+    "squarespace-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squarespace-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squarespace-discounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squarespace-site-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "squarespace-websites-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
