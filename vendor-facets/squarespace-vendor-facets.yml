@@ -1,0 +1,131 @@
+# Vendor facets — Squarespace. A website builder whose only agent-facing surface is an llms.txt
+# text field the site owner fills in (7.1 sites, off by default). Squarespace writes none of it,
+# so the credit is the owner's work. Its other AI features — an AI-crawler block toggle and an
+# AI Visibility tracking tool — score nothing.
+vendor: squarespace
+name: Squarespace
+website: https://www.squarespace.com
+areas:
+- hosting
+registry_keys:
+- squarespace
+rubric_schema_version: 0.22.0
+generated: '2026-09-25'
+features_refreshed: '2026-09-25'
+basis: capability
+summary: >-
+  Squarespace can reach exactly one Kin Score check: it will serve an llms.txt that the site owner writes
+  into a settings field, and the owner's writing is what earns it. It generates no llms.txt, no MCP server
+  and no commerce profile, and documents no way to publish .well-known documents; the AI-crawler toggle
+  and AI Visibility tool are real features no check reads.
+features:
+- id: llms-txt-field
+  name: llms.txt editor (SEO / AI Visibility panel)
+  description: >-
+    On version 7.1 sites the owner enables /llms.txt by typing its content into SEO Settings > LLMS.txt;
+    disabled by default, and Squarespace offers no content of its own.
+  source: https://support.squarespace.com/hc/en-us/articles/47434125611277-Create-an-llms-txt-file
+  tier: all
+- id: ai-crawler-toggle
+  name: Block known AI crawlers
+  description: A Settings > Crawlers checkbox that blocks known AI crawlers from the site.
+  source: >-
+    https://support.squarespace.com/hc/en-us/articles/38299115788813-Optimize-your-site-for-AI-powered-search-engines
+  tier: all
+- id: ai-visibility
+  name: AI Visibility tool
+  description: >-
+    Runs branded and non-branded prompts against ChatGPT and Gemini to track how often the site is mentioned,
+    metered by AI credits.
+  source: >-
+    https://support.squarespace.com/hc/en-us/articles/38299115788813-Optimize-your-site-for-AI-powered-search-engines
+  tier: all
+maps:
+- feature: llms-txt-field
+  check: llms_txt_published
+  layer: composite
+  provider_must: >-
+    Write the whole file and save it; the field is empty and the file unpublished by default. The credit
+    is for the owner's writing — Squarespace contributes only the route.
+  catalog_pass_rate: 0.351
+  facet: discoverability
+  points: 4
+  baseline_pass_rate: 0.65
+earns_nothing:
+- feature: ai-crawler-toggle
+  check: consent_identity
+  why: A block list declares no AIPREF / ContentSignal / WebBotAuth posture the dimension reads.
+- feature: ai-visibility
+  why: Measuring mentions in AI answers changes nothing on the provider's surface.
+out_of_reach:
+  checks:
+  - well_known_published
+  - well_known_catalog
+  - mcp_server
+  - agentic_commerce
+  - contract_present
+  - agent_card
+  note: >-
+    We found no documented way to serve .well-known documents, run server code or publish a commerce profile
+    on a Squarespace site.
+surface:
+  discoverability:
+    reachable: 4.0
+    total: 54
+  agent_readiness:
+    reachable: 0
+    total: 139
+hard_rule: >-
+  A model, not a score. Adopting this vendor changes a provider's Kin Score only when the provider publishes
+  the resulting artifacts on its own surface; nothing here writes a score, and no sponsorship or partnership
+  can.
+method: searched
+source:
+- >-
+  https://support.squarespace.com/hc/en-us/articles/38299115788813-Optimize-your-site-for-AI-powered-search-engines
+- https://support.squarespace.com/hc/en-us/articles/47434125611277-Create-an-llms-txt-file
+measured:
+  cohort:
+    method: vendors-catalog.json detections (CNAME / header / URL shape / markup), never a name match
+    detected: 3
+    in_baseline: 2
+  control:
+    basis: providers earning contract_present + documentation_present + api_reference_present, minus the
+      cohort
+    n: 5214
+  metric: >-
+    cohort_pct / control_pct = mean share of the check's points earned (derived and platform credit weighted),
+    x100
+  measured_on: '2026-09-25'
+  status: 'not measurable: 2 detected customers clear the baseline (need 20)'
+simulation:
+  simulated_on: '2026-09-25'
+  rubric: 0.23.0
+  population: providers publishing a contract (contract_present earned), replayable exactly
+  providers: 8977
+  providers_unreplayable: 987
+  providers_moved: 4456
+  conditional_rows: excluded (they depend on what the API already does)
+  composite_lift:
+    median: 0.0
+    p75: 0.7
+    p90: 0.8
+    max: 0.8
+    mean_among_movers: 0.7
+  agent_readiness_lift:
+    median: 0.0
+    p75: 0.0
+    p90: 0.0
+    max: 0.0
+    mean_among_movers: 0.0
+  facet_lift_median_among_movers:
+    discoverability: 7.4
+  composite_band_moves:
+    thin -> developing: 164
+    emerging -> thin: 49
+    developing -> strong: 49
+    strong -> exemplar: 13
+  agent_readiness_band_moves: {}
+  method: >-
+    each provider's own kin/checks file, the vendor's maps at their stated credit, the scorer's composite
+    formula; from -> to, nothing written
