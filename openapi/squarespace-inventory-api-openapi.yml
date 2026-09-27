@@ -288,14 +288,17 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    InventoryItemListResponse:
+    InventoryQuantityExpression:
       type: object
       properties:
-        inventory:
-          type: array
-          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
-          items:
-            $ref: '#/components/schemas/InventoryItem'
+        quantity:
+          type: integer
+          description: Quantity value for the inventory operation.
+          format: int32
+        variantId:
+          type: string
+          description: Unique id for the InventoryItem.
+      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
     InventoryItem:
       type: object
       properties:
@@ -316,41 +319,6 @@ components:
           type: string
           description: The product variant id, which also serves as a unique id for the InventoryItem.
       description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
-    InventoryQuantityExpression:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          description: Quantity value for the inventory operation.
-          format: int32
-        variantId:
-          type: string
-          description: Unique id for the InventoryItem.
-      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-    CreateInventoryAdjustmentRequest:
-      type: object
-      properties:
-        decrementOperations:
-          type: array
-          description: Optional; array of objects. Subtracts stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        incrementOperations:
-          type: array
-          description: Optional; array of objects. Increments stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        setFiniteOperations:
-          type: array
-          description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        setUnlimitedOperations:
-          type: array
-          description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
-          items:
-            type: string
-            description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
     StandardErrorPayload:
       type: object
       properties:
@@ -402,6 +370,38 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
+    InventoryItemListResponse:
+      type: object
+      properties:
+        inventory:
+          type: array
+          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+    CreateInventoryAdjustmentRequest:
+      type: object
+      properties:
+        decrementOperations:
+          type: array
+          description: Optional; array of objects. Subtracts stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        incrementOperations:
+          type: array
+          description: Optional; array of objects. Increments stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        setFiniteOperations:
+          type: array
+          description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        setUnlimitedOperations:
+          type: array
+          description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
+          items:
+            type: string
+            description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
     PaginatedInventoryItemListResponse:
       type: object
       properties:
@@ -434,22 +434,19 @@ components:
           description: List of inventory adjustments to apply
           items:
             $ref: '#/components/schemas/InventoryAdjustment'
-    Error:
+    InventoryAdjustment:
       type: object
-      description: Standard error response returned by the Squarespace API
+      description: A single stock quantity adjustment for a product variant
+      required:
+      - variantId
+      - quantity
       properties:
-        type:
+        variantId:
           type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
+          description: Unique identifier of the product variant to adjust
+        quantity:
           type: integer
-          description: HTTP status code associated with the error
+          description: Relative quantity change to apply. Positive values increase stock, negative values decrease it.
     Pagination:
       type: object
       description: Pagination metadata included with list responses
@@ -464,19 +461,6 @@ components:
           type: string
           format: uri
           description: Full URL for retrieving the next page of results
-    InventoryAdjustment:
-      type: object
-      description: A single stock quantity adjustment for a product variant
-      required:
-      - variantId
-      - quantity
-      properties:
-        variantId:
-          type: string
-          description: Unique identifier of the product variant to adjust
-        quantity:
-          type: integer
-          description: Relative quantity change to apply. Positive values increase stock, negative values decrease it.
     InventoryItem_2:
       type: object
       description: Stock information for a single product variant
@@ -503,7 +487,29 @@ components:
         infiniteStock:
           type: boolean
           description: Alias for isUnlimited indicating the variant never goes out of stock
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
   responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or contained invalid parameters
       content:
@@ -516,37 +522,31 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
     variantIds:
       name: variantIds
       in: path
       description: Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information
       required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
       schema:
         type: string
   securitySchemes:

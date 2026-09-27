@@ -129,31 +129,24 @@ paths:
       - Websites
 components:
   schemas:
-    MeasurementStandard:
-      type: string
-      enum:
-      - IMPERIAL
-      - METRIC
-    PaginatedStorePagesResponse:
+    Location:
       type: object
       properties:
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/store_pages?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-        storePages:
-          type: array
-          items:
-            $ref: '#/components/schemas/StorePage'
+        country:
+          type: string
+        region:
+          type: string
+    StorePage:
+      type: object
+      properties:
+        id:
+          type: string
+        isEnabled:
+          type: boolean
+        title:
+          type: string
+        urlSlug:
+          type: string
     WebsiteProfile:
       type: object
       properties:
@@ -175,6 +168,21 @@ components:
           type: string
         url:
           type: string
+    MemberProfile:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Profile email address.
+        firstName:
+          type: string
+          description: Profile first name.
+        id:
+          type: string
+          description: Unique Profile id.
+        lastName:
+          type: string
+          description: Profile last name.
     StandardErrorPayload:
       type: object
       properties:
@@ -226,39 +234,31 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
-    StorePage:
+    PaginatedStorePagesResponse:
       type: object
       properties:
-        id:
-          type: string
-        isEnabled:
-          type: boolean
-        title:
-          type: string
-        urlSlug:
-          type: string
-    MemberProfile:
-      type: object
-      properties:
-        email:
-          type: string
-          description: Profile email address.
-        firstName:
-          type: string
-          description: Profile first name.
-        id:
-          type: string
-          description: Unique Profile id.
-        lastName:
-          type: string
-          description: Profile last name.
-    Location:
-      type: object
-      properties:
-        country:
-          type: string
-        region:
-          type: string
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/store_pages?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        storePages:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorePage'
+    MeasurementStandard:
+      type: string
+      enum:
+      - IMPERIAL
+      - METRIC
   securitySchemes:
     Authorization:
       in: header

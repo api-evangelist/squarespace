@@ -51,6 +51,59 @@ paths:
           default: YOUR_CUSTOM_APP_DESCRIPTION
 components:
   schemas:
+    TransactionsSummary:
+      type: object
+      properties:
+        donationCount:
+          type: integer
+          description: Count of donations submitted.
+          format: int32
+        firstDonationSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
+          format: date-time
+        firstOrderSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
+          format: date-time
+        lastDonationSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
+          format: date-time
+        lastOrderSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
+          format: date-time
+        orderCount:
+          type: integer
+          description: Count of orders submitted.
+          format: int32
+        totalDonationAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalOrderAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalRefundAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
+    TransactionsSummaryWrapper:
+      type: object
+      properties:
+        contactId:
+          type: string
+          description: Unique contact identifier
+          examples:
+          - a6e74e0c-2b4a-4b63-b4a3-9c5d1f3e8a7b
+        transactionsSummary:
+          $ref: '#/components/schemas/TransactionsSummary'
+      description: List of transaction summary wrappers
+    RetrieveTransactionsSummariesResponse:
+      type: object
+      properties:
+        transactionsSummaryWrappers:
+          type: array
+          description: List of transaction summary wrappers
+          items:
+            $ref: '#/components/schemas/TransactionsSummaryWrapper'
     MonetaryAmount:
       type: object
       properties:
@@ -101,59 +154,6 @@ components:
           - contactId
           examples:
           - contactId
-    RetrieveTransactionsSummariesResponse:
-      type: object
-      properties:
-        transactionsSummaryWrappers:
-          type: array
-          description: List of transaction summary wrappers
-          items:
-            $ref: '#/components/schemas/TransactionsSummaryWrapper'
-    TransactionsSummary:
-      type: object
-      properties:
-        donationCount:
-          type: integer
-          description: Count of donations submitted.
-          format: int32
-        firstDonationSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
-          format: date-time
-        firstOrderSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
-          format: date-time
-        lastDonationSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
-          format: date-time
-        lastOrderSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
-          format: date-time
-        orderCount:
-          type: integer
-          description: Count of orders submitted.
-          format: int32
-        totalDonationAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalOrderAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalRefundAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
-    TransactionsSummaryWrapper:
-      type: object
-      properties:
-        contactId:
-          type: string
-          description: Unique contact identifier
-          examples:
-          - a6e74e0c-2b4a-4b63-b4a3-9c5d1f3e8a7b
-        transactionsSummary:
-          $ref: '#/components/schemas/TransactionsSummary'
-      description: List of transaction summary wrappers
   securitySchemes:
     Authorization:
       in: header

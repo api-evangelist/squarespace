@@ -905,7 +905,7 @@ paths:
       security:
       - bearerAuth: []
     post:
-      operationId: createProduct
+      operationId: postCommerceProducts
       summary: Create a Product
       description: Creates a new product in the merchant's catalog with appropriate subresources based on product type. Supports creation of physical, service, gift card, and digital download products. The request must include the product type, name, and at least one variant. Images can be added after the product is created using the product image endpoints.
       tags:
@@ -933,12 +933,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createProduct
   /commerce/products/{productIds}:
     servers:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     get:
-      operationId: getProducts
+      operationId: getCommerceProductsByProductIds
       summary: Retrieve Specific Products
       description: Retrieves detailed information for up to 50 specific products by their product IDs. Product IDs should be provided as a comma-separated list in the path. Returns full product data including all variants and images.
       tags:
@@ -969,8 +971,10 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getProducts
     post:
-      operationId: updateProduct
+      operationId: postCommerceProductsByProductIds
       summary: Update a Product
       description: Updates information for an existing product. The endpoint supports partial updates so any optional or conditional field may be omitted from the request. Only the fields provided in the request body will be updated. This endpoint accepts a single product ID in the path when updating.
       tags:
@@ -1002,8 +1006,10 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateProduct
     delete:
-      operationId: deleteProduct
+      operationId: deleteCommerceProductsByProductIds
       summary: Delete a Product
       description: Deletes a physical product and all its associated variants and images from the merchant's catalog. This action is permanent and cannot be undone. Accepts a single product ID in the path.
       tags:
@@ -1023,12 +1029,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteProduct
   /commerce/products/{productId}/variants:
     servers:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     post:
-      operationId: createProductVariant
+      operationId: postCommerceProductsByProductIdVariants
       summary: Create a Product Variant
       description: Adds a new variant to an existing product. A variant represents a specific configuration of a product, such as a particular size and color combination. Each variant has its own SKU, price, and inventory tracking settings.
       tags:
@@ -1060,12 +1068,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: createProductVariant
   /commerce/products/{productId}/variants/{variantId}:
     servers:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     post:
-      operationId: updateProductVariant
+      operationId: postCommerceProductsByProductIdVariantsByVariantId
       summary: Update a Product Variant
       description: Updates attributes for an existing product variant such as price, SKU, stock settings, and option values. Supports partial updates.
       tags:
@@ -1098,12 +1108,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateProductVariant
   /commerce/products/{productId}/images:
     servers:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     post:
-      operationId: uploadProductImage
+      operationId: postCommerceProductsByProductIdImages
       summary: Upload a Product Image
       description: Uploads a new image to a product using a publicly accessible image URL. The image is fetched from the provided URL and stored by Squarespace. An optional alt text can be provided for accessibility.
       tags:
@@ -1135,12 +1147,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: uploadProductImage
   /commerce/products/{productId}/images/{imageId}:
     servers:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     post:
-      operationId: updateProductImage
+      operationId: postCommerceProductsByProductIdImagesByImageId
       summary: Update a Product Image
       description: Updates the alt text of an existing product image. The image itself cannot be replaced; delete and re-upload to change the image file.
       tags:
@@ -1173,8 +1187,10 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: updateProductImage
     delete:
-      operationId: deleteProductImage
+      operationId: deleteCommerceProductsByProductIdImagesByImageId
       summary: Delete a Product Image
       description: Permanently removes an image from a product. This action cannot be undone.
       tags:
@@ -1195,6 +1211,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteProductImage
   /commerce/products/{productId}/images/reorder:
     servers:
     - url: https://api.squarespace.com/1.0
@@ -1242,6 +1260,408 @@ paths:
       - bearerAuth: []
 components:
   schemas:
+    ProductV2:
+      required:
+      - createdOn
+      - id
+      - modifiedOn
+      - storePageId
+      - type
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date-time
+        description:
+          type: string
+        id:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductImage'
+        isVisible:
+          type: boolean
+        modifiedOn:
+          type: string
+          format: date-time
+        name:
+          type: string
+        seoOptions:
+          $ref: '#/components/schemas/SeoOptions'
+        storePageId:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/ProductTypeV2'
+        url:
+          type: string
+        urlSlug:
+          type: string
+      discriminator:
+        propertyName: type
+    CreatePhysicalProductRequest:
+      title: CreatePhysicalProductRequest
+      type: object
+      description: Request payload to create a PHYSICAL product.
+      properties:
+        description:
+          type: string
+        isVisible:
+          type: boolean
+        name:
+          type: string
+        storePageId:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        urlSlug:
+          type: string
+        variantAttributes:
+          type: array
+          items:
+            type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePhysicalProductVariantRequest'
+      discriminator:
+        propertyName: type
+    ProductVariantV2:
+      type: object
+      properties:
+        id:
+          type: string
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        sku:
+          type: string
+      description: A product variant. The shape depends on the product type.
+      oneOf:
+      - $ref: '#/components/schemas/PhysicalProductVariant'
+      - $ref: '#/components/schemas/GiftCardProductVariant'
+      - $ref: '#/components/schemas/ServiceProductVariant'
+    UpdateProductImageOrderRequest:
+      type: object
+      properties:
+        afterImageId:
+          $ref: '#/components/schemas/ChangeString'
+    PaginatedProductListResponseV2:
+      type: object
+      properties:
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /v2/commerce/products?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        products:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DigitalProduct'
+            - $ref: '#/components/schemas/GiftCardProduct'
+            - $ref: '#/components/schemas/PhysicalProduct'
+            - $ref: '#/components/schemas/ServiceProduct'
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    GiftCardProductVariant:
+      title: GiftCardProductVariant
+      type: object
+      properties:
+        id:
+          type: string
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        pricing:
+          $ref: '#/components/schemas/SimpleProductPricing'
+        sku:
+          type: string
+      description: A variant of a GIFT_CARD product.
+    ProductWeightUnit:
+      type: string
+      description: 'Unit of measurement. Supported values: `KILOGRAM`, `POUND`.'
+      enum:
+      - KILOGRAM
+      - POUND
+    SimpleProductPricing:
+      type: object
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+    DigitalProduct:
+      title: DigitalProduct
+      required:
+      - createdOn
+      - id
+      - modifiedOn
+      - storePageId
+      - type
+      type: object
+      description: A DIGITAL product.
+      properties:
+        createdOn:
+          type: string
+          format: date-time
+        description:
+          type: string
+        id:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductImage'
+        isVisible:
+          type: boolean
+        modifiedOn:
+          type: string
+          format: date-time
+        name:
+          type: string
+        seoOptions:
+          $ref: '#/components/schemas/SeoOptions'
+        storePageId:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/ProductTypeV2'
+        url:
+          type: string
+        urlSlug:
+          type: string
+        digitalGood:
+          $ref: '#/components/schemas/DigitalGood'
+        pricing:
+          $ref: '#/components/schemas/ProductPricing'
+      discriminator:
+        propertyName: type
+    GiftCardProduct:
+      title: GiftCardProduct
+      required:
+      - createdOn
+      - id
+      - modifiedOn
+      - storePageId
+      - type
+      type: object
+      description: A GIFT_CARD product.
+      properties:
+        createdOn:
+          type: string
+          format: date-time
+        description:
+          type: string
+        id:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductImage'
+        isVisible:
+          type: boolean
+        modifiedOn:
+          type: string
+          format: date-time
+        name:
+          type: string
+        seoOptions:
+          $ref: '#/components/schemas/SeoOptions'
+        storePageId:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        type:
+          $ref: '#/components/schemas/ProductTypeV2'
+        url:
+          type: string
+        urlSlug:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiftCardProductVariant'
+      discriminator:
+        propertyName: type
+    PhysicalProductVariant:
+      title: PhysicalProductVariant
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        gtin:
+          type: string
+        id:
+          type: string
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        mpn:
+          type: string
+        pricing:
+          $ref: '#/components/schemas/FullProductPricing'
+        shippingMeasurements:
+          $ref: '#/components/schemas/ProductMeasurements'
+        sku:
+          type: string
+        stock:
+          $ref: '#/components/schemas/ProductStock'
+      description: A variant of a PHYSICAL product.
+    FullProductPricing:
+      type: object
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+        onSale:
+          type: boolean
+        salePrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+    CreateGiftCardProductRequest:
+      title: CreateGiftCardProductRequest
+      type: object
+      description: Request payload to create a GIFT_CARD product.
+      properties:
+        description:
+          type: string
+        isVisible:
+          type: boolean
+        name:
+          type: string
+        storePageId:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        urlSlug:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateGiftCardProductVariantRequest'
+      discriminator:
+        propertyName: type
+    ProductDimensionsUnit:
+      type: string
+      description: 'Unit of measurement. Supported values: `INCH`, `CENTIMETER`.'
+      enum:
+      - CENTIMETER
+      - INCH
+    MonetaryAmount:
+      type: object
+      properties:
+        currency:
+          type: object
+          description: ISO 4217 currency code.
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            numericCode:
+              type: integer
+              format: int32
+            numericCodeAsString:
+              type: string
+            symbol:
+              type: string
+          examples:
+          - USD
+        value:
+          type: number
+          description: Decimal monetary value.
+          examples:
+          - 49.99
+      description: A monetary amount with currency code and decimal value.
+    ChangeUpdateProductMeasurements:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          $ref: '#/components/schemas/UpdateProductMeasurements'
+      description: Measurements of the variant when it's shipped. Supported for PHYSICAL products only.
+    ChangeSeoOptions:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          $ref: '#/components/schemas/SeoOptions'
+      description: Options for search engine optimization.
     ServiceProduct:
       title: ServiceProduct
       required:
@@ -1295,55 +1715,182 @@ components:
             $ref: '#/components/schemas/ServiceProductVariant'
       discriminator:
         propertyName: type
-    DigitalProduct:
-      title: DigitalProduct
-      required:
-      - createdOn
-      - id
-      - modifiedOn
-      - storePageId
-      - type
+    ProductStock:
       type: object
-      description: A DIGITAL product.
       properties:
-        createdOn:
-          type: string
-          format: date-time
-        description:
-          type: string
+        quantity:
+          type: integer
+          description: Number of units that can be purchased.
+          format: int32
+        unlimited:
+          type: boolean
+          description: Indicates whether the variant has unlimited stock.
+      description: Available stock for the variant. Present for PHYSICAL products only.
+    ProductImageProcessingStatus:
+      type: object
+      properties:
         id:
           type: string
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductImage'
-        isVisible:
+        status:
+          $ref: '#/components/schemas/ImageProcessingStatus'
+    UpdateProductPricing:
+      type: object
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/ChangeMonetaryAmount'
+        onSale:
+          $ref: '#/components/schemas/ChangeBoolean'
+        salePrice:
+          $ref: '#/components/schemas/ChangeMonetaryAmount'
+    ChangeMapStringString:
+      type: object
+      properties:
+        present:
           type: boolean
-        modifiedOn:
+        value:
+          type: object
+          additionalProperties:
+            type: string
+      description: Specifies attribute-value pairs for the variant. Supported for PHYSICAL products only.
+    ChangeUpdateProductPricing:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          $ref: '#/components/schemas/UpdateProductPricing'
+      description: Pricing data for the product.
+    CreateServiceProductVariantRequest:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        pricing:
+          $ref: '#/components/schemas/FullProductPricing'
+        sku:
           type: string
-          format: date-time
-        name:
+        stock:
+          $ref: '#/components/schemas/ProductStock'
+    ServiceProductVariant:
+      title: ServiceProductVariant
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        id:
           type: string
-        seoOptions:
-          $ref: '#/components/schemas/SeoOptions'
-        storePageId:
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        pricing:
+          $ref: '#/components/schemas/FullProductPricing'
+        sku:
           type: string
-        tags:
+        stock:
+          $ref: '#/components/schemas/ProductStock'
+      description: A variant of a SERVICE product.
+    ProductTypeV2:
+      type: string
+      enum:
+      - PHYSICAL
+      - SERVICE
+      - GIFT_CARD
+      - DIGITAL
+    CreatePhysicalProductVariantRequest:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        gtin:
+          type: string
+          description: Global Trade Item Number (GTIN). Optional. Must be 8, 12, 13, or 14 numeric digits. Whitespace, hyphens, and underscores are stripped before validation.
+        mpn:
+          type: string
+          description: Manufacturer Part Number (MPN). Optional. Must be alphanumeric and 70 characters or fewer. Whitespace, hyphens, and underscores are stripped before validation.
+        pricing:
+          $ref: '#/components/schemas/FullProductPricing'
+        shippingMeasurements:
+          $ref: '#/components/schemas/ProductMeasurements'
+        sku:
+          type: string
+        stock:
+          $ref: '#/components/schemas/ProductStock'
+    AssociateProductImageToVariantRequest:
+      required:
+      - imageId
+      type: object
+      properties:
+        imageId:
+          $ref: '#/components/schemas/ChangeString'
+    ChangeProductWeight:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          $ref: '#/components/schemas/ProductWeight'
+    ProductImage:
+      type: object
+      properties:
+        altText:
+          type: string
+          description: Alt text for the image; impacts SEO and appears in search results.
+        availableFormats:
           type: array
+          description: Available image sizes. Use with `images.url` and a `format` query parameter to retrieve the image at a particular width.
           items:
             type: string
-        type:
-          $ref: '#/components/schemas/ProductTypeV2'
+            description: Available image sizes. Use with `images.url` and a `format` query parameter to retrieve the image at a particular width.
+        id:
+          type: string
+          description: Unique ProductImage id.
+        orderIndex:
+          type: integer
+          description: Position of the image in the product's image list.
+          format: int32
+        originalSize:
+          type: object
+          description: Image size when first uploaded.
         url:
           type: string
-        urlSlug:
+          description: Absolute URL of the image hosted on Squarespace.
+      description: Product image assigned to the variant.
+    ProductWeight:
+      type: object
+      properties:
+        unit:
+          $ref: '#/components/schemas/ProductWeightUnit'
+        value:
+          type: number
+          description: Weight amount.
+          format: float
+      description: Weight of the variant.
+    DigitalGood:
+      type: object
+      properties:
+        filename:
           type: string
-        digitalGood:
-          $ref: '#/components/schemas/DigitalGood'
-        pricing:
-          $ref: '#/components/schemas/ProductPricing'
-      discriminator:
-        propertyName: type
+          description: Filename of the downloadable file.
+        id:
+          type: string
+          description: Unique DigitalGood id.
+      description: Present for DIGITAL products only.
+    ProductListResponseV2:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/DigitalProduct'
+            - $ref: '#/components/schemas/GiftCardProduct'
+            - $ref: '#/components/schemas/PhysicalProduct'
+            - $ref: '#/components/schemas/ServiceProduct'
     CreateVariantRequestV2:
       required:
       - pricing
@@ -1376,113 +1923,12 @@ components:
           description: Merchant-defined code that identifies the product variant. Value must be unique among variants. Leading and trailing whitespace is removed.
         stock:
           $ref: '#/components/schemas/ProductStock'
-    MonetaryAmount:
+    UploadProductImageResponse:
       type: object
       properties:
-        currency:
-          type: object
-          description: ISO 4217 currency code.
-          properties:
-            currencyCode:
-              type: string
-            defaultFractionDigits:
-              type: integer
-              format: int32
-            displayName:
-              type: string
-            numericCode:
-              type: integer
-              format: int32
-            numericCodeAsString:
-              type: string
-            symbol:
-              type: string
-          examples:
-          - USD
-        value:
-          type: number
-          description: Decimal monetary value.
-          examples:
-          - 49.99
-      description: A monetary amount with currency code and decimal value.
-    ChangeMonetaryAmount:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          $ref: '#/components/schemas/MonetaryAmount'
-    ChangeSeoOptions:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          $ref: '#/components/schemas/SeoOptions'
-      description: Options for search engine optimization.
-    ImageProcessingStatus:
-      type: string
-      enum:
-      - QUEUED
-      - PROCESSING
-      - READY
-      - ERROR
-    ProductWeight:
-      type: object
-      properties:
-        unit:
-          $ref: '#/components/schemas/ProductWeightUnit'
-        value:
-          type: number
-          description: Weight amount.
-          format: float
-      description: Weight of the variant.
-    ProductVariantV2:
-      type: object
-      properties:
-        id:
+        imageId:
           type: string
-        image:
-          $ref: '#/components/schemas/ProductImage'
-        sku:
-          type: string
-      description: A product variant. The shape depends on the product type.
-      oneOf:
-      - $ref: '#/components/schemas/PhysicalProductVariant'
-      - $ref: '#/components/schemas/GiftCardProductVariant'
-      - $ref: '#/components/schemas/ServiceProductVariant'
-    ProductStock:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          description: Number of units that can be purchased.
-          format: int32
-        unlimited:
-          type: boolean
-          description: Indicates whether the variant has unlimited stock.
-      description: Available stock for the variant. Present for PHYSICAL products only.
-    CreatePhysicalProductVariantRequest:
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        gtin:
-          type: string
-          description: Global Trade Item Number (GTIN). Optional. Must be 8, 12, 13, or 14 numeric digits. Whitespace, hyphens, and underscores are stripped before validation.
-        mpn:
-          type: string
-          description: Manufacturer Part Number (MPN). Optional. Must be alphanumeric and 70 characters or fewer. Whitespace, hyphens, and underscores are stripped before validation.
-        pricing:
-          $ref: '#/components/schemas/FullProductPricing'
-        shippingMeasurements:
-          $ref: '#/components/schemas/ProductMeasurements'
-        sku:
-          type: string
-        stock:
-          $ref: '#/components/schemas/ProductStock'
+          description: Unique ProductImage id.
     UpdateProductRequest:
       type: object
       properties:
@@ -1502,214 +1948,28 @@ components:
           $ref: '#/components/schemas/ChangeListString'
         urlSlug:
           $ref: '#/components/schemas/ChangeString'
-    ChangeUpdateProductMeasurements:
+    ChangeProductDimensions:
       type: object
       properties:
         present:
           type: boolean
         value:
-          $ref: '#/components/schemas/UpdateProductMeasurements'
-      description: Measurements of the variant when it's shipped. Supported for PHYSICAL products only.
-    ProductTypeV2:
-      type: string
-      enum:
-      - PHYSICAL
-      - SERVICE
-      - GIFT_CARD
-      - DIGITAL
-    CreateGiftCardProductVariantRequest:
-      type: object
-      properties:
-        pricing:
-          $ref: '#/components/schemas/SimpleProductPricing'
-        sku:
-          type: string
-    ChangeProductWeight:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          $ref: '#/components/schemas/ProductWeight'
-    CreateServiceProductVariantRequest:
+          $ref: '#/components/schemas/ProductDimensions'
+    UpdateVariantRequestV2:
       type: object
       properties:
         attributes:
-          type: object
-          additionalProperties:
-            type: string
-        pricing:
-          $ref: '#/components/schemas/FullProductPricing'
-        sku:
-          type: string
-        stock:
-          $ref: '#/components/schemas/ProductStock'
-    ProductListResponseV2:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/DigitalProduct'
-            - $ref: '#/components/schemas/GiftCardProduct'
-            - $ref: '#/components/schemas/PhysicalProduct'
-            - $ref: '#/components/schemas/ServiceProduct'
-    ServiceProductVariant:
-      title: ServiceProductVariant
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        id:
-          type: string
-        image:
-          $ref: '#/components/schemas/ProductImage'
-        pricing:
-          $ref: '#/components/schemas/FullProductPricing'
-        sku:
-          type: string
-        stock:
-          $ref: '#/components/schemas/ProductStock'
-      description: A variant of a SERVICE product.
-    UpdateProductImageRequest:
-      type: object
-      properties:
-        altText:
-          $ref: '#/components/schemas/ChangeString'
-    PhysicalProductVariant:
-      title: PhysicalProductVariant
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
+          $ref: '#/components/schemas/ChangeMapStringString'
         gtin:
-          type: string
-        id:
-          type: string
-        image:
-          $ref: '#/components/schemas/ProductImage'
+          $ref: '#/components/schemas/ChangeString'
         mpn:
-          type: string
+          $ref: '#/components/schemas/ChangeString'
         pricing:
-          $ref: '#/components/schemas/FullProductPricing'
+          $ref: '#/components/schemas/ChangeUpdateProductPricing'
         shippingMeasurements:
-          $ref: '#/components/schemas/ProductMeasurements'
+          $ref: '#/components/schemas/ChangeUpdateProductMeasurements'
         sku:
-          type: string
-        stock:
-          $ref: '#/components/schemas/ProductStock'
-      description: A variant of a PHYSICAL product.
-    SimpleProductPricing:
-      type: object
-      properties:
-        basePrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-    FullProductPricing:
-      type: object
-      properties:
-        basePrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-        onSale:
-          type: boolean
-        salePrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-    ChangeBoolean:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          type: boolean
-    ChangeMapStringString:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          type: object
-          additionalProperties:
-            type: string
-      description: Specifies attribute-value pairs for the variant. Supported for PHYSICAL products only.
-    ProductPricing:
-      type: object
-      properties:
-        basePrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-        onSale:
-          type: boolean
-          description: Indicates whether the variant is sold according to its sale price. Present for PHYSICAL products only.
-        salePrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: Present for DIGITAL products only. Digital products don't have variants, so pricing is at the product level.
-    ProductDimensionsUnit:
-      type: string
-      description: 'Unit of measurement. Supported values: `INCH`, `CENTIMETER`.'
-      enum:
-      - CENTIMETER
-      - INCH
-    UpdateProductPricing:
-      type: object
-      properties:
-        basePrice:
-          $ref: '#/components/schemas/ChangeMonetaryAmount'
-        onSale:
-          $ref: '#/components/schemas/ChangeBoolean'
-        salePrice:
-          $ref: '#/components/schemas/ChangeMonetaryAmount'
-    ProductV2:
-      required:
-      - createdOn
-      - id
-      - modifiedOn
-      - storePageId
-      - type
-      type: object
-      properties:
-        createdOn:
-          type: string
-          format: date-time
-        description:
-          type: string
-        id:
-          type: string
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductImage'
-        isVisible:
-          type: boolean
-        modifiedOn:
-          type: string
-          format: date-time
-        name:
-          type: string
-        seoOptions:
-          $ref: '#/components/schemas/SeoOptions'
-        storePageId:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        type:
-          $ref: '#/components/schemas/ProductTypeV2'
-        url:
-          type: string
-        urlSlug:
-          type: string
-      discriminator:
-        propertyName: type
-    ProductWeightUnit:
-      type: string
-      description: 'Unit of measurement. Supported values: `KILOGRAM`, `POUND`.'
-      enum:
-      - KILOGRAM
-      - POUND
+          $ref: '#/components/schemas/ChangeString'
     PhysicalProduct:
       title: PhysicalProduct
       required:
@@ -1763,16 +2023,86 @@ components:
             $ref: '#/components/schemas/PhysicalProductVariant'
       discriminator:
         propertyName: type
-    DigitalGood:
+    CreateGiftCardProductVariantRequest:
       type: object
       properties:
-        filename:
+        pricing:
+          $ref: '#/components/schemas/SimpleProductPricing'
+        sku:
           type: string
-          description: Filename of the downloadable file.
-        id:
+    ChangeBoolean:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          type: boolean
+    ChangeMonetaryAmount:
+      type: object
+      properties:
+        present:
+          type: boolean
+        value:
+          $ref: '#/components/schemas/MonetaryAmount'
+    UpdateProductMeasurements:
+      type: object
+      properties:
+        dimensions:
+          $ref: '#/components/schemas/ChangeProductDimensions'
+        weight:
+          $ref: '#/components/schemas/ChangeProductWeight'
+    ProductPricing:
+      type: object
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+        onSale:
+          type: boolean
+          description: Indicates whether the variant is sold according to its sale price. Present for PHYSICAL products only.
+        salePrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Present for DIGITAL products only. Digital products don't have variants, so pricing is at the product level.
+    ProductDimensions:
+      type: object
+      properties:
+        height:
+          type: number
+          description: Height of the variant.
+          format: float
+        length:
+          type: number
+          description: Length of the variant.
+          format: float
+        unit:
+          $ref: '#/components/schemas/ProductDimensionsUnit'
+        width:
+          type: number
+          description: Width of the variant.
+          format: float
+      description: Physical dimensions of the variant.
+    SeoOptions:
+      type: object
+      properties:
+        description:
           type: string
-          description: Unique DigitalGood id.
-      description: Present for DIGITAL products only.
+        title:
+          type: string
+      description: Options for search engine optimization.
+    ImageProcessingStatus:
+      type: string
+      enum:
+      - QUEUED
+      - PROCESSING
+      - READY
+      - ERROR
+    ProductMeasurements:
+      type: object
+      properties:
+        dimensions:
+          $ref: '#/components/schemas/ProductDimensions'
+        weight:
+          $ref: '#/components/schemas/ProductWeight'
+      description: Measurements of the variant when it's shipped. Present for PHYSICAL products only.
     CreateServiceProductRequest:
       title: CreateServiceProductRequest
       type: object
@@ -1804,83 +2134,11 @@ components:
             $ref: '#/components/schemas/CreateServiceProductVariantRequest'
       discriminator:
         propertyName: type
-    StandardErrorPayload:
+    UpdateProductImageRequest:
       type: object
       properties:
-        contextId:
-          type: string
-        details:
-          type: object
-        message:
-          type: string
-        subtype:
-          type: string
-          enum:
-          - MISSING_ARGUMENT
-          - INVALID_ARGUMENT
-          - INVALID_CONTENT_TYPE
-          - CONCURRENT_MODIFICATION
-          - INSUFFICIENT_STOCK
-          - STOCK_NOT_TRACKED
-          - STOCK_EXCEEDS_MAX
-          - CURRENCY_MISMATCH
-          - MEASUREMENT_STANDARD_MISMATCH
-          - INSUFFICIENT_PRODUCT_VARIANTS
-          - URL_SLUG_UNAVAILABLE
-          - SKU_UNAVAILABLE
-          - STORE_PAGE_NOT_FOUND
-          - STORE_PAGE_PRODUCT_LIMIT_REACHED
-          - IMAGE_LIMIT_REACHED
-          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
-          - MISSING_SCOPE
-          - PROFILE_CANNOT_ACCEPT_MARKETING
-          - ENTITY_LIMIT_REACHED
-          - PRODUCT_UPDATE_CONFLICT
-          - DUPLICATE_USER_CONFLICT
-          - PROMO_CODE_CONFLICT
-          - INVENTORY_ITEM_NOT_FOUND
-          - PRODUCT_IMAGE_NOT_FOUND
-          - PRODUCT_VARIANT_NOT_FOUND
-          - OAUTH_TOKEN_REQUIRED
-          - FORBIDDEN_RESOURCE
-          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
-        type:
-          type: string
-          enum:
-          - INVALID_REQUEST_ERROR
-          - AUTHORIZATION_ERROR
-          - WEBSITE_EXPIRED
-          - METHOD_NOT_ALLOWED
-          - CONFLICT
-          - TOO_MANY_REQUESTS
-          - SERVER_ERROR
-          - SERVICE_UNAVAILABLE
-    ProductDimensions:
-      type: object
-      properties:
-        height:
-          type: number
-          description: Height of the variant.
-          format: float
-        length:
-          type: number
-          description: Length of the variant.
-          format: float
-        unit:
-          $ref: '#/components/schemas/ProductDimensionsUnit'
-        width:
-          type: number
-          description: Width of the variant.
-          format: float
-      description: Physical dimensions of the variant.
-    SeoOptions:
-      type: object
-      properties:
-        description:
-          type: string
-        title:
-          type: string
-      description: Options for search engine optimization.
+        altText:
+          $ref: '#/components/schemas/ChangeString'
     ChangeString:
       type: object
       properties:
@@ -1889,139 +2147,6 @@ components:
         value:
           type: string
       description: Optional; HTTPS URL to receive webhook notifications.
-    CreateGiftCardProductRequest:
-      title: CreateGiftCardProductRequest
-      type: object
-      description: Request payload to create a GIFT_CARD product.
-      properties:
-        description:
-          type: string
-        isVisible:
-          type: boolean
-        name:
-          type: string
-        storePageId:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        type:
-          type: string
-        urlSlug:
-          type: string
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateGiftCardProductVariantRequest'
-      discriminator:
-        propertyName: type
-    GiftCardProduct:
-      title: GiftCardProduct
-      required:
-      - createdOn
-      - id
-      - modifiedOn
-      - storePageId
-      - type
-      type: object
-      description: A GIFT_CARD product.
-      properties:
-        createdOn:
-          type: string
-          format: date-time
-        description:
-          type: string
-        id:
-          type: string
-        images:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductImage'
-        isVisible:
-          type: boolean
-        modifiedOn:
-          type: string
-          format: date-time
-        name:
-          type: string
-        seoOptions:
-          $ref: '#/components/schemas/SeoOptions'
-        storePageId:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        type:
-          $ref: '#/components/schemas/ProductTypeV2'
-        url:
-          type: string
-        urlSlug:
-          type: string
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/GiftCardProductVariant'
-      discriminator:
-        propertyName: type
-    ProductImage:
-      type: object
-      properties:
-        altText:
-          type: string
-          description: Alt text for the image; impacts SEO and appears in search results.
-        availableFormats:
-          type: array
-          description: Available image sizes. Use with `images.url` and a `format` query parameter to retrieve the image at a particular width.
-          items:
-            type: string
-            description: Available image sizes. Use with `images.url` and a `format` query parameter to retrieve the image at a particular width.
-        id:
-          type: string
-          description: Unique ProductImage id.
-        orderIndex:
-          type: integer
-          description: Position of the image in the product's image list.
-          format: int32
-        originalSize:
-          type: object
-          description: Image size when first uploaded.
-        url:
-          type: string
-          description: Absolute URL of the image hosted on Squarespace.
-      description: Product image assigned to the variant.
-    CreatePhysicalProductRequest:
-      title: CreatePhysicalProductRequest
-      type: object
-      description: Request payload to create a PHYSICAL product.
-      properties:
-        description:
-          type: string
-        isVisible:
-          type: boolean
-        name:
-          type: string
-        storePageId:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        type:
-          type: string
-        urlSlug:
-          type: string
-        variantAttributes:
-          type: array
-          items:
-            type: string
-        variants:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreatePhysicalProductVariantRequest'
-      discriminator:
-        propertyName: type
     ChangeListString:
       type: object
       properties:
@@ -2032,113 +2157,40 @@ components:
           items:
             type: string
       description: 'Optional; list of event topics that trigger a webhook notification. Possible values include: extension.uninstall, order.create, order.update.'
-    ProductMeasurements:
+    UpdateVariantRequest:
       type: object
+      description: Request body for updating a product variant (supports partial updates)
       properties:
-        dimensions:
-          $ref: '#/components/schemas/ProductDimensions'
-        weight:
-          $ref: '#/components/schemas/ProductWeight'
-      description: Measurements of the variant when it's shipped. Present for PHYSICAL products only.
-    GiftCardProductVariant:
-      title: GiftCardProductVariant
-      type: object
-      properties:
-        id:
-          type: string
-        image:
-          $ref: '#/components/schemas/ProductImage'
-        pricing:
-          $ref: '#/components/schemas/SimpleProductPricing'
         sku:
           type: string
-      description: A variant of a GIFT_CARD product.
-    ChangeProductDimensions:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          $ref: '#/components/schemas/ProductDimensions'
-    AssociateProductImageToVariantRequest:
-      required:
-      - imageId
-      type: object
-      properties:
-        imageId:
-          $ref: '#/components/schemas/ChangeString'
-    UpdateProductMeasurements:
-      type: object
-      properties:
-        dimensions:
-          $ref: '#/components/schemas/ChangeProductDimensions'
-        weight:
-          $ref: '#/components/schemas/ChangeProductWeight'
-    UpdateVariantRequestV2:
-      type: object
-      properties:
+          description: Updated stock keeping unit identifier
+        pricing:
+          $ref: '#/components/schemas/VariantPricing'
+        stock:
+          $ref: '#/components/schemas/VariantStock'
         attributes:
-          $ref: '#/components/schemas/ChangeMapStringString'
-        gtin:
-          $ref: '#/components/schemas/ChangeString'
-        mpn:
-          $ref: '#/components/schemas/ChangeString'
-        pricing:
-          $ref: '#/components/schemas/ChangeUpdateProductPricing'
-        shippingMeasurements:
-          $ref: '#/components/schemas/ChangeUpdateProductMeasurements'
-        sku:
-          $ref: '#/components/schemas/ChangeString'
-    ProductImageProcessingStatus:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          $ref: '#/components/schemas/ImageProcessingStatus'
-    UpdateProductImageOrderRequest:
-      type: object
-      properties:
-        afterImageId:
-          $ref: '#/components/schemas/ChangeString'
-    UploadProductImageResponse:
-      type: object
-      properties:
-        imageId:
-          type: string
-          description: Unique ProductImage id.
-    ChangeUpdateProductPricing:
-      type: object
-      properties:
-        present:
-          type: boolean
-        value:
-          $ref: '#/components/schemas/UpdateProductPricing'
-      description: Pricing data for the product.
-    PaginatedProductListResponseV2:
-      type: object
-      properties:
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /v2/commerce/products?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
           type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-        products:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/DigitalProduct'
-            - $ref: '#/components/schemas/GiftCardProduct'
-            - $ref: '#/components/schemas/PhysicalProduct'
-            - $ref: '#/components/schemas/ServiceProduct'
+          description: Updated option name to value mappings
+          additionalProperties:
+            type: string
+    UpdateImageRequest:
+      type: object
+      description: Request body for updating product image metadata
+      properties:
+        altText:
+          type: string
+          description: Updated alternative text for the image
+    VariantPricing:
+      type: object
+      description: Pricing information for a product variant
+      properties:
+        basePrice:
+          $ref: '#/components/schemas/Money'
+        salePrice:
+          $ref: '#/components/schemas/Money'
+        onSale:
+          type: boolean
+          description: Whether the variant is currently on sale at the salePrice
     Product:
       type: object
       description: A product in the Squarespace merchant catalog
@@ -2217,45 +2269,20 @@ components:
         isVisible:
           type: boolean
           description: Updated visibility setting for the product
-    VariantPricing:
+    Pagination:
       type: object
-      description: Pricing information for a product variant
+      description: Pagination metadata included with list responses
       properties:
-        basePrice:
-          $ref: '#/components/schemas/Money'
-        salePrice:
-          $ref: '#/components/schemas/Money'
-        onSale:
+        hasNextPage:
           type: boolean
-          description: Whether the variant is currently on sale at the salePrice
-    UpdateVariantRequest:
-      type: object
-      description: Request body for updating a product variant (supports partial updates)
-      properties:
-        sku:
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
           type: string
-          description: Updated stock keeping unit identifier
-        pricing:
-          $ref: '#/components/schemas/VariantPricing'
-        stock:
-          $ref: '#/components/schemas/VariantStock'
-        attributes:
-          type: object
-          description: Updated option name to value mappings
-          additionalProperties:
-            type: string
-    Money:
-      type: object
-      description: A monetary value with currency
-      properties:
-        value:
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
           type: string
-          description: Decimal string representation of the monetary amount
-          pattern: ^-?\d+(\.\d+)?$
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code
-          pattern: ^[A-Z]{3}$
+          format: uri
+          description: Full URL for retrieving the next page of results
     CreateVariantRequest:
       type: object
       description: Request body for creating a product variant
@@ -2275,102 +2302,6 @@ components:
           description: Option name to value mappings for this variant
           additionalProperties:
             type: string
-    UploadImageRequest:
-      type: object
-      description: Request body for uploading a product image from a URL
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Publicly accessible URL of the image to upload
-        altText:
-          type: string
-          description: Alternative text for the image
-    ProductImage_2:
-      type: object
-      description: An image associated with a product
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the product image
-        url:
-          type: string
-          format: uri
-          description: URL of the stored product image
-        altText:
-          type: string
-          description: Alternative text description for accessibility
-        width:
-          type: integer
-          description: Width of the image in pixels
-        height:
-          type: integer
-          description: Height of the image in pixels
-    Pagination:
-      type: object
-      description: Pagination metadata included with list responses
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates whether additional pages of results are available
-        nextPageCursor:
-          type: string
-          description: Cursor value to pass in the next request to retrieve the next page
-        nextPageUrl:
-          type: string
-          format: uri
-          description: Full URL for retrieving the next page of results
-    ProductVariant:
-      type: object
-      description: A specific variant of a product with its own price, SKU, and stock
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the variant
-        sku:
-          type: string
-          description: Stock keeping unit identifier for the variant
-        pricing:
-          $ref: '#/components/schemas/VariantPricing'
-        stock:
-          $ref: '#/components/schemas/VariantStock'
-        attributes:
-          type: object
-          description: Key-value pairs of option names to selected values for this variant
-          additionalProperties:
-            type: string
-    VariantStock:
-      type: object
-      description: Stock tracking configuration for a product variant
-      properties:
-        quantity:
-          type: integer
-          description: Current stock quantity for the variant
-          minimum: 0
-        unlimited:
-          type: boolean
-          description: When true, the variant has unlimited stock
-        backordered:
-          type: boolean
-          description: Whether the variant is currently on backorder
-    Error:
-      type: object
-      description: Standard error response returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
     CreateProductRequest:
       type: object
       description: Request body for creating a new product
@@ -2409,13 +2340,136 @@ components:
           description: Initial variants for the product
           items:
             $ref: '#/components/schemas/CreateVariantRequest'
-    UpdateImageRequest:
+    ProductVariant:
       type: object
-      description: Request body for updating product image metadata
+      description: A specific variant of a product with its own price, SKU, and stock
       properties:
+        id:
+          type: string
+          description: Unique identifier for the variant
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the variant
+        pricing:
+          $ref: '#/components/schemas/VariantPricing'
+        stock:
+          $ref: '#/components/schemas/VariantStock'
+        attributes:
+          type: object
+          description: Key-value pairs of option names to selected values for this variant
+          additionalProperties:
+            type: string
+    ProductImage_2:
+      type: object
+      description: An image associated with a product
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the product image
+        url:
+          type: string
+          format: uri
+          description: URL of the stored product image
         altText:
           type: string
-          description: Updated alternative text for the image
+          description: Alternative text description for accessibility
+        width:
+          type: integer
+          description: Width of the image in pixels
+        height:
+          type: integer
+          description: Height of the image in pixels
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: ^-?\d+(\.\d+)?$
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: ^[A-Z]{3}$
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
+    UploadImageRequest:
+      type: object
+      description: Request body for uploading a product image from a URL
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Publicly accessible URL of the image to upload
+        altText:
+          type: string
+          description: Alternative text for the image
+    VariantStock:
+      type: object
+      description: Stock tracking configuration for a product variant
+      properties:
+        quantity:
+          type: integer
+          description: Current stock quantity for the variant
+          minimum: 0
+        unlimited:
+          type: boolean
+          description: When true, the variant has unlimited stock
+        backordered:
+          type: boolean
+          description: Whether the variant is currently on backorder
+  parameters:
+    productIds:
+      name: productIds
+      in: path
+      description: Comma-separated list of up to 50 product IDs. When used for single-product operations, provide a single product ID.
+      required: true
+      schema:
+        type: string
+    productId:
+      name: productId
+      in: path
+      description: The unique identifier of the product
+      required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
+    variantId:
+      name: variantId
+      in: path
+      description: The unique identifier of the product variant
+      required: true
+      schema:
+        type: string
+    imageId:
+      name: imageId
+      in: path
+      description: The unique identifier of the product image
+      required: true
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found
@@ -2447,42 +2501,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    productIds:
-      name: productIds
-      in: path
-      description: Comma-separated list of up to 50 product IDs. When used for single-product operations, provide a single product ID.
-      required: true
-      schema:
-        type: string
-    variantId:
-      name: variantId
-      in: path
-      description: The unique identifier of the product variant
-      required: true
-      schema:
-        type: string
-    productId:
-      name: productId
-      in: path
-      description: The unique identifier of the product
-      required: true
-      schema:
-        type: string
-    cursor:
-      name: cursor
-      in: query
-      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
-    imageId:
-      name: imageId
-      in: path
-      description: The unique identifier of the product image
-      required: true
-      schema:
-        type: string
   securitySchemes:
     Authorization:
       in: header

@@ -200,7 +200,7 @@ paths:
     - url: https://api.squarespace.com/1.0
       description: Production Server
     get:
-      operationId: getProfiles
+      operationId: getProfilesByProfileIds
       summary: Retrieve Specific Profiles
       description: Retrieves profile information for one or more specific profiles by their profile IDs. Profile IDs can be provided as a comma-separated list in the path. The order of profiles in the response is not guaranteed to match the order of IDs provided.
       tags:
@@ -231,8 +231,51 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getProfiles
 components:
   schemas:
+    ProfileListResponse:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    TransactionsSummary:
+      type: object
+      properties:
+        donationCount:
+          type: integer
+          description: Count of donations submitted.
+          format: int32
+        firstDonationSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
+          format: date-time
+        firstOrderSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
+          format: date-time
+        lastDonationSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
+          format: date-time
+        lastOrderSubmittedOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
+          format: date-time
+        orderCount:
+          type: integer
+          description: Count of orders submitted.
+          format: int32
+        totalDonationAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalOrderAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalRefundAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
     Address:
       type: object
       properties:
@@ -309,6 +352,38 @@ components:
           examples:
           - 49.99
       description: A monetary amount with currency code and decimal value.
+    Profile:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: Indicates whether the profile opted to receive marketing.
+        address:
+          $ref: '#/components/schemas/Address'
+        createdOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile was created.
+          format: date-time
+        email:
+          type: string
+          description: Profile email address.
+        firstName:
+          type: string
+          description: Profile first name.
+        hasAccount:
+          type: boolean
+          description: Indicates whether the profile has an account with the website.
+        id:
+          type: string
+          description: Unique Profile id.
+        isCustomer:
+          type: boolean
+          description: Indicates whether the profile has any commerce orders or donations with the website.
+        lastName:
+          type: string
+          description: Profile last name.
+        transactionsSummary:
+          $ref: '#/components/schemas/TransactionsSummary'
     StandardErrorPayload:
       type: object
       properties:
@@ -360,38 +435,6 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
-    Profile:
-      type: object
-      properties:
-        acceptsMarketing:
-          type: boolean
-          description: Indicates whether the profile opted to receive marketing.
-        address:
-          $ref: '#/components/schemas/Address'
-        createdOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile was created.
-          format: date-time
-        email:
-          type: string
-          description: Profile email address.
-        firstName:
-          type: string
-          description: Profile first name.
-        hasAccount:
-          type: boolean
-          description: Indicates whether the profile has an account with the website.
-        id:
-          type: string
-          description: Unique Profile id.
-        isCustomer:
-          type: boolean
-          description: Indicates whether the profile has any commerce orders or donations with the website.
-        lastName:
-          type: string
-          description: Profile last name.
-        transactionsSummary:
-          $ref: '#/components/schemas/TransactionsSummary'
     PaginatedProfileListResponse:
       type: object
       properties:
@@ -412,106 +455,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Profile'
-    TransactionsSummary:
-      type: object
-      properties:
-        donationCount:
-          type: integer
-          description: Count of donations submitted.
-          format: int32
-        firstDonationSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
-          format: date-time
-        firstOrderSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
-          format: date-time
-        lastDonationSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
-          format: date-time
-        lastOrderSubmittedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
-          format: date-time
-        orderCount:
-          type: integer
-          description: Count of orders submitted.
-          format: int32
-        totalDonationAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalOrderAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalRefundAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
-    ProfileListResponse:
-      type: object
-      properties:
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Profile'
-    ApproximateAddress:
-      type: object
-      description: An approximate address derived from the profile's order history and account information, not necessarily verified
-      properties:
-        city:
-          type: string
-          description: City associated with the profile
-        state:
-          type: string
-          description: State or region associated with the profile
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        postalCode:
-          type: string
-          description: Postal or ZIP code associated with the profile
-    Error:
-      type: object
-      description: Standard error response returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
-    Money:
-      type: object
-      description: A monetary value with currency
-      properties:
-        value:
-          type: string
-          description: Decimal string representation of the monetary amount
-          pattern: ^-?\d+(\.\d+)?$
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code
-          pattern: ^[A-Z]{3}$
-    Pagination:
-      type: object
-      description: Pagination metadata included with list responses
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates whether additional pages of results are available
-        nextPageCursor:
-          type: string
-          description: Cursor value to pass in the next request to retrieve the next page
-        nextPageUrl:
-          type: string
-          format: uri
-          description: Full URL for retrieving the next page of results
     CommerceStats:
       type: object
       description: A summary of the profile holder's commerce activity on the site
@@ -536,6 +479,32 @@ components:
           type: string
           format: date-time
           description: ISO 8601 UTC timestamp of the profile's most recent order
+    Pagination:
+      type: object
+      description: Pagination metadata included with list responses
+      properties:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Money:
+      type: object
+      description: A monetary value with currency
+      properties:
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: ^-?\d+(\.\d+)?$
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: ^[A-Z]{3}$
     Profile_2:
       type: object
       description: A profile representing a customer, mailing list subscriber, or donor associated with the Squarespace site
@@ -571,7 +540,61 @@ components:
           type: string
           format: date-time
           description: ISO 8601 UTC timestamp when the profile was last modified
+    ApproximateAddress:
+      type: object
+      description: An approximate address derived from the profile's order history and account information, not necessarily verified
+      properties:
+        city:
+          type: string
+          description: City associated with the profile
+        state:
+          type: string
+          description: State or region associated with the profile
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+          description: Postal or ZIP code associated with the profile
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
+  parameters:
+    profileIds:
+      name: profileIds
+      in: path
+      description: Comma-separated list of profile IDs to retrieve
+      required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
+      schema:
+        type: string
   responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or contained invalid parameters
       content:
@@ -584,39 +607,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
-    profileIds:
-      name: profileIds
-      in: path
-      description: Comma-separated list of profile IDs to retrieve
-      required: true
-      schema:
-        type: string
   securitySchemes:
     Authorization:
       in: header

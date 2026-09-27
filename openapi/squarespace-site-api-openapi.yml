@@ -37,7 +37,42 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Standard error response object returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
     SiteInfo:
       type: object
       description: Basic information about a Squarespace website
@@ -62,41 +97,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 UTC timestamp when the website was created
-    Error:
-      type: object
-      description: Standard error response object returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
-  responses:
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
