@@ -235,6 +235,38 @@ paths:
       x-operation-id-original: getProfiles
 components:
   schemas:
+    Profile:
+      type: object
+      properties:
+        acceptsMarketing:
+          type: boolean
+          description: Indicates whether the profile opted to receive marketing.
+        address:
+          $ref: '#/components/schemas/Address'
+        createdOn:
+          type: string
+          description: ISO 8601 UTC date and time string; represents when the profile was created.
+          format: date-time
+        email:
+          type: string
+          description: Profile email address.
+        firstName:
+          type: string
+          description: Profile first name.
+        hasAccount:
+          type: boolean
+          description: Indicates whether the profile has an account with the website.
+        id:
+          type: string
+          description: Unique Profile id.
+        isCustomer:
+          type: boolean
+          description: Indicates whether the profile has any commerce orders or donations with the website.
+        lastName:
+          type: string
+          description: Profile last name.
+        transactionsSummary:
+          $ref: '#/components/schemas/TransactionsSummary'
     ProfileListResponse:
       type: object
       properties:
@@ -242,40 +274,77 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Profile'
-    TransactionsSummary:
+    StandardErrorPayload:
       type: object
       properties:
-        donationCount:
-          type: integer
-          description: Count of donations submitted.
-          format: int32
-        firstDonationSubmittedOn:
+        contextId:
           type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
-          format: date-time
-        firstOrderSubmittedOn:
+        details:
+          type: object
+        message:
           type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
-          format: date-time
-        lastDonationSubmittedOn:
+        subtype:
           type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
-          format: date-time
-        lastOrderSubmittedOn:
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
           type: string
-          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
-          format: date-time
-        orderCount:
-          type: integer
-          description: Count of orders submitted.
-          format: int32
-        totalDonationAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalOrderAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        totalRefundAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    PaginatedProfileListResponse:
+      type: object
+      properties:
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/profiles?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
     Address:
       type: object
       properties:
@@ -352,147 +421,40 @@ components:
           examples:
           - 49.99
       description: A monetary amount with currency code and decimal value.
-    Profile:
+    TransactionsSummary:
       type: object
       properties:
-        acceptsMarketing:
-          type: boolean
-          description: Indicates whether the profile opted to receive marketing.
-        address:
-          $ref: '#/components/schemas/Address'
-        createdOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents when the profile was created.
-          format: date-time
-        email:
-          type: string
-          description: Profile email address.
-        firstName:
-          type: string
-          description: Profile first name.
-        hasAccount:
-          type: boolean
-          description: Indicates whether the profile has an account with the website.
-        id:
-          type: string
-          description: Unique Profile id.
-        isCustomer:
-          type: boolean
-          description: Indicates whether the profile has any commerce orders or donations with the website.
-        lastName:
-          type: string
-          description: Profile last name.
-        transactionsSummary:
-          $ref: '#/components/schemas/TransactionsSummary'
-    StandardErrorPayload:
-      type: object
-      properties:
-        contextId:
-          type: string
-        details:
-          type: object
-        message:
-          type: string
-        subtype:
-          type: string
-          enum:
-          - MISSING_ARGUMENT
-          - INVALID_ARGUMENT
-          - INVALID_CONTENT_TYPE
-          - CONCURRENT_MODIFICATION
-          - INSUFFICIENT_STOCK
-          - STOCK_NOT_TRACKED
-          - STOCK_EXCEEDS_MAX
-          - CURRENCY_MISMATCH
-          - MEASUREMENT_STANDARD_MISMATCH
-          - INSUFFICIENT_PRODUCT_VARIANTS
-          - URL_SLUG_UNAVAILABLE
-          - SKU_UNAVAILABLE
-          - STORE_PAGE_NOT_FOUND
-          - STORE_PAGE_PRODUCT_LIMIT_REACHED
-          - IMAGE_LIMIT_REACHED
-          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
-          - MISSING_SCOPE
-          - PROFILE_CANNOT_ACCEPT_MARKETING
-          - ENTITY_LIMIT_REACHED
-          - PRODUCT_UPDATE_CONFLICT
-          - DUPLICATE_USER_CONFLICT
-          - PROMO_CODE_CONFLICT
-          - INVENTORY_ITEM_NOT_FOUND
-          - PRODUCT_IMAGE_NOT_FOUND
-          - PRODUCT_VARIANT_NOT_FOUND
-          - OAUTH_TOKEN_REQUIRED
-          - FORBIDDEN_RESOURCE
-          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
-        type:
-          type: string
-          enum:
-          - INVALID_REQUEST_ERROR
-          - AUTHORIZATION_ERROR
-          - WEBSITE_EXPIRED
-          - METHOD_NOT_ALLOWED
-          - CONFLICT
-          - TOO_MANY_REQUESTS
-          - SERVER_ERROR
-          - SERVICE_UNAVAILABLE
-    PaginatedProfileListResponse:
-      type: object
-      properties:
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/profiles?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Profile'
-    CommerceStats:
-      type: object
-      description: A summary of the profile holder's commerce activity on the site
-      properties:
-        orderCount:
-          type: integer
-          description: Total number of orders placed by this profile
-          minimum: 0
-        orderTotal:
-          $ref: '#/components/schemas/Money'
         donationCount:
           type: integer
-          description: Total number of donations made by this profile
-          minimum: 0
-        donationTotal:
-          $ref: '#/components/schemas/Money'
-        firstOrderOn:
+          description: Count of donations submitted.
+          format: int32
+        firstDonationSubmittedOn:
           type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first donation was submitted.
           format: date-time
-          description: ISO 8601 UTC timestamp of the profile's first order
-        lastOrderOn:
+        firstOrderSubmittedOn:
           type: string
+          description: ISO 8601 UTC date and time string; represents when the profile's first order was submitted.
           format: date-time
-          description: ISO 8601 UTC timestamp of the profile's most recent order
-    Pagination:
-      type: object
-      description: Pagination metadata included with list responses
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates whether additional pages of results are available
-        nextPageCursor:
+        lastDonationSubmittedOn:
           type: string
-          description: Cursor value to pass in the next request to retrieve the next page
-        nextPageUrl:
+          description: ISO 8601 UTC date and time string; represents when the profile's latest donation was submitted.
+          format: date-time
+        lastOrderSubmittedOn:
           type: string
-          format: uri
-          description: Full URL for retrieving the next page of results
+          description: ISO 8601 UTC date and time string; represents when the profile's latest order was submitted.
+          format: date-time
+        orderCount:
+          type: integer
+          description: Count of orders submitted.
+          format: int32
+        totalDonationAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalOrderAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalRefundAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Summary of profile's commerce transactions. If a profile has no commerce transactions, the object is still returned with null or 0 values. This information is calculated asynchronously; there may be a slight delay between when an order is created, and when it's reflected in the object.
     Money:
       type: object
       description: A monetary value with currency
@@ -505,6 +467,22 @@ components:
           type: string
           description: ISO 4217 three-letter currency code
           pattern: ^[A-Z]{3}$
+    Error:
+      type: object
+      description: Standard error response returned by the Squarespace API
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
     Profile_2:
       type: object
       description: A profile representing a customer, mailing list subscriber, or donor associated with the Squarespace site
@@ -557,22 +535,75 @@ components:
         postalCode:
           type: string
           description: Postal or ZIP code associated with the profile
-    Error:
+    Pagination:
       type: object
-      description: Standard error response returned by the Squarespace API
+      description: Pagination metadata included with list responses
       properties:
-        type:
+        hasNextPage:
+          type: boolean
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
           type: string
-          description: Machine-readable error type identifier
-        subtype:
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
           type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
+          format: uri
+          description: Full URL for retrieving the next page of results
+    CommerceStats:
+      type: object
+      description: A summary of the profile holder's commerce activity on the site
+      properties:
+        orderCount:
           type: integer
-          description: HTTP status code associated with the error
+          description: Total number of orders placed by this profile
+          minimum: 0
+        orderTotal:
+          $ref: '#/components/schemas/Money'
+        donationCount:
+          type: integer
+          description: Total number of donations made by this profile
+          minimum: 0
+        donationTotal:
+          $ref: '#/components/schemas/Money'
+        firstOrderOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of the profile's first order
+        lastOrderOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of the profile's most recent order
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     profileIds:
       name: profileIds
@@ -588,37 +619,6 @@ components:
       required: false
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     Authorization:
       in: header

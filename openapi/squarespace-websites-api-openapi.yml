@@ -129,45 +129,6 @@ paths:
       - Websites
 components:
   schemas:
-    Location:
-      type: object
-      properties:
-        country:
-          type: string
-        region:
-          type: string
-    StorePage:
-      type: object
-      properties:
-        id:
-          type: string
-        isEnabled:
-          type: boolean
-        title:
-          type: string
-        urlSlug:
-          type: string
-    WebsiteProfile:
-      type: object
-      properties:
-        currency:
-          type: string
-        id:
-          type: string
-        language:
-          type: string
-        location:
-          $ref: '#/components/schemas/Location'
-        measurementStandard:
-          $ref: '#/components/schemas/MeasurementStandard'
-        siteId:
-          type: string
-        timeZone:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
     MemberProfile:
       type: object
       properties:
@@ -234,6 +195,11 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
+    MeasurementStandard:
+      type: string
+      enum:
+      - IMPERIAL
+      - METRIC
     PaginatedStorePagesResponse:
       type: object
       properties:
@@ -254,11 +220,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StorePage'
-    MeasurementStandard:
-      type: string
-      enum:
-      - IMPERIAL
-      - METRIC
+    StorePage:
+      type: object
+      properties:
+        id:
+          type: string
+        isEnabled:
+          type: boolean
+        title:
+          type: string
+        urlSlug:
+          type: string
+    Location:
+      type: object
+      properties:
+        country:
+          type: string
+        region:
+          type: string
+    WebsiteProfile:
+      type: object
+      properties:
+        currency:
+          type: string
+        id:
+          type: string
+        language:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        measurementStandard:
+          $ref: '#/components/schemas/MeasurementStandard'
+        siteId:
+          type: string
+        timeZone:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
   securitySchemes:
     Authorization:
       in: header

@@ -38,14 +38,14 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    TooManyRequests:
+      description: Rate limit exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:

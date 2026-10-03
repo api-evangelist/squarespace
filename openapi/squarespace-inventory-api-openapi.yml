@@ -288,37 +288,6 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    InventoryQuantityExpression:
-      type: object
-      properties:
-        quantity:
-          type: integer
-          description: Quantity value for the inventory operation.
-          format: int32
-        variantId:
-          type: string
-          description: Unique id for the InventoryItem.
-      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-    InventoryItem:
-      type: object
-      properties:
-        descriptor:
-          type: string
-          description: Generated description using the product's title and any available variant attributes including, but not limited to, color and size.
-        isUnlimited:
-          type: boolean
-          description: Indicates whether stock is currently tracked for the item.
-        quantity:
-          type: integer
-          description: Current amount in stock, or the last known stock amount prior to becoming unlimited. This value is modified by purchases and returns only when `isUnlimited` is `false`.
-          format: int32
-        sku:
-          type: string
-          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for the variant; used to identify an exact variant of a product using a naming scheme preferred by the merchant.
-        variantId:
-          type: string
-          description: The product variant id, which also serves as a unique id for the InventoryItem.
-      description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
     StandardErrorPayload:
       type: object
       properties:
@@ -378,6 +347,58 @@ components:
           description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
           items:
             $ref: '#/components/schemas/InventoryItem'
+    PaginatedInventoryItemListResponse:
+      type: object
+      properties:
+        inventory:
+          type: array
+          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    InventoryItem:
+      type: object
+      properties:
+        descriptor:
+          type: string
+          description: Generated description using the product's title and any available variant attributes including, but not limited to, color and size.
+        isUnlimited:
+          type: boolean
+          description: Indicates whether stock is currently tracked for the item.
+        quantity:
+          type: integer
+          description: Current amount in stock, or the last known stock amount prior to becoming unlimited. This value is modified by purchases and returns only when `isUnlimited` is `false`.
+          format: int32
+        sku:
+          type: string
+          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for the variant; used to identify an exact variant of a product using a naming scheme preferred by the merchant.
+        variantId:
+          type: string
+          description: The product variant id, which also serves as a unique id for the InventoryItem.
+      description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
+    InventoryQuantityExpression:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Quantity value for the inventory operation.
+          format: int32
+        variantId:
+          type: string
+          description: Unique id for the InventoryItem.
+      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
     CreateInventoryAdjustmentRequest:
       type: object
       properties:
@@ -402,38 +423,22 @@ components:
           items:
             type: string
             description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
-    PaginatedInventoryItemListResponse:
+    Error:
       type: object
+      description: Standard error response returned by the Squarespace API
       properties:
-        inventory:
-          type: array
-          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
-          items:
-            $ref: '#/components/schemas/InventoryItem'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-    AdjustInventoryRequest:
-      type: object
-      description: Request body for applying inventory adjustments
-      required:
-      - increments
-      properties:
-        increments:
-          type: array
-          description: List of inventory adjustments to apply
-          items:
-            $ref: '#/components/schemas/InventoryAdjustment'
+        type:
+          type: string
+          description: Machine-readable error type identifier
+        subtype:
+          type: string
+          description: Optional more specific error subtype
+        message:
+          type: string
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
     InventoryAdjustment:
       type: object
       description: A single stock quantity adjustment for a product variant
@@ -461,6 +466,17 @@ components:
           type: string
           format: uri
           description: Full URL for retrieving the next page of results
+    AdjustInventoryRequest:
+      type: object
+      description: Request body for applying inventory adjustments
+      required:
+      - increments
+      properties:
+        increments:
+          type: array
+          description: List of inventory adjustments to apply
+          items:
+            $ref: '#/components/schemas/InventoryAdjustment'
     InventoryItem_2:
       type: object
       description: Stock information for a single product variant
@@ -487,35 +503,7 @@ components:
         infiniteStock:
           type: boolean
           description: Alias for isUnlimited indicating the variant never goes out of stock
-    Error:
-      type: object
-      description: Standard error response returned by the Squarespace API
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type identifier
-        subtype:
-          type: string
-          description: Optional more specific error subtype
-        message:
-          type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or contained invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found
       content:
@@ -530,6 +518,18 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or contained invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:
