@@ -129,21 +129,45 @@ paths:
       - Websites
 components:
   schemas:
-    MemberProfile:
+    StorePage:
       type: object
       properties:
-        email:
-          type: string
-          description: Profile email address.
-        firstName:
-          type: string
-          description: Profile first name.
         id:
           type: string
-          description: Unique Profile id.
-        lastName:
+        isEnabled:
+          type: boolean
+        title:
           type: string
-          description: Profile last name.
+        urlSlug:
+          type: string
+    WebsiteProfile:
+      type: object
+      properties:
+        currency:
+          type: string
+        id:
+          type: string
+        language:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        measurementStandard:
+          $ref: '#/components/schemas/MeasurementStandard'
+        siteId:
+          type: string
+        timeZone:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+    Location:
+      type: object
+      properties:
+        country:
+          type: string
+        region:
+          type: string
     StandardErrorPayload:
       type: object
       properties:
@@ -220,45 +244,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StorePage'
-    StorePage:
+    MemberProfile:
       type: object
       properties:
+        email:
+          type: string
+          description: Profile email address.
+        firstName:
+          type: string
+          description: Profile first name.
         id:
           type: string
-        isEnabled:
-          type: boolean
-        title:
+          description: Unique Profile id.
+        lastName:
           type: string
-        urlSlug:
-          type: string
-    Location:
-      type: object
-      properties:
-        country:
-          type: string
-        region:
-          type: string
-    WebsiteProfile:
-      type: object
-      properties:
-        currency:
-          type: string
-        id:
-          type: string
-        language:
-          type: string
-        location:
-          $ref: '#/components/schemas/Location'
-        measurementStandard:
-          $ref: '#/components/schemas/MeasurementStandard'
-        siteId:
-          type: string
-        timeZone:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
+          description: Profile last name.
   securitySchemes:
     Authorization:
       in: header

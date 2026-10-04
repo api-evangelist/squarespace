@@ -288,6 +288,90 @@ paths:
       - bearerAuth: []
 components:
   schemas:
+    InventoryItemListResponse:
+      type: object
+      properties:
+        inventory:
+          type: array
+          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+    InventoryItem:
+      type: object
+      properties:
+        descriptor:
+          type: string
+          description: Generated description using the product's title and any available variant attributes including, but not limited to, color and size.
+        isUnlimited:
+          type: boolean
+          description: Indicates whether stock is currently tracked for the item.
+        quantity:
+          type: integer
+          description: Current amount in stock, or the last known stock amount prior to becoming unlimited. This value is modified by purchases and returns only when `isUnlimited` is `false`.
+          format: int32
+        sku:
+          type: string
+          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for the variant; used to identify an exact variant of a product using a naming scheme preferred by the merchant.
+        variantId:
+          type: string
+          description: The product variant id, which also serves as a unique id for the InventoryItem.
+      description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
+    InventoryQuantityExpression:
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Quantity value for the inventory operation.
+          format: int32
+        variantId:
+          type: string
+          description: Unique id for the InventoryItem.
+      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
+    PaginatedInventoryItemListResponse:
+      type: object
+      properties:
+        inventory:
+          type: array
+          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    CreateInventoryAdjustmentRequest:
+      type: object
+      properties:
+        decrementOperations:
+          type: array
+          description: Optional; array of objects. Subtracts stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        incrementOperations:
+          type: array
+          description: Optional; array of objects. Increments stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        setFiniteOperations:
+          type: array
+          description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
+          items:
+            $ref: '#/components/schemas/InventoryQuantityExpression'
+        setUnlimitedOperations:
+          type: array
+          description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
+          items:
+            type: string
+            description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
     StandardErrorPayload:
       type: object
       properties:
@@ -339,90 +423,32 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
-    InventoryItemListResponse:
+    InventoryItem_2:
       type: object
+      description: Stock information for a single product variant
       properties:
-        inventory:
-          type: array
-          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
-          items:
-            $ref: '#/components/schemas/InventoryItem'
-    PaginatedInventoryItemListResponse:
-      type: object
-      properties:
-        inventory:
-          type: array
-          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
-          items:
-            $ref: '#/components/schemas/InventoryItem'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-    InventoryItem:
-      type: object
-      properties:
-        descriptor:
+        variantId:
           type: string
-          description: Generated description using the product's title and any available variant attributes including, but not limited to, color and size.
-        isUnlimited:
-          type: boolean
-          description: Indicates whether stock is currently tracked for the item.
-        quantity:
-          type: integer
-          description: Current amount in stock, or the last known stock amount prior to becoming unlimited. This value is modified by purchases and returns only when `isUnlimited` is `false`.
-          format: int32
+          description: Unique identifier of the product variant
         sku:
           type: string
-          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for the variant; used to identify an exact variant of a product using a naming scheme preferred by the merchant.
-        variantId:
+          description: Stock keeping unit identifier for the variant
+        descriptor:
           type: string
-          description: The product variant id, which also serves as a unique id for the InventoryItem.
-      description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
-    InventoryQuantityExpression:
-      type: object
-      properties:
+          description: Human-readable description of the variant including option values
+        isUnlimited:
+          type: boolean
+          description: When true, the variant has unlimited stock and quantity values are not meaningful
+        isTracked:
+          type: boolean
+          description: Whether stock tracking is enabled for this variant
         quantity:
           type: integer
-          description: Quantity value for the inventory operation.
-          format: int32
-        variantId:
-          type: string
-          description: Unique id for the InventoryItem.
-      description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-    CreateInventoryAdjustmentRequest:
-      type: object
-      properties:
-        decrementOperations:
-          type: array
-          description: Optional; array of objects. Subtracts stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        incrementOperations:
-          type: array
-          description: Optional; array of objects. Increments stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        setFiniteOperations:
-          type: array
-          description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-          items:
-            $ref: '#/components/schemas/InventoryQuantityExpression'
-        setUnlimitedOperations:
-          type: array
-          description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
-          items:
-            type: string
-            description: Optional; array of InventoryItem ids. Marks stock quantity as "unlimited" for the given InventoryItems.
+          description: Current stock quantity available for the variant
+          minimum: 0
+        infiniteStock:
+          type: boolean
+          description: Alias for isUnlimited indicating the variant never goes out of stock
     Error:
       type: object
       description: Standard error response returned by the Squarespace API
@@ -477,39 +503,7 @@ components:
           description: List of inventory adjustments to apply
           items:
             $ref: '#/components/schemas/InventoryAdjustment'
-    InventoryItem_2:
-      type: object
-      description: Stock information for a single product variant
-      properties:
-        variantId:
-          type: string
-          description: Unique identifier of the product variant
-        sku:
-          type: string
-          description: Stock keeping unit identifier for the variant
-        descriptor:
-          type: string
-          description: Human-readable description of the variant including option values
-        isUnlimited:
-          type: boolean
-          description: When true, the variant has unlimited stock and quantity values are not meaningful
-        isTracked:
-          type: boolean
-          description: Whether stock tracking is enabled for this variant
-        quantity:
-          type: integer
-          description: Current stock quantity available for the variant
-          minimum: 0
-        infiniteStock:
-          type: boolean
-          description: Alias for isUnlimited indicating the variant never goes out of stock
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded
       content:
@@ -518,6 +512,12 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:

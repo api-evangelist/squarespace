@@ -421,6 +421,388 @@ paths:
       x-operation-id-original: fulfillOrder
 components:
   schemas:
+    CreateShippingLineRequest:
+      required:
+      - amount
+      - method
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        method:
+          maxLength: 100
+          type: string
+          description: Description of the shipping option.
+      description: Array of shipping line items. Describes the shipping options chosen at checkout. Currently accepts only one shipping entry.
+    ShippingLine:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        method:
+          type: string
+          description: Description of the shipping option
+          examples:
+          - UPS Ground
+      description: Array of shipping line items; describes the shipping options chosen at checkout.
+    CreateLineItemRequest:
+      required:
+      - lineItemType
+      - quantity
+      - unitPricePaid
+      type: object
+      properties:
+        lineItemType:
+          $ref: '#/components/schemas/OrderCreateLineItemType'
+        nonSaleUnitPrice:
+          $ref: '#/components/schemas/MonetaryAmount'
+        quantity:
+          type: integer
+          description: Amount of the item purchased. 1,000,000 limit.
+          format: int32
+        title:
+          type: string
+          description: Title of the custom line item.
+        unitPricePaid:
+          $ref: '#/components/schemas/MonetaryAmount'
+        variantId:
+          type: string
+          description: Required if lineItemType is PHYSICAL_PRODUCT. Unique id of the ProductVariant sold.
+      description: Array of purchased line items; cannot be empty.
+    OrderFulfillmentRequest:
+      type: object
+      properties:
+        shipments:
+          type: array
+          description: Array of shipment data.
+          items:
+            $ref: '#/components/schemas/CreateOrderShipmentRequest'
+        shouldSendNotification:
+          type: boolean
+          description: Indicates whether the customer should receive an email notification about the added shipments.
+    OrderListResponse:
+      type: object
+      properties:
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/orders?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    PaymentState:
+      type: string
+      description: Current state of payment for the order.
+      enum:
+      - NOT_CHARGED
+      - AUTHORIZED
+      - PAID
+      - REFUNDED
+      - PENDING
+      - FAILED
+      - REFUND_PENDING
+      - REFUND_FAILED
+      - PARTIALLY_PAID
+    VariantOption:
+      type: object
+      properties:
+        optionName:
+          type: string
+          description: The name of the option (e.g. color, size, material)
+          examples:
+          - Size
+        value:
+          type: string
+          description: The shopper-selected value for the option (e.g. red, small, cotton)
+          examples:
+          - Large
+      description: Array of variant options; represents variant choices made by the customer. Null for download and gift card products.
+    TaxInterpretation:
+      type: string
+      description: Indicates that lineItems.unitPricePaid includes tax. Values may be EXCLUSIVE or INCLUSIVE.
+      enum:
+      - INCLUSIVE
+      - EXCLUSIVE
+    Fulfillment:
+      type: object
+      properties:
+        carrierName:
+          type: string
+          description: Name of the carrier handling the shipment.
+          examples:
+          - FedEx
+        service:
+          type: string
+          description: Carrier's level of service for shipping.
+          examples:
+          - Same-Day Delivery
+        shipDate:
+          type: string
+          description: ISO 8601 UTC date and time string; represents the moment the fulfillment was shipped.
+          format: date-time
+          examples:
+          - '2017-01-29T22:19:26.98Z'
+        trackingNumber:
+          type: string
+          description: Carrier's parcel tracking number.
+          examples:
+          - '103932814692659'
+        trackingUrl:
+          type: string
+          description: URL provided by the carrier to track the shipment.
+          examples:
+          - https://www.fedex.com/apps/fedextrack/?tracknumbers=103932814692659
+      description: Array of shipping fulfillments; describes shipment information for the order.
+    FulfillmentStatus:
+      type: string
+      description: 'Current fulfillment status of the order. Value may be: PENDING, FULFILLED, or CANCELED.'
+      enum:
+      - PENDING
+      - FULFILLED
+      - CANCELED
+    CreateDiscountLineRequest:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        name:
+          type: string
+        promoCode:
+          type: string
+      description: Array of discount line items. Describes the promotions redeemed during checkout.
+    AddressRequest:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        countryCode:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phone:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+      description: Customer's shipping address.
+    DiscountLine:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        description:
+          type: string
+          description: A plain-English description of the promotion
+          examples:
+          - 20% off all orders over $50
+        name:
+          type: string
+          description: Name of the promotion
+          examples:
+          - Summer Sale - 20% Off
+        promoCode:
+          type: string
+          description: The user-entered promo code that triggered the discount
+          examples:
+          - SUMMER20
+      description: Array of discount line items; describes the promotions redeemed during checkout.
+    LineItem:
+      type: object
+      properties:
+        customizations:
+          type: array
+          description: Array of form data submitted via a product's custom form prior to being added to the cart.
+          items:
+            $ref: '#/components/schemas/FormItem'
+        height:
+          type: number
+          description: Shipping height of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
+          format: float
+          examples:
+          - 4
+        id:
+          type: string
+          description: Unique line item id.
+          examples:
+          - 585d4975dee9f31a60284a16
+        imageUrl:
+          type: string
+          description: URL of the primary image for the item.
+          examples:
+          - https://static.squarespace.com/universal/commerce/images/brine-32oz-spring-mix-v2.jpg?format=300w
+        length:
+          type: number
+          description: Shipping length of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
+          format: float
+          examples:
+          - 3
+        lineItemType:
+          type: string
+          description: Product type of the item.
+          examples:
+          - PHYSICAL_PRODUCT
+        productId:
+          type: string
+          description: Unique product id; unless null, every line item with a variantId is a variant of a product with productId.
+          examples:
+          - 565c8f3da7c8a3cf71d5fd0a
+        productName:
+          type: string
+          description: Name of the purchased product.
+          examples:
+          - Product
+        quantity:
+          type: integer
+          description: Amount of the item purchased.
+          format: int32
+          examples:
+          - 1
+        sku:
+          type: string
+          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for a variant. Null for digital products.
+          examples:
+          - SQ3381024
+        unitPricePaid:
+          $ref: '#/components/schemas/MonetaryAmount'
+        variantId:
+          type: string
+          description: Unique id of the ProductVariant sold. Populated for physical, service, or gift card line items created on or after May 28, 2019.
+          examples:
+          - 88c16ee4-547b-445e-a392-bded9991ae30
+        variantOptions:
+          type: array
+          description: Array of variant options; represents variant choices made by the customer. Null for download and gift card products.
+          items:
+            $ref: '#/components/schemas/VariantOption'
+        weight:
+          type: number
+          description: Shipping weight of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
+          format: float
+          examples:
+          - 1
+        width:
+          type: number
+          description: Shipping width of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
+          format: float
+          examples:
+          - 2
+      description: Array of purchased line items; line items describe what product or product variant was purchased, how many of that item were purchased, and additional details.
+    OrderCreateFulfillmentStatus:
+      type: string
+      description: Current fulfillment status of the order. Value may be PENDING or FULFILLED.
+      enum:
+      - PENDING
+      - FULFILLED
+    CreateOrderInventoryBehavior:
+      type: string
+      description: Indicates whether to deduct stock quantity for the product variant upon Order creation. Values may be DEDUCT or SKIP. Defaults to SKIP.
+      enum:
+      - DEDUCT
+      - SKIP
+    OrderCreateLineItemType:
+      type: string
+      description: Product type sold; values may be PHYSICAL_PRODUCT or CUSTOM.
+      enum:
+      - PHYSICAL_PRODUCT
+      - CUSTOM
+    ShopperFulfillmentNotificationBehavior:
+      type: string
+      description: Indicates whether to send a fulfillment notification email to the customer. Value may be SEND or SKIP.
+      enum:
+      - SEND
+      - SKIP
+    CreateOrderRequest:
+      required:
+      - channelName
+      - createdOn
+      - externalOrderReference
+      - fulfillments
+      - grandTotal
+      - lineItems
+      - priceTaxInterpretation
+      type: object
+      properties:
+        billingAddress:
+          $ref: '#/components/schemas/AddressRequest'
+        channelName:
+          maxLength: 30
+          type: string
+          description: Name of third-party sales channel.
+        createdOn:
+          type: string
+          description: ISO 8601 UTC date and time string. Represents the date and time when the order was placed through the third-party sales channel.
+          format: date-time
+        customerEmail:
+          type: string
+          format: email
+          description: Email address provided at checkout on the third-party sales channel.
+          examples:
+          - john.doe@example.com
+        discountLines:
+          type: array
+          description: Array of discount line items. Describes the promotions redeemed during checkout.
+          items:
+            $ref: '#/components/schemas/CreateDiscountLineRequest'
+        discountTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
+        externalOrderReference:
+          maxLength: 200
+          type: string
+          description: Order reference identifier used by the third-party sales channel.
+        fulfilledOn:
+          type: string
+          description: ISO 8601 UTC date and time string. Represents the moment the order was fulfilled. Required if fulfillmentStatus is FULFILLED.
+          format: date-time
+        fulfillmentStatus:
+          $ref: '#/components/schemas/OrderCreateFulfillmentStatus'
+        fulfillments:
+          type: array
+          description: Array of shipping fulfillments; up to 100 entries. Describes shipment information for the order.
+          items:
+            $ref: '#/components/schemas/CreateOrderShipmentRequest'
+        grandTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
+        inventoryBehavior:
+          $ref: '#/components/schemas/CreateOrderInventoryBehavior'
+        lineItems:
+          type: array
+          description: Array of purchased line items; cannot be empty.
+          items:
+            $ref: '#/components/schemas/CreateLineItemRequest'
+        priceTaxInterpretation:
+          $ref: '#/components/schemas/TaxInterpretation'
+        shippingAddress:
+          $ref: '#/components/schemas/AddressRequest'
+        shippingLines:
+          type: array
+          description: Array of shipping line items. Describes the shipping options chosen at checkout. Currently accepts only one shipping entry.
+          items:
+            $ref: '#/components/schemas/CreateShippingLineRequest'
+        shippingTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
+        shopperFulfillmentNotificationBehavior:
+          $ref: '#/components/schemas/ShopperFulfillmentNotificationBehavior'
+        subtotal:
+          $ref: '#/components/schemas/MonetaryAmount'
+        taxTotal:
+          $ref: '#/components/schemas/MonetaryAmount'
     Order:
       type: object
       properties:
@@ -574,82 +956,29 @@ components:
         testmode:
           type: boolean
           description: If true, the order is a test order created using a payment method in test mode.
-    AddressRequest:
+    FormItem:
       type: object
       properties:
-        address1:
+        label:
           type: string
-        address2:
+          description: The name of the form field
+          examples:
+          - How did you hear about us?
+        value:
           type: string
-        city:
-          type: string
-        countryCode:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        phone:
-          type: string
-        postalCode:
-          type: string
-        state:
-          type: string
-      description: Customer's shipping address.
-    Address:
+          description: The value of the field, as entered by the shopper
+          examples:
+          - Facebook
+      description: Array of form data submitted via the checkout page.
+    OrderNote:
       type: object
       properties:
-        address1:
+        content:
           type: string
-          description: Primary street address
+          description: Content for the note
           examples:
-          - 459 Broadway
-        address2:
-          type: string
-          description: Secondary address line
-        city:
-          type: string
-          description: City
-          examples:
-          - New York
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          examples:
-          - US
-        firstName:
-          type: string
-          description: First name
-          examples:
-          - Bob
-        lastName:
-          type: string
-          description: Last name
-          examples:
-          - Loblaw
-        phone:
-          type: string
-          description: Phone number
-          examples:
-          - '5553334444'
-        postalCode:
-          type: string
-          description: Postal or ZIP code
-          examples:
-          - '10003'
-        state:
-          type: string
-          description: State or province
-          examples:
-          - NY
-      description: Customer's shipping address provided at checkout or, for recurring subscription orders, the customer's current mailing address.
-    FulfillmentStatus:
-      type: string
-      description: 'Current fulfillment status of the order. Value may be: PENDING, FULFILLED, or CANCELED.'
-      enum:
-      - PENDING
-      - FULFILLED
-      - CANCELED
+          - First note
+      description: Array of internal notes added to the order by the merchant.
     CreateOrderShipmentRequest:
       required:
       - carrierName
@@ -678,83 +1007,6 @@ components:
           type: string
           description: URL provided by carrier to track the shipment; must adhere to valid URL formatting.
       description: Array of shipping fulfillments; up to 100 entries. Describes shipment information for the order.
-    ShippingLine:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        method:
-          type: string
-          description: Description of the shipping option
-          examples:
-          - UPS Ground
-      description: Array of shipping line items; describes the shipping options chosen at checkout.
-    CreateOrderInventoryBehavior:
-      type: string
-      description: Indicates whether to deduct stock quantity for the product variant upon Order creation. Values may be DEDUCT or SKIP. Defaults to SKIP.
-      enum:
-      - DEDUCT
-      - SKIP
-    ShopperFulfillmentNotificationBehavior:
-      type: string
-      description: Indicates whether to send a fulfillment notification email to the customer. Value may be SEND or SKIP.
-      enum:
-      - SEND
-      - SKIP
-    CreateLineItemRequest:
-      required:
-      - lineItemType
-      - quantity
-      - unitPricePaid
-      type: object
-      properties:
-        lineItemType:
-          $ref: '#/components/schemas/OrderCreateLineItemType'
-        nonSaleUnitPrice:
-          $ref: '#/components/schemas/MonetaryAmount'
-        quantity:
-          type: integer
-          description: Amount of the item purchased. 1,000,000 limit.
-          format: int32
-        title:
-          type: string
-          description: Title of the custom line item.
-        unitPricePaid:
-          $ref: '#/components/schemas/MonetaryAmount'
-        variantId:
-          type: string
-          description: Required if lineItemType is PHYSICAL_PRODUCT. Unique id of the ProductVariant sold.
-      description: Array of purchased line items; cannot be empty.
-    Fulfillment:
-      type: object
-      properties:
-        carrierName:
-          type: string
-          description: Name of the carrier handling the shipment.
-          examples:
-          - FedEx
-        service:
-          type: string
-          description: Carrier's level of service for shipping.
-          examples:
-          - Same-Day Delivery
-        shipDate:
-          type: string
-          description: ISO 8601 UTC date and time string; represents the moment the fulfillment was shipped.
-          format: date-time
-          examples:
-          - '2017-01-29T22:19:26.98Z'
-        trackingNumber:
-          type: string
-          description: Carrier's parcel tracking number.
-          examples:
-          - '103932814692659'
-        trackingUrl:
-          type: string
-          description: URL provided by the carrier to track the shipment.
-          examples:
-          - https://www.fedex.com/apps/fedextrack/?tracknumbers=103932814692659
-      description: Array of shipping fulfillments; describes shipment information for the order.
     StandardErrorPayload:
       type: object
       properties:
@@ -806,27 +1058,53 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
-    OrderNote:
+    Address:
       type: object
       properties:
-        content:
+        address1:
           type: string
-          description: Content for the note
+          description: Primary street address
           examples:
-          - First note
-      description: Array of internal notes added to the order by the merchant.
-    OrderCreateLineItemType:
-      type: string
-      description: Product type sold; values may be PHYSICAL_PRODUCT or CUSTOM.
-      enum:
-      - PHYSICAL_PRODUCT
-      - CUSTOM
-    TaxInterpretation:
-      type: string
-      description: Indicates that lineItems.unitPricePaid includes tax. Values may be EXCLUSIVE or INCLUSIVE.
-      enum:
-      - INCLUSIVE
-      - EXCLUSIVE
+          - 459 Broadway
+        address2:
+          type: string
+          description: Secondary address line
+        city:
+          type: string
+          description: City
+          examples:
+          - New York
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          examples:
+          - US
+        firstName:
+          type: string
+          description: First name
+          examples:
+          - Bob
+        lastName:
+          type: string
+          description: Last name
+          examples:
+          - Loblaw
+        phone:
+          type: string
+          description: Phone number
+          examples:
+          - '5553334444'
+        postalCode:
+          type: string
+          description: Postal or ZIP code
+          examples:
+          - '10003'
+        state:
+          type: string
+          description: State or province
+          examples:
+          - NY
+      description: Customer's shipping address provided at checkout or, for recurring subscription orders, the customer's current mailing address.
     MonetaryAmount:
       type: object
       properties:
@@ -856,284 +1134,142 @@ components:
           examples:
           - 49.99
       description: A monetary amount with currency code and decimal value.
-    CreateDiscountLineRequest:
+    CreateOrderRequest_2:
       type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        name:
-          type: string
-        promoCode:
-          type: string
-      description: Array of discount line items. Describes the promotions redeemed during checkout.
-    CreateOrderRequest:
+      description: Request body for creating a new order
       required:
-      - channelName
-      - createdOn
-      - externalOrderReference
-      - fulfillments
-      - grandTotal
       - lineItems
-      - priceTaxInterpretation
-      type: object
+      - billingAddress
+      - shippingAddress
+      - customerEmail
+      - totals
       properties:
-        billingAddress:
-          $ref: '#/components/schemas/AddressRequest'
-        channelName:
-          maxLength: 30
+        externalOrderReference:
           type: string
-          description: Name of third-party sales channel.
-        createdOn:
-          type: string
-          description: ISO 8601 UTC date and time string. Represents the date and time when the order was placed through the third-party sales channel.
-          format: date-time
+          description: External reference identifier from the originating sales channel
         customerEmail:
           type: string
           format: email
-          description: Email address provided at checkout on the third-party sales channel.
-          examples:
-          - john.doe@example.com
-        discountLines:
-          type: array
-          description: Array of discount line items. Describes the promotions redeemed during checkout.
-          items:
-            $ref: '#/components/schemas/CreateDiscountLineRequest'
-        discountTotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-        externalOrderReference:
-          maxLength: 200
-          type: string
-          description: Order reference identifier used by the third-party sales channel.
-        fulfilledOn:
-          type: string
-          description: ISO 8601 UTC date and time string. Represents the moment the order was fulfilled. Required if fulfillmentStatus is FULFILLED.
-          format: date-time
-        fulfillmentStatus:
-          $ref: '#/components/schemas/OrderCreateFulfillmentStatus'
-        fulfillments:
-          type: array
-          description: Array of shipping fulfillments; up to 100 entries. Describes shipment information for the order.
-          items:
-            $ref: '#/components/schemas/CreateOrderShipmentRequest'
-        grandTotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-        inventoryBehavior:
-          $ref: '#/components/schemas/CreateOrderInventoryBehavior'
+          description: Email address of the customer who placed the order
+        billingAddress:
+          $ref: '#/components/schemas/Address_2'
+        shippingAddress:
+          $ref: '#/components/schemas/Address_2'
         lineItems:
           type: array
-          description: Array of purchased line items; cannot be empty.
+          description: Products and quantities included in the order
           items:
-            $ref: '#/components/schemas/CreateLineItemRequest'
-        priceTaxInterpretation:
-          $ref: '#/components/schemas/TaxInterpretation'
-        shippingAddress:
-          $ref: '#/components/schemas/AddressRequest'
-        shippingLines:
+            $ref: '#/components/schemas/LineItem_2'
+        totals:
+          $ref: '#/components/schemas/OrderTotals'
+        fulfillments:
           type: array
-          description: Array of shipping line items. Describes the shipping options chosen at checkout. Currently accepts only one shipping entry.
+          description: Initial fulfillment records for the order
           items:
-            $ref: '#/components/schemas/CreateShippingLineRequest'
-        shippingTotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-        shopperFulfillmentNotificationBehavior:
-          $ref: '#/components/schemas/ShopperFulfillmentNotificationBehavior'
-        subtotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-        taxTotal:
-          $ref: '#/components/schemas/MonetaryAmount'
-    DiscountLine:
+            $ref: '#/components/schemas/Fulfillment_2'
+        channel:
+          type: string
+          description: Name of the external sales channel the order was imported from
+    Address_2:
       type: object
+      description: A postal address for billing or shipping
       properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        description:
+        firstName:
           type: string
-          description: A plain-English description of the promotion
-          examples:
-          - 20% off all orders over $50
-        name:
+          description: First name of the recipient
+        lastName:
           type: string
-          description: Name of the promotion
-          examples:
-          - Summer Sale - 20% Off
-        promoCode:
+          description: Last name of the recipient
+        address1:
           type: string
-          description: The user-entered promo code that triggered the discount
-          examples:
-          - SUMMER20
-      description: Array of discount line items; describes the promotions redeemed during checkout.
-    LineItem:
+          description: Primary street address line
+        address2:
+          type: string
+          description: Secondary address line such as apartment or suite number
+        city:
+          type: string
+          description: City name
+        state:
+          type: string
+          description: State, province, or region code
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          pattern: ^[A-Z]{2}$
+        postalCode:
+          type: string
+          description: Postal or ZIP code
+        phone:
+          type: string
+          description: Phone number associated with the address
+    LineItem_2:
       type: object
+      description: A single product line in an order
       properties:
-        customizations:
-          type: array
-          description: Array of form data submitted via a product's custom form prior to being added to the cart.
-          items:
-            $ref: '#/components/schemas/FormItem'
-        height:
-          type: number
-          description: Shipping height of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
-          format: float
-          examples:
-          - 4
         id:
           type: string
-          description: Unique line item id.
-          examples:
-          - 585d4975dee9f31a60284a16
-        imageUrl:
-          type: string
-          description: URL of the primary image for the item.
-          examples:
-          - https://static.squarespace.com/universal/commerce/images/brine-32oz-spring-mix-v2.jpg?format=300w
-        length:
-          type: number
-          description: Shipping length of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
-          format: float
-          examples:
-          - 3
-        lineItemType:
-          type: string
-          description: Product type of the item.
-          examples:
-          - PHYSICAL_PRODUCT
-        productId:
-          type: string
-          description: Unique product id; unless null, every line item with a variantId is a variant of a product with productId.
-          examples:
-          - 565c8f3da7c8a3cf71d5fd0a
-        productName:
-          type: string
-          description: Name of the purchased product.
-          examples:
-          - Product
-        quantity:
-          type: integer
-          description: Amount of the item purchased.
-          format: int32
-          examples:
-          - 1
-        sku:
-          type: string
-          description: Stock keeping unit (SKU) code assigned by the Squarespace merchant for a variant. Null for digital products.
-          examples:
-          - SQ3381024
-        unitPricePaid:
-          $ref: '#/components/schemas/MonetaryAmount'
+          description: Unique identifier for the line item
         variantId:
           type: string
-          description: Unique id of the ProductVariant sold. Populated for physical, service, or gift card line items created on or after May 28, 2019.
-          examples:
-          - 88c16ee4-547b-445e-a392-bded9991ae30
-        variantOptions:
+          description: Unique identifier of the product variant
+        sku:
+          type: string
+          description: Stock keeping unit identifier for the product variant
+        productId:
+          type: string
+          description: Unique identifier of the parent product
+        productName:
+          type: string
+          description: Display name of the product at the time of purchase
+        quantity:
+          type: integer
+          minimum: 1
+          description: Number of units ordered
+        unitPricePaid:
+          $ref: '#/components/schemas/Money'
+        customizations:
           type: array
-          description: Array of variant options; represents variant choices made by the customer. Null for download and gift card products.
+          description: Customer-provided customizations applied to the line item
           items:
-            $ref: '#/components/schemas/VariantOption'
-        weight:
-          type: number
-          description: Shipping weight of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
-          format: float
-          examples:
-          - 1
-        width:
-          type: number
-          description: Shipping width of the physical product variant. 0.0 when not specified or when the variant is not a physical product.
-          format: float
-          examples:
-          - 2
-      description: Array of purchased line items; line items describe what product or product variant was purchased, how many of that item were purchased, and additional details.
-    CreateShippingLineRequest:
-      required:
-      - amount
-      - method
+            $ref: '#/components/schemas/Customization'
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the product image at the time of purchase
+        lineItemType:
+          type: string
+          description: The type of product represented by this line item
+          enum:
+          - PHYSICAL
+          - DIGITAL
+          - SERVICE
+          - GIFT_CARD
+    Pagination:
       type: object
+      description: Pagination metadata included with list responses
       properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        method:
-          maxLength: 100
-          type: string
-          description: Description of the shipping option.
-      description: Array of shipping line items. Describes the shipping options chosen at checkout. Currently accepts only one shipping entry.
-    OrderCreateFulfillmentStatus:
-      type: string
-      description: Current fulfillment status of the order. Value may be PENDING or FULFILLED.
-      enum:
-      - PENDING
-      - FULFILLED
-    VariantOption:
-      type: object
-      properties:
-        optionName:
-          type: string
-          description: The name of the option (e.g. color, size, material)
-          examples:
-          - Size
-        value:
-          type: string
-          description: The shopper-selected value for the option (e.g. red, small, cotton)
-          examples:
-          - Large
-      description: Array of variant options; represents variant choices made by the customer. Null for download and gift card products.
-    FormItem:
-      type: object
-      properties:
-        label:
-          type: string
-          description: The name of the form field
-          examples:
-          - How did you hear about us?
-        value:
-          type: string
-          description: The value of the field, as entered by the shopper
-          examples:
-          - Facebook
-      description: Array of form data submitted via the checkout page.
-    OrderFulfillmentRequest:
-      type: object
-      properties:
-        shipments:
-          type: array
-          description: Array of shipment data.
-          items:
-            $ref: '#/components/schemas/CreateOrderShipmentRequest'
-        shouldSendNotification:
+        hasNextPage:
           type: boolean
-          description: Indicates whether the customer should receive an email notification about the added shipments.
-    OrderListResponse:
+          description: Indicates whether additional pages of results are available
+        nextPageCursor:
+          type: string
+          description: Cursor value to pass in the next request to retrieve the next page
+        nextPageUrl:
+          type: string
+          format: uri
+          description: Full URL for retrieving the next page of results
+    Money:
       type: object
+      description: A monetary value with currency
       properties:
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/orders?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-    PaymentState:
-      type: string
-      description: Current state of payment for the order.
-      enum:
-      - NOT_CHARGED
-      - AUTHORIZED
-      - PAID
-      - REFUNDED
-      - PENDING
-      - FAILED
-      - REFUND_PENDING
-      - REFUND_FAILED
-      - PARTIALLY_PAID
+        value:
+          type: string
+          description: Decimal string representation of the monetary amount
+          pattern: ^-?\d+(\.\d+)?$
+        currency:
+          type: string
+          description: ISO 4217 three-letter currency code
+          pattern: ^[A-Z]{3}$
     Order_2:
       type: object
       description: An order placed on a Squarespace merchant site
@@ -1198,42 +1334,6 @@ components:
           enum:
           - EXCLUSIVE
           - INCLUSIVE
-    Customization:
-      type: object
-      description: A customization option applied to a line item
-      properties:
-        label:
-          type: string
-          description: Display label of the customization option
-        value:
-          type: string
-          description: Customer-selected value for this customization
-    Pagination:
-      type: object
-      description: Pagination metadata included with list responses
-      properties:
-        hasNextPage:
-          type: boolean
-          description: Indicates whether additional pages of results are available
-        nextPageCursor:
-          type: string
-          description: Cursor value to pass in the next request to retrieve the next page
-        nextPageUrl:
-          type: string
-          format: uri
-          description: Full URL for retrieving the next page of results
-    Money:
-      type: object
-      description: A monetary value with currency
-      properties:
-        value:
-          type: string
-          description: Decimal string representation of the monetary amount
-          pattern: ^-?\d+(\.\d+)?$
-        currency:
-          type: string
-          description: ISO 4217 three-letter currency code
-          pattern: ^[A-Z]{3}$
     Error:
       type: object
       description: Standard error response returned by the Squarespace API
@@ -1250,126 +1350,6 @@ components:
         statusCode:
           type: integer
           description: HTTP status code associated with the error
-    Shipment:
-      type: object
-      description: Shipment details for a fulfillment record
-      properties:
-        shipDate:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp when the shipment was dispatched
-        carrierName:
-          type: string
-          description: Name of the shipping carrier
-        service:
-          type: string
-          description: Name of the shipping service used
-        trackingNumber:
-          type: string
-          description: Carrier-assigned tracking number for the shipment
-        trackingUrl:
-          type: string
-          format: uri
-          description: URL to the carrier's tracking page for this shipment
-    FormField:
-      type: object
-      description: A custom form field submitted with an order
-      properties:
-        label:
-          type: string
-          description: Display label of the form field
-        value:
-          type: string
-          description: Value submitted by the customer for this field
-    Address_2:
-      type: object
-      description: A postal address for billing or shipping
-      properties:
-        firstName:
-          type: string
-          description: First name of the recipient
-        lastName:
-          type: string
-          description: Last name of the recipient
-        address1:
-          type: string
-          description: Primary street address line
-        address2:
-          type: string
-          description: Secondary address line such as apartment or suite number
-        city:
-          type: string
-          description: City name
-        state:
-          type: string
-          description: State, province, or region code
-        countryCode:
-          type: string
-          description: ISO 3166-1 alpha-2 country code
-          pattern: ^[A-Z]{2}$
-        postalCode:
-          type: string
-          description: Postal or ZIP code
-        phone:
-          type: string
-          description: Phone number associated with the address
-    Fulfillment_2:
-      type: object
-      description: A fulfillment record indicating that part or all of an order has shipped
-      properties:
-        shipDate:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp when the shipment was sent
-        carrierName:
-          type: string
-          description: Name of the shipping carrier
-        service:
-          type: string
-          description: Name of the shipping service level used
-        trackingNumber:
-          type: string
-          description: Tracking number assigned by the carrier
-        trackingUrl:
-          type: string
-          format: uri
-          description: URL to track the shipment on the carrier website
-    CreateOrderRequest_2:
-      type: object
-      description: Request body for creating a new order
-      required:
-      - lineItems
-      - billingAddress
-      - shippingAddress
-      - customerEmail
-      - totals
-      properties:
-        externalOrderReference:
-          type: string
-          description: External reference identifier from the originating sales channel
-        customerEmail:
-          type: string
-          format: email
-          description: Email address of the customer who placed the order
-        billingAddress:
-          $ref: '#/components/schemas/Address_2'
-        shippingAddress:
-          $ref: '#/components/schemas/Address_2'
-        lineItems:
-          type: array
-          description: Products and quantities included in the order
-          items:
-            $ref: '#/components/schemas/LineItem_2'
-        totals:
-          $ref: '#/components/schemas/OrderTotals'
-        fulfillments:
-          type: array
-          description: Initial fulfillment records for the order
-          items:
-            $ref: '#/components/schemas/Fulfillment_2'
-        channel:
-          type: string
-          description: Name of the external sales channel the order was imported from
     OrderTotals:
       type: object
       description: Monetary totals for an order
@@ -1401,49 +1381,81 @@ components:
           description: Shipment tracking details for the fulfilled items
           items:
             $ref: '#/components/schemas/Shipment'
-    LineItem_2:
+    Shipment:
       type: object
-      description: A single product line in an order
+      description: Shipment details for a fulfillment record
       properties:
-        id:
+        shipDate:
           type: string
-          description: Unique identifier for the line item
-        variantId:
+          format: date-time
+          description: ISO 8601 UTC timestamp when the shipment was dispatched
+        carrierName:
           type: string
-          description: Unique identifier of the product variant
-        sku:
+          description: Name of the shipping carrier
+        service:
           type: string
-          description: Stock keeping unit identifier for the product variant
-        productId:
+          description: Name of the shipping service used
+        trackingNumber:
           type: string
-          description: Unique identifier of the parent product
-        productName:
-          type: string
-          description: Display name of the product at the time of purchase
-        quantity:
-          type: integer
-          minimum: 1
-          description: Number of units ordered
-        unitPricePaid:
-          $ref: '#/components/schemas/Money'
-        customizations:
-          type: array
-          description: Customer-provided customizations applied to the line item
-          items:
-            $ref: '#/components/schemas/Customization'
-        imageUrl:
+          description: Carrier-assigned tracking number for the shipment
+        trackingUrl:
           type: string
           format: uri
-          description: URL of the product image at the time of purchase
-        lineItemType:
+          description: URL to the carrier's tracking page for this shipment
+    Customization:
+      type: object
+      description: A customization option applied to a line item
+      properties:
+        label:
           type: string
-          description: The type of product represented by this line item
-          enum:
-          - PHYSICAL
-          - DIGITAL
-          - SERVICE
-          - GIFT_CARD
+          description: Display label of the customization option
+        value:
+          type: string
+          description: Customer-selected value for this customization
+    Fulfillment_2:
+      type: object
+      description: A fulfillment record indicating that part or all of an order has shipped
+      properties:
+        shipDate:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the shipment was sent
+        carrierName:
+          type: string
+          description: Name of the shipping carrier
+        service:
+          type: string
+          description: Name of the shipping service level used
+        trackingNumber:
+          type: string
+          description: Tracking number assigned by the carrier
+        trackingUrl:
+          type: string
+          format: uri
+          description: URL to track the shipment on the carrier website
+    FormField:
+      type: object
+      description: A custom form field submitted with an order
+      properties:
+        label:
+          type: string
+          description: Display label of the form field
+        value:
+          type: string
+          description: Value submitted by the customer for this field
   responses:
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found
       content:
@@ -1462,31 +1474,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    cursor:
-      name: cursor
-      in: query
-      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
-      required: false
-      schema:
-        type: string
     orderId:
       name: orderId
       in: path
       description: The unique identifier of the order
       required: true
+      schema:
+        type: string
+    cursor:
+      name: cursor
+      in: query
+      description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
+      required: false
       schema:
         type: string
   securitySchemes:

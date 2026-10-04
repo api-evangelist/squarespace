@@ -215,28 +215,66 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    TransactionSalesLineItem:
+    PaginatedTransactionListResponse:
       type: object
       properties:
-        discountAmount:
+        documents:
+          type: array
+          description: Array of Document resources. If the merchant site doesn't have any payment transactions for orders or donations, this array is empty.
+          items:
+            $ref: '#/components/schemas/TransactionDocument'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/transactions?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
+    TransactionListResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          description: Array of Document resources.
+          items:
+            $ref: '#/components/schemas/TransactionDocument'
+    TransactionProcessingFee:
+      type: object
+      properties:
+        amount:
           $ref: '#/components/schemas/MonetaryAmount'
+        amountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+        exchangeRate:
+          type: number
+          description: Foreign exchange rate between the payment gateway's and payment's currencies; determined when the payment is processed.
+          examples:
+          - 1
+        feeRefunds:
+          type: array
+          description: Array of processing fee refunds for the payment.
+          items:
+            $ref: '#/components/schemas/TransactionProcessingFeeRefund'
         id:
           type: string
-          description: Unique id for the sales item.
+          description: Unique processing fee id.
           examples:
-          - d93f9637-fba6-4e8b-a1f3-24008f60c774
-        taxes:
-          type: array
-          description: Array of taxes for the sale item.
-          items:
-            $ref: '#/components/schemas/TransactionTax'
-        total:
+          - 2Jdsno3mdk
+        netAmount:
           $ref: '#/components/schemas/MonetaryAmount'
-        totalNetSales:
+        netAmountGatewayCurrency:
           $ref: '#/components/schemas/MonetaryAmount'
-        totalSales:
+        refundedAmount:
           $ref: '#/components/schemas/MonetaryAmount'
-      description: Array of sales items for an order payment transaction; empty for donations.
+        refundedAmountGatewayCurrency:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Array of processing fees associated with the payment.
     TransactionPayment:
       type: object
       properties:
@@ -297,6 +335,14 @@ components:
           items:
             $ref: '#/components/schemas/TransactionRefund'
       description: Array of payment transactions for the order or donation.
+    ExternalTransactionProperty:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      description: Array of properties for the payment transaction provided by the payment gateway. Properties are listed in key/value pairs.
     TransactionDiscount:
       type: object
       properties:
@@ -313,6 +359,132 @@ components:
           examples:
           - Sales Discount
       description: Array of discounts for an order payment transaction; empty for donations.
+    TransactionSalesLineItem:
+      type: object
+      properties:
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        id:
+          type: string
+          description: Unique id for the sales item.
+          examples:
+          - d93f9637-fba6-4e8b-a1f3-24008f60c774
+        taxes:
+          type: array
+          description: Array of taxes for the sale item.
+          items:
+            $ref: '#/components/schemas/TransactionTax'
+        total:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalNetSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+        totalSales:
+          $ref: '#/components/schemas/MonetaryAmount'
+      description: Array of sales items for an order payment transaction; empty for donations.
+    PaymentGatewayError:
+      type: string
+      description: Captures errors from the payment gateway; value is null if not applicable.
+      enum:
+      - GATEWAY_FEE_PROCEESING_ERROR
+      - GATEWAY_API_PERMISSION_ERROR
+      - GATEWAY_DISCONNNECTED
+    TransactionShippingLineItem:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        description:
+          type: string
+          description: Description of the shipping line item as defined by the Squarespace merchant.
+          examples:
+          - USPS Flat Rate
+        discountAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        id:
+          type: string
+          description: Unique id for the shipping line item.
+          examples:
+          - bd63d55e-0066-400e-9aa9-e75d4e6215b0
+        netAmount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        taxes:
+          type: array
+          description: Array of taxes for the shipping line item.
+          items:
+            $ref: '#/components/schemas/TransactionTax'
+      description: Array of shipping line items.
+    StandardErrorPayload:
+      type: object
+      properties:
+        contextId:
+          type: string
+        details:
+          type: object
+        message:
+          type: string
+        subtype:
+          type: string
+          enum:
+          - MISSING_ARGUMENT
+          - INVALID_ARGUMENT
+          - INVALID_CONTENT_TYPE
+          - CONCURRENT_MODIFICATION
+          - INSUFFICIENT_STOCK
+          - STOCK_NOT_TRACKED
+          - STOCK_EXCEEDS_MAX
+          - CURRENCY_MISMATCH
+          - MEASUREMENT_STANDARD_MISMATCH
+          - INSUFFICIENT_PRODUCT_VARIANTS
+          - URL_SLUG_UNAVAILABLE
+          - SKU_UNAVAILABLE
+          - STORE_PAGE_NOT_FOUND
+          - STORE_PAGE_PRODUCT_LIMIT_REACHED
+          - IMAGE_LIMIT_REACHED
+          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
+          - MISSING_SCOPE
+          - PROFILE_CANNOT_ACCEPT_MARKETING
+          - ENTITY_LIMIT_REACHED
+          - PRODUCT_UPDATE_CONFLICT
+          - DUPLICATE_USER_CONFLICT
+          - PROMO_CODE_CONFLICT
+          - INVENTORY_ITEM_NOT_FOUND
+          - PRODUCT_IMAGE_NOT_FOUND
+          - PRODUCT_VARIANT_NOT_FOUND
+          - OAUTH_TOKEN_REQUIRED
+          - FORBIDDEN_RESOURCE
+          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
+        type:
+          type: string
+          enum:
+          - INVALID_REQUEST_ERROR
+          - AUTHORIZATION_ERROR
+          - WEBSITE_EXPIRED
+          - METHOD_NOT_ALLOWED
+          - CONFLICT
+          - TOO_MANY_REQUESTS
+          - SERVER_ERROR
+          - SERVICE_UNAVAILABLE
+    TransactionTax:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/MonetaryAmount'
+        jurisdiction:
+          type: string
+          description: 'Tax jurisdiction in COUNTRY:{value},STATE:{value},LOCAL:{value} format. Examples: COUNTRY:US, COUNTRY:US,STATE:NY, and COUNTRY:US,STATE:NY,LOCAL:10001.'
+          examples:
+          - COUNTRY:US,STATE:NY,LOCAL:10001
+        name:
+          type: string
+          description: Tax classification as defined by the Squarespace merchant.
+          examples:
+          - Local Sales Tax
+        rate:
+          type: string
+          description: Tax rate as a percent. For example, a value of 7.00 is a 7% tax.
+          examples:
+          - '10.0'
+      description: Array of taxes for the shipping line item.
     TransactionDocument:
       type: object
       properties:
@@ -382,197 +554,6 @@ components:
           type: boolean
           description: Flag; indicates order cancellation.
       description: Array of Document resources.
-    StandardErrorPayload:
-      type: object
-      properties:
-        contextId:
-          type: string
-        details:
-          type: object
-        message:
-          type: string
-        subtype:
-          type: string
-          enum:
-          - MISSING_ARGUMENT
-          - INVALID_ARGUMENT
-          - INVALID_CONTENT_TYPE
-          - CONCURRENT_MODIFICATION
-          - INSUFFICIENT_STOCK
-          - STOCK_NOT_TRACKED
-          - STOCK_EXCEEDS_MAX
-          - CURRENCY_MISMATCH
-          - MEASUREMENT_STANDARD_MISMATCH
-          - INSUFFICIENT_PRODUCT_VARIANTS
-          - URL_SLUG_UNAVAILABLE
-          - SKU_UNAVAILABLE
-          - STORE_PAGE_NOT_FOUND
-          - STORE_PAGE_PRODUCT_LIMIT_REACHED
-          - IMAGE_LIMIT_REACHED
-          - WEBHOOK_SUBSCRIPTION_LIMIT_REACHED
-          - MISSING_SCOPE
-          - PROFILE_CANNOT_ACCEPT_MARKETING
-          - ENTITY_LIMIT_REACHED
-          - PRODUCT_UPDATE_CONFLICT
-          - DUPLICATE_USER_CONFLICT
-          - PROMO_CODE_CONFLICT
-          - INVENTORY_ITEM_NOT_FOUND
-          - PRODUCT_IMAGE_NOT_FOUND
-          - PRODUCT_VARIANT_NOT_FOUND
-          - OAUTH_TOKEN_REQUIRED
-          - FORBIDDEN_RESOURCE
-          - OPERATION_NOT_ALLOWED_FOR_PRODUCT_TYPE
-        type:
-          type: string
-          enum:
-          - INVALID_REQUEST_ERROR
-          - AUTHORIZATION_ERROR
-          - WEBSITE_EXPIRED
-          - METHOD_NOT_ALLOWED
-          - CONFLICT
-          - TOO_MANY_REQUESTS
-          - SERVER_ERROR
-          - SERVICE_UNAVAILABLE
-    TransactionRefund:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        externalTransactionId:
-          type: string
-          description: Unique id for the refund transaction provided by the payment gateway.
-          examples:
-          - re_1Flhp8J4wh083J8f7qYtzU9m
-        id:
-          type: string
-          description: Unique refund id.
-          examples:
-          - cfdb6b87-64bf-461a-b48b-eca7bd2389fc
-        refundedOn:
-          type: string
-          description: ISO 8601 UTC date and time string; represents refund issue date.
-          format: date-time
-          examples:
-          - '2019-11-18T21:22:06.5Z'
-      description: Array of refunds for the payment transaction.
-    TransactionProcessingFee:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        amountGatewayCurrency:
-          $ref: '#/components/schemas/MonetaryAmount'
-        exchangeRate:
-          type: number
-          description: Foreign exchange rate between the payment gateway's and payment's currencies; determined when the payment is processed.
-          examples:
-          - 1
-        feeRefunds:
-          type: array
-          description: Array of processing fee refunds for the payment.
-          items:
-            $ref: '#/components/schemas/TransactionProcessingFeeRefund'
-        id:
-          type: string
-          description: Unique processing fee id.
-          examples:
-          - 2Jdsno3mdk
-        netAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        netAmountGatewayCurrency:
-          $ref: '#/components/schemas/MonetaryAmount'
-        refundedAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        refundedAmountGatewayCurrency:
-          $ref: '#/components/schemas/MonetaryAmount'
-      description: Array of processing fees associated with the payment.
-    PaginatedTransactionListResponse:
-      type: object
-      properties:
-        documents:
-          type: array
-          description: Array of Document resources. If the merchant site doesn't have any payment transactions for orders or donations, this array is empty.
-          items:
-            $ref: '#/components/schemas/TransactionDocument'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/transactions?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
-    TransactionTax:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        jurisdiction:
-          type: string
-          description: 'Tax jurisdiction in COUNTRY:{value},STATE:{value},LOCAL:{value} format. Examples: COUNTRY:US, COUNTRY:US,STATE:NY, and COUNTRY:US,STATE:NY,LOCAL:10001.'
-          examples:
-          - COUNTRY:US,STATE:NY,LOCAL:10001
-        name:
-          type: string
-          description: Tax classification as defined by the Squarespace merchant.
-          examples:
-          - Local Sales Tax
-        rate:
-          type: string
-          description: Tax rate as a percent. For example, a value of 7.00 is a 7% tax.
-          examples:
-          - '10.0'
-      description: Array of taxes for the shipping line item.
-    MonetaryAmount:
-      type: object
-      properties:
-        currency:
-          type: object
-          description: ISO 4217 currency code.
-          properties:
-            currencyCode:
-              type: string
-            defaultFractionDigits:
-              type: integer
-              format: int32
-            displayName:
-              type: string
-            numericCode:
-              type: integer
-              format: int32
-            numericCodeAsString:
-              type: string
-            symbol:
-              type: string
-          examples:
-          - USD
-        value:
-          type: number
-          description: Decimal monetary value.
-          examples:
-          - 49.99
-      description: A monetary amount with currency code and decimal value.
-    TransactionListResponse:
-      type: object
-      properties:
-        documents:
-          type: array
-          description: Array of Document resources.
-          items:
-            $ref: '#/components/schemas/TransactionDocument'
-    ExternalTransactionProperty:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-      description: Array of properties for the payment transaction provided by the payment gateway. Properties are listed in key/value pairs.
     TransactionProcessingFeeRefund:
       type: object
       properties:
@@ -602,66 +583,110 @@ components:
           examples:
           - '2019-11-18T21:22:06.5Z'
       description: Array of processing fee refunds for the payment.
-    PaymentGatewayError:
-      type: string
-      description: Captures errors from the payment gateway; value is null if not applicable.
-      enum:
-      - GATEWAY_FEE_PROCEESING_ERROR
-      - GATEWAY_API_PERMISSION_ERROR
-      - GATEWAY_DISCONNNECTED
-    TransactionShippingLineItem:
+    TransactionRefund:
       type: object
       properties:
         amount:
           $ref: '#/components/schemas/MonetaryAmount'
-        description:
+        externalTransactionId:
           type: string
-          description: Description of the shipping line item as defined by the Squarespace merchant.
+          description: Unique id for the refund transaction provided by the payment gateway.
           examples:
-          - USPS Flat Rate
-        discountAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
+          - re_1Flhp8J4wh083J8f7qYtzU9m
         id:
           type: string
-          description: Unique id for the shipping line item.
+          description: Unique refund id.
           examples:
-          - bd63d55e-0066-400e-9aa9-e75d4e6215b0
-        netAmount:
-          $ref: '#/components/schemas/MonetaryAmount'
-        taxes:
-          type: array
-          description: Array of taxes for the shipping line item.
-          items:
-            $ref: '#/components/schemas/TransactionTax'
-      description: Array of shipping line items.
-    Money:
-      type: object
-      description: A monetary value with currency
-      properties:
-        value:
+          - cfdb6b87-64bf-461a-b48b-eca7bd2389fc
+        refundedOn:
           type: string
-          description: Decimal string representation of the monetary amount
-          pattern: ^-?\d+(\.\d+)?$
+          description: ISO 8601 UTC date and time string; represents refund issue date.
+          format: date-time
+          examples:
+          - '2019-11-18T21:22:06.5Z'
+      description: Array of refunds for the payment transaction.
+    MonetaryAmount:
+      type: object
+      properties:
         currency:
-          type: string
-          description: ISO 4217 three-letter currency code
-          pattern: ^[A-Z]{3}$
-    Error:
+          type: object
+          description: ISO 4217 currency code.
+          properties:
+            currencyCode:
+              type: string
+            defaultFractionDigits:
+              type: integer
+              format: int32
+            displayName:
+              type: string
+            numericCode:
+              type: integer
+              format: int32
+            numericCodeAsString:
+              type: string
+            symbol:
+              type: string
+          examples:
+          - USD
+        value:
+          type: number
+          description: Decimal monetary value.
+          examples:
+          - 49.99
+      description: A monetary amount with currency code and decimal value.
+    Payment:
       type: object
-      description: Standard error response returned by the Squarespace API
+      description: A single payment record including gateway and amount information
       properties:
-        type:
+        id:
           type: string
-          description: Machine-readable error type identifier
-        subtype:
+          description: Unique identifier for the payment record
+        paymentGateway:
           type: string
-          description: Optional more specific error subtype
-        message:
+          description: Name of the payment gateway that processed this payment
+          enum:
+          - SQUARESPACE
+          - STRIPE
+          - PAYPAL
+          - SQUARE
+        creditCardType:
           type: string
-          description: Human-readable description of the error
-        statusCode:
-          type: integer
-          description: HTTP status code associated with the error
+          description: Type of credit card used for the payment, if applicable
+        amount:
+          $ref: '#/components/schemas/Money'
+        refundedAmount:
+          $ref: '#/components/schemas/Money'
+        externalTransactionId:
+          type: string
+          description: Transaction identifier from the payment gateway's system
+        createdOn:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp when the payment was recorded
+    TransactionLineItem:
+      type: object
+      description: A financial line item within a transaction document
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the transaction line item
+        lineItemType:
+          type: string
+          description: Classification of this financial line item
+          enum:
+          - PRODUCT
+          - SHIPPING
+          - TAX
+          - DISCOUNT
+          - TIP
+        amount:
+          $ref: '#/components/schemas/Money'
+        taxName:
+          type: string
+          description: Name of the tax applied, if this is a tax line item
+        taxRate:
+          type: string
+          description: Tax rate as a decimal string, if this is a tax line item
     TransactionDocument_2:
       type: object
       description: A document grouping financial transaction details for a single order or donation. Contains payment gateway information and line-level financial data.
@@ -697,35 +722,22 @@ components:
           enum:
           - ORDER
           - DONATION
-    Payment:
+    Error:
       type: object
-      description: A single payment record including gateway and amount information
+      description: Standard error response returned by the Squarespace API
       properties:
-        id:
+        type:
           type: string
-          description: Unique identifier for the payment record
-        paymentGateway:
+          description: Machine-readable error type identifier
+        subtype:
           type: string
-          description: Name of the payment gateway that processed this payment
-          enum:
-          - SQUARESPACE
-          - STRIPE
-          - PAYPAL
-          - SQUARE
-        creditCardType:
+          description: Optional more specific error subtype
+        message:
           type: string
-          description: Type of credit card used for the payment, if applicable
-        amount:
-          $ref: '#/components/schemas/Money'
-        refundedAmount:
-          $ref: '#/components/schemas/Money'
-        externalTransactionId:
-          type: string
-          description: Transaction identifier from the payment gateway's system
-        createdOn:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp when the payment was recorded
+          description: Human-readable description of the error
+        statusCode:
+          type: integer
+          description: HTTP status code associated with the error
     Pagination:
       type: object
       description: Pagination metadata included with list responses
@@ -740,39 +752,33 @@ components:
           type: string
           format: uri
           description: Full URL for retrieving the next page of results
-    TransactionLineItem:
+    Money:
       type: object
-      description: A financial line item within a transaction document
+      description: A monetary value with currency
       properties:
-        id:
+        value:
           type: string
-          description: Unique identifier for the transaction line item
-        lineItemType:
+          description: Decimal string representation of the monetary amount
+          pattern: ^-?\d+(\.\d+)?$
+        currency:
           type: string
-          description: Classification of this financial line item
-          enum:
-          - PRODUCT
-          - SHIPPING
-          - TAX
-          - DISCOUNT
-          - TIP
-        amount:
-          $ref: '#/components/schemas/Money'
-        taxName:
-          type: string
-          description: Name of the tax applied, if this is a tax line item
-        taxRate:
-          type: string
-          description: Tax rate as a decimal string, if this is a tax line item
+          description: ISO 4217 three-letter currency code
+          pattern: ^[A-Z]{3}$
   responses:
-    NotFound:
-      description: The requested resource was not found
+    TooManyRequests:
+      description: Rate limit exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
       content:
         application/json:
           schema:
@@ -785,12 +791,6 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
       content:
         application/json:
           schema:
