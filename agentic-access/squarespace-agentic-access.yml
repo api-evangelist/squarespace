@@ -1,4 +1,4 @@
-generated: '2026-09-16'
+generated: '2026-09-23'
 method: generated
 source: openapi/squarespace-analytics-api-openapi.yml, openapi/squarespace-contacts-api-openapi.yml,
   openapi/squarespace-discounts-api-openapi.yml, openapi/squarespace-inventory-api-openapi.yml,
@@ -11,11 +11,11 @@ description: Recommended x-agentic-access execution contracts, classified heuris
 summary:
   operations: 83
   by_action_class:
-    acting: 47
-    connected: 36
+    connected: 38
+    acting: 45
   by_consequence:
-    write: 39
-    read: 36
+    read: 38
+    write: 37
     physical: 8
   human_in_the_loop_required: 0
 operations:
@@ -23,18 +23,12 @@ operations:
   method: post
   operationId: getTransactionsSummaries
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v1/contacts
   method: get
   operationId: getContacts
@@ -65,18 +59,12 @@ operations:
   method: post
   operationId: queryContacts
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v1/contacts/{contactId}
   method: delete
   operationId: deleteContact

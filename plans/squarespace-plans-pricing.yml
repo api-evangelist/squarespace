@@ -143,3 +143,45 @@ pricing_document:
     The document states "Data sourced from the Squarespace billing API" and carries its own
     last-updated timestamp, so it is a generated feed rather than a hand-maintained page.
   currencies: 27
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  - subscription
+  units: []
+  plans:
+  - name: Squarespace Basic
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods:
+    - month
+  - name: Squarespace Core
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods:
+    - month
+  - name: Squarespace Plus
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods:
+    - month
+  - name: Squarespace Advanced
+    access: other
+    model: subscription
+    model_how: stated
+    units: []
+    periods:
+    - month
+  - name: Enterprise
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units: []
+    periods: []
