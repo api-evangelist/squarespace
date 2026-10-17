@@ -296,6 +296,27 @@ components:
           description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service products, this array is empty.
           items:
             $ref: '#/components/schemas/InventoryItem'
+    PaginatedInventoryItemListResponse:
+      type: object
+      properties:
+        inventory:
+          type: array
+          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+        pagination:
+          examples:
+          - hasNextPage: true
+            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
+          type: object
+          properties:
+            hasNextPage:
+              type: boolean
+            nextPageCursor:
+              type: string
+            nextPageUrl:
+              type: string
     InventoryItem:
       type: object
       properties:
@@ -327,27 +348,6 @@ components:
           type: string
           description: Unique id for the InventoryItem.
       description: Optional; array of objects. Sets the exact stock quantity for InventoryItems.
-    PaginatedInventoryItemListResponse:
-      type: object
-      properties:
-        inventory:
-          type: array
-          description: Array of InventoryItem resources. If the merchant site doesn't have any physical or service product variants, this array is empty.
-          items:
-            $ref: '#/components/schemas/InventoryItem'
-        pagination:
-          examples:
-          - hasNextPage: true
-            nextPageCursor: ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-            nextPageUrl: /1.0/commerce/inventory?cursor=ewogICJhIiA6ICI2OWNhOWExZjgxNGMwYTY0MmIwMTIzYzkiLAogICJiIiA6ICJJRCIKfQ
-          type: object
-          properties:
-            hasNextPage:
-              type: boolean
-            nextPageCursor:
-              type: string
-            nextPageUrl:
-              type: string
     CreateInventoryAdjustmentRequest:
       type: object
       properties:
@@ -423,6 +423,30 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
+    AdjustInventoryRequest:
+      type: object
+      description: Request body for applying inventory adjustments
+      required:
+      - increments
+      properties:
+        increments:
+          type: array
+          description: List of inventory adjustments to apply
+          items:
+            $ref: '#/components/schemas/InventoryAdjustment'
+    InventoryAdjustment:
+      type: object
+      description: A single stock quantity adjustment for a product variant
+      required:
+      - variantId
+      - quantity
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier of the product variant to adjust
+        quantity:
+          type: integer
+          description: Relative quantity change to apply. Positive values increase stock, negative values decrease it.
     InventoryItem_2:
       type: object
       description: Stock information for a single product variant
@@ -465,19 +489,6 @@ components:
         statusCode:
           type: integer
           description: HTTP status code associated with the error
-    InventoryAdjustment:
-      type: object
-      description: A single stock quantity adjustment for a product variant
-      required:
-      - variantId
-      - quantity
-      properties:
-        variantId:
-          type: string
-          description: Unique identifier of the product variant to adjust
-        quantity:
-          type: integer
-          description: Relative quantity change to apply. Positive values increase stock, negative values decrease it.
     Pagination:
       type: object
       description: Pagination metadata included with list responses
@@ -492,26 +503,9 @@ components:
           type: string
           format: uri
           description: Full URL for retrieving the next page of results
-    AdjustInventoryRequest:
-      type: object
-      description: Request body for applying inventory adjustments
-      required:
-      - increments
-      properties:
-        increments:
-          type: array
-          description: List of inventory adjustments to apply
-          items:
-            $ref: '#/components/schemas/InventoryAdjustment'
   responses:
-    TooManyRequests:
-      description: Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The authenticated user does not have permission to access this resource
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:
@@ -522,31 +516,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The authenticated user does not have permission to access this resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or contained invalid parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    TooManyRequests:
+      description: Rate limit exceeded
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    variantIds:
-      name: variantIds
-      in: path
-      description: Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information
-      required: true
-      schema:
-        type: string
     cursor:
       name: cursor
       in: query
       description: Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.
       required: false
+      schema:
+        type: string
+    variantIds:
+      name: variantIds
+      in: path
+      description: Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information
+      required: true
       schema:
         type: string
   securitySchemes:

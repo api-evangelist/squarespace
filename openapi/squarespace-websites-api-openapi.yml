@@ -129,45 +129,11 @@ paths:
       - Websites
 components:
   schemas:
-    StorePage:
-      type: object
-      properties:
-        id:
-          type: string
-        isEnabled:
-          type: boolean
-        title:
-          type: string
-        urlSlug:
-          type: string
-    WebsiteProfile:
-      type: object
-      properties:
-        currency:
-          type: string
-        id:
-          type: string
-        language:
-          type: string
-        location:
-          $ref: '#/components/schemas/Location'
-        measurementStandard:
-          $ref: '#/components/schemas/MeasurementStandard'
-        siteId:
-          type: string
-        timeZone:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-    Location:
-      type: object
-      properties:
-        country:
-          type: string
-        region:
-          type: string
+    MeasurementStandard:
+      type: string
+      enum:
+      - IMPERIAL
+      - METRIC
     StandardErrorPayload:
       type: object
       properties:
@@ -219,11 +185,6 @@ components:
           - TOO_MANY_REQUESTS
           - SERVER_ERROR
           - SERVICE_UNAVAILABLE
-    MeasurementStandard:
-      type: string
-      enum:
-      - IMPERIAL
-      - METRIC
     PaginatedStorePagesResponse:
       type: object
       properties:
@@ -244,6 +205,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StorePage'
+    WebsiteProfile:
+      type: object
+      properties:
+        currency:
+          type: string
+        id:
+          type: string
+        language:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        measurementStandard:
+          $ref: '#/components/schemas/MeasurementStandard'
+        siteId:
+          type: string
+        timeZone:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+    StorePage:
+      type: object
+      properties:
+        id:
+          type: string
+        isEnabled:
+          type: boolean
+        title:
+          type: string
+        urlSlug:
+          type: string
     MemberProfile:
       type: object
       properties:
@@ -259,6 +252,13 @@ components:
         lastName:
           type: string
           description: Profile last name.
+    Location:
+      type: object
+      properties:
+        country:
+          type: string
+        region:
+          type: string
   securitySchemes:
     Authorization:
       in: header
