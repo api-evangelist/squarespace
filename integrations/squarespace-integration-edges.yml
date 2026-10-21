@@ -7,6 +7,13 @@ checked:
 - https://monid.ai/tools/squarespace
 - https://n8n.io/integrations/squarespace/
 - https://zapier.com/apps/squarespace/integrations
+- https://appexchange.salesforce.com/explore/business-needs?category=commerce
+- https://commercetools.com/partners
+- https://machalliance.org/members
+- https://marketplace.commercetools.com
+- https://printify.com/integrations/
+- https://www.bigcommerce.com/apps/
+- https://www.printful.com/integrations
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -398,6 +405,38 @@ edges:
   direction: third-party
   category: Scheduling & Booking
   partner_url: https://www.getjobber.com/plp/zapier?utm_source=Zapier&utm_medium=PLP
+- partner_name: Printful
+  app: Printful for Squarespace
+  partner: printful
+  partner_match: domain
+  type: marketplace
+  marketplace: builder-directory
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://www.printful.com/integrations/squarespace
+  category: print-on-demand fulfilment integration
+  partner_url: https://raw.githubusercontent.com/api-evangelist/printful/refs/heads/main/apis.yml
+  signal_note: the builder's own integrations directory (served from its own domain) names this platform as a channel
+    it publishes onto
+  detected_by: sweep-mach-headless-commerce.py
+  detected: '2026-10-20'
+- partner_name: Printify
+  app: Printify for Squarespace
+  partner: printify
+  partner_match: domain
+  type: marketplace
+  marketplace: builder-directory
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://printify.com/squarespace/
+  category: print-on-demand fulfilment integration
+  partner_url: https://raw.githubusercontent.com/api-evangelist/printify/refs/heads/main/apis.yml
+  signal_note: the builder's own integrations directory (served from its own domain) names this platform as a channel
+    it publishes onto
+  detected_by: sweep-mach-headless-commerce.py
+  detected: '2026-10-20'
 templates:
 - title: Create Flodesk subscribers from new Squarespace Forms form submissions
   url: https://zapier.com/apps/flodesk/integrations/squarespace-forms/573767/create-flodesk-subscribers-from-new-squarespace-forms-form-submissions
