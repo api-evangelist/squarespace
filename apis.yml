@@ -331,6 +331,8 @@ apis:
   - type: ChangeLog
     url: https://developers.squarespace.com/commerce-apis/changelog
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/squarespace/overview
   - type: VendorFacets
     url: vendor-facets/squarespace-vendor-facets.yml
   - type: CapabilityMap
