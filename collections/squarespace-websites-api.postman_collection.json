@@ -1,0 +1,558 @@
+{
+  "info": {
+    "_postman_id": "2d875110-7f85-4bba-9819-72e420fc25fa",
+    "name": "Commerce Websites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:35:14.000Z",
+    "updatedAt": "2026-10-22T02:35:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2d875110-7f85-4bba-9819-72e420fc25fa"
+  },
+  "item": [
+    {
+      "name": "1.0",
+      "item": [
+        {
+          "name": "authorization",
+          "item": [
+            {
+              "name": "member",
+              "item": [
+                {
+                  "name": "Retrieves basic details about the Squarespace member who owns the provided\u2026",
+                  "id": "b1085fee-4fe6-4db8-8bb9-ab7ea2c0cdb1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/authorization/member",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "authorization",
+                        "member"
+                      ]
+                    },
+                    "description": "Retrieves basic details about the Squarespace member who owns the provided OAuth token"
+                  },
+                  "response": [
+                    {
+                      "id": "d331fa13-c8f0-40df-8b08-da1dd6501d06",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/authorization/member",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "authorization",
+                            "member"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lastName\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-d331fa13-c8f0-40df-8b08-da1dd6501d06"
+                    },
+                    {
+                      "id": "38b87d86-0b0b-4287-ac8b-2e17f6e89e5b",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/authorization/member",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "authorization",
+                            "member"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"email\": \"<string>\",\n  \"firstName\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lastName\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-38b87d86-0b0b-4287-ac8b-2e17f6e89e5b"
+                    },
+                    {
+                      "id": "ce255939-4ced-4289-adfa-0e705e263293",
+                      "name": "Not found. The API version is not supported.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/authorization/member",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "authorization",
+                            "member"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-ce255939-4ced-4289-adfa-0e705e263293"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:15.000Z",
+                  "updatedAt": "2026-10-22T02:35:15.000Z",
+                  "uid": "35240-b1085fee-4fe6-4db8-8bb9-ab7ea2c0cdb1"
+                }
+              ],
+              "id": "69744160-e7f7-4430-86b0-dde51566f606",
+              "createdAt": "2026-10-22T02:35:15.000Z",
+              "updatedAt": "2026-10-22T02:35:15.000Z",
+              "uid": "35240-69744160-e7f7-4430-86b0-dde51566f606"
+            },
+            {
+              "name": "website",
+              "item": [
+                {
+                  "name": "Retrieves basic details about the website that owns the provided API key or\u2026",
+                  "id": "bc89eee8-5a0d-4bb3-a44a-6af0dc3c7f5f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/authorization/website",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "authorization",
+                        "website"
+                      ]
+                    },
+                    "description": "Retrieves basic details about the website that owns the provided API key or OAuth token"
+                  },
+                  "response": [
+                    {
+                      "id": "8d3526a5-2cf1-4dcc-a2dd-537ec2d86227",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/authorization/website",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "authorization",
+                            "website"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"language\": \"<string>\",\n  \"location\": {\n    \"country\": \"<string>\",\n    \"region\": \"<string>\"\n  },\n  \"measurementStandard\": \"METRIC\",\n  \"siteId\": \"<string>\",\n  \"timeZone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-8d3526a5-2cf1-4dcc-a2dd-537ec2d86227"
+                    },
+                    {
+                      "id": "9ff7cac2-a20b-484d-86a7-753aa3dba3f6",
+                      "name": "Not found. The API version is not supported.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/authorization/website",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "authorization",
+                            "website"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-9ff7cac2-a20b-484d-86a7-753aa3dba3f6"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:15.000Z",
+                  "updatedAt": "2026-10-22T02:35:15.000Z",
+                  "uid": "35240-bc89eee8-5a0d-4bb3-a44a-6af0dc3c7f5f"
+                }
+              ],
+              "id": "6db05c0f-32a7-4c1a-a233-0e4d0c4e75c9",
+              "createdAt": "2026-10-22T02:35:15.000Z",
+              "updatedAt": "2026-10-22T02:35:15.000Z",
+              "uid": "35240-6db05c0f-32a7-4c1a-a233-0e4d0c4e75c9"
+            }
+          ],
+          "id": "504700d5-f47a-4d10-8438-06f230a858c8",
+          "createdAt": "2026-10-22T02:35:15.000Z",
+          "updatedAt": "2026-10-22T02:35:15.000Z",
+          "uid": "35240-504700d5-f47a-4d10-8438-06f230a858c8"
+        },
+        {
+          "name": "commerce",
+          "item": [
+            {
+              "name": "store_pages",
+              "item": [
+                {
+                  "name": "List store pages",
+                  "id": "6090f7bf-c286-4078-a6e8-e14364733179",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/commerce/store_pages?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "commerce",
+                        "store_pages"
+                      ],
+                      "query": [
+                        {
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves information for all store pages on the website. The response supports dynamic cursors for pagination."
+                  },
+                  "response": [
+                    {
+                      "id": "7ca5281d-55a1-4747-9f80-cbf3403b00df",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/store_pages?cursor=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "store_pages"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"pagination\": {\n    \"hasNextPage\": \"<boolean>\",\n    \"nextPageCursor\": \"<string>\",\n    \"nextPageUrl\": \"<string>\"\n  },\n  \"storePages\": [\n    {\n      \"id\": \"<string>\",\n      \"isEnabled\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"urlSlug\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"isEnabled\": \"<boolean>\",\n      \"title\": \"<string>\",\n      \"urlSlug\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-7ca5281d-55a1-4747-9f80-cbf3403b00df"
+                    },
+                    {
+                      "id": "ec8dfc5b-d0d9-4b08-943f-d825395187fc",
+                      "name": "Not found. The API version is not supported.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/store_pages?cursor=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "store_pages"
+                          ],
+                          "query": [
+                            {
+                              "key": "cursor",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                      "createdAt": "2026-10-22T02:35:15.000Z",
+                      "updatedAt": "2026-10-22T02:35:15.000Z",
+                      "uid": "35240-ec8dfc5b-d0d9-4b08-943f-d825395187fc"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:15.000Z",
+                  "updatedAt": "2026-10-22T02:35:15.000Z",
+                  "uid": "35240-6090f7bf-c286-4078-a6e8-e14364733179"
+                }
+              ],
+              "id": "e0b54fde-79a7-4129-92a6-862821a02439",
+              "createdAt": "2026-10-22T02:35:15.000Z",
+              "updatedAt": "2026-10-22T02:35:15.000Z",
+              "uid": "35240-e0b54fde-79a7-4129-92a6-862821a02439"
+            }
+          ],
+          "id": "b589b04f-2b4e-4f81-9b61-4f1c494ee4e4",
+          "createdAt": "2026-10-22T02:35:15.000Z",
+          "updatedAt": "2026-10-22T02:35:15.000Z",
+          "uid": "35240-b589b04f-2b4e-4f81-9b61-4f1c494ee4e4"
+        }
+      ],
+      "id": "ca8aaa9b-4e73-40de-92bf-1c27fd8ed995",
+      "createdAt": "2026-10-22T02:35:15.000Z",
+      "updatedAt": "2026-10-22T02:35:15.000Z",
+      "uid": "35240-ca8aaa9b-4e73-40de-92bf-1c27fd8ed995"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com"
+    }
+  ]
+}

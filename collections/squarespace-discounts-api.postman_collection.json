@@ -1,0 +1,2214 @@
+{
+  "info": {
+    "_postman_id": "6482f45c-feff-47ea-8d44-1217a53ece97",
+    "name": "Commerce Discounts API",
+    "description": "Manage discounts for a website.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:35:06.000Z",
+    "updatedAt": "2026-10-22T02:35:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6482f45c-feff-47ea-8d44-1217a53ece97"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "commerce",
+          "item": [
+            {
+              "name": "discounts",
+              "item": [
+                {
+                  "name": "{discountId}",
+                  "item": [
+                    {
+                      "name": "Delete discount",
+                      "id": "ca044405-f0d3-4dd3-8425-61d94e8b476b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts",
+                            ":discountId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ce9ae923-3a62-40e9-9113-e95fe4b04aab",
+                              "key": "discountId",
+                              "value": "<string>",
+                              "description": "(Required) The discount's ID."
+                            }
+                          ]
+                        },
+                        "description": "Deletes the discount for the given discount ID. Deletion is permitted for any discount owned by the website, including discounts whose criteria, template, or trigger types are not supported by this API version; no type validation is performed. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS."
+                      },
+                      "response": [
+                        {
+                          "id": "725f4ebe-0ec9-4e8d-93cd-752b05c6ae12",
+                          "name": "No content. The discount was deleted successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-725f4ebe-0ec9-4e8d-93cd-752b05c6ae12"
+                        },
+                        {
+                          "id": "08d94185-849f-44ef-88e6-35aade9f9d41",
+                          "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-08d94185-849f-44ef-88e6-35aade9f9d41"
+                        },
+                        {
+                          "id": "453b1f48-9080-46d2-a73b-417fb555d9d1",
+                          "name": "Not found. The requested discount was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-453b1f48-9080-46d2-a73b-417fb555d9d1"
+                        },
+                        {
+                          "id": "105575d2-fdf5-4885-94db-7e405c7deedb",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-105575d2-fdf5-4885-94db-7e405c7deedb"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-ca044405-f0d3-4dd3-8425-61d94e8b476b"
+                    },
+                    {
+                      "name": "Get discount",
+                      "id": "858d7844-7674-4b08-89dd-b8af8b7c1259",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts",
+                            ":discountId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "94d87b93-5bbc-4b6c-bd31-b7d06a76245c",
+                              "key": "discountId",
+                              "value": "<string>",
+                              "description": "(Required) The discount's ID"
+                            }
+                          ]
+                        },
+                        "description": "Returns the discount for the given discount ID. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS."
+                      },
+                      "response": [
+                        {
+                          "id": "e67c7f1f-fa63-4847-aaea-6d8e93fb8d86",
+                          "name": "Discount found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"discount\": {\n    \"criteria\": {\n      \"type\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"template\": {\n      \"discountAmount\": {\n        \"currency\": {\n          \"currencyCode\": \"<string>\",\n          \"defaultFractionDigits\": \"<integer>\",\n          \"displayName\": \"<string>\",\n          \"numericCode\": \"<integer>\",\n          \"numericCodeAsString\": \"<string>\",\n          \"symbol\": \"<string>\"\n        },\n        \"value\": \"<number>\"\n      },\n      \"type\": \"<string>\",\n      \"maxApplicationsPerCart\": \"<integer>\"\n    },\n    \"trigger\": {\n      \"type\": \"<string>\"\n    },\n    \"validFrom\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"isLimitedUses\": \"<boolean>\",\n    \"isOncePerCustomer\": \"<boolean>\",\n    \"lastRedeemedAt\": \"<dateTime>\",\n    \"maxUsesAllowed\": \"<integer>\",\n    \"numberOfUses\": \"<integer>\",\n    \"paymentPlanOptions\": {\n      \"type\": \"NONE\"\n    },\n    \"status\": \"EXPIRED\",\n    \"subscriptionOptions\": {\n      \"type\": \"EXCLUDED\"\n    },\n    \"validTo\": \"<dateTime>\",\n    \"websiteId\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-e67c7f1f-fa63-4847-aaea-6d8e93fb8d86"
+                        },
+                        {
+                          "id": "1c7f830a-1a98-4197-a54d-8853cc0d95df",
+                          "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-1c7f830a-1a98-4197-a54d-8853cc0d95df"
+                        },
+                        {
+                          "id": "5eafd631-79ee-4a3e-9233-e6062eda5c1a",
+                          "name": "Discount not found for this website.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-5eafd631-79ee-4a3e-9233-e6062eda5c1a"
+                        },
+                        {
+                          "id": "2a65150d-e5f1-4f7d-80ec-fe761b1e5d8c",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-2a65150d-e5f1-4f7d-80ec-fe761b1e5d8c"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-858d7844-7674-4b08-89dd-b8af8b7c1259"
+                    },
+                    {
+                      "name": "Update discount",
+                      "id": "0fea71b4-d28b-4c3a-a807-b57cb5f5a954",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts",
+                            ":discountId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c66eb55b-0ec2-495c-9cdd-f5ac0297c663",
+                              "key": "discountId",
+                              "value": "<string>",
+                              "description": "(Required) The discount's unique identifier."
+                            }
+                          ]
+                        },
+                        "description": "Replaces the discount for the given discount ID. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS."
+                      },
+                      "response": [
+                        {
+                          "id": "6b0cb29f-4c7a-4704-9732-4521d34cc1a7",
+                          "name": "The updated discount.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"discount\": {\n    \"criteria\": {\n      \"type\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"template\": {\n      \"discountAmount\": {\n        \"currency\": {\n          \"currencyCode\": \"<string>\",\n          \"defaultFractionDigits\": \"<integer>\",\n          \"displayName\": \"<string>\",\n          \"numericCode\": \"<integer>\",\n          \"numericCodeAsString\": \"<string>\",\n          \"symbol\": \"<string>\"\n        },\n        \"value\": \"<number>\"\n      },\n      \"type\": \"<string>\",\n      \"maxApplicationsPerCart\": \"<integer>\"\n    },\n    \"trigger\": {\n      \"type\": \"<string>\"\n    },\n    \"validFrom\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"isLimitedUses\": \"<boolean>\",\n    \"isOncePerCustomer\": \"<boolean>\",\n    \"lastRedeemedAt\": \"<dateTime>\",\n    \"maxUsesAllowed\": \"<integer>\",\n    \"numberOfUses\": \"<integer>\",\n    \"paymentPlanOptions\": {\n      \"type\": \"NONE\"\n    },\n    \"status\": \"EXPIRED\",\n    \"subscriptionOptions\": {\n      \"type\": \"EXCLUDED\"\n    },\n    \"validTo\": \"<dateTime>\",\n    \"websiteId\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-6b0cb29f-4c7a-4704-9732-4521d34cc1a7"
+                        },
+                        {
+                          "id": "21055f7e-9020-47b5-b7ae-4e445c03bf7b",
+                          "name": "Bad request. Missing or invalid fields, invalid criteria/template pairing, or promo code reserved for gift cards.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-21055f7e-9020-47b5-b7ae-4e445c03bf7b"
+                        },
+                        {
+                          "id": "076596c6-509d-41f8-ad7c-c0e07a2f39c8",
+                          "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-076596c6-509d-41f8-ad7c-c0e07a2f39c8"
+                        },
+                        {
+                          "id": "b692757f-a5be-4041-a7b3-6d73c07ca6c3",
+                          "name": "Discount not found for this website.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-b692757f-a5be-4041-a7b3-6d73c07ca6c3"
+                        },
+                        {
+                          "id": "38c0b2c6-57c5-4b0a-ba22-b821c82ab8ee",
+                          "name": "Conflict. The promo code is already in use by another discount, or the maximum number of auto-trigger discounts has been reached.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-38c0b2c6-57c5-4b0a-ba22-b821c82ab8ee"
+                        },
+                        {
+                          "id": "4b32b53c-d283-41f2-90f0-67b51179d3f4",
+                          "name": "Rate limit exceeded.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"lastRedeemedAt\": \"<dateTime>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"numberOfUses\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"status\": \"ACTIVE\",\n  \"subscriptionOptions\": {\n    \"type\": \"EXCLUDED\"\n  },\n  \"validTo\": \"<dateTime>\",\n  \"websiteId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/commerce/discounts/:discountId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "commerce",
+                                "discounts",
+                                ":discountId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "discountId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                          "createdAt": "2026-10-22T02:35:06.000Z",
+                          "updatedAt": "2026-10-22T02:35:06.000Z",
+                          "uid": "35240-4b32b53c-d283-41f2-90f0-67b51179d3f4"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-0fea71b4-d28b-4c3a-a807-b57cb5f5a954"
+                    }
+                  ],
+                  "id": "20c7d853-c839-468f-b8ba-dd6f45377be4",
+                  "createdAt": "2026-10-22T02:35:06.000Z",
+                  "updatedAt": "2026-10-22T02:35:06.000Z",
+                  "uid": "35240-20c7d853-c839-468f-b8ba-dd6f45377be4"
+                },
+                {
+                  "name": "List discounts",
+                  "id": "fb36058a-9044-4268-8e0a-166d7573888c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/commerce/discounts?sortBy=CREATED_ON&sortDirection=DESCENDING&search=<string>&status=ALL&criteria=ANY_ORDER&criteria=CART_TOTAL&criteria=PRODUCT&criteria=BUY_X_GET_Y&template=FIXED_AMOUNT&template=PERCENTAGE&template=BUY_X_GET_Y_FIXED_AMOUNT&template=BUY_X_GET_Y_PERCENTAGE&template=FREE_SHIPPING&trigger=CODE&limitedUseOnly=false&offset=0&limit=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "commerce",
+                        "discounts"
+                      ],
+                      "query": [
+                        {
+                          "description": "Sort field for the result set.",
+                          "key": "sortBy",
+                          "value": "CREATED_ON"
+                        },
+                        {
+                          "description": "Sort direction.",
+                          "key": "sortDirection",
+                          "value": "DESCENDING"
+                        },
+                        {
+                          "description": "Free-text search across a discount's name and promo code.",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by discount lifecycle status.",
+                          "key": "status",
+                          "value": "ALL"
+                        },
+                        {
+                          "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "criteria",
+                          "value": "ANY_ORDER"
+                        },
+                        {
+                          "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "criteria",
+                          "value": "CART_TOTAL"
+                        },
+                        {
+                          "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "criteria",
+                          "value": "PRODUCT"
+                        },
+                        {
+                          "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "criteria",
+                          "value": "BUY_X_GET_Y"
+                        },
+                        {
+                          "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "template",
+                          "value": "FIXED_AMOUNT"
+                        },
+                        {
+                          "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "template",
+                          "value": "PERCENTAGE"
+                        },
+                        {
+                          "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "template",
+                          "value": "BUY_X_GET_Y_FIXED_AMOUNT"
+                        },
+                        {
+                          "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "template",
+                          "value": "BUY_X_GET_Y_PERCENTAGE"
+                        },
+                        {
+                          "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                          "key": "template",
+                          "value": "FREE_SHIPPING"
+                        },
+                        {
+                          "description": "Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.",
+                          "key": "trigger",
+                          "value": "CODE"
+                        },
+                        {
+                          "description": "When true, only discounts with limited-use semantics (per product rules) are returned.",
+                          "key": "limitedUseOnly",
+                          "value": "false"
+                        },
+                        {
+                          "description": "Zero-based offset into the result set. Must be non-negative. Default 0.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Page size (1\u20131000; default 50).",
+                          "key": "limit",
+                          "value": "50"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of discounts for the website. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS."
+                  },
+                  "response": [
+                    {
+                      "id": "4d5d125d-7a59-4746-9680-ab7aada07f81",
+                      "name": "Paginated discounts for the website (empty page is a successful response).",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts?sortBy=CREATED_ON&sortDirection=DESCENDING&search=<string>&status=ALL&criteria=BUY_X_GET_Y&template=FREE_SHIPPING&trigger=CODE&limitedUseOnly=false&offset=0&limit=50",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort field for the result set.",
+                              "key": "sortBy",
+                              "value": "CREATED_ON"
+                            },
+                            {
+                              "description": "Sort direction.",
+                              "key": "sortDirection",
+                              "value": "DESCENDING"
+                            },
+                            {
+                              "description": "Free-text search across a discount's name and promo code.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by discount lifecycle status.",
+                              "key": "status",
+                              "value": "ALL"
+                            },
+                            {
+                              "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "criteria",
+                              "value": "BUY_X_GET_Y"
+                            },
+                            {
+                              "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "template",
+                              "value": "FREE_SHIPPING"
+                            },
+                            {
+                              "description": "Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.",
+                              "key": "trigger",
+                              "value": "CODE"
+                            },
+                            {
+                              "description": "When true, only discounts with limited-use semantics (per product rules) are returned.",
+                              "key": "limitedUseOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Zero-based offset into the result set. Must be non-negative. Default 0.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Page size (1\u20131000; default 50).",
+                              "key": "limit",
+                              "value": "50"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"discounts\": [\n    {\n      \"criteria\": {\n        \"type\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"template\": {\n        \"discountAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"type\": \"<string>\",\n        \"maxApplicationsPerCart\": \"<integer>\"\n      },\n      \"trigger\": {\n        \"type\": \"<string>\"\n      },\n      \"validFrom\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"isLimitedUses\": \"<boolean>\",\n      \"isOncePerCustomer\": \"<boolean>\",\n      \"lastRedeemedAt\": \"<dateTime>\",\n      \"maxUsesAllowed\": \"<integer>\",\n      \"numberOfUses\": \"<integer>\",\n      \"paymentPlanOptions\": {\n        \"type\": \"ALL_PAYMENTS\"\n      },\n      \"status\": \"SCHEDULED\",\n      \"subscriptionOptions\": {\n        \"type\": \"ALL_PAYMENTS\"\n      },\n      \"validTo\": \"<dateTime>\",\n      \"websiteId\": \"<string>\"\n    },\n    {\n      \"criteria\": {\n        \"type\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"template\": {\n        \"discountAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"type\": \"<string>\",\n        \"maxApplicationsPerCart\": \"<integer>\"\n      },\n      \"trigger\": {\n        \"type\": \"<string>\"\n      },\n      \"validFrom\": \"<dateTime>\",\n      \"id\": \"<string>\",\n      \"isLimitedUses\": \"<boolean>\",\n      \"isOncePerCustomer\": \"<boolean>\",\n      \"lastRedeemedAt\": \"<dateTime>\",\n      \"maxUsesAllowed\": \"<integer>\",\n      \"numberOfUses\": \"<integer>\",\n      \"paymentPlanOptions\": {\n        \"type\": \"ALL_PAYMENTS\"\n      },\n      \"status\": \"EXPIRED\",\n      \"subscriptionOptions\": {\n        \"type\": \"EXCLUDED\"\n      },\n      \"validTo\": \"<dateTime>\",\n      \"websiteId\": \"<string>\"\n    }\n  ],\n  \"hasNextPage\": \"<boolean>\",\n  \"hasPreviousPage\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-4d5d125d-7a59-4746-9680-ab7aada07f81"
+                    },
+                    {
+                      "id": "0dc046b2-564f-4fe5-b8c4-f758567e5f1a",
+                      "name": "Invalid query parameters (e.g. limit over cap, unknown enum value).",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts?sortBy=CREATED_ON&sortDirection=DESCENDING&search=<string>&status=ALL&criteria=BUY_X_GET_Y&template=FREE_SHIPPING&trigger=CODE&limitedUseOnly=false&offset=0&limit=50",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort field for the result set.",
+                              "key": "sortBy",
+                              "value": "CREATED_ON"
+                            },
+                            {
+                              "description": "Sort direction.",
+                              "key": "sortDirection",
+                              "value": "DESCENDING"
+                            },
+                            {
+                              "description": "Free-text search across a discount's name and promo code.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by discount lifecycle status.",
+                              "key": "status",
+                              "value": "ALL"
+                            },
+                            {
+                              "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "criteria",
+                              "value": "BUY_X_GET_Y"
+                            },
+                            {
+                              "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "template",
+                              "value": "FREE_SHIPPING"
+                            },
+                            {
+                              "description": "Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.",
+                              "key": "trigger",
+                              "value": "CODE"
+                            },
+                            {
+                              "description": "When true, only discounts with limited-use semantics (per product rules) are returned.",
+                              "key": "limitedUseOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Zero-based offset into the result set. Must be non-negative. Default 0.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Page size (1\u20131000; default 50).",
+                              "key": "limit",
+                              "value": "50"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-0dc046b2-564f-4fe5-b8c4-f758567e5f1a"
+                    },
+                    {
+                      "id": "e15bd247-5861-4ba5-87e3-af02ec25e16a",
+                      "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts?sortBy=CREATED_ON&sortDirection=DESCENDING&search=<string>&status=ALL&criteria=BUY_X_GET_Y&template=FREE_SHIPPING&trigger=CODE&limitedUseOnly=false&offset=0&limit=50",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort field for the result set.",
+                              "key": "sortBy",
+                              "value": "CREATED_ON"
+                            },
+                            {
+                              "description": "Sort direction.",
+                              "key": "sortDirection",
+                              "value": "DESCENDING"
+                            },
+                            {
+                              "description": "Free-text search across a discount's name and promo code.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by discount lifecycle status.",
+                              "key": "status",
+                              "value": "ALL"
+                            },
+                            {
+                              "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "criteria",
+                              "value": "BUY_X_GET_Y"
+                            },
+                            {
+                              "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "template",
+                              "value": "FREE_SHIPPING"
+                            },
+                            {
+                              "description": "Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.",
+                              "key": "trigger",
+                              "value": "CODE"
+                            },
+                            {
+                              "description": "When true, only discounts with limited-use semantics (per product rules) are returned.",
+                              "key": "limitedUseOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Zero-based offset into the result set. Must be non-negative. Default 0.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Page size (1\u20131000; default 50).",
+                              "key": "limit",
+                              "value": "50"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-e15bd247-5861-4ba5-87e3-af02ec25e16a"
+                    },
+                    {
+                      "id": "12508ab0-b760-4721-89b1-41353ac0e5fb",
+                      "name": "Rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts?sortBy=CREATED_ON&sortDirection=DESCENDING&search=<string>&status=ALL&criteria=BUY_X_GET_Y&template=FREE_SHIPPING&trigger=CODE&limitedUseOnly=false&offset=0&limit=50",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ],
+                          "query": [
+                            {
+                              "description": "Sort field for the result set.",
+                              "key": "sortBy",
+                              "value": "CREATED_ON"
+                            },
+                            {
+                              "description": "Sort direction.",
+                              "key": "sortDirection",
+                              "value": "DESCENDING"
+                            },
+                            {
+                              "description": "Free-text search across a discount's name and promo code.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by discount lifecycle status.",
+                              "key": "status",
+                              "value": "ALL"
+                            },
+                            {
+                              "description": "Filter by one or more criteria types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "criteria",
+                              "value": "BUY_X_GET_Y"
+                            },
+                            {
+                              "description": "Filter by one or more template types (comma-separated). When omitted, defaults to all allowable values.",
+                              "key": "template",
+                              "value": "FREE_SHIPPING"
+                            },
+                            {
+                              "description": "Filter by one or more trigger types (comma-separated): AUTO (auto-applied) or CODE (promo code). When omitted, or when all allowable values are supplied, defaults to all allowable values.",
+                              "key": "trigger",
+                              "value": "CODE"
+                            },
+                            {
+                              "description": "When true, only discounts with limited-use semantics (per product rules) are returned.",
+                              "key": "limitedUseOnly",
+                              "value": "false"
+                            },
+                            {
+                              "description": "Zero-based offset into the result set. Must be non-negative. Default 0.",
+                              "key": "offset",
+                              "value": "0"
+                            },
+                            {
+                              "description": "Page size (1\u20131000; default 50).",
+                              "key": "limit",
+                              "value": "50"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-12508ab0-b760-4721-89b1-41353ac0e5fb"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:06.000Z",
+                  "updatedAt": "2026-10-22T02:35:06.000Z",
+                  "uid": "35240-fb36058a-9044-4268-8e0a-166d7573888c"
+                },
+                {
+                  "name": "Create discount",
+                  "id": "1f5f3d8e-c883-4f93-babd-0055f7dfedc3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/commerce/discounts",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "commerce",
+                        "discounts"
+                      ]
+                    },
+                    "description": "Creates a discount. A successful request returns the created Discount resource. Requires OAuth website scope website.discounts, or API key scope DISCOUNTS."
+                  },
+                  "response": [
+                    {
+                      "id": "546dc34f-ae4f-4794-a8b5-d52865d55401",
+                      "name": "The created discount.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"discount\": {\n    \"criteria\": {\n      \"type\": \"<string>\"\n    },\n    \"name\": \"<string>\",\n    \"template\": {\n      \"discountAmount\": {\n        \"currency\": {\n          \"currencyCode\": \"<string>\",\n          \"defaultFractionDigits\": \"<integer>\",\n          \"displayName\": \"<string>\",\n          \"numericCode\": \"<integer>\",\n          \"numericCodeAsString\": \"<string>\",\n          \"symbol\": \"<string>\"\n        },\n        \"value\": \"<number>\"\n      },\n      \"type\": \"<string>\",\n      \"maxApplicationsPerCart\": \"<integer>\"\n    },\n    \"trigger\": {\n      \"type\": \"<string>\"\n    },\n    \"validFrom\": \"<dateTime>\",\n    \"id\": \"<string>\",\n    \"isLimitedUses\": \"<boolean>\",\n    \"isOncePerCustomer\": \"<boolean>\",\n    \"lastRedeemedAt\": \"<dateTime>\",\n    \"maxUsesAllowed\": \"<integer>\",\n    \"numberOfUses\": \"<integer>\",\n    \"paymentPlanOptions\": {\n      \"type\": \"NONE\"\n    },\n    \"status\": \"EXPIRED\",\n    \"subscriptionOptions\": {\n      \"type\": \"EXCLUDED\"\n    },\n    \"validTo\": \"<dateTime>\",\n    \"websiteId\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-546dc34f-ae4f-4794-a8b5-d52865d55401"
+                    },
+                    {
+                      "id": "b8b8992e-09a7-4b5b-acca-406453e976ef",
+                      "name": "Bad request. Missing or invalid fields, invalid criteria/template pairing, or promo code reserved for gift cards.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-b8b8992e-09a7-4b5b-acca-406453e976ef"
+                    },
+                    {
+                      "id": "15a25722-b1d0-4c69-aae5-27b7043eccef",
+                      "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-15a25722-b1d0-4c69-aae5-27b7043eccef"
+                    },
+                    {
+                      "id": "5565f772-cf06-468f-bcd2-8bbcd3eac7ed",
+                      "name": "Conflict. The promo code is already in use by another discount, or the maximum number of auto-trigger discounts has been reached.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-5565f772-cf06-468f-bcd2-8bbcd3eac7ed"
+                    },
+                    {
+                      "id": "bacd27c9-8437-431c-963b-944ec5e6d7d1",
+                      "name": "Rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"criteria\": {\n    \"type\": \"<string>\"\n  },\n  \"name\": \"<string>\",\n  \"template\": {\n    \"discountAmount\": {\n      \"currency\": {\n        \"currencyCode\": \"<string>\",\n        \"defaultFractionDigits\": \"<integer>\",\n        \"displayName\": \"<string>\",\n        \"numericCode\": \"<integer>\",\n        \"numericCodeAsString\": \"<string>\",\n        \"symbol\": \"<string>\"\n      },\n      \"value\": \"<number>\"\n    },\n    \"type\": \"<string>\",\n    \"maxApplicationsPerCart\": \"<integer>\"\n  },\n  \"trigger\": {\n    \"type\": \"<string>\"\n  },\n  \"validFrom\": \"<dateTime>\",\n  \"isLimitedUses\": \"<boolean>\",\n  \"isOncePerCustomer\": \"<boolean>\",\n  \"maxUsesAllowed\": \"<integer>\",\n  \"paymentPlanOptions\": {\n    \"type\": \"NONE\"\n  },\n  \"subscriptionOptions\": {\n    \"type\": \"ALL_PAYMENTS\"\n  },\n  \"validTo\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/commerce/discounts",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "commerce",
+                            "discounts"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-bacd27c9-8437-431c-963b-944ec5e6d7d1"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:06.000Z",
+                  "updatedAt": "2026-10-22T02:35:06.000Z",
+                  "uid": "35240-1f5f3d8e-c883-4f93-babd-0055f7dfedc3"
+                }
+              ],
+              "id": "6acbe4fd-c5cf-48aa-93ba-c673b63a7d85",
+              "createdAt": "2026-10-22T02:35:06.000Z",
+              "updatedAt": "2026-10-22T02:35:06.000Z",
+              "uid": "35240-6acbe4fd-c5cf-48aa-93ba-c673b63a7d85"
+            }
+          ],
+          "id": "f358db0d-9757-4762-81b4-ba7a742daeb9",
+          "createdAt": "2026-10-22T02:35:06.000Z",
+          "updatedAt": "2026-10-22T02:35:06.000Z",
+          "uid": "35240-f358db0d-9757-4762-81b4-ba7a742daeb9"
+        },
+        {
+          "name": "fulfillments",
+          "item": [
+            {
+              "name": "fulfillment-options",
+              "item": [
+                {
+                  "name": "Get fulfillment options",
+                  "id": "af0cb001-81e2-4f2c-91ea-e62da3b7fcb8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/fulfillments/fulfillment-options",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "fulfillments",
+                        "fulfillment-options"
+                      ]
+                    },
+                    "description": "Returns a list of fulfillment option IDs and carrier services that can be used with discounts. Requires OAuth website scope website.discounts.read or website.discounts, or API key scope DISCOUNTS_READONLY or DISCOUNTS."
+                  },
+                  "response": [
+                    {
+                      "id": "0bac0f2f-055d-4c2a-9521-3fe972da56e6",
+                      "name": "List of fulfillment option IDs and carrier services for the website.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/fulfillments/fulfillment-options",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "fulfillments",
+                            "fulfillment-options"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"fulfillmentOptions\": [\n    {\n      \"availableServices\": [\n        {\n          \"description\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"LOCAL_DELIVERY\"\n    },\n    {\n      \"availableServices\": [\n        {\n          \"description\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"description\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"PICKUP\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-0bac0f2f-055d-4c2a-9521-3fe972da56e6"
+                    },
+                    {
+                      "id": "e2b97c94-b5e0-42a2-989f-1ce4881944e7",
+                      "name": "Forbidden. Insufficient scope (OAuth or API key), or the requested resource is not accessible for the authenticated website.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/fulfillments/fulfillment-options",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "fulfillments",
+                            "fulfillment-options"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-e2b97c94-b5e0-42a2-989f-1ce4881944e7"
+                    },
+                    {
+                      "id": "0f018b57-ded7-4a42-8c16-0ae280ec91a3",
+                      "name": "Not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/fulfillments/fulfillment-options",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "fulfillments",
+                            "fulfillment-options"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-0f018b57-ded7-4a42-8c16-0ae280ec91a3"
+                    },
+                    {
+                      "id": "7ef9e542-6b18-49c9-90c5-712b3434b6d1",
+                      "name": "Rate limit exceeded.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/fulfillments/fulfillment-options",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "fulfillments",
+                            "fulfillment-options"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STOCK_NOT_TRACKED\",\n  \"type\": \"SERVICE_UNAVAILABLE\"\n}",
+                      "createdAt": "2026-10-22T02:35:06.000Z",
+                      "updatedAt": "2026-10-22T02:35:06.000Z",
+                      "uid": "35240-7ef9e542-6b18-49c9-90c5-712b3434b6d1"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:35:06.000Z",
+                  "updatedAt": "2026-10-22T02:35:06.000Z",
+                  "uid": "35240-af0cb001-81e2-4f2c-91ea-e62da3b7fcb8"
+                }
+              ],
+              "id": "38049d32-734d-46b1-b55f-3fae19332575",
+              "createdAt": "2026-10-22T02:35:06.000Z",
+              "updatedAt": "2026-10-22T02:35:06.000Z",
+              "uid": "35240-38049d32-734d-46b1-b55f-3fae19332575"
+            }
+          ],
+          "id": "565e5264-3ebe-4f42-9ff0-5ca134ae8a3e",
+          "createdAt": "2026-10-22T02:35:06.000Z",
+          "updatedAt": "2026-10-22T02:35:06.000Z",
+          "uid": "35240-565e5264-3ebe-4f42-9ff0-5ca134ae8a3e"
+        }
+      ],
+      "id": "9ea63a44-0188-400d-a9d3-636f2f232be1",
+      "createdAt": "2026-10-22T02:35:06.000Z",
+      "updatedAt": "2026-10-22T02:35:06.000Z",
+      "uid": "35240-9ea63a44-0188-400d-a9d3-636f2f232be1"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com"
+    }
+  ]
+}

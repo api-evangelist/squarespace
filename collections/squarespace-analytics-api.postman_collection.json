@@ -1,0 +1,225 @@
+{
+  "info": {
+    "_postman_id": "be68bdec-494c-4e5d-9628-3438ae1fd726",
+    "name": "Commerce Analytics API",
+    "description": "Query analytics for a website",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:34:48.000Z",
+    "updatedAt": "2026-10-22T02:34:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-be68bdec-494c-4e5d-9628-3438ae1fd726"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "analytics",
+          "item": [
+            {
+              "name": "transaction-summaries",
+              "item": [
+                {
+                  "name": "Retrieve transaction summaries grouped by contact",
+                  "id": "adafc3ec-f1b7-405c-ac75-6ce880c40520",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"contactIds\": [\n    \"<string>\"\n  ],\n  \"groupBy\": \"contactId\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/analytics/transaction-summaries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "analytics",
+                        "transaction-summaries"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "10873ed3-27d4-4801-a81e-a1d8a9def5e1",
+                      "name": "Transaction summaries retrieved",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"contactIds\": [\n    \"<string>\"\n  ],\n  \"groupBy\": \"contactId\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/analytics/transaction-summaries",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "analytics",
+                            "transaction-summaries"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"transactionsSummaryWrappers\": [\n    {\n      \"contactId\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    },\n    {\n      \"contactId\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:34:49.000Z",
+                      "updatedAt": "2026-10-22T02:34:49.000Z",
+                      "uid": "35240-10873ed3-27d4-4801-a81e-a1d8a9def5e1"
+                    },
+                    {
+                      "id": "0c89f3d9-1fc7-4aad-8436-89f43cbdf985",
+                      "name": "contactIds shouldn't be empty or too big, groupBy should have a valid value",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"contactIds\": [\n    \"<string>\"\n  ],\n  \"groupBy\": \"contactId\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/analytics/transaction-summaries",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "analytics",
+                            "transaction-summaries"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T02:34:49.000Z",
+                      "updatedAt": "2026-10-22T02:34:49.000Z",
+                      "uid": "35240-0c89f3d9-1fc7-4aad-8436-89f43cbdf985"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:34:49.000Z",
+                  "updatedAt": "2026-10-22T02:34:49.000Z",
+                  "uid": "35240-adafc3ec-f1b7-405c-ac75-6ce880c40520"
+                }
+              ],
+              "id": "d8d6e8a6-0ed5-4f65-b686-48f78ec902bc",
+              "createdAt": "2026-10-22T02:34:48.000Z",
+              "updatedAt": "2026-10-22T02:34:48.000Z",
+              "uid": "35240-d8d6e8a6-0ed5-4f65-b686-48f78ec902bc"
+            }
+          ],
+          "id": "6cee225c-bece-4b7a-a666-01e34501564d",
+          "createdAt": "2026-10-22T02:34:48.000Z",
+          "updatedAt": "2026-10-22T02:34:48.000Z",
+          "uid": "35240-6cee225c-bece-4b7a-a666-01e34501564d"
+        }
+      ],
+      "id": "38e9233f-05cd-41e7-88ff-2fe75dcea447",
+      "createdAt": "2026-10-22T02:34:48.000Z",
+      "updatedAt": "2026-10-22T02:34:48.000Z",
+      "uid": "35240-38e9233f-05cd-41e7-88ff-2fe75dcea447"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com"
+    }
+  ]
+}

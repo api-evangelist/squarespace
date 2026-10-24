@@ -1,958 +1,1822 @@
 {
+  "info": {
+    "_postman_id": "942dc790-dc23-401f-b8fd-ee7b063e76c8",
+    "name": "Squarespace Inventory API",
+    "description": "Operations tagged Inventory across 2 of this provider's published API definitions: squarespace-commerce-api-v2-openapi.json, squarespace-inventory-api-openapi.yml. Each path carries the servers of the definition it was published in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:34:15.000Z",
+    "updatedAt": "2026-10-22T02:34:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-942dc790-dc23-401f-b8fd-ee7b063e76c8"
+  },
   "item": [
     {
-      "id": "4fa11b01-c8ab-4ed6-831f-3ab493fb0427",
-      "name": "Inventory",
-      "description": {
-        "content": "Stock level retrieval and adjustment for product variants",
-        "type": "text/plain"
-      },
+      "name": "1.0",
       "item": [
         {
-          "id": "f93ea82e-9a7b-4e87-aacc-0e3f02c72c97",
-          "name": "Retrieve All Inventory",
-          "request": {
-            "name": "Retrieve All Inventory",
-            "description": {
-              "content": "Returns real-time stock information for all product variants on the merchant site. The response contains up to 50 InventoryItem objects per page, with dynamic cursor-based pagination for iterating through all records. Each InventoryItem corresponds to a single product variant and includes its current stock quantity and tracking settings.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "commerce",
-                "inventory"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "commerce",
+          "item": [
             {
-              "id": "ff9ef2ef-14ea-4fa8-9007-ab1f48a4ce0f",
-              "name": "Successful response with paginated list of inventory items",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "inventory",
+              "item": [
+                {
+                  "name": "adjustments",
+                  "item": [
                     {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "name": "Adjust stock quantities",
+                      "id": "163a9010-14ba-41c9-9cac-1e4d801c2274",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Required for idempotent requests. Refer to the idempotency key guide for requirements.",
+                            "key": "Idempotency-Key",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"decrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"incrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setFiniteOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setUnlimitedOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        },
+                        "description": "Adjusts stock quantities for product variants. Stock quantities can be added or subtracted, set with a given number, or marked as \"unlimited\". All quantity information is stored in InventoryItems."
+                      },
+                      "response": [
+                        {
+                          "id": "eda98f88-894f-4938-9013-75b0c4c51917",
+                          "name": "No content. The request was successful. If this is a request with a previously used Idempotency-Key, the previous operation was successful and no new changes were made.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Required for idempotent requests. Refer to the idempotency key guide for requirements.",
+                                "key": "Idempotency-Key",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"decrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"incrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setFiniteOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setUnlimitedOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/adjustments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                "adjustments"
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-eda98f88-894f-4938-9013-75b0c4c51917"
+                        },
+                        {
+                          "id": "ddeb6755-b2cc-4717-bfef-bbbee87486d4",
+                          "name": "Bad Request. Type: INVALID_REQUEST_ERROR. The request body is missing a required field or a field is an incorrect type; no operations were specified; greater than 50 operations were specified; one or more InventoryItems were not found; the same InventoryI",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Required for idempotent requests. Refer to the idempotency key guide for requirements.",
+                                "key": "Idempotency-Key",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"decrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"incrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setFiniteOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setUnlimitedOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/adjustments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                "adjustments"
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-ddeb6755-b2cc-4717-bfef-bbbee87486d4"
+                        },
+                        {
+                          "id": "9b2f5560-f9d0-4a60-b89c-b31a1a15a73d",
+                          "name": "Not found. The API version is not supported.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Required for idempotent requests. Refer to the idempotency key guide for requirements.",
+                                "key": "Idempotency-Key",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"decrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"incrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setFiniteOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setUnlimitedOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/adjustments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                "adjustments"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-9b2f5560-f9d0-4a60-b89c-b31a1a15a73d"
+                        },
+                        {
+                          "id": "cd822fbb-c494-4f9c-aee4-ca2cf025f5b5",
+                          "name": "Conflict. Type: CONFLICT. Possible subtypes: CONCURRENT_MODIFICATION (a request using the provided Idempotency-Key is already in progress, or a request modifying one or more of the specified InventoryItems could not be completed due to an overlapping requ",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Required for idempotent requests. Refer to the idempotency key guide for requirements.",
+                                "key": "Idempotency-Key",
+                                "value": "<string>"
+                              },
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"decrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"incrementOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setFiniteOperations\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"setUnlimitedOperations\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/adjustments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                "adjustments"
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-cd822fbb-c494-4f9c-aee4-ca2cf025f5b5"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-163a9010-14ba-41c9-9cac-1e4d801c2274"
                     }
                   ],
-                  "variable": []
+                  "id": "0690fcc7-0243-4d06-a6ea-3e40801b2b18",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-0690fcc7-0243-4d06-a6ea-3e40801b2b18"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 7397,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": false,\n      \"quantity\": 5223,\n      \"infiniteStock\": false\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": false,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"https://C.prbdIRUxMzbSNVrma80NqdYKmcRMC5ZYDnMXwSQtHuALnQRpe\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b3aa2455-d950-4956-af8f-2e29d38e4c8b",
-              "name": "Authentication credentials are missing or invalid",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "{variantIdCsvs}",
+                  "item": [
                     {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "name": "Get inventory",
+                      "id": "0cba73c2-a75e-43af-b2e6-2ab1ed3e2f1f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/inventory/:variantIdCsvs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "inventory",
+                            ":variantIdCsvs"
+                          ],
+                          "variable": [
+                            {
+                              "id": "6642d976-d828-4d1e-a4d6-b296ae8457d8",
+                              "key": "variantIdCsvs",
+                              "value": "<string>",
+                              "description": "(Required) Specifies the InventoryItems to retrieve. Multiple InventoryItems can be retrieved by providing a comma-separated list: {id1},{id2}..., though the same sequence is not guaranteed in the response."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves real-time stock information for specific product variants. Stock information is stored in an InventoryItem and up to 50 InventoryItems can be retrieved per request."
+                      },
+                      "response": [
+                        {
+                          "id": "4476215b-fd63-4954-b42b-290c6d118635",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/:variantIdCsvs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                ":variantIdCsvs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "variantIdCsvs"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"inventory\": [\n    {\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"variantId\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-4476215b-fd63-4954-b42b-290c6d118635"
+                        },
+                        {
+                          "id": "b52f4cb4-0d6c-4c6b-8daf-4a73b45d43ac",
+                          "name": "Bad Request. Type: INVALID_REQUEST_ERROR. ids specifies greater than 50 InventoryItems.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/:variantIdCsvs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                ":variantIdCsvs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "variantIdCsvs"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-b52f4cb4-0d6c-4c6b-8daf-4a73b45d43ac"
+                        },
+                        {
+                          "id": "08cc129b-b83c-489b-9a3a-953f3f4c607c",
+                          "name": "Not Found. Type: INVALID_REQUEST_ERROR. Subtype: INVALID_ARGUMENT. One or more requested InventoryItems were not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) User Agent",
+                                "key": "User-Agent",
+                                "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/1.0/commerce/inventory/:variantIdCsvs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "1.0",
+                                "commerce",
+                                "inventory",
+                                ":variantIdCsvs"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "variantIdCsvs"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                          "createdAt": "2026-10-22T02:34:16.000Z",
+                          "updatedAt": "2026-10-22T02:34:16.000Z",
+                          "uid": "35240-08cc129b-b83c-489b-9a3a-953f3f4c607c"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-0cba73c2-a75e-43af-b2e6-2ab1ed3e2f1f"
                     }
                   ],
-                  "variable": []
+                  "id": "ad3934e7-2346-4d99-acd6-094859a607b5",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-ad3934e7-2346-4d99-acd6-094859a607b5"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "37b81e7d-4d29-4e94-9fbb-7d40787b3e37",
-              "name": "The authenticated user does not have permission to access this resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "name": "List inventory",
+                  "id": "a14f1385-0569-4f22-a2a8-23e8839248c4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/commerce/inventory?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "commerce",
+                        "inventory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. If not present or empty, the endpoint returns up to 50 InventoryItems.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves real-time stock information for all product variants. Stock information is stored in an InventoryItem for each product variant. The response contains up to 50 InventoryItems and supports dynamic cursors for pagination."
+                  },
+                  "response": [
                     {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "id": "08bc9b8f-5c82-4389-a9ae-ed081d8da4b5",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/inventory?cursor=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "inventory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. If not present or empty, the endpoint returns up to 50 InventoryItems.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"inventory\": [\n    {\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"variantId\": \"<string>\"\n    },\n    {\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"variantId\": \"<string>\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": \"<boolean>\",\n    \"nextPageCursor\": \"<string>\",\n    \"nextPageUrl\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-08bc9b8f-5c82-4389-a9ae-ed081d8da4b5"
+                    },
+                    {
+                      "id": "30310c05-d4ad-4c50-ae3f-4a3dabb8dd06",
+                      "name": "Bad Request. Type: INVALID_REQUEST_ERROR. The cursor parameter contains an invalid value.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/inventory?cursor=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "inventory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. If not present or empty, the endpoint returns up to 50 InventoryItems.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-30310c05-d4ad-4c50-ae3f-4a3dabb8dd06"
+                    },
+                    {
+                      "id": "92af0a58-ccd8-41b9-bf2c-c1991e138cef",
+                      "name": "Not found. The API version is not supported.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/commerce/inventory?cursor=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "commerce",
+                            "inventory"
+                          ],
+                          "query": [
+                            {
+                              "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. If not present or empty, the endpoint returns up to 50 InventoryItems.",
+                              "key": "cursor",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"INSUFFICIENT_STOCK\",\n  \"type\": \"WEBSITE_EXPIRED\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-92af0a58-ccd8-41b9-bf2c-c1991e138cef"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-a14f1385-0569-4f22-a2a8-23e8839248c4"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5b0a3a70-dd87-4e7e-a4cd-c07f65fad03d",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "97e99c64-eb97-40fc-9b27-89a59516d790",
+              "createdAt": "2026-10-22T02:34:16.000Z",
+              "updatedAt": "2026-10-22T02:34:16.000Z",
+              "uid": "35240-97e99c64-eb97-40fc-9b27-89a59516d790"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e7ba4a35-c36b-4388-9c53-088e8ccba886",
-          "name": "Retrieve Specific Inventory",
-          "request": {
-            "name": "Retrieve Specific Inventory",
-            "description": {
-              "content": "Retrieves real-time stock information for up to 50 specific product variants by their variant IDs. Variant IDs should be provided as a comma-separated list in the path. This endpoint is useful for checking stock levels on specific items without paginating through the full inventory.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "commerce",
-                "inventory",
-                ":variantIds"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "variantIds",
-                  "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1246829d-7f49-4169-9db4-76215a0546f0",
-              "name": "Successful response with inventory items for the specified variants",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": true,\n      \"isTracked\": true,\n      \"quantity\": 8608,\n      \"infiniteStock\": true\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 3574,\n      \"infiniteStock\": false\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "698940db-f25c-4c02-b270-481e9138dbde",
-              "name": "The request was malformed or contained invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "307f9e71-3a75-4469-8961-6b061671cff1",
-              "name": "Authentication credentials are missing or invalid",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "42d617e7-72df-409b-8580-274b03c751b8",
-              "name": "The authenticated user does not have permission to access this resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8dcec8d0-4044-4d5d-ac78-010f7b46db9c",
-              "name": "The requested resource was not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "395a8782-eff4-421f-8f24-0bf27fac141c",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    ":variantIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "variantIds",
-                      "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d2285422-038d-4b6f-86c8-e5cd52e5abd5",
-          "name": "Adjust Stock Quantities",
-          "request": {
-            "name": "Adjust Stock Quantities",
-            "description": {
-              "content": "Applies incremental stock quantity adjustments to one or more product variants. Adjustments are relative changes, not absolute values. Positive values increase stock and negative values decrease it. Bulk adjustments across multiple variants can be submitted in a single request. Each adjustment can optionally include a reason for audit tracking.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "commerce",
-                "inventory",
-                "adjustments"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "f2a8b487-7e44-45a5-8b21-97925de00115",
-              "name": "Inventory adjustments applied successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    "adjustments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 8708,\n      \"infiniteStock\": false\n    },\n    {\n      \"variantId\": \"string\",\n      \"sku\": \"string\",\n      \"descriptor\": \"string\",\n      \"isUnlimited\": false,\n      \"isTracked\": true,\n      \"quantity\": 8028,\n      \"infiniteStock\": false\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "013edf04-bd61-4395-98fc-adf933b4538f",
-              "name": "The request was malformed or contained invalid parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    "adjustments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "755caeaf-2ee0-4074-8744-ec9e35abc7fc",
-              "name": "Authentication credentials are missing or invalid",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    "adjustments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "07974677-7eef-49a4-ab45-8c404fd90a93",
-              "name": "The authenticated user does not have permission to access this resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    "adjustments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5a3696e8-0c73-4666-945b-06729cddfbb9",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "commerce",
-                    "inventory",
-                    "adjustments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 5936\n    },\n    {\n      \"variantId\": \"string\",\n      \"quantity\": 4005\n    }\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 5747\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e28c17af-46a2-4784-b9ca-095bb6404e0b",
+          "createdAt": "2026-10-22T02:34:16.000Z",
+          "updatedAt": "2026-10-22T02:34:16.000Z",
+          "uid": "35240-e28c17af-46a2-4784-b9ca-095bb6404e0b"
         }
       ],
-      "event": []
+      "id": "52618bc0-5c87-4fe3-a252-d1f6a6a3680a",
+      "createdAt": "2026-10-22T02:34:16.000Z",
+      "updatedAt": "2026-10-22T02:34:16.000Z",
+      "uid": "35240-52618bc0-5c87-4fe3-a252-d1f6a6a3680a"
+    },
+    {
+      "name": "commerce",
+      "item": [
+        {
+          "name": "inventory",
+          "item": [
+            {
+              "name": "{variantIds}",
+              "item": [
+                {
+                  "name": "Retrieve Specific Inventory",
+                  "id": "04479ec1-d44d-4bee-b728-f5fb1037d648",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory",
+                        ":variantIds"
+                      ],
+                      "variable": [
+                        {
+                          "id": "6379e4eb-2560-4e48-baf0-d4b1d3592721",
+                          "key": "variantIds",
+                          "value": "<string>",
+                          "description": "(Required) Comma-separated list of up to 50 product variant IDs for which to retrieve inventory information"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves real-time stock information for up to 50 specific product variants by their variant IDs. Variant IDs should be provided as a comma-separated list in the path. This endpoint is useful for checking stock levels on specific items without paginating through the full inventory."
+                  },
+                  "response": [
+                    {
+                      "id": "6e9f34e3-e3ec-4a6c-98e4-c16943f2adf2",
+                      "name": "Successful response with inventory items for the specified variants",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-6e9f34e3-e3ec-4a6c-98e4-c16943f2adf2"
+                    },
+                    {
+                      "id": "a9d1153f-adad-4728-b0a1-08bfcc443b82",
+                      "name": "The request was malformed or contained invalid parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-a9d1153f-adad-4728-b0a1-08bfcc443b82"
+                    },
+                    {
+                      "id": "048d42d4-0bed-4677-8d91-1cc902ea51cb",
+                      "name": "Authentication credentials are missing or invalid",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-048d42d4-0bed-4677-8d91-1cc902ea51cb"
+                    },
+                    {
+                      "id": "cd7161fe-bf33-4dff-912a-88c992abb40b",
+                      "name": "The authenticated user does not have permission to access this resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-cd7161fe-bf33-4dff-912a-88c992abb40b"
+                    },
+                    {
+                      "id": "7de3f332-bbde-4d0f-934a-b2c2a0e4c250",
+                      "name": "The requested resource was not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-7de3f332-bbde-4d0f-934a-b2c2a0e4c250"
+                    },
+                    {
+                      "id": "d1d813d6-fb14-46b4-b151-a679f273e97e",
+                      "name": "Rate limit exceeded",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/:variantIds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            ":variantIds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "variantIds"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-d1d813d6-fb14-46b4-b151-a679f273e97e"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-04479ec1-d44d-4bee-b728-f5fb1037d648"
+                }
+              ],
+              "id": "8660c897-2f0b-407b-9ad9-022b43a753ec",
+              "createdAt": "2026-10-22T02:34:16.000Z",
+              "updatedAt": "2026-10-22T02:34:16.000Z",
+              "uid": "35240-8660c897-2f0b-407b-9ad9-022b43a753ec"
+            },
+            {
+              "name": "adjustments",
+              "item": [
+                {
+                  "name": "Adjust Stock Quantities",
+                  "id": "1b21ec46-9f7f-4bed-8c6a-fdb92a416538",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory",
+                        "adjustments"
+                      ]
+                    },
+                    "description": "Applies incremental stock quantity adjustments to one or more product variants. Adjustments are relative changes, not absolute values. Positive values increase stock and negative values decrease it. Bulk adjustments across multiple variants can be submitted in a single request. Each adjustment can optionally include a reason for audit tracking."
+                  },
+                  "response": [
+                    {
+                      "id": "54649185-7fd1-43cc-8e6f-643c5e3e13d4",
+                      "name": "Inventory adjustments applied successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-54649185-7fd1-43cc-8e6f-643c5e3e13d4"
+                    },
+                    {
+                      "id": "9e76b695-b7e8-40e3-b8ef-bc6e962083b7",
+                      "name": "The request was malformed or contained invalid parameters",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-9e76b695-b7e8-40e3-b8ef-bc6e962083b7"
+                    },
+                    {
+                      "id": "8bcdca1b-7af3-4d8c-84b5-08c5bd8963c7",
+                      "name": "Authentication credentials are missing or invalid",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-8bcdca1b-7af3-4d8c-84b5-08c5bd8963c7"
+                    },
+                    {
+                      "id": "2110ea7a-cca6-43a0-a722-752db3037638",
+                      "name": "The authenticated user does not have permission to access this resource",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-2110ea7a-cca6-43a0-a722-752db3037638"
+                    },
+                    {
+                      "id": "94abc4f7-0fa8-4da7-ab37-25b06fb6d995",
+                      "name": "Rate limit exceeded",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"increments\": [\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"quantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/commerce/inventory/adjustments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "commerce",
+                            "inventory",
+                            "adjustments"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T02:34:16.000Z",
+                      "updatedAt": "2026-10-22T02:34:16.000Z",
+                      "uid": "35240-94abc4f7-0fa8-4da7-ab37-25b06fb6d995"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-1b21ec46-9f7f-4bed-8c6a-fdb92a416538"
+                }
+              ],
+              "id": "539e617a-329e-45e5-a2b3-ef950f6dc650",
+              "createdAt": "2026-10-22T02:34:16.000Z",
+              "updatedAt": "2026-10-22T02:34:16.000Z",
+              "uid": "35240-539e617a-329e-45e5-a2b3-ef950f6dc650"
+            },
+            {
+              "name": "Retrieve All Inventory",
+              "id": "806e84c8-f811-4196-b3d8-de8fef05b5e8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/commerce/inventory?cursor=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "commerce",
+                    "inventory"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Returns real-time stock information for all product variants on the merchant site. The response contains up to 50 InventoryItem objects per page, with dynamic cursor-based pagination for iterating through all records. Each InventoryItem corresponds to a single product variant and includes its current stock quantity and tracking settings."
+              },
+              "response": [
+                {
+                  "id": "f587408b-a581-4793-9316-0cf6dd86a5f3",
+                  "name": "Successful response with paginated list of inventory items",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"inventory\": [\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    },\n    {\n      \"variantId\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"descriptor\": \"<string>\",\n      \"isUnlimited\": \"<boolean>\",\n      \"isTracked\": \"<boolean>\",\n      \"quantity\": \"<integer>\",\n      \"infiniteStock\": \"<boolean>\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": \"<boolean>\",\n    \"nextPageCursor\": \"<string>\",\n    \"nextPageUrl\": \"<uri>\"\n  }\n}",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-f587408b-a581-4793-9316-0cf6dd86a5f3"
+                },
+                {
+                  "id": "fb9dbfda-9658-49c6-95b4-b62a41195117",
+                  "name": "Authentication credentials are missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-fb9dbfda-9658-49c6-95b4-b62a41195117"
+                },
+                {
+                  "id": "67c1987d-093c-44ca-bafb-334c7c0e62fe",
+                  "name": "The authenticated user does not have permission to access this resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-67c1987d-093c-44ca-bafb-334c7c0e62fe"
+                },
+                {
+                  "id": "3f4b773a-8762-4397-80af-617d30c7d7d2",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commerce/inventory?cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commerce",
+                        "inventory"
+                      ],
+                      "query": [
+                        {
+                          "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:16.000Z",
+                  "updatedAt": "2026-10-22T02:34:16.000Z",
+                  "uid": "35240-3f4b773a-8762-4397-80af-617d30c7d7d2"
+                }
+              ],
+              "createdAt": "2026-10-22T02:34:16.000Z",
+              "updatedAt": "2026-10-22T02:34:16.000Z",
+              "uid": "35240-806e84c8-f811-4196-b3d8-de8fef05b5e8"
+            }
+          ],
+          "id": "6cd52f57-c78f-46b8-a938-19ea0bb539bf",
+          "createdAt": "2026-10-22T02:34:16.000Z",
+          "updatedAt": "2026-10-22T02:34:16.000Z",
+          "uid": "35240-6cd52f57-c78f-46b8-a938-19ea0bb539bf"
+        }
+      ],
+      "id": "436ebca3-01d9-4b42-a691-4f7e891b117c",
+      "createdAt": "2026-10-22T02:34:16.000Z",
+      "updatedAt": "2026-10-22T02:34:16.000Z",
+      "uid": "35240-436ebca3-01d9-4b42-a691-4f7e891b117c"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.squarespace.com/1.0",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com"
     }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{bearerToken}}"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "665c1ab3-d2a2-4d19-86c9-8a477dd98128",
-    "name": "Squarespace Commerce Inventory API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

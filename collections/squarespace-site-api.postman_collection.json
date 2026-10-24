@@ -1,235 +1,236 @@
 {
+  "info": {
+    "_postman_id": "e8fd2e54-37ba-4272-a115-e7c8dc3ac0bf",
+    "name": "Squarespace Commerce Site API",
+    "description": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:34:42.000Z",
+    "updatedAt": "2026-10-22T02:34:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e8fd2e54-37ba-4272-a115-e7c8dc3ac0bf"
+  },
   "item": [
     {
-      "id": "55f3c93b-55ef-4415-9781-f7ea11c7b18d",
-      "name": "Site",
-      "description": {
-        "content": "Basic site information and metadata",
-        "type": "text/plain"
-      },
+      "name": "authorization",
       "item": [
         {
-          "id": "b539ed23-5b5a-44cd-a004-f6981c440157",
-          "name": "Retrieve Basic Site Information",
-          "request": {
-            "name": "Retrieve Basic Site Information",
-            "description": {
-              "content": "Retrieves basic information about the Squarespace website associated with the authenticated API key or OAuth token. Returns site identifier, title, and other metadata useful for verifying authentication context.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "authorization",
-                "website"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "website",
+          "item": [
             {
-              "id": "8ff62b8d-9fe8-4be6-9ad7-6c66ac8e459d",
-              "name": "Successful response with site information",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "authorization",
-                    "website"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Retrieve Basic Site Information",
+              "id": "2e707de4-b50f-4666-9530-44aeba401b0b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"websiteTitle\": \"string\",\n  \"websiteUrl\": \"http://zLl.qypCIf,upzAJzMAuUleYFBwIsyhRlKtESdDXEqdCXUYg6eiczZEcLDlKkxnib94lME\",\n  \"timeZone\": \"string\",\n  \"language\": \"string\",\n  \"createdOn\": \"1998-11-24T13:37:55.788Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "22246296-f4f1-4692-a5ef-73aeba72a3f9",
-              "name": "Authentication credentials are missing or invalid",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "authorization",
-                    "website"
-                  ],
+                  "raw": "{{baseUrl}}/authorization/website",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9599\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0f1acd18-7d98-4800-80ec-bfc1d716a6a3",
-              "name": "The authenticated user does not have permission to access this resource",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "authorization",
                     "website"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves basic information about the Squarespace website associated with the authenticated API key or OAuth token. Returns site identifier, title, and other metadata useful for verifying authentication context."
               },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "85494d8b-bccf-417c-b008-5b136ebd1a8c",
+                  "name": "Successful response with site information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authorization/website",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authorization",
+                        "website"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"websiteTitle\": \"<string>\",\n  \"websiteUrl\": \"<uri>\",\n  \"timeZone\": \"<string>\",\n  \"language\": \"<string>\",\n  \"createdOn\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-22T02:34:42.000Z",
+                  "updatedAt": "2026-10-22T02:34:42.000Z",
+                  "uid": "35240-85494d8b-bccf-417c-b008-5b136ebd1a8c"
+                },
+                {
+                  "id": "dd4cbe00-f840-4db2-8239-4e02222c15d2",
+                  "name": "Authentication credentials are missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authorization/website",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authorization",
+                        "website"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:42.000Z",
+                  "updatedAt": "2026-10-22T02:34:42.000Z",
+                  "uid": "35240-dd4cbe00-f840-4db2-8239-4e02222c15d2"
+                },
+                {
+                  "id": "0bfb8bca-e319-4e52-8b4d-614654665101",
+                  "name": "The authenticated user does not have permission to access this resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authorization/website",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authorization",
+                        "website"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:42.000Z",
+                  "updatedAt": "2026-10-22T02:34:42.000Z",
+                  "uid": "35240-0bfb8bca-e319-4e52-8b4d-614654665101"
+                },
+                {
+                  "id": "396c8dfd-104f-4720-9c79-af20260d8e1c",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authorization/website",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authorization",
+                        "website"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:42.000Z",
+                  "updatedAt": "2026-10-22T02:34:42.000Z",
+                  "uid": "35240-396c8dfd-104f-4720-9c79-af20260d8e1c"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9599\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8bee9301-2a15-427d-a3af-16416716e408",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "authorization",
-                    "website"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 9599\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:34:42.000Z",
+              "updatedAt": "2026-10-22T02:34:42.000Z",
+              "uid": "35240-2e707de4-b50f-4666-9530-44aeba401b0b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "5b453ecd-0dce-4186-8ce8-4e33e7d13913",
+          "createdAt": "2026-10-22T02:34:42.000Z",
+          "updatedAt": "2026-10-22T02:34:42.000Z",
+          "uid": "35240-5b453ecd-0dce-4186-8ce8-4e33e7d13913"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.squarespace.com/1.0",
-      "key": "baseUrl"
+      "id": "596e4faa-2b78-47ca-9796-cac893159de8",
+      "createdAt": "2026-10-22T02:34:42.000Z",
+      "updatedAt": "2026-10-22T02:34:42.000Z",
+      "uid": "35240-596e4faa-2b78-47ca-9796-cac893159de8"
     }
   ],
   "auth": {
@@ -237,17 +238,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "52044fda-b998-40f0-8b72-2507c0204f77",
-    "name": "Squarespace Commerce Inventory Site API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com/1.0"
     }
-  }
+  ]
 }

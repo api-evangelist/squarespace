@@ -1,757 +1,1303 @@
 {
+  "info": {
+    "_postman_id": "4dcb7121-f472-445e-930f-cc549578e029",
+    "name": "Squarespace Profiles API",
+    "description": "Operations tagged Profiles across 2 of this provider's published API definitions: squarespace-commerce-api-v2-openapi.json, squarespace-profiles-api-openapi.yml. Each path carries the servers of the definition it was published in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:34:22.000Z",
+    "updatedAt": "2026-10-22T02:34:22.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4dcb7121-f472-445e-930f-cc549578e029"
+  },
   "item": [
     {
-      "id": "20c5f83a-bfd5-4f6a-9e01-d8b31be40436",
-      "name": "Profiles",
-      "description": {
-        "content": "Customer, subscriber, and donor profile management",
-        "type": "text/plain"
-      },
+      "name": "1.0",
       "item": [
         {
-          "id": "09584d3c-3983-423c-aff6-92fa98ce6cc6",
-          "name": "Retrieve All Profiles",
-          "request": {
-            "name": "Retrieve All Profiles",
-            "description": {
-              "content": "Returns a paginated list of profiles associated with the merchant site. Profiles represent customers, mailing list subscribers, and donors. By default returns up to 50 profiles per page. Results can be filtered by profile type, account status, or email address. Use the cursor parameter from the previous response's pagination.nextPageCursor to iterate through all profiles.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "profiles"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "cursor",
-                  "value": "<string>",
-                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page."
-                },
-                {
-                  "disabled": false,
-                  "key": "isCustomer",
-                  "value": "<boolean>",
-                  "description": "When true, filters results to only include customer profiles"
-                },
-                {
-                  "disabled": false,
-                  "key": "hasAccount",
-                  "value": "<boolean>",
-                  "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles."
-                },
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>",
-                  "description": "Filter profiles by exact email address match"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "profiles",
+          "item": [
             {
-              "id": "6b0d59b2-53d4-44b8-9b1b-43cd1afcc0c1",
-              "name": "Successful response with paginated list of profiles",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{profileIdCsvs}",
+              "item": [
+                {
+                  "name": "Get profiles",
+                  "id": "75b95722-c3cb-4c04-9a25-0d975df649a6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/profiles/:profileIdCsvs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "profiles",
+                        ":profileIdCsvs"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8c4afef9-7b4c-4c83-9da1-52c95cea084b",
+                          "key": "profileIdCsvs",
+                          "value": "<string>",
+                          "description": "(Required) Specifies the profiles to retrieve. Multiple Profiles can be retrieved by providing a comma-separated list of profile ids."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves information for specific profiles. The response contains a list of up to 50 Profiles. Multiple Profiles can be retrieved by providing a comma-separated list of profile ids."
+                  },
+                  "response": [
                     {
-                      "key": "cursor",
-                      "value": "<string>"
+                      "id": "ac34a4ca-46e7-4de5-8af6-ea493045f911",
+                      "name": "The requested profiles.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/profiles/:profileIdCsvs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "profiles",
+                            ":profileIdCsvs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "profileIdCsvs"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"profiles\": [\n    {\n      \"acceptsMarketing\": \"<boolean>\",\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"hasAccount\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"isCustomer\": \"<boolean>\",\n      \"lastName\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    },\n    {\n      \"acceptsMarketing\": \"<boolean>\",\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"hasAccount\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"isCustomer\": \"<boolean>\",\n      \"lastName\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T02:34:22.000Z",
+                      "updatedAt": "2026-10-22T02:34:22.000Z",
+                      "uid": "35240-ac34a4ca-46e7-4de5-8af6-ea493045f911"
                     },
                     {
-                      "key": "isCustomer",
-                      "value": "<boolean>"
+                      "id": "b512a40b-0d5c-46a0-b736-ab066d51682c",
+                      "name": "Bad request. ids specifies greater than 50 profiles.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/profiles/:profileIdCsvs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "profiles",
+                            ":profileIdCsvs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "profileIdCsvs"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STORE_PAGE_NOT_FOUND\",\n  \"type\": \"CONFLICT\"\n}",
+                      "createdAt": "2026-10-22T02:34:22.000Z",
+                      "updatedAt": "2026-10-22T02:34:22.000Z",
+                      "uid": "35240-b512a40b-0d5c-46a0-b736-ab066d51682c"
                     },
                     {
-                      "key": "hasAccount",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "email",
-                      "value": "<email>"
+                      "id": "c2881023-05d0-472f-8d46-7d7b64e7a27e",
+                      "name": "Not found. One or more profiles were not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) User Agent",
+                            "key": "User-Agent",
+                            "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/1.0/profiles/:profileIdCsvs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "1.0",
+                            "profiles",
+                            ":profileIdCsvs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "profileIdCsvs"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STORE_PAGE_NOT_FOUND\",\n  \"type\": \"CONFLICT\"\n}",
+                      "createdAt": "2026-10-22T02:34:22.000Z",
+                      "updatedAt": "2026-10-22T02:34:22.000Z",
+                      "uid": "35240-c2881023-05d0-472f-8d46-7d7b64e7a27e"
                     }
                   ],
-                  "variable": []
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-75b95722-c3cb-4c04-9a25-0d975df649a6"
+                }
+              ],
+              "id": "84fc1b89-97df-4010-af28-b630531a7681",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-84fc1b89-97df-4010-af28-b630531a7681"
+            },
+            {
+              "name": "List profiles",
+              "id": "ff66102a-cd4e-4d09-b9fc-1a7f386a8b30",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
                 },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "(Required) User Agent",
+                    "key": "User-Agent",
+                    "value": "YOUR_CUSTOM_APP_DESCRIPTION"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"qliKb6CDXJAttb@oTAWQLRVuYjRGUk.lqg\",\n      \"hasAccount\": false,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"QD\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 7514,\n        \"orderTotal\": {\n          \"value\": \"85034.93\",\n          \"currency\": \"JPL\"\n        },\n        \"donationCount\": 9902,\n        \"donationTotal\": {\n          \"value\": \"5249235263\",\n          \"currency\": \"SDK\"\n        },\n        \"firstOrderOn\": \"1999-07-21T11:22:22.011Z\",\n        \"lastOrderOn\": \"1970-07-30T12:07:51.327Z\"\n      },\n      \"createdOn\": \"1994-03-06T10:39:24.386Z\",\n      \"modifiedOn\": \"1961-07-15T07:22:36.302Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"sVB@xDSWHfevhZZj.fdk\",\n      \"hasAccount\": true,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"OJ\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 595,\n        \"orderTotal\": {\n          \"value\": \"-4959\",\n          \"currency\": \"LSW\"\n        },\n        \"donationCount\": 4372,\n        \"donationTotal\": {\n          \"value\": \"-135147475\",\n          \"currency\": \"FQK\"\n        },\n        \"firstOrderOn\": \"1984-10-30T10:46:24.182Z\",\n        \"lastOrderOn\": \"2022-06-09T09:34:42.171Z\"\n      },\n      \"createdOn\": \"2000-08-13T05:49:35.422Z\",\n      \"modifiedOn\": \"1951-01-26T13:16:37.868Z\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": true,\n    \"nextPageCursor\": \"string\",\n    \"nextPageUrl\": \"https://rtMnrUmkxWDPkKVtik.chPTV0sbQ4K.KGRYeIPA.-6A\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "95575e25-93e3-4aae-ab1f-06a6fd1b7888",
-              "name": "The request was malformed or contained invalid parameters",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "profiles"
-                  ],
+                  "raw": "{{baseUrl}}/1.0/profiles?sortDirection=<string>&sortField=<string>&filter=<string>&email=<string>&cursor=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "cursor",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "isCustomer",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "hasAccount",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3411b1a0-cf30-4e08-a389-edfd49ebecc3",
-              "name": "Authentication credentials are missing or invalid",
-              "originalRequest": {
-                "url": {
                   "path": [
+                    "1.0",
                     "profiles"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
-                      "key": "cursor",
+                      "description": "Identifies the sort direction of the result list; asc for ascending or dsc for descending. If not specified, the returned list is in descending order.",
+                      "key": "sortDirection",
                       "value": "<string>"
                     },
                     {
-                      "key": "isCustomer",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "hasAccount",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "569f3f40-f1c1-429e-bad8-48609b9f521f",
-              "name": "The authenticated user does not have permission to access this resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
+                      "description": "Identifies the sort field of the result list. Values include: createdOn, id, email, or lastName. If not specified, the returned list is sorted by id.",
+                      "key": "sortField",
                       "value": "<string>"
                     },
                     {
-                      "key": "isCustomer",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "hasAccount",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "email",
-                      "value": "<email>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cbdd6bfe-7142-4936-919d-9c4982540daa",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "cursor",
+                      "description": "Semicolon separated list used to filter profile results. Values include: isCustomer and/or hasAccount, or email. The email filter cannot be used with isCustomer or hasAccount.",
+                      "key": "filter",
                       "value": "<string>"
                     },
                     {
-                      "key": "isCustomer",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "hasAccount",
-                      "value": "<boolean>"
-                    },
-                    {
+                      "description": "Email address filter (URL-encoded, case insensitive).",
                       "key": "email",
-                      "value": "<email>"
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. Cannot be used with other parameters.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Retrieves all profiles; profiles can be filtered and sorted. The response contains up to 50 Profiles and supports dynamic cursors for pagination."
+              },
+              "response": [
+                {
+                  "id": "97690bf6-5f1c-4aa0-a382-ba648f7490cc",
+                  "name": "A paginated list of profiles.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/profiles?sortDirection=<string>&sortField=<string>&filter=<string>&email=<string>&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Identifies the sort direction of the result list; asc for ascending or dsc for descending. If not specified, the returned list is in descending order.",
+                          "key": "sortDirection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies the sort field of the result list. Values include: createdOn, id, email, or lastName. If not specified, the returned list is sorted by id.",
+                          "key": "sortField",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Semicolon separated list used to filter profile results. Values include: isCustomer and/or hasAccount, or email. The email filter cannot be used with isCustomer or hasAccount.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Email address filter (URL-encoded, case insensitive).",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. Cannot be used with other parameters.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"pagination\": {\n    \"hasNextPage\": \"<boolean>\",\n    \"nextPageCursor\": \"<string>\",\n    \"nextPageUrl\": \"<string>\"\n  },\n  \"profiles\": [\n    {\n      \"acceptsMarketing\": \"<boolean>\",\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"hasAccount\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"isCustomer\": \"<boolean>\",\n      \"lastName\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    },\n    {\n      \"acceptsMarketing\": \"<boolean>\",\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"firstName\": \"<string>\",\n        \"lastName\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"hasAccount\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"isCustomer\": \"<boolean>\",\n      \"lastName\": \"<string>\",\n      \"transactionsSummary\": {\n        \"donationCount\": \"<integer>\",\n        \"firstDonationSubmittedOn\": \"<dateTime>\",\n        \"firstOrderSubmittedOn\": \"<dateTime>\",\n        \"lastDonationSubmittedOn\": \"<dateTime>\",\n        \"lastOrderSubmittedOn\": \"<dateTime>\",\n        \"orderCount\": \"<integer>\",\n        \"totalDonationAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalOrderAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        },\n        \"totalRefundAmount\": {\n          \"currency\": {\n            \"currencyCode\": \"<string>\",\n            \"defaultFractionDigits\": \"<integer>\",\n            \"displayName\": \"<string>\",\n            \"numericCode\": \"<integer>\",\n            \"numericCodeAsString\": \"<string>\",\n            \"symbol\": \"<string>\"\n          },\n          \"value\": \"<number>\"\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-97690bf6-5f1c-4aa0-a382-ba648f7490cc"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "7eba0840-5d75-44b3-9ddf-ce36fe0d2598",
+                  "name": "Bad request.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/profiles?sortDirection=<string>&sortField=<string>&filter=<string>&email=<string>&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Identifies the sort direction of the result list; asc for ascending or dsc for descending. If not specified, the returned list is in descending order.",
+                          "key": "sortDirection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies the sort field of the result list. Values include: createdOn, id, email, or lastName. If not specified, the returned list is sorted by id.",
+                          "key": "sortField",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Semicolon separated list used to filter profile results. Values include: isCustomer and/or hasAccount, or email. The email filter cannot be used with isCustomer or hasAccount.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Email address filter (URL-encoded, case insensitive).",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. Cannot be used with other parameters.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STORE_PAGE_NOT_FOUND\",\n  \"type\": \"CONFLICT\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-7eba0840-5d75-44b3-9ddf-ce36fe0d2598"
+                },
+                {
+                  "id": "7953cd01-7dfe-4e36-97e5-7d0abf01ccf9",
+                  "name": "Not found. The API version is not supported.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) User Agent",
+                        "key": "User-Agent",
+                        "value": "YOUR_CUSTOM_APP_DESCRIPTION"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/1.0/profiles?sortDirection=<string>&sortField=<string>&filter=<string>&email=<string>&cursor=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "1.0",
+                        "profiles"
+                      ],
+                      "query": [
+                        {
+                          "description": "Identifies the sort direction of the result list; asc for ascending or dsc for descending. If not specified, the returned list is in descending order.",
+                          "key": "sortDirection",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies the sort field of the result list. Values include: createdOn, id, email, or lastName. If not specified, the returned list is sorted by id.",
+                          "key": "sortField",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Semicolon separated list used to filter profile results. Values include: isCustomer and/or hasAccount, or email. The email filter cannot be used with isCustomer or hasAccount.",
+                          "key": "filter",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Email address filter (URL-encoded, case insensitive).",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Identifies where the next page of results should begin. Should be the value of pagination.nextPageCursor from a previous response. Cannot be used with other parameters.",
+                          "key": "cursor",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"contextId\": \"<string>\",\n  \"details\": {},\n  \"message\": \"<string>\",\n  \"subtype\": \"STORE_PAGE_NOT_FOUND\",\n  \"type\": \"CONFLICT\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-7953cd01-7dfe-4e36-97e5-7d0abf01ccf9"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-ff66102a-cd4e-4d09-b9fc-1a7f386a8b30"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "a90bea2c-7d15-482f-be56-aa26a47a47f4",
+          "createdAt": "2026-10-22T02:34:22.000Z",
+          "updatedAt": "2026-10-22T02:34:22.000Z",
+          "uid": "35240-a90bea2c-7d15-482f-be56-aa26a47a47f4"
+        }
+      ],
+      "id": "9ebe0155-a816-4f0b-b43f-9b83afffde9b",
+      "createdAt": "2026-10-22T02:34:22.000Z",
+      "updatedAt": "2026-10-22T02:34:22.000Z",
+      "uid": "35240-9ebe0155-a816-4f0b-b43f-9b83afffde9b"
+    },
+    {
+      "name": "profiles",
+      "item": [
+        {
+          "name": "{profileIds}",
+          "item": [
+            {
+              "name": "Retrieve Specific Profiles",
+              "id": "e1f3aea4-a7a0-4d00-81d8-89ae4797d75a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/profiles/:profileIds",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles",
+                    ":profileIds"
+                  ],
+                  "variable": [
+                    {
+                      "id": "53cc5a48-1700-4348-b402-84b0b001d7b0",
+                      "key": "profileIds",
+                      "value": "<string>",
+                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                    }
+                  ]
+                },
+                "description": "Retrieves profile information for one or more specific profiles by their profile IDs. Profile IDs can be provided as a comma-separated list in the path. The order of profiles in the response is not guaranteed to match the order of IDs provided."
+              },
+              "response": [
+                {
+                  "id": "4f3b20e9-562a-4f16-a053-39a72af3d062",
+                  "name": "Successful response with the requested profiles",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"hasAccount\": \"<boolean>\",\n      \"isCustomer\": \"<boolean>\",\n      \"address\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"countryCode\": \"ZM\",\n        \"postalCode\": \"<string>\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": \"<integer>\",\n        \"orderTotal\": {\n          \"value\": \"-8780.7214864\",\n          \"currency\": \"TMR\"\n        },\n        \"donationCount\": \"<integer>\",\n        \"donationTotal\": {\n          \"value\": \"-199136.5491895\",\n          \"currency\": \"EUB\"\n        },\n        \"firstOrderOn\": \"<dateTime>\",\n        \"lastOrderOn\": \"<dateTime>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"modifiedOn\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"hasAccount\": \"<boolean>\",\n      \"isCustomer\": \"<boolean>\",\n      \"address\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"countryCode\": \"RI\",\n        \"postalCode\": \"<string>\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": \"<integer>\",\n        \"orderTotal\": {\n          \"value\": \"-212\",\n          \"currency\": \"QZZ\"\n        },\n        \"donationCount\": \"<integer>\",\n        \"donationTotal\": {\n          \"value\": \"-5379.1643964913\",\n          \"currency\": \"LMR\"\n        },\n        \"firstOrderOn\": \"<dateTime>\",\n        \"lastOrderOn\": \"<dateTime>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"modifiedOn\": \"<dateTime>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-4f3b20e9-562a-4f16-a053-39a72af3d062"
+                },
+                {
+                  "id": "8d0e5f62-6b07-448f-b2b7-158662ef681f",
+                  "name": "The request was malformed or contained invalid parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-8d0e5f62-6b07-448f-b2b7-158662ef681f"
+                },
+                {
+                  "id": "01ff6dee-2743-4374-bcbd-0688259a2ad6",
+                  "name": "Authentication credentials are missing or invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-01ff6dee-2743-4374-bcbd-0688259a2ad6"
+                },
+                {
+                  "id": "041ad001-1c75-4684-9e65-2ecc87b8a1d6",
+                  "name": "The authenticated user does not have permission to access this resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-041ad001-1c75-4684-9e65-2ecc87b8a1d6"
+                },
+                {
+                  "id": "12e5edbe-f2d2-47e3-8a38-c8643dbe85a0",
+                  "name": "The requested resource was not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-12e5edbe-f2d2-47e3-8a38-c8643dbe85a0"
+                },
+                {
+                  "id": "433762f1-1fbc-4a6a-b283-07c2404252f0",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/profiles/:profileIds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "profiles",
+                        ":profileIds"
+                      ],
+                      "variable": [
+                        {
+                          "key": "profileIds"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T02:34:22.000Z",
+                  "updatedAt": "2026-10-22T02:34:22.000Z",
+                  "uid": "35240-433762f1-1fbc-4a6a-b283-07c2404252f0"
+                }
+              ],
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-e1f3aea4-a7a0-4d00-81d8-89ae4797d75a"
+            }
+          ],
+          "id": "adf1f7f8-4581-4d12-89d7-08935f687225",
+          "createdAt": "2026-10-22T02:34:22.000Z",
+          "updatedAt": "2026-10-22T02:34:22.000Z",
+          "uid": "35240-adf1f7f8-4581-4d12-89d7-08935f687225"
         },
         {
-          "id": "1eeddf08-0dcb-4090-b164-befca917ec32",
-          "name": "Retrieve Specific Profiles",
+          "name": "Retrieve All Profiles",
+          "id": "c0bda29f-c3f0-4573-9a7f-b02855979042",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Retrieve Specific Profiles",
-            "description": {
-              "content": "Retrieves profile information for one or more specific profiles by their profile IDs. Profile IDs can be provided as a comma-separated list in the path. The order of profiles in the response is not guaranteed to match the order of IDs provided.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "profiles",
-                ":profileIds"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "profileIds",
-                  "description": "(Required) Comma-separated list of profile IDs to retrieve"
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
                 }
               ]
             },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "profiles"
+              ],
+              "query": [
+                {
+                  "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "description": "When true, filters results to only include customer profiles",
+                  "key": "isCustomer",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                  "key": "hasAccount",
+                  "value": "<boolean>"
+                },
+                {
+                  "description": "Filter profiles by exact email address match",
+                  "key": "email",
+                  "value": "<email>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of profiles associated with the merchant site. Profiles represent customers, mailing list subscribers, and donors. By default returns up to 50 profiles per page. Results can be filtered by profile type, account status, or email address. Use the cursor parameter from the previous response's pagination.nextPageCursor to iterate through all profiles."
           },
           "response": [
             {
-              "id": "f7d31129-26e1-4406-a1dd-4d47af592f97",
-              "name": "Successful response with the requested profiles",
+              "id": "e828db63-633d-4dad-9bfa-69084b46526d",
+              "name": "Successful response with paginated list of profiles",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, filters results to only include customer profiles",
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter profiles by exact email address match",
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"qeZ@WOAWtLSqpGDZjKkezDMFoqGpdDHMEAc.ibe\",\n      \"hasAccount\": true,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"FE\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 7320,\n        \"orderTotal\": {\n          \"value\": \"4792.02961080458\",\n          \"currency\": \"AUM\"\n        },\n        \"donationCount\": 386,\n        \"donationTotal\": {\n          \"value\": \"-7263697288.98\",\n          \"currency\": \"LCB\"\n        },\n        \"firstOrderOn\": \"1966-11-02T08:21:07.254Z\",\n        \"lastOrderOn\": \"2009-07-10T07:40:50.562Z\"\n      },\n      \"createdOn\": \"2017-01-01T02:12:11.480Z\",\n      \"modifiedOn\": \"2022-05-08T12:17:59.881Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"email\": \"YkiVERKzie@pKiJVYEazaTZhMyVNkkAPpUljnLqx.wvco\",\n      \"hasAccount\": false,\n      \"isCustomer\": false,\n      \"address\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"countryCode\": \"TT\",\n        \"postalCode\": \"string\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": 2478,\n        \"orderTotal\": {\n          \"value\": \"-24\",\n          \"currency\": \"MEB\"\n        },\n        \"donationCount\": 9539,\n        \"donationTotal\": {\n          \"value\": \"-69923807783.10969\",\n          \"currency\": \"FLE\"\n        },\n        \"firstOrderOn\": \"1979-11-03T21:12:24.365Z\",\n        \"lastOrderOn\": \"2020-03-15T00:52:59.316Z\"\n      },\n      \"createdOn\": \"1950-02-11T00:33:34.902Z\",\n      \"modifiedOn\": \"2007-12-11T08:47:53.513Z\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"hasAccount\": \"<boolean>\",\n      \"isCustomer\": \"<boolean>\",\n      \"address\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"countryCode\": \"ER\",\n        \"postalCode\": \"<string>\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": \"<integer>\",\n        \"orderTotal\": {\n          \"value\": \"-6891516114\",\n          \"currency\": \"MMJ\"\n        },\n        \"donationCount\": \"<integer>\",\n        \"donationTotal\": {\n          \"value\": \"544.57\",\n          \"currency\": \"IBS\"\n        },\n        \"firstOrderOn\": \"<dateTime>\",\n        \"lastOrderOn\": \"<dateTime>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"modifiedOn\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"hasAccount\": \"<boolean>\",\n      \"isCustomer\": \"<boolean>\",\n      \"address\": {\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"countryCode\": \"UR\",\n        \"postalCode\": \"<string>\"\n      },\n      \"commerceStats\": {\n        \"orderCount\": \"<integer>\",\n        \"orderTotal\": {\n          \"value\": \"2719679.81\",\n          \"currency\": \"RFB\"\n        },\n        \"donationCount\": \"<integer>\",\n        \"donationTotal\": {\n          \"value\": \"8738806000.6975636629\",\n          \"currency\": \"SKN\"\n        },\n        \"firstOrderOn\": \"<dateTime>\",\n        \"lastOrderOn\": \"<dateTime>\"\n      },\n      \"createdOn\": \"<dateTime>\",\n      \"modifiedOn\": \"<dateTime>\"\n    }\n  ],\n  \"pagination\": {\n    \"hasNextPage\": \"<boolean>\",\n    \"nextPageCursor\": \"<string>\",\n    \"nextPageUrl\": \"<uri>\"\n  }\n}",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-e828db63-633d-4dad-9bfa-69084b46526d"
             },
             {
-              "id": "2f9cc9d2-c435-4103-a5c6-36320a6fee25",
+              "id": "89b453ba-83f8-4ed0-ab88-a379db2190e8",
               "name": "The request was malformed or contained invalid parameters",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, filters results to only include customer profiles",
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter profiles by exact email address match",
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-89b453ba-83f8-4ed0-ab88-a379db2190e8"
             },
             {
-              "id": "45904c27-5b76-4aac-98a3-e1cac7a5140c",
+              "id": "146381f5-7945-4618-b4db-0d2d9448b7da",
               "name": "Authentication credentials are missing or invalid",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, filters results to only include customer profiles",
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter profiles by exact email address match",
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-146381f5-7945-4618-b4db-0d2d9448b7da"
             },
             {
-              "id": "da302a8f-e87d-44d2-82d6-7d0d5c95a620",
+              "id": "15b37fd9-82d6-4e36-9289-17fde866a510",
               "name": "The authenticated user does not have permission to access this resource",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, filters results to only include customer profiles",
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter profiles by exact email address match",
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ]
+                }
               },
               "status": "Forbidden",
               "code": 403,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-15b37fd9-82d6-4e36-9289-17fde866a510"
             },
             {
-              "id": "9ee82482-8609-4b67-910e-5144e8642876",
-              "name": "The requested resource was not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c4beb356-3fb8-470a-beb6-4bf114f2d256",
+              "id": "ed4dad6c-b9fe-4ccd-a3c8-33380c073c08",
               "name": "Rate limit exceeded",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "profiles",
-                    ":profileIds"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "profileIds",
-                      "description": "(Required) Comma-separated list of profile IDs to retrieve"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/profiles?cursor=<string>&isCustomer=<boolean>&hasAccount=<boolean>&email=<email>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "profiles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Pagination cursor from a previous response's pagination.nextPageCursor field. Omit or leave empty to retrieve the first page.",
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "When true, filters results to only include customer profiles",
+                      "key": "isCustomer",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "When true, filters to profiles associated with a Squarespace account. When false, filters to anonymous profiles.",
+                      "key": "hasAccount",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "description": "Filter profiles by exact email address match",
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"type\": \"string\",\n  \"subtype\": \"string\",\n  \"message\": \"string\",\n  \"statusCode\": 6180\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"subtype\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:34:22.000Z",
+              "updatedAt": "2026-10-22T02:34:22.000Z",
+              "uid": "35240-ed4dad6c-b9fe-4ccd-a3c8-33380c073c08"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:34:22.000Z",
+          "updatedAt": "2026-10-22T02:34:22.000Z",
+          "uid": "35240-c0bda29f-c3f0-4573-9a7f-b02855979042"
         }
       ],
-      "event": []
+      "id": "b3d77111-e1f9-4f54-8d2c-f03c1b281779",
+      "createdAt": "2026-10-22T02:34:22.000Z",
+      "updatedAt": "2026-10-22T02:34:22.000Z",
+      "uid": "35240-b3d77111-e1f9-4f54-8d2c-f03c1b281779"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.squarespace.com/1.0",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.squarespace.com"
     }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{bearerToken}}"
-      }
-    ]
-  },
-  "info": {
-    "_postman_id": "1b36ef82-d86a-4b97-897f-8139593ef4cb",
-    "name": "Squarespace Commerce Inventory Profiles API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to build integrations and applications that manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles with standard verbs and response status codes. Authentication is handled via API keys or OAuth tokens.\n\nContact Support:\n Name: Squarespace Developer Support",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
