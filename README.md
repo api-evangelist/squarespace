@@ -1,4 +1,4 @@
-# Squarespace (squarespace)
+# Squarespace
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,162 +66,235 @@
 
 Squarespace is an all-in-one website building and e-commerce platform that enables individuals and businesses to create, manage, and scale their online presence. Squarespace provides a suite of Commerce APIs for developers to build integrations managing products, orders, inventory, customer profiles, transactions, and webhook notifications. All APIs use HTTPS REST conventions with API key or OAuth authentication.
 
-**APIs.json:** [https://www.squarespace.com](https://www.squarespace.com)
+**Areas:** Commerce · E-Commerce · Marketing · Payments · Retail · Website Builder · Webhook
 
-## Tags
+## Squarespace on APIs.io
 
-- Commerce
-- E-Commerce
-- Marketing
-- Payments
-- Retail
-- Website Builder
-- Webhooks
+Everything profiled for Squarespace is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/squarespace/](https://apis.io/providers/squarespace/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (12)
 
-- **Created:** 2026-05-02
-- **Modified:** 2026-05-19
+- [Squarespace Orders API](https://apis.io/apis/squarespace/squarespace-orders-api/) — The Squarespace Orders API provides access to order history for a Squarespace merchant site, supporting both one-time purchases and subscription orders.…
+- [Squarespace Products API](https://apis.io/apis/squarespace/squarespace-products-api/) — The Squarespace Products API allows developers to manage the product catalog of a Squarespace merchant site. It supports physical products, service…
+- [Squarespace Inventory API](https://apis.io/apis/squarespace/squarespace-inventory-api/) — The Squarespace Inventory API enables developers to retrieve and update inventory quantities for product variants on a Squarespace merchant site. It…
+- [Squarespace Profiles API](https://apis.io/apis/squarespace/squarespace-profiles-api/) — The Squarespace Profiles API allows reading customer profiles, mailing list subscribers, and donors for a Squarespace site. It supports filtering by profile…
+- [Squarespace Transactions API](https://apis.io/apis/squarespace/squarespace-transactions-api/) — The Squarespace Transactions API provides access to financial transaction records for a Squarespace merchant site. Developers can retrieve transaction…
+- [Squarespace Webhook Subscriptions API](https://apis.io/apis/squarespace/squarespace-webhook-subscriptions-api/) — The Squarespace Webhook Subscriptions API allows developers to manage webhook endpoint subscriptions for a merchant site. It supports creating, listing,…
+- [Squarespace Site API](https://apis.io/apis/squarespace/squarespace-site-api/) — Basic site information and metadata
+- [Squarespace MCP Server](https://apis.io/apis/squarespace/squarespace-mcp/) — Squarespace operates a first-party remote MCP server at https://mcp.squarespace.com/mcp. It answers an unauthenticated JSON-RPC tools/list with HTTP 200 and…
+- [Squarespace Analytics API](https://apis.io/apis/squarespace/squarespace-analytics-api/) — Query analytics for a website
+- [Squarespace Contacts API](https://apis.io/apis/squarespace/squarespace-contacts-api/) — Manage customer contacts and address book entries for a website: create, read, update, delete, and query contacts; maintain addresses for shipping and…
+- [Squarespace Discounts API](https://apis.io/apis/squarespace/squarespace-discounts-api/) — Manage discounts for a website.
+- [Squarespace Websites API](https://apis.io/apis/squarespace/squarespace-websites-api/) — The Websites API from Squarespace — 3 operation(s) for websites.
 
-## APIs
+### Published properties
 
-### Squarespace Commerce API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Squarespace Commerce API provides programmatic access to the commerce features of a Squarespace merchant site. It enables developers to manage products, process orders, track inventory, access customer profiles, retrieve financial transactions, and configure webhook subscriptions. All endpoints use HTTPS and follow REST principles.
+#### AsyncAPI (1)
 
-#### Tags
+Event-driven and webhook contracts.
 
-- Commerce
-- E-Commerce
-- REST API
+- [Squarespace Webhook Events](https://apis.io/asyncapis/squarespace/squarespace-webhooks-asyncapi/)
 
-#### Properties
+#### Event channels (1)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/overview)
-- [OpenAPI](openapi/squarespace-commerce-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-commerce-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-commerce-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Authentication](https://developers.squarespace.com/commerce-apis/making-requests)
-- [Spectral Rules](rules/squarespace-rules.yml)
-- [JSON-LD](json-ld/squarespace-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/squarespace-vocabulary.yml)
+Individual events and webhooks the provider emits.
 
-### Squarespace Orders API
+- [/webhook](https://apis.io/channels/squarespace/webhook/)
 
-The Squarespace Orders API provides access to order history for a Squarespace merchant site, supporting both one-time purchases and subscription orders. Developers can retrieve, create, and manage orders, as well as import orders from third-party sales channels into Squarespace.
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Commerce
-- Orders
-- REST API
+- [Squarespace MCP Server](https://apis.io/servers/squarespace/squarespace-mcp-server/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/orders-overview)
-- [OpenAPI](openapi/squarespace-orders-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-orders-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-orders-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Squarespace Products API
+- [Squarespace Agentic Access](https://apis.io/agentic-access/squarespace/squarespace-agentic-access/)
 
-The Squarespace Products API allows developers to manage the product catalog of a Squarespace merchant site. It supports physical products, service products, gift cards, and digital downloads, along with their images and variants.
+#### JSON Schema (3)
 
-#### Tags
+The data models the API reads and writes.
 
-- Commerce
-- Products
-- REST API
+- [Squarespace Order](https://apis.io/schemas/squarespace/squarespace-order/)
+- [Squarespace Product](https://apis.io/schemas/squarespace/squarespace-product/)
+- [Squarespace Webhook Notification](https://apis.io/schemas/squarespace/squarespace-webhook-notification/)
 
-#### Properties
+#### JSON Structure (2)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/products-overview)
-- [OpenAPI](openapi/squarespace-products-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-products-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-products-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### Squarespace Inventory API
+- [Squarespace Order Structure](https://apis.io/json-structure/squarespace/squarespace-order-structure/)
+- [Squarespace Product Structure](https://apis.io/json-structure/squarespace/squarespace-product-structure/)
 
-The Squarespace Inventory API enables developers to retrieve and update inventory quantities for product variants on a Squarespace merchant site. It supports bulk inventory queries and individual variant stock management.
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Commerce
-- Inventory
-- REST API
+- [Squarespace Context](https://apis.io/jsonld/squarespace/squarespace-context/)
 
-#### Properties
+#### Vocabulary (1)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/inventory-overview)
-- [OpenAPI](openapi/squarespace-inventory-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-inventory-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-inventory-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The provider's domain terms, defined.
 
-### Squarespace Profiles API
+- [Squarespace Vocabulary](https://apis.io/vocabularies/squarespace/squarespace-vocabulary/)
 
-The Squarespace Profiles API allows reading customer profiles, mailing list subscribers, and donors for a Squarespace site. It supports filtering by profile type and retrieving individual profile details.
+#### Examples (2)
 
-#### Tags
+Example requests and responses.
 
-- CRM
-- Customer Profiles
-- REST API
+- [Squarespace List Orders Example](https://apis.io/examples/squarespace/squarespace-list-orders-example/)
+- [Squarespace List Products Example](https://apis.io/examples/squarespace/squarespace-list-products-example/)
 
-#### Properties
+#### Collections (8)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/profiles-overview)
-- [OpenAPI](openapi/squarespace-profiles-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-profiles-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-profiles-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Squarespace Transactions API
+- [Squarespace Commerce API](https://apis.io/collections/squarespace/open-squarespace-commerce-api/)
+- [Squarespace Commerce Inventory API](https://apis.io/collections/squarespace/open-squarespace-inventory-api/)
+- [Squarespace Commerce Inventory Orders API](https://apis.io/collections/squarespace/open-squarespace-orders-api/)
+- [Squarespace Commerce Inventory Products API](https://apis.io/collections/squarespace/open-squarespace-products-api/)
+- [Squarespace Commerce Inventory Profiles API](https://apis.io/collections/squarespace/open-squarespace-profiles-api/)
+- [Squarespace Commerce Inventory Site API](https://apis.io/collections/squarespace/open-squarespace-site-api/)
+- [Squarespace Commerce Inventory Transactions API](https://apis.io/collections/squarespace/open-squarespace-transactions-api/)
+- [Squarespace Commerce Inventory Webhook Subscriptions API](https://apis.io/collections/squarespace/open-squarespace-webhook-subscriptions-api/)
 
-The Squarespace Transactions API provides access to financial transaction records for a Squarespace merchant site. Developers can retrieve transaction history, including payment amounts, fees, and associated order or subscription references.
+#### Overlays (19)
 
-#### Tags
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- Commerce
-- Finance
-- Transactions
+- [Squarespace Analytics Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-analytics-api-phrasing-overlay/)
+- [Squarespace Commerce Api V2 Overlay](https://apis.io/overlays/squarespace/squarespace-commerce-api-v2-overlay/)
+- [Squarespace Contacts Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-contacts-api-phrasing-overlay/)
+- [Squarespace Discounts Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-discounts-api-phrasing-overlay/)
+- [Squarespace Inventory Api Overlay](https://apis.io/overlays/squarespace/squarespace-inventory-api-overlay/)
+- [Squarespace Inventory Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-inventory-api-phrasing-overlay/)
+- [Squarespace Orders Api Overlay](https://apis.io/overlays/squarespace/squarespace-orders-api-overlay/)
+- [Squarespace Orders Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-orders-api-phrasing-overlay/)
+- [Squarespace Products Api Overlay](https://apis.io/overlays/squarespace/squarespace-products-api-overlay/)
+- [Squarespace Products Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-products-api-phrasing-overlay/)
+- [Squarespace Profiles Api Overlay](https://apis.io/overlays/squarespace/squarespace-profiles-api-overlay/)
+- [Squarespace Profiles Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-profiles-api-phrasing-overlay/)
+- [Squarespace Site Api Overlay](https://apis.io/overlays/squarespace/squarespace-site-api-overlay/)
+- [Squarespace Site Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-site-api-phrasing-overlay/)
+- [Squarespace Transactions Api Overlay](https://apis.io/overlays/squarespace/squarespace-transactions-api-overlay/)
+- [Squarespace Transactions Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-transactions-api-phrasing-overlay/)
+- [Squarespace Webhook Subscriptions Api Overlay](https://apis.io/overlays/squarespace/squarespace-webhook-subscriptions-api-overlay/)
+- [Squarespace Webhook Subscriptions Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-webhook-subscriptions-api-phrasing-overlay/)
+- [Squarespace Websites Api Phrasing Overlay](https://apis.io/overlays/squarespace/squarespace-websites-api-phrasing-overlay/)
 
-#### Properties
+#### Governance rules (3)
 
-- [Documentation](https://developers.squarespace.com/commerce-apis/transactions-overview)
-- [OpenAPI](openapi/squarespace-transactions-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-transactions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-transactions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### Squarespace Webhook Subscriptions API
+- [Squarespace — asyncapi rules](https://apis.io/rules/squarespace/squarespace-asyncapi-spectral-rules/)
+- [Squarespace — jsonschema rules](https://apis.io/rules/squarespace/squarespace-jsonschema-spectral-rules/)
+- [Squarespace API Rules](https://apis.io/rules/squarespace/squarespace-rules/)
 
-The Squarespace Webhook Subscriptions API allows developers to manage webhook endpoint subscriptions for a merchant site. It supports creating, listing, updating, and deleting subscriptions that trigger notifications for order events, extension uninstalls, and other commerce activities.
+#### Security (4)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Webhooks
-- Event Notifications
-- REST API
+- [Squarespace Authentication](https://apis.io/security/squarespace/squarespace-authentication/)
+- [Squarespace Domain Security](https://apis.io/security/squarespace/squarespace-domain-security/)
+- [Squarespace Trust Center](https://apis.io/security/squarespace/squarespace-trust-center/)
+- [Squarespace Vulnerability Disclosure](https://apis.io/security/squarespace/squarespace-vulnerability-disclosure/)
 
-#### Properties
+#### OAuth scopes (1)
 
-- [Documentation](https://developers.squarespace.com/webhooks/overview)
-- [OpenAPI](openapi/squarespace-webhook-subscriptions-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/squarespace-webhook-subscriptions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/squarespace-webhook-subscriptions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/squarespace-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+The permissions the API asks for.
 
-## Common Properties
+- [Squarespace Scopes](https://apis.io/scopes/squarespace/squarespace-scopes/)
 
-- [GitHub Organization](https://github.com/squarespace)
-- [LinkedIn](https://www.linkedin.com/company/squarespace)
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Squarespace Plans Pricing](https://apis.io/plans/squarespace/squarespace-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Squarespace Rate Limits](https://apis.io/rate-limits/squarespace/squarespace-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Squarespace Finops](https://apis.io/finops/squarespace/squarespace-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.squarespace.com)
-- [Developer Portal](https://developers.squarespace.com)
 - [Documentation](https://developers.squarespace.com/commerce-apis/overview)
-- [A P I Keys](https://support.squarespace.com/hc/en-us/articles/236297987-Squarespace-API-keys)
-- [Terms of Service](https://www.squarespace.com/terms-of-service)
-- [Privacy Policy](https://www.squarespace.com/privacy)
-- [Status Page](https://status.squarespace.com)
+- [Getting started](https://developers.squarespace.com/quick-start)
+- [API reference](https://developers.squarespace.com/commerce-apis)
+- [Pricing](https://www.squarespace.com/pricing)
+- [Sign up](https://login.squarespace.com)
+- [Support](https://support.squarespace.com)
 - [Blog](https://www.squarespace.com/blog)
+- [Terms of service](https://www.squarespace.com/terms-of-service)
+- [Privacy policy](https://www.squarespace.com/privacy)
+- [GitHub](https://github.com/squarespace)
+- [Status](https://status.squarespace.com)
 
-## Maintainers
+## API Evangelist rating
 
-**URL:** https://developers.squarespace.com
+**Kin Score 68.3** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 67.0 |
+| Contract governance | 31.8 |
+| Operational transparency | 81.6 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 84.2 |
+
+**Agent readiness 47.4** — agent-native
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 41.1** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/squarespace/](https://apis.io/providers/squarespace/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Squarespace: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/squarespace/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
