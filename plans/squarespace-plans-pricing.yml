@@ -60,7 +60,7 @@ rate_limit_statements:
 - Up to 120 prompt runs per month
 - Unlimited bandwidth
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
